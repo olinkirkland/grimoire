@@ -1,6 +1,6 @@
 import { execSync } from 'child_process';
 
-const REPO_URL = 'https://github.com/olinkirkland/scoundry.git';
+const REPO_URL = 'https://github.com/olinkirkland/grimoire.git';
 const DIST_DIR = 'dist';
 
 try {
@@ -8,9 +8,9 @@ try {
     const currentBranch = execSync('git rev-parse --abbrev-ref HEAD')
         .toString()
         .trim();
-    if (currentBranch !== 'master') {
+    if (currentBranch !== 'main') {
         console.error(
-            'Error: You must be on the "master" branch to deploy to master!'
+            'Error: You must be on the "main" branch to deploy to production!'
         );
         process.exit(1);
     }

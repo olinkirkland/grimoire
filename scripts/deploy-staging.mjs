@@ -1,6 +1,6 @@
 import { execSync } from 'child_process';
 
-const REPO_URL = 'https://github.com/olinkirkland/scoundry-lab.git';
+const REPO_URL = 'https://github.com/olinkirkland/grimoire-lab.git';
 const DIST_DIR = 'dist';
 
 try {
@@ -8,9 +8,9 @@ try {
     const currentBranch = execSync('git rev-parse --abbrev-ref HEAD')
         .toString()
         .trim();
-    if (currentBranch !== 'staging') {
+    if (currentBranch !== 'dev') {
         console.error(
-            'Error: You must be on the "staging" branch to deploy to staging!'
+            'Error: You must be on the "dev" branch to deploy to staging!'
         );
         process.exit(1);
     }
@@ -25,13 +25,14 @@ try {
     // Add the staging repository as a remote (if not already added)
     try {
         execSync(`git remote add staging-repo ${REPO_URL}`);
-    } catch (e) {
-    }
+    } catch (e) {}
 
     // Commit any changes in `dist`
     console.log('Preparing dist directory for deployment...');
     execSync(`git add -f ${DIST_DIR}`);
-    execSync('git commit -m "Deploy dist directory to gh-pages"', { stdio: 'inherit' });
+    execSync('git commit -m "Deploy dist directory to gh-pages"', {
+        stdio: 'inherit'
+    });
 
     // Create a subtree split and push
     console.log('Creating subtree split...');
@@ -40,10 +41,9 @@ try {
         .trim();
 
     console.log('Force pushing dist directory to staging repo gh-pages...');
-    execSync(
-        `git push staging-repo ${ghPagesBranch}:gh-pages --force`,
-        { stdio: 'inherit' }
-    );
+    execSync(`git push staging-repo ${ghPagesBranch}:gh-pages --force`, {
+        stdio: 'inherit'
+    });
 
     // Remove `dist` from the index to respect .gitignore
     console.log('Cleaning up: removing dist from Git index...');
