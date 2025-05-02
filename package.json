@@ -16,6 +16,7 @@
         "@types/vue-router": "^2.0.0",
         "gh-pages": "^6.3.0",
         "mixpanel-browser": "^2.60.0",
+        "pinia": "^3.0.2",
         "prettier": "^3.5.1",
         "sass-embedded": "^1.85.0",
         "vue": "^3.5.13",
