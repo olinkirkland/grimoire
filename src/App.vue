@@ -1,7 +1,9 @@
 <template>
     <div class="app-layout">
         <div class="pattern"></div>
-        <router-view name="page"></router-view>
+        <router-view name="page">
+            test
+        </router-view>
         <the-modal-container />
     </div>
 </template>
