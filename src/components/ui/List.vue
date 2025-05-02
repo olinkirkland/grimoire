@@ -13,7 +13,7 @@ ul {
     width: 100%;
     padding: 0;
     margin: 0;
-    border: 1px solid var(--color-surface-alt);
+    border: 1px solid var(--surface-alt);
     border-radius: 5px;
     overflow-y: auto;
 
@@ -26,12 +26,12 @@ ul {
         cursor: pointer;
 
         &:not(:last-child) {
-            border-bottom: 1px solid var(--color-surface-alt);
+            border-bottom: 1px solid var(--surface-alt);
         }
 
         &.is-selected {
-            background-color: var(--color-surface-alt);
-            color: var(--color-on-surface);
+            background-color: var(--surface-alt);
+            color: var(--on-surface);
         }
     }
 }

@@ -9,7 +9,7 @@
 <style lang="scss">
 span.link {
     display: inline;
-    color: var(--color-primary);
+    color: var(--primary);
     cursor: pointer;
 
     * {

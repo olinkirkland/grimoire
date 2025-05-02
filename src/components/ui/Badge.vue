@@ -1,9 +1,6 @@
 <template>
-    <div
-        class="badge"
-        :style="{ backgroundColor: color }"
-        :class="{ 'text-light': useLightText, 'text-dark': useDarkText }"
-    >
+    <div class="badge">
+        <div class="background" :style="{ backgroundColor: color }"></div>
         <slot></slot>
     </div>
 </template>
@@ -13,15 +10,7 @@ import { defineProps } from 'vue';
 const props = defineProps({
     color: {
         type: String,
-        default: 'var(--color-primary)'
-    },
-    useLightText: {
-        type: Boolean,
-        default: true
-    },
-    useDarkText: {
-        type: Boolean,
-        default: false
+        default: 'var(--primary)'
     }
 });
 </script>
@@ -30,19 +19,22 @@ const props = defineProps({
 .badge {
     display: inline-flex;
     align-items: center;
-    padding: 0.4rem 0.8rem;
-    border-radius: 99px;
-    opacity: 0.8;
+    padding: 0.2rem 0.8rem;
+    position: relative;
+
     > * {
         white-space: nowrap;
         font-size: 1.2rem;
     }
 
-    &.text-light {
-        color: var(--color-surface);
-    }
-    &.text-dark {
-        color: var(--color-on-surface);
+    .background {
+        top: 0;
+        left: 0;
+        opacity: 0.2;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 99px;
     }
 }
 </style>

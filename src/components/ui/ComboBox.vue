@@ -95,7 +95,7 @@ ul {
     box-shadow: var(--shadow-sm);
     width: 100%;
     max-height: 16rem;
-    background: var(--color-background);
+    background: var(--background);
 }
 
 .combo-box-transition-enter-active {

@@ -1,13 +1,14 @@
 <template>
     <div class="modal__header">
         <slot></slot>
-        <button
-            class="btn btn--icon close"
-            v-if="closeButton"
+        <Button
+            icon
+            class="close"
+            :class="closeButton ? '' : 'close--hidden'"
             @click="onClickClose"
         >
-            <img src="/assets/icons/close.png" alt="Close" />
-        </button>
+            <i class="fas fa-times"></i>
+        </Button>
     </div>
 </template>
 
@@ -16,7 +17,7 @@ import ModalController from '@/controllers/modal-controller';
 
 const props = defineProps({
     closeButton: Boolean,
-    closeButtonAction: Function,
+    closeButtonAction: Function
 });
 
 function onClickClose() {
@@ -30,24 +31,20 @@ function onClickClose() {
 .modal__header {
     position: relative;
     display: flex;
-    justify-content: center;
     align-items: center;
+    padding: 0.6rem 0.8rem 0.4rem 2rem;
     width: 100%;
-    height: 4.8rem;
-    padding: 2rem;
     gap: 1.6rem;
-    background-color: var(--color-surface-lighter);
+    background-color: var(--surface);
+    border-bottom: 1px solid var(--surface-alt);
 
     .close {
-        position: absolute;
-        top: 0;
-        right: 0;
-        padding: 2.5rem;
-        border: none;
-        box-shadow: none;
-        &::after {
-            display: none;
-        }
+        margin-left: auto;
     }
+}
+
+.close--hidden {
+    opacity: 0;
+    pointer-events: none;
 }
 </style>

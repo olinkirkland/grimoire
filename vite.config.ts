@@ -7,7 +7,7 @@ import { defineConfig } from 'vite';
 export default defineConfig({
     plugins: [vue()],
     server: { host: false }, // For external IP access
-    base: '/grimoire',
+    // base: '/grimoire',
     resolve: {
         alias: {
             '@': new URL('./src', import.meta.url).pathname

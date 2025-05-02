@@ -42,8 +42,8 @@ const percentageText = computed(() => {
     display: flex;
     align-items: center;
     font-size: 1.2rem;
-    color: var(--color-on-surface);
-    background-color: var(--color-surface-alt);
+    color: var(--on-surface);
+    background-color: var(--surface-alt);
     border-radius: 99px;
     padding: 0.4rem 1.2rem;
     gap: 1.2em;
@@ -55,7 +55,7 @@ const percentageText = computed(() => {
     .progress-bar {
         flex-grow: 1;
         height: 1rem;
-        background-color: var(--color-surface);
+        background-color: var(--surface);
         border-radius: 99px;
         overflow: hidden;
         position: relative;
@@ -64,7 +64,7 @@ const percentageText = computed(() => {
         .progress {
             height: 100%;
             min-width: 0.2rem;
-            background-color: var(--color-primary);
+            background-color: var(--primary);
         }
     }
 

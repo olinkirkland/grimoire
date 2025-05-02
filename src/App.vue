@@ -1,27 +1,31 @@
 <template>
     <div class="app-layout">
-        <div class="pattern"></div>
-        <router-view name="page">
-            test
+        <router-view name="page" v-slot="{ Component, route }">
+            <Transition name="page-transition" mode="out-in">
+                <component :is="Component" />
+            </Transition>
         </router-view>
         <the-modal-container />
+        <the-tooltip-container />
     </div>
 </template>
 
 <script setup lang="ts">
-import TheModalContainer from './components/modals/the-modal-container.vue';
+import TheModalContainer from '@/components/modals/TheModalContainer.vue';
+import TheTooltipContainer from '@/components/tooltips/TheTooltipContainer.vue';
 import { initializeI18nInstance } from './i18n/locale';
 
 initializeI18nInstance();
 </script>
 
 <style lang="scss">
-@use './assets/scss/reset.scss';
-@use './assets/scss/styles.scss';
+@use '@/assets/scss/reset.scss';
+@use '@/assets/scss/variables.scss';
+@use '@/assets/scss/styles.scss';
 
 .app-layout {
     position: relative;
-    background-color: var(--color-surface);
+    background-color: var(--surface);
     height: 100vh;
     min-height: -webkit-fill-available;
     overflow: hidden;
@@ -37,17 +41,19 @@ initializeI18nInstance();
     height: 100%;
 }
 
-.pattern {
-    width: 100%;
-    height: 100vh;
-    min-height: -webkit-fill-available;
+// Transition
+.page-transition-enter-active,
+.page-transition-leave-active {
+    transition: all 0.2s ease;
+}
 
-    opacity: 0.1;
+.page-transition-enter-from,
+.page-transition-leave-to {
+    opacity: 0;
+    transform: translateX(2rem);
+}
 
-    background-image: url('/assets/images/floral.jpg');
-    background-size: 20rem;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: repeat;
+.page-transition-leave-active {
+    position: absolute;
 }
 </style>

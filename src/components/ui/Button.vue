@@ -3,9 +3,8 @@
         class="btn"
         :class="{
             'btn--icon': icon,
-            'btn--primary': primary,
-            'btn--danger': danger,
             'btn--disabled': disabled,
+            'btn--primary': primary,
             'full-width': fullWidth
         }"
         :disabled="disabled"
@@ -47,8 +46,8 @@ button {
     height: 3.2rem;
     padding: 0 1.2rem;
     border-radius: 5px;
-    background-color: var(--color-background);
-    border: 1px solid var(--color-surface-alt);
+    background-color: var(--background);
+    border: 1px solid var(--surface-alt);
     cursor: pointer;
     transition: all 0.1s ease-in-out;
 
@@ -65,35 +64,20 @@ button {
     width: 100%;
     height: 100%;
     border-radius: 5px;
-    background-color: var(--color-surface-alt);
+    background-color: var(--surface-alt);
 }
 
 // Primary button
 .btn--primary {
     .btn__content {
-        background-color: var(--color-primary);
-        border: 1px solid var(--color-primary-alt);
+        background-color: var(--primary);
+        border: 1px solid var(--primary-alt);
         * {
-            color: var(--color-background);
+            color: var(--background);
         }
     }
     .btn__shadow {
-        background-color: var(--color-primary-alt);
-    }
-}
-
-// Danger button
-.btn--danger {
-    .btn__content {
-        background-color: var(--color-danger);
-        border: 1px solid var(--color-danger-alt);
-        * {
-            color: var(--color-background);
-        }
-    }
-
-    .btn__shadow {
-        background-color: var(--color-danger-alt);
+        background-color: var(--primary-alt);
     }
 }
 

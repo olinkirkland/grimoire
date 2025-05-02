@@ -1,5 +1,11 @@
 <template>
-    <div class="card" :class="{ 'card--allow-overflow': overflow }">
+    <div
+        class="card"
+        :class="{
+            'card--allow-overflow': overflow,
+            'card--with-shadow': shadow
+        }"
+    >
         <slot></slot>
     </div>
 </template>
@@ -7,6 +13,10 @@
 <script setup lang="ts">
 const props = defineProps({
     overflow: {
+        type: Boolean,
+        default: false
+    },
+    shadow: {
         type: Boolean,
         default: false
     }
@@ -17,8 +27,8 @@ const props = defineProps({
 .card {
     padding: 2rem;
     border-radius: 5px;
-    background-color: var(--color-background);
-    border: 1px solid var(--color-surface-alt);
+    background-color: var(--background);
+    border: 1px solid var(--surface-border);
     overflow-y: auto;
     overflow-x: hidden;
     display: flex;

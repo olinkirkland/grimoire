@@ -45,14 +45,14 @@ function onInput(event: Event) {
     height: 3.2rem;
     width: 100%;
     min-height: 3.2rem;
-    background-color: var(--color-background);
-    border: 1px solid var(--color-surface-alt);
+    background-color: var(--background);
+    border: 1px solid var(--surface-alt);
     padding-right: 0.8rem;
 
     outline: none;
 
     &:focus-within {
-        outline: 2px solid var(--color-primary-alt);
+        outline: 2px solid var(--primary-alt);
         outline-offset: 0.2rem;
     }
 
@@ -61,10 +61,10 @@ function onInput(event: Event) {
         gap: 0.8rem;
         align-items: center;
         padding: 0 1.2rem;
-        background-color: var(--color-surface);
+        background-color: var(--surface);
         margin-right: 0.6rem;
         height: 100%;
-        border-right: 1px solid var(--color-surface-alt);
+        border-right: 1px solid var(--surface-alt);
     }
 
     .is-slot-empty {

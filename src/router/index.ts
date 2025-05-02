@@ -1,11 +1,11 @@
 import TheHomePage from '@/components/pages/TheHomePage.vue';
 import TheLostPage from '@/components/pages/TheLostPage.vue';
-import TheProjectPage from '@/components/pages/TheProjectPage.vue';
+import TheAdventurerPage from '@/components/pages/TheAdventurerPage.vue';
 import { RouterOptions, createRouter, createWebHistory } from 'vue-router';
 
 export enum PageName {
     HOME = 'home-page',
-    PROJECT = 'project-page',
+    ADVENTURER = 'adventurer-page',
     LOST = 'lost-page'
 }
 
@@ -18,11 +18,11 @@ const routes = [
         name: PageName.HOME
     },
     {
-        path: '/project/:id',
+        path: '/adventurer/:id',
         components: {
-            page: TheProjectPage
+            page: TheAdventurerPage
         },
-        name: PageName.PROJECT
+        name: PageName.ADVENTURER
     },
     {
         path: '/:pathMatch(.*)*',

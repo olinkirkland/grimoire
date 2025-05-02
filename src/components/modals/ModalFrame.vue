@@ -15,14 +15,14 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    animation: animate-in 0.2s ease;
-    color: var(--color-on-surface);
+    color: var(--on-surface);
     overflow: hidden;
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-sm);
+    border-radius: 5px;
 
     .modal__background {
         position: absolute;
-        background-color: var(--color-surface);
+        background-color: var(--background);
         z-index: -1;
         top: 0;
         left: 0;

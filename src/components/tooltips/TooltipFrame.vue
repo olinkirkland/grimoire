@@ -88,18 +88,18 @@ const y = computed(() => {
     width: max-content;
     display: flex;
     flex-direction: column;
-    color: var(--color-surface);
+    color: var(--surface);
     overflow: hidden;
     box-shadow: var(--shadow-sm);
     border-radius: 5px;
 
     * {
-        color: var(--color-surface);
+        color: var(--surface);
     }
 
     .tooltip__background {
         position: absolute;
-        background-color: var(--color-black);
+        background-color: var(--black);
         z-index: -1;
         opacity: 0.9;
         top: 0;

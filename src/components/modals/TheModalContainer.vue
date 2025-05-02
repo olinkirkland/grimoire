@@ -27,7 +27,7 @@ function onClickBackground() {
 const queue: { modal: any; modalConfig: any }[] = [];
 
 ModalController.getInstance().addEventListener(({ modal, modalConfig }) => {
-    (document.activeElement as HTMLElement)?.blur();
+    // (document.activeElement as HTMLElement)?.blur();
 
     // If no modal was passed, close the current one
     if (!modal) {
@@ -57,17 +57,18 @@ ModalController.getInstance().addEventListener(({ modal, modalConfig }) => {
         if (isModalAlreadyInQueue) return;
 
         // Add the modal to the queue
-        console.log('Queueing modal', JSON.stringify(modalConfig));
+        // console.log('Queueing modal', JSON.stringify(modalConfig));
         queue.push({ modal, modalConfig });
         return;
     }
 
     if (modal) {
-        console.log('Opening modal', JSON.stringify(modalConfig));
+        // console.log('Opening modal', JSON.stringify(modalConfig));
         currentModal.value = { ...modal! } as any;
         currentModalConfig.value = { ...modalConfig };
     }
 
+    // Wait for the modal to be mounted before fading in
     requestAnimationFrame(() => {
         if (fadeInterval.value) clearInterval(fadeInterval.value);
         const modalEl = modalRef.value?.$el;
@@ -81,25 +82,6 @@ ModalController.getInstance().addEventListener(({ modal, modalConfig }) => {
         const modalChildren = [...modalHeaderChildren, ...modalContentChildren];
         // @ts-ignore
         window.modalChildren = modalChildren;
-
-        // Pick the first element that is an input and focus it
-        const firstInput = modalEl.querySelector(
-            'input:not(.disabled):not(.ignore-initial-focus)'
-        );
-        if (firstInput) firstInput.focus();
-
-        modalChildren.forEach((childEl: any) =>
-            childEl.classList.add('hidden')
-        );
-
-        fadeInterval.value = setInterval(() => {
-            if (!modalChildren.length) {
-                clearInterval(fadeInterval.value);
-            } else {
-                const modalChild = modalChildren.shift();
-                modalChild?.classList.remove('hidden');
-            }
-        }, 30);
     });
 });
 </script>
@@ -126,7 +108,6 @@ ModalController.getInstance().addEventListener(({ modal, modalConfig }) => {
         top: 0;
         z-index: -1;
         background-color: rgba(0, 0, 0, 0.5);
-        transition: all 0.2s;
         opacity: 1;
     }
 
@@ -139,29 +120,7 @@ ModalController.getInstance().addEventListener(({ modal, modalConfig }) => {
 }
 
 .modal {
-    animation: animate-in 0.2s ease;
     max-height: calc(100vh - 4rem);
-}
-
-:deep(.modal *) {
-    transition: opacity 0.5s ease;
-}
-
-:deep(.modal .hidden) {
-    opacity: 0;
-    transition: none;
-}
-
-// Fade in and scale
-@keyframes animate-in {
-    from {
-        opacity: 0.5;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
 }
 
 // Media queries
@@ -178,6 +137,7 @@ ModalController.getInstance().addEventListener(({ modal, modalConfig }) => {
         max-height: 100dvh; // New browsers
         max-height: -webkit-fill-available; // iOS
         animation: none;
+        border-radius: 0;
     }
 }
 </style>

@@ -8,9 +8,8 @@ import ComboBox from './components/ui/ComboBox.vue';
 import InputGroup from './components/ui/InputGroup.vue';
 import Link from './components/ui/Link.vue';
 import List from './components/ui/List.vue';
-import Panel from './components/ui/Panel.vue';
 import i18n from './i18n/locale';
-import { useProjectsStore } from './store/projects-store';
+import { useAdventurersStore } from './store/adventurers-store';
 
 // Create the app
 const app = createApp(App);
@@ -23,16 +22,15 @@ app.use(pinia);
 
 // Components
 app.component('Button', Button);
-app.component('Panel', Panel);
 app.component('Card', Card);
 app.component('List', List);
 app.component('InputGroup', InputGroup);
 app.component('Link', Link);
 app.component('ComboBox', ComboBox);
 
-// Load projects from localStorage
-const projectsStore = useProjectsStore();
-projectsStore.loadProjectsFromLocalStorage();
+// Load adventurers from localStorage
+const adventurersStore = useAdventurersStore();
+adventurersStore.loadAdventurersFromLocalStorage();
 
 // Mount the app
 app.mount('#app');
