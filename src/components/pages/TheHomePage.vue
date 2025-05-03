@@ -154,7 +154,6 @@ function onClickLoadAdventurer() {
 .logo-header {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
     margin-bottom: 0.8rem;
 
     > h2 {
