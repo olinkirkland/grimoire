@@ -1,6 +1,7 @@
 <template>
     <div class="app-layout">
         <router-view name="page" v-slot="{ Component, route }">
+            <div class="pattern"></div>
             <Transition name="page-transition" mode="out-in">
                 <component :is="Component" />
             </Transition>
@@ -25,12 +26,12 @@ initializeI18nInstance();
 
 .app-layout {
     position: relative;
-    background-color: var(--surface);
     height: 100vh;
     min-height: -webkit-fill-available;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    background-color: var(--surface);
 }
 
 .page {
@@ -39,6 +40,14 @@ initializeI18nInstance();
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+.pattern {
+    width: 100%;
+    height: 100%;
+    background-image: url('@/assets/images/floral.png');
+    background-size: 20rem;
+    opacity: 0.05;
 }
 
 // Transition

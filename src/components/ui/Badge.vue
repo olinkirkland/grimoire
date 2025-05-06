@@ -1,40 +1,35 @@
 <template>
     <div class="badge">
-        <div class="background" :style="{ backgroundColor: color }"></div>
+        <div class="background"></div>
         <slot></slot>
     </div>
 </template>
 
-<script setup lang="ts">
-import { defineProps } from 'vue';
-const props = defineProps({
-    color: {
-        type: String,
-        default: 'var(--primary)'
-    }
-});
-</script>
+<script setup lang="ts"></script>
 
 <style scoped lang="scss">
 .badge {
     display: inline-flex;
     align-items: center;
-    padding: 0.2rem 0.8rem;
+    padding: 0.4rem 0.8rem;
     position: relative;
 
-    > * {
+    > :not(.background) {
         white-space: nowrap;
-        font-size: 1.2rem;
+        font-size: 1.4rem;
+        z-index: 1;
     }
 
     .background {
         top: 0;
         left: 0;
-        opacity: 0.2;
+        z-index: 0;
+        opacity: 0.1;
         position: absolute;
         width: 100%;
         height: 100%;
-        border-radius: 99px;
+        background-color: var(--primary);
+        border-radius: 5px;
     }
 }
 </style>

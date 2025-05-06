@@ -47,7 +47,7 @@ button {
     padding: 0 1.2rem;
     border-radius: 5px;
     background-color: var(--background);
-    border: 1px solid var(--surface-alt);
+    border: 1px solid var(--surface-border);
     cursor: pointer;
     transition: all 0.1s ease-in-out;
 
@@ -64,7 +64,7 @@ button {
     width: 100%;
     height: 100%;
     border-radius: 5px;
-    background-color: var(--surface-alt);
+    background-color: var(--surface-border);
 }
 
 // Primary button

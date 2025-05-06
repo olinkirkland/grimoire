@@ -99,7 +99,7 @@ const y = computed(() => {
 
     .tooltip__background {
         position: absolute;
-        background-color: var(--black);
+        background-color: rgba(0, 0, 0, 0.8);
         z-index: -1;
         opacity: 0.9;
         top: 0;

@@ -9,8 +9,12 @@
 <style lang="scss">
 span.link {
     display: inline;
-    color: var(--primary);
+    text-decoration: none;
+    color: var(--on-surface);
+    transition: all 0.2s ease-in-out;
     cursor: pointer;
+    border-bottom: 0.1rem dashed currentColor;
+    font-style: italic;
 
     * {
         color: inherit;
@@ -18,6 +22,10 @@ span.link {
 
     > i {
         margin-right: 0.4rem;
+    }
+
+    &:hover {
+        color: var(--primary-alt);
     }
 }
 </style>

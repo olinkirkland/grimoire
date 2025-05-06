@@ -9,7 +9,7 @@ export const useAdventurersStore = defineStore('adventurers', () => {
     watch(
         adventurers,
         (newAdventurers) => {
-            localStorage.setItem('adventurer', JSON.stringify(newAdventurers));
+            localStorage.setItem('adventurers', JSON.stringify(newAdventurers));
         },
         { deep: true }
     );

@@ -16,6 +16,8 @@ h3,
 h4,
 h5,
 h6 {
+    font-size: 1.6rem;
+    font-weight: normal;
     color: var(--on-surface);
 }
 
@@ -42,7 +44,7 @@ p {
 }
 
 pre {
-    border-left: 0.4rem solid var(--orange);
+    border-left: 0.4rem solid orange;
     text-align: left;
     padding: 1rem;
     overflow: auto;
@@ -106,4 +108,23 @@ i {
 
 :focus {
     outline: none;
+}
+
+a {
+    text-decoration: none;
+    color: var(--on-surface);
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    border-bottom: 0.1rem dashed currentColor;
+    font-style: italic;
+
+    &:hover {
+        color: var(--primary-alt);
+    }
+}
+
+label {
+    font-size: 1.4rem;
+    font-weight: normal;
+    letter-spacing: 0.1rem;
 }

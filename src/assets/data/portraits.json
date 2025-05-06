@@ -1,0 +1,22 @@
+[
+    {
+        "id": "5bd09599-3199-44a1-adad-7e0c5926ce9d",
+        "name": "Portrait 1",
+        "url": "/assets/images/portraits/portrait-1.png"
+    },
+    {
+        "id": "883b5a3d-f849-4b26-8b40-29c698b7e74b",
+        "name": "Portrait 2",
+        "url": "/assets/images/portraits/portrait-2.png"
+    },
+    {
+        "id": "c1f3b2a0-4d5e-4b8c-9f7d-5e6f3a1b2c3d",
+        "name": "Portrait 3",
+        "url": "/assets/images/portraits/portrait-3.png"
+    },
+    {
+        "id": "d4e5f6a7-8b9c-4d0e-a1b2-c3d4e5f6a7b8",
+        "name": "Portrait 4",
+        "url": "/assets/images/portraits/portrait-4.png"
+    }
+]

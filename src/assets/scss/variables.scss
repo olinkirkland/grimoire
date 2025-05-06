@@ -1,9 +1,9 @@
 // Typography
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oleo+Script+Swash+Caps:wght@400;700&display=swap');
 
 :root {
-    --display: 'EB Garamond', sans-serif;
-    --body: 'Crimson Pro', serif;
+    --display: 'Oleo Script Swash Caps', cursive;
+    --body: 'Georgia', serif;
 }
 
 // Colors & Shadows
@@ -16,6 +16,7 @@
     --surface-border: #c4bfb2; // For borders, dividers, or outlines
     --surface-alt: #a5998d; // For cards, modals, or containers that need to be more prominent
     --text: #000000; // Text color
+    --overlay: rgba(0, 0, 0, 0.02); // For overlays, modals, or dark backgrounds
 
     // Utility
     --error: #f03e3e; // Used for error states, alerts
