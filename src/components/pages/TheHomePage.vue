@@ -37,6 +37,8 @@
                 ></AdventurerCard>
             </ul>
 
+            <i class="fas fa-arrow-down muted scroll-arrow"></i>
+
             <Link class="scroll-message" @click="onClickScrollToBottom">
                 {{ t('Home.scroll-message') }}
             </Link>
@@ -135,6 +137,8 @@ function onClickScrollToBottom() {
     position: absolute;
     left: 1.2rem;
     bottom: 1.2rem;
+    margin: 0 auto;
+
     margin-top: 1.2rem;
     display: flex;
     gap: 0.6rem;
@@ -162,5 +166,25 @@ ul.adventurers-list {
     display: flex;
     gap: 1.2rem;
     scrollbar-width: none;
+}
+
+.scroll-arrow {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .scroll-message {
+        display: none;
+    }
+
+    .scroll-arrow {
+        display: block;
+        font-size: 2rem;
+        color: var(--surface-alt);
+        position: absolute;
+        left: 50%;
+        bottom: 1.2rem;
+        transform: translateX(-50%);
+    }
 }
 </style>

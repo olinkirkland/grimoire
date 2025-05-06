@@ -2,16 +2,15 @@
     <div v-if="!!adventurer" class="page adventurer-page">
         <p>Adventurer</p>
         <h2>{{ adventurer.name }}</h2>
-        <InputGroup
-            v-model="adventurer.name"
-            :label="t('Adventurer.adventurer-name')"
-            :placeholder="t('Adventurer.adventurer-name-placeholder')"
-        />
+        <InputGroup v-model="adventurer.name" :placeholder="t('Adventurer.name-placeholder')">
+            {{ t('Adventurer.name') }}
+        </InputGroup>
 
         <Button @click="onClickDeleteAdventurer">
             <span>{{ t('Adventurer.delete-adventurer') }}</span>
         </Button>
         <Button @click="onClickGoHome">
+            <i class="fas fa-home"></i>
             <span>{{ t('Adventurer.go-home') }}</span>
         </Button>
 
@@ -25,7 +24,6 @@
                         :key="portrait.id"
                         @click="adventurer.portraitId = portrait.id"
                     />
-                    <p>{{ portrait.name }}</p>
                 </li>
             </ul>
         </Card>
@@ -72,25 +70,27 @@ function onClickGoHome() {
 <style scoped lang="scss">
 ul.portraits-list {
     display: grid;
-    min-width: 16rem;
+    min-width: 32rem;
     grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
-    gap: 0.1rem;
+    gap: 0.4rem;
 
     > li {
         width: 100%;
+        height: 6.4rem;
         overflow: hidden;
-        gap: 1rem;
+
         &:not(.selected) {
             opacity: 0.6;
         }
 
         img {
             width: 100%;
-            height: 12rem;
+            height: 100%;
 
             object-fit: cover;
             cursor: pointer;
             transition: all 0.2s ease;
+            border-radius: 5px;
         }
 
         p {

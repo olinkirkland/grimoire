@@ -117,10 +117,21 @@ a {
     cursor: pointer;
     border-bottom: 0.1rem dashed currentColor;
     font-style: italic;
+    width: fit-content;
 
     &:hover {
         color: var(--primary-alt);
     }
+}
+
+p > a {
+    font-size: inherit;
+}
+
+br {
+    display: block;
+    margin: 0.4rem 0;
+    border: 2px solid red;
 }
 
 label {
