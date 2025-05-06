@@ -1,6 +1,6 @@
+import TheAdventurerPage from '@/components/pages/TheAdventurerPage.vue';
 import TheHomePage from '@/components/pages/TheHomePage.vue';
 import TheLostPage from '@/components/pages/TheLostPage.vue';
-import TheAdventurerPage from '@/components/pages/TheAdventurerPage.vue';
 import { RouterOptions, createRouter, createWebHistory } from 'vue-router';
 
 export enum PageName {
@@ -33,8 +33,9 @@ const routes = [
     }
 ];
 
+const hostname = window.location.hostname;
 const routerOptions = {
-    history: createWebHistory(),
+    history: createWebHistory(hostname === 'localhost' ? '/' : '/grimoire/'),
     routes
 };
 
