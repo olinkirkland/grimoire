@@ -19,7 +19,7 @@
             <ul class="portraits-list">
                 <li v-for="portrait in portraitData" :class="{ selected: adventurer.portraitId === portrait.id }">
                     <img
-                        :src="portrait.url"
+                        :src="`${BASE_URL}${portrait.url}`"
                         :alt="portrait.url"
                         :key="portrait.id"
                         @click="adventurer.portraitId = portrait.id"
@@ -36,7 +36,7 @@
 import Adventurer from '@/adventurer';
 import portraitData from '@/assets/data/portraits.json';
 import { t } from '@/i18n/locale';
-import { PageName, router } from '@/router';
+import { BASE_URL, PageName, router } from '@/router';
 import { useAdventurersStore } from '@/store/adventurers-store';
 import { ref } from 'vue';
 import Button from '../ui/Button.vue';

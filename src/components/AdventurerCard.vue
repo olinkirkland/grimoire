@@ -1,6 +1,9 @@
 <template>
     <Card @click="onClickEditAdventurer">
-        <div class="card__header" :style="{ backgroundImage: `url(${getPortraitUrl(adventurer.portraitId)})` }">
+        <div
+            class="card__header"
+            :style="{ backgroundImage: `url(${BASE_URL}${getPortraitUrl(adventurer.portraitId)})` }"
+        >
             <h3 class="name">{{ adventurer.name }}</h3>
             <p class="modified-date">{{ modifiedDate }}</p>
         </div>
@@ -13,7 +16,7 @@
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
 import Card from '@/components/ui/Card.vue';
-import { PageName, router } from '@/router';
+import { BASE_URL, PageName, router } from '@/router';
 import { getPortraitUrl } from '@/utils/adventurer-util';
 import { computed } from 'vue';
 

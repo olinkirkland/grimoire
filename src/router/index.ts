@@ -33,9 +33,9 @@ const routes = [
     }
 ];
 
-const hostname = window.location.hostname;
+export const BASE_URL = window.location.hostname === 'localhost' ? '/' : '/grimoire/';
 const routerOptions = {
-    history: createWebHistory(hostname === 'localhost' ? '/' : '/grimoire/'),
+    history: createWebHistory(BASE_URL),
     routes
 };
 
