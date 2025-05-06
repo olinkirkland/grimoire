@@ -18,12 +18,13 @@ const emit = defineEmits<{
     (e: 'update:modelValue', value: string): void;
 }>();
 
-const attrs = useAttrs();
-const slots = useSlots();
+const attrs: Record<string, unknown> = useAttrs();
+const slots: Record<string, unknown> = useSlots();
 
 const isSlotEmpty = computed(() => {
+    //@ts-ignore
     const defaultSlot = slots.default?.();
-    const children = defaultSlot?.filter((v) => v.type !== Comment && v.type !== Text) ?? [];
+    const children = defaultSlot?.filter((v: any) => v.type !== Comment && v.type !== Text) ?? [];
     if (children.length === 0) return true;
     const firstChild = children[0];
     return firstChild?.children?.length === 0;

@@ -43,7 +43,7 @@ const props = defineProps({
     }
 });
 
-const attrs = useAttrs();
+const attrs: Record<string, unknown> = useAttrs();
 const matcher = ref(props.modelValue);
 const inputGroupRef = ref();
 

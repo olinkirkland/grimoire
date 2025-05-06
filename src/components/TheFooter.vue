@@ -93,10 +93,16 @@ img.crafted-for-grimwild {
         // Put a divider between the columns
         > div:not(:last-child)::after {
             content: '';
-            border-bottom: 0.2rem solid var(--surface-alt);
-            width: 6.4rem;
-            margin: 1rem auto;
-            font-size: 1.2rem;
+            border-bottom: 1px solid var(--surface-alt);
+            opacity: 0.5;
+            width: 100%;
+            margin-top: 1.6rem;
+        }
+
+        p,
+        a {
+            font-size: 1.6rem;
+            line-height: 1.4;
         }
     }
 }
