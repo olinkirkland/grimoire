@@ -13,6 +13,7 @@ const i18n = createI18n<[MessageSchema], 'en'>({
     locale: localStorage.getItem('language') || 'en',
     // fallbackLocale: 'en',
     missing: (locale, key) => {
+        console.warn(`Missing translation for ${key} in ${locale}`);
         return `[${key}]`;
     },
     warnHtmlMessage: false,

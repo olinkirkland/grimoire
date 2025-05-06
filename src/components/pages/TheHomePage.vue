@@ -145,7 +145,6 @@ function onClickScrollToBottom() {
     width: 100%;
     flex-direction: column;
     justify-content: center;
-    gap: 0.4rem;
     margin-bottom: 0.8rem;
     text-align: center;
 }
