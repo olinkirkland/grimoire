@@ -98,8 +98,19 @@ function onClickEditAdventurer() {
     }
 
     .card__body {
-        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        padding: 1.2rem;
+        gap: 1.2rem;
         padding-top: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .card:hover {
+        top: 0;
+        transform: rotate(0deg);
+        box-shadow: none;
     }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div class="page page--home">
-        <div class="page__content">
-            <Card mode="dark">
+        <div class="page__content" :class="{ center: displayedAdventurers.length === 0 }">
+            <div class="hero glass">
                 <div class="logo-header">
                     <h1 class="logo">{{ t('Brand.name') }}</h1>
                     <h3
@@ -28,14 +28,14 @@
                     :usedBytes="adventurersStore.bytesUsedEstimate()"
                     :maxBytes="5 * 1024 * 1024"
                 />
-            </Card>
-            <ul v-if="displayedAdventurers.length > 0" class="adventurers-list">
+            </div>
+            <CardDeck v-if="displayedAdventurers.length > 0">
                 <AdventurerCard
                     v-for="adventurer in displayedAdventurers"
                     :adventurer="adventurer"
                     :key="adventurer.id"
                 ></AdventurerCard>
-            </ul>
+            </CardDeck>
 
             <i class="fas fa-arrow-down muted scroll-arrow"></i>
 
@@ -58,6 +58,7 @@ import { getUniqueName } from '@/utils/naming-util';
 import { onMounted, ref } from 'vue';
 import TheFooter from '../TheFooter.vue';
 import Card from '../ui/Card.vue';
+import CardDeck from '../ui/CardDeck.vue';
 import Link from '../ui/Link.vue';
 import StorageMeter from '../ui/StorageMeter.vue';
 
@@ -124,9 +125,16 @@ function onClickScrollToBottom() {
     justify-content: center;
     align-items: center;
     gap: 2rem;
+
+    &.center {
+        justify-content: center; // Override the default flex-start on mobile
+    }
 }
 
-.card {
+.hero {
+    box-shadow: var(--shadow-sm);
+    border-radius: 5px;
+    padding: 2rem;
     gap: 1.2rem;
     > .logo-header > h1 {
         margin-bottom: 1.2rem;
@@ -159,20 +167,16 @@ h1.logo {
     text-shadow: 0.2rem 0.2rem 0 var(--surface-alt);
 }
 
-ul.adventurers-list {
-    max-width: 100%;
-    padding: 2rem;
-    overflow-x: auto;
-    display: flex;
-    gap: 1.2rem;
-    scrollbar-width: none;
-}
-
 .scroll-arrow {
     display: none;
 }
 
 @media (max-width: 768px) {
+    .page__content {
+        padding-top: 1.2rem;
+        justify-content: flex-start;
+    }
+
     .scroll-message {
         display: none;
     }
