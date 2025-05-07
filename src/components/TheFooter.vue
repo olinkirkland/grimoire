@@ -1,6 +1,6 @@
 <template>
     <footer>
-        <div class="footer__content">
+        <div class="footer__content glass">
             <div class="logo-and-olin">
                 <h1 class="logo">
                     {{ t('Brand.name') }}
@@ -44,11 +44,12 @@ function onClickChangelog() {
 <style scoped lang="scss">
 footer {
     width: 100%;
-    border-top: 1px solid var(--surface-alt);
-    background-color: var(--surface);
+    padding: 1rem;
 }
 
 .footer__content {
+    border-radius: 5px;
+    box-shadow: var(--shadow-sm);
     max-width: 96rem;
     margin: 0 auto;
     padding: 1.2rem;
@@ -94,7 +95,7 @@ img.crafted-for-grimwild {
         > div:not(:last-child)::after {
             content: '';
             border-bottom: 1px solid var(--surface-alt);
-            opacity: 0.5;
+            opacity: 0.4;
             width: 100%;
             margin-top: 1.6rem;
         }

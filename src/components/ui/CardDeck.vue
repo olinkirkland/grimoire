@@ -24,7 +24,7 @@ const isFlowMode = computed(() => {
 });
 
 const carousel = ref<HTMLElement | null>(null);
-const slots = useSlots();
+const slots: any = useSlots();
 const slotChildren = computed(() => {
     const children = slots.default?.()[0].children || [];
     return children;

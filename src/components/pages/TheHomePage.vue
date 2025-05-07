@@ -39,9 +39,11 @@
 
             <i class="fas fa-arrow-down muted scroll-arrow"></i>
 
-            <Link class="scroll-message" @click="onClickScrollToBottom">
-                {{ t('Home.scroll-message') }}
-            </Link>
+            <div class="scroll-message">
+                <Link @click="onClickScrollToBottom">
+                    {{ t('Home.scroll-message') }}
+                </Link>
+            </div>
         </div>
         <TheFooter />
     </div>
@@ -143,8 +145,10 @@ function onClickScrollToBottom() {
 
 .scroll-message {
     position: absolute;
-    left: 1.2rem;
+    width: 100%;
+    max-width: 96rem;
     bottom: 1.2rem;
+    justify-content: flex-end;
     margin: 0 auto;
 
     margin-top: 1.2rem;
