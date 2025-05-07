@@ -1,5 +1,5 @@
 <template>
-    <div class="page page--lost">
+    <div class="page">
         <p class="title">{{ t('Lost-page.title') }}</p>
         <p class="description" v-html="t('Lost-page.description')"></p>
         <Button @click="onClickGoHome()">

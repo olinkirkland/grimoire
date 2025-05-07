@@ -100,16 +100,15 @@ button {
 // Disabled
 .btn--disabled {
     pointer-events: none;
-    border: none;
-    opacity: 0.8;
+    opacity: 0.4;
 
-    .btn__content {
-        border: none;
-        background-color: none;
-        * {
-            opacity: 0.5;
-        }
-    }
+    // .btn__content {
+    //     border-color: transparent;
+    //     background-color: transparent;
+    //     * {
+    //         opacity: 0.3;
+    //     }
+    // }
 
     .btn__shadow {
         background-color: transparent;

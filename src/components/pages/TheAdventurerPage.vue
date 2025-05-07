@@ -1,57 +1,87 @@
 <template>
-    <div v-if="!!adventurer" class="page adventurer-page">
-        <h2>{{ adventurer.name }}</h2>
-        <InputGroup v-model="adventurer.name" :placeholder="t('Adventurer.name-placeholder')">
-            {{ t('Adventurer.name') }}
-        </InputGroup>
-
-        <Button @click="onClickDeleteAdventurer">
-            <span>{{ t('Adventurer.delete-adventurer') }}</span>
-        </Button>
-        <Button @click="onClickGoHome">
-            <i class="fas fa-home"></i>
-            <span>{{ t('Adventurer.go-home') }}</span>
-        </Button>
-
-        <Card>
-            <p>Portrait</p>
-            <ul class="portraits-list">
-                <li v-for="portrait in portraitData" :class="{ selected: adventurer.portraitId === portrait.id }">
-                    <img
-                        :src="`${BASE_URL}${portrait.url}`"
-                        :alt="portrait.url"
-                        :key="portrait.id"
-                        @click="adventurer.portraitId = portrait.id"
-                    />
+    <div v-if="adventurer" class="page">
+        <nav>
+            <ul class="steps-list" ref="stepsEl">
+                <li
+                    v-for="step in steps"
+                    :class="{ active: step === currentStep }"
+                    :key="step"
+                    @click="changeStep(step)"
+                >
+                    <span>
+                        {{ t(`Steps.${StepDefinitions[step].label}.name`) }}
+                    </span>
                 </li>
             </ul>
-        </Card>
+        </nav>
 
-        <pre>{{ adventurer }}</pre>
+        <div class="step-container">
+            <component
+                :is="StepDefinitions[currentStep].component"
+                :adventurer="adventurer"
+                :step="currentStep"
+                :key="currentStep"
+            ></component>
+        </div>
+
+        <div class="controls">
+            <Button @click="onClickDeleteAdventurer">
+                <span>{{ t('Adventurer.delete-adventurer') }}</span>
+            </Button>
+            <Button @click="onClickGoHome">
+                <i class="fas fa-door-open"></i>
+                <span>{{ t('Adventurer.go-home') }}</span>
+            </Button>
+            <Button @click="changeStep(steps[steps.indexOf(currentStep) + 1])" :disabled="currentStep === Step.REVIEW">
+                <span>{{ t('Adventurer.next-step') }}</span>
+                <i class="fas fa-arrow-right"></i>
+            </Button>
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
-import portraitData from '@/assets/data/portraits.json';
 import { t } from '@/i18n/locale';
-import { BASE_URL, PageName, router } from '@/router';
+import { PageName, router } from '@/router';
+import { Step, StepDefinitions } from '@/step';
 import { useAdventurersStore } from '@/store/adventurers-store';
 import { ref } from 'vue';
 import Button from '../ui/Button.vue';
-import InputGroup from '../ui/InputGroup.vue';
+
+const steps = [
+    Step.NAME,
+    Step.BACKGROUNDS,
+    Step.TRAITS,
+    Step.DESIRES,
+    Step.FEATURES,
+    Step.PATH,
+    Step.STATS,
+    Step.ARCS,
+    Step.BONDS,
+    Step.REVIEW
+];
 
 const adventurersStore = useAdventurersStore();
 
 // Get the adventurer ID from the route params
 const adventurerId = ref<string | null>(null);
 adventurerId.value = router.currentRoute.value.params.id as string;
-
 const adventurer = ref<Adventurer | null>(adventurersStore.getAdventurer(adventurerId.value) || null);
 
 if (!adventurer.value) {
     // Redirect to the home page if the adventurer is not found
     router.push({ name: PageName.LOST });
+}
+
+const stepsEl = ref<HTMLElement | null>(null);
+const stepId = ref<Step | null>(null);
+const currentStep = ref(Step.NAME);
+
+function changeStep(newStep: Step) {
+    // TODO: Add logic to change the step
+    console.log(`Changing step to: ${newStep}`);
+    currentStep.value = newStep;
 }
 
 function onClickDeleteAdventurer() {
@@ -67,35 +97,66 @@ function onClickGoHome() {
 </script>
 
 <style scoped lang="scss">
-ul.portraits-list {
-    display: grid;
-    min-width: 32rem;
-    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+nav {
+    width: 100%;
+}
+
+ul.steps-list {
+    display: flex;
     gap: 0.4rem;
+    overflow-x: auto;
+    box-shadow: var(--shadow-sm);
+    background-color: var(--surface);
+
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
 
     > li {
-        width: 100%;
-        height: 6.4rem;
-        overflow: hidden;
-
-        &:not(.selected) {
-            opacity: 0.6;
+        position: relative;
+        padding: 0.8rem 1.6rem;
+        cursor: pointer;
+        border: 1px solid blak;
+        span {
+            font-size: 1.6rem;
+            white-space: nowrap;
+            &::before {
+                content: '◈ ';
+            }
         }
 
-        img {
+        &::after {
+            // border on bottom
+            content: '';
+            display: block;
+            position: absolute;
+            left: 0;
+            bottom: 0;
             width: 100%;
-            height: 100%;
-
-            object-fit: cover;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border-radius: 5px;
+            height: 0rem;
+            background-color: var(--primary);
+            transition: height 0.2s ease-in-out;
         }
 
-        p {
-            font-size: 1.2rem;
-            text-align: center;
+        &.active {
+            span {
+                color: var(--primary);
+            }
+            &::after {
+                height: 0.4rem;
+            }
         }
     }
+}
+
+.step-container {
+    flex-grow: 1;
+    padding: 0 1.2rem;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.2rem;
 }
 </style>

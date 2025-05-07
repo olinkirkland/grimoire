@@ -1,5 +1,5 @@
 <template>
-    <div class="page page--home">
+<div class="page">
         <div class="page__content" :class="{ center: displayedAdventurers.length === 0 }">
             <div class="hero glass">
                 <div class="logo-header">
