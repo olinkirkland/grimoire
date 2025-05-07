@@ -45,6 +45,7 @@ function onInput(event: Event) {
     overflow: hidden;
     height: 3.2rem;
     width: 100%;
+    max-width: 40rem;
     min-height: 3.2rem;
     background-color: var(--background);
     border: 1px solid var(--surface-alt);

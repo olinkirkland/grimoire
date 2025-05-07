@@ -33,7 +33,7 @@ const routes = [
     }
 ];
 
-export const BASE_URL = window.location.hostname === 'localhost' ? '/' : '/grimoire/';
+export const BASE_URL = '/grimoire/';
 const routerOptions = {
     history: createWebHistory(BASE_URL),
     routes

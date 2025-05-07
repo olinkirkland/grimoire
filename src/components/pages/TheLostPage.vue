@@ -1,7 +1,7 @@
 <template>
     <div class="page page--lost">
-        <h1>{{ t('Lost-page.title') }}</h1>
-        <p>{{ t('Lost-page.description') }}</p>
+        <p class="title">{{ t('Lost-page.title') }}</p>
+        <p class="description" v-html="t('Lost-page.description')"></p>
         <Button @click="onClickGoHome()">
             <i class="fas fa-home"></i>
             <span>{{ t('Lost-page.button') }}</span>
@@ -18,4 +18,18 @@ function onClickGoHome() {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.page {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+
+    p.title {
+        font-weight: bold;
+    }
+
+    p.description {
+        text-align: center;
+    }
+}
+</style>
