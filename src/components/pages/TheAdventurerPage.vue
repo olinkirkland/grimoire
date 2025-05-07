@@ -99,14 +99,16 @@ function onClickGoHome() {
 <style scoped lang="scss">
 nav {
     width: 100%;
+    background-color: var(--background);
+    box-shadow: var(--shadow-sm);
 }
 
 ul.steps-list {
     display: flex;
-    gap: 0.4rem;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
     overflow-x: auto;
-    box-shadow: var(--shadow-sm);
-    background-color: var(--surface);
 
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
@@ -115,16 +117,12 @@ ul.steps-list {
         position: relative;
         padding: 0.8rem 1.6rem;
         cursor: pointer;
-        border: 1px solid blak;
         span {
             font-size: 1.6rem;
             white-space: nowrap;
-            &::before {
-                content: '◈ ';
-            }
         }
 
-        &::after {
+        &::before {
             // border on bottom
             content: '';
             display: block;
@@ -139,10 +137,12 @@ ul.steps-list {
 
         &.active {
             span {
-                color: var(--primary);
+                position: relative;
+                color: var(--background);
+                z-index: 1;
             }
-            &::after {
-                height: 0.4rem;
+            &::before {
+                height: 100%;
             }
         }
     }
