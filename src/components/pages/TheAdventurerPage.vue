@@ -137,12 +137,10 @@ ul.steps-list {
 
         &.active {
             span {
-                position: relative;
-                color: var(--background);
-                z-index: 1;
+                color: var(--primary);
             }
             &::before {
-                height: 100%;
+                height: 0.4rem;
             }
         }
     }
