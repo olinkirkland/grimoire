@@ -36,14 +36,6 @@
                     :key="adventurer.id"
                 ></AdventurerCard>
             </CardDeck>
-
-            <i class="fas fa-arrow-down muted scroll-arrow"></i>
-
-            <div class="scroll-message">
-                <Link @click="onClickScrollToBottom">
-                    {{ t('Home.scroll-message') }}
-                </Link>
-            </div>
         </div>
         <TheFooter />
     </div>
@@ -59,9 +51,7 @@ import { useAdventurersStore } from '@/store/adventurers-store';
 import { getUniqueName } from '@/utils/naming-util';
 import { onMounted, ref } from 'vue';
 import TheFooter from '../TheFooter.vue';
-import Card from '../ui/Card.vue';
 import CardDeck from '../ui/CardDeck.vue';
-import Link from '../ui/Link.vue';
 import StorageMeter from '../ui/StorageMeter.vue';
 
 const adventurersStore = useAdventurersStore();
@@ -96,16 +86,6 @@ function onClickNewAdventurer() {
 
 function onClickSettings() {
     // TODO: Open settings modal
-}
-
-function onClickScrollToBottom() {
-    // Scroll the 'page' to the bottom
-    const page = document.querySelector('.page--home') as HTMLElement;
-    if (!page) return;
-    page.scrollTo({
-        top: page.scrollHeight,
-        behavior: 'smooth'
-    });
 }
 </script>
 
@@ -143,19 +123,6 @@ function onClickScrollToBottom() {
     }
 }
 
-.scroll-message {
-    position: absolute;
-    width: 100%;
-    max-width: 96rem;
-    bottom: 1.2rem;
-    justify-content: flex-end;
-    margin: 0 auto;
-
-    margin-top: 1.2rem;
-    display: flex;
-    gap: 0.6rem;
-}
-
 .logo-header {
     display: flex;
     width: 100%;
@@ -171,28 +138,10 @@ h1.logo {
     text-shadow: 0.2rem 0.2rem 0 var(--surface-alt);
 }
 
-.scroll-arrow {
-    display: none;
-}
-
 @media (max-width: 768px) {
     .page__content {
         padding-top: 1.2rem;
         justify-content: flex-start;
-    }
-
-    .scroll-message {
-        display: none;
-    }
-
-    .scroll-arrow {
-        display: block;
-        font-size: 2rem;
-        color: var(--surface-alt);
-        position: absolute;
-        left: 50%;
-        bottom: 1.2rem;
-        transform: translateX(-50%);
     }
 }
 </style>

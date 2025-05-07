@@ -1,6 +1,5 @@
 <template>
     <div v-if="!!adventurer" class="page adventurer-page">
-        <p>Adventurer</p>
         <h2>{{ adventurer.name }}</h2>
         <InputGroup v-model="adventurer.name" :placeholder="t('Adventurer.name-placeholder')">
             {{ t('Adventurer.name') }}
