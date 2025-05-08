@@ -1,5 +1,5 @@
 <template>
-    <div>BACKGROUNDS STEP</div>
+    <div>BONDS STEP</div>
 </template>
 
 <script setup lang="ts">

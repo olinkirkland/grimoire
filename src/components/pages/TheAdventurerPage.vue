@@ -9,19 +9,20 @@
                     @click="changeStep(step)"
                 >
                     <span>
-                        {{ t(`Steps.${StepDefinitions[step].label}.name`) }}
+                        {{ t(`Step.${StepDefinitions[step].label}.name`) }}
                     </span>
                 </li>
             </ul>
         </nav>
 
         <div class="step-container">
-            <component
-                :is="StepDefinitions[currentStep].component"
-                :adventurer="adventurer"
-                :step="currentStep"
-                :key="currentStep"
-            ></component>
+            <Transition :name="`step-transition--${direction}`" mode="out-in">
+                <component
+                    :is="StepDefinitions[currentStep].component"
+                    :adventurer="adventurer"
+                    :key="currentStep"
+                ></component>
+            </Transition>
         </div>
 
         <div class="controls">
@@ -77,10 +78,13 @@ if (!adventurer.value) {
 const stepsEl = ref<HTMLElement | null>(null);
 const stepId = ref<Step | null>(null);
 const currentStep = ref(Step.NAME);
+const direction = ref<'left' | 'right'>('left');
 
 function changeStep(newStep: Step) {
-    // TODO: Add logic to change the step
-    console.log(`Changing step to: ${newStep}`);
+    const currentStepIndex = steps.indexOf(currentStep.value);
+    const newStepIndex = steps.indexOf(newStep);
+    direction.value = newStepIndex > currentStepIndex ? 'right' : 'left';
+
     currentStep.value = newStep;
 }
 
@@ -123,7 +127,6 @@ ul.steps-list {
         }
 
         &::before {
-            // border on bottom
             content: '';
             display: block;
             position: absolute;
@@ -156,5 +159,40 @@ ul.steps-list {
     justify-content: center;
     gap: 1rem;
     padding: 1.2rem;
+}
+
+// Transition
+
+.step-transition-enter-from,
+.step-transition-leave-to {
+    opacity: 0;
+    transform: translateX(2rem);
+}
+
+.step-transition--right-enter-active,
+.step-transition--right-leave-active,
+.step-transition--left-enter-active,
+.step-transition--left-leave-active {
+    transition: all 0.2s ease;
+}
+
+.step-transition--right-enter-from {
+    opacity: 0;
+    transform: translateX(2rem); // Enter from the right
+}
+
+.step-transition--right-leave-to {
+    opacity: 0;
+    transform: translateX(-2rem); // Leave to the left
+}
+
+.step-transition--left-enter-from {
+    opacity: 0;
+    transform: translateX(-2rem); // Enter from the left
+}
+
+.step-transition--left-leave-to {
+    opacity: 0;
+    transform: translateX(2rem); // Leave to the right
 }
 </style>

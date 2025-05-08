@@ -1,5 +1,13 @@
 import BackgroundsStep from './components/steps/BackgroundsStep.vue';
 import NameStep from './components/steps/NameStep.vue';
+import TraitsStep from './components/steps/TraitsStep.vue';
+import DesiresStep from './components/steps/DesiresStep.vue';
+import FeaturesStep from './components/steps/FeaturesStep.vue';
+import PathStep from './components/steps/PathStep.vue';
+import StatsStep from './components/steps/StatsStep.vue';
+import ArcsStep from './components/steps/ArcsStep.vue';
+import BondsStep from './components/steps/BondsStep.vue';
+import ReviewStep from './components/steps/ReviewStep.vue';
 
 export enum Step {
     NAME = 'name',
@@ -25,34 +33,34 @@ export const StepDefinitions: Record<Step, { label: string; component: any }> = 
     },
     [Step.TRAITS]: {
         label: 'Traits',
-        component: undefined
+        component: TraitsStep
     },
     [Step.DESIRES]: {
         label: 'Desires',
-        component: undefined
+        component: DesiresStep
     },
     [Step.FEATURES]: {
         label: 'Features',
-        component: undefined
+        component: FeaturesStep
     },
     [Step.PATH]: {
         label: 'Path',
-        component: undefined
+        component: PathStep
     },
     [Step.STATS]: {
         label: 'Stats',
-        component: undefined
+        component: StatsStep
     },
     [Step.ARCS]: {
         label: 'Arcs',
-        component: undefined
+        component: ArcsStep
     },
     [Step.BONDS]: {
         label: 'Bonds',
-        component: undefined
+        component: BondsStep
     },
     [Step.REVIEW]: {
         label: 'Review',
-        component: undefined
+        component: ReviewStep
     }
 };
