@@ -158,7 +158,7 @@ ul.steps-list {
 
 .step-container {
     flex-grow: 1;
-    overflow-y: hidden;
+    overflow: hidden;
     width: 100%;
 }
 

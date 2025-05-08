@@ -54,6 +54,7 @@ const props = defineProps({
 <style scoped lang="scss">
 .crucible {
     padding: 0;
+    width: 100%;
 }
 .crucible-row {
     display: flex;
