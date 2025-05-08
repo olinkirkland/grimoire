@@ -3,11 +3,7 @@
         <li
             v-for="(child, index) in slotChildren"
             :key="index"
-            :class="{
-                'is-active': index === currentIndex,
-                'left-of-active': (index as number) < currentIndex,
-                'right-of-active': (index as number) > currentIndex
-            }"
+            :style="getStyleByDeltaToIndex((index as number) - currentIndex)"
         >
             <component :is="child" />
         </li>
@@ -17,11 +13,9 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, useSlots } from 'vue';
 
-const FLOW_MODE_THRESHOLD = 768; // px
+const FLOW_MODE_THRESHOLD = 500; // px
 const currentWidth = ref(0);
-const isFlowMode = computed(() => {
-    return currentWidth.value < FLOW_MODE_THRESHOLD;
-});
+const isFlowMode = ref(false);
 
 const carousel = ref<HTMLElement | null>(null);
 const slots: any = useSlots();
@@ -64,7 +58,6 @@ function updateCurrentIndex() {
     // Find the index of the card at the center of the carousel
     // Cards can be different widths, so we need to calculate the center based on the scroll position
     const cards = carouselEl.querySelectorAll('li');
-    console.log('==== updateCurrentIndex ====');
     let closestDistance = Number.POSITIVE_INFINITY;
     for (let i = 0; i < cards.length; i++) {
         const card = cards[i] as HTMLElement;
@@ -74,7 +67,6 @@ function updateCurrentIndex() {
         if (start < 0) continue;
         const center = Math.floor((start + end) / 2);
         const distance = Math.floor(Math.abs(center - carouselCenter));
-        console.log(i, 'distance', distance, 'center', center, 'carouselCenter', carouselCenter);
         if (distance < closestDistance) {
             closestDistance = distance;
             currentIndex.value = i;
@@ -85,16 +77,40 @@ function updateCurrentIndex() {
 function handleResize() {
     currentWidth.value = window.innerWidth;
     updateCurrentIndex();
+    isFlowMode.value = determineIsFlowMode();
+}
+
+function determineIsFlowMode() {
+    // Scroll width must be greater than the client width to be in flow mode
+    if (!carousel.value) return false;
+    const carouselEl = carousel.value! as HTMLElement;
+    const scrollWidth = carouselEl.scrollWidth;
+    const clientWidth = carouselEl.clientWidth;
+    if (scrollWidth <= clientWidth) return false;
+    return currentWidth.value < FLOW_MODE_THRESHOLD;
+}
+
+function getStyleByDeltaToIndex(delta: number): string {
+    // Determine variables based on the delta
+    const direction = delta > 0 ? -1 : 1;
+    const degrees = !delta ? 0 : direction * -2;
+    const translateY = Math.abs(delta) * 0.5;
+    const scale = 1.2 - Math.abs(delta) * 0.1;
+    const opacity = Math.min(1, Math.max(0, 1 - Math.abs(delta) * 0.3));
+
+    // Make the styles
+    const transformStyle = `transform: rotate(${degrees}deg) translateY(${translateY}rem) scale(${scale});`;
+    const opacityStyle = `opacity: ${opacity};`;
+    const zIndexStyle = `z-index: ${10 - Math.abs(delta)};`;
+    return `${transformStyle} ${opacityStyle} ${zIndexStyle}`;
 }
 </script>
 
 <style scoped lang="scss">
 ul.carousel {
     max-width: 100%;
-    padding: 2rem;
     overflow-x: auto;
     display: flex;
-    gap: 1rem;
     scrollbar-width: none;
     scroll-snap-type: x mandatory;
     scroll-snap-align: start;
@@ -105,28 +121,21 @@ ul.carousel {
     > * {
         scroll-snap-align: center;
     }
-}
 
-.is-active {
-    transition: all 0.3s ease-in-out;
-    transform: scale(1.1) rotate(0deg);
-    z-index: 1;
-}
-
-.left-of-active {
-    opacity: 0.5;
-    transform: rotate(-2deg);
-}
-
-.right-of-active {
-    opacity: 0.5;
-    transform: rotate(2deg);
-}
-
-@media (min-width: 768px) {
-    ul.carousel > li {
-        transform: scale(1) rotate(0deg);
-        opacity: 1;
+    li {
+        transition: all 0.2s ease-in-out;
     }
+}
+
+ul.carousel:not(.flow-mode) {
+    gap: 1rem;
+    > li {
+        transform: scale(1) rotate(0deg) translateY(0rem) !important;
+        opacity: 1 !important;
+    }
+}
+
+.flow-mode {
+    padding: 2rem 3.2rem;
 }
 </style>
