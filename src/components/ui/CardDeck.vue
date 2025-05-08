@@ -47,10 +47,24 @@ onUnmounted(() => {
 function updateCurrentIndex() {
     if (!carousel.value) return 0;
     const carouselEl = carousel.value! as HTMLElement;
+    const carouselCenter = Math.floor(carouselEl.clientWidth / 2);
+
+    // If it's scrolled to the start, set the index to the first card
+    if (carouselEl.scrollLeft <= 0) {
+        currentIndex.value = 0;
+        return;
+    }
+
+    // If it's scrolled to the end, set the index to the last card
+    if (carouselEl.scrollLeft + carouselEl.clientWidth >= carouselEl.scrollWidth) {
+        currentIndex.value = slotChildren.value.length - 1;
+        return;
+    }
+
     // Find the index of the card at the center of the carousel
     // Cards can be different widths, so we need to calculate the center based on the scroll position
     const cards = carouselEl.querySelectorAll('li');
-    console.log('calculating current index');
+    console.log('==== updateCurrentIndex ====');
     let closestDistance = Number.POSITIVE_INFINITY;
     for (let i = 0; i < cards.length; i++) {
         const card = cards[i] as HTMLElement;
@@ -58,7 +72,9 @@ function updateCurrentIndex() {
         const end = start + card.clientWidth;
         if (end > carouselEl.clientWidth) continue;
         if (start < 0) continue;
-        const distance = Math.abs(start - carouselEl.clientWidth / 2);
+        const center = Math.floor((start + end) / 2);
+        const distance = Math.floor(Math.abs(center - carouselCenter));
+        console.log(i, 'distance', distance, 'center', center, 'carouselCenter', carouselCenter);
         if (distance < closestDistance) {
             closestDistance = distance;
             currentIndex.value = i;
