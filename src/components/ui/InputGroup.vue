@@ -91,6 +91,8 @@ function onInput(event: Event) {
         overflow: hidden;
         height: 100%;
         background-color: transparent;
+        color: var(--primary);
+
         &:focus {
             outline: none;
         }
