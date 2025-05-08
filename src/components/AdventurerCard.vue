@@ -62,7 +62,7 @@ function onClickEditAdventurer() {
     .card__header {
         position: relative;
         width: 100%;
-        padding: 2rem;
+        padding: 1.2rem;
         background-color: var(--primary);
         height: 9.6rem;
         display: flex;
@@ -72,10 +72,10 @@ function onClickEditAdventurer() {
         h3.name {
             text-align: center;
             font-family: var(--display);
-            font-weight: normal;
-            font-size: 2rem;
+            font-size: 3.2rem;
             line-height: 1;
-            height: min-content;
+            max-height: 100%;
+            text-overflow: ellipsis;
             color: var(--surface);
             margin: 0;
             text-shadow: 0.1rem 0.1rem 0 black;

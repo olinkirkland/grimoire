@@ -26,4 +26,14 @@ const props = defineProps({
 });
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.step-frame {
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .step-frame {
+        justify-content: flex-start;
+    }
+}
+</style>

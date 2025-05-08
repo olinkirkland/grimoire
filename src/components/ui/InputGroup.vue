@@ -4,15 +4,11 @@
             <slot></slot>
         </div>
         <input v-bind="attrs" :value="modelValue" @input="onInput" ref="input" />
-        <Button icon v-if="modelValue">
-            <i class="fas fa-times" @click="onClickClear"></i>
-        </Button>
     </div>
 </template>
 
 <script setup lang="ts">
 import { computed, defineEmits, defineProps, ref, useAttrs, useSlots } from 'vue';
-import Button from './Button.vue';
 
 const props = defineProps<{
     modelValue: string;
@@ -40,15 +36,11 @@ function onInput(event: Event) {
     const target = event.target as HTMLInputElement;
     emit('update:modelValue', target.value);
 }
-
-function onClickClear() {
-    emit('update:modelValue', '');
-    if (input.value) input.value.focus();
-}
 </script>
 
 <style scoped lang="scss">
 .input-group {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 0.4rem;
@@ -63,14 +55,12 @@ function onClickClear() {
     outline: none;
     overflow: hidden;
 
-    button {
-        display: none;
-    }
-
     &:focus-within {
         outline: 2px solid var(--primary-alt);
         outline-offset: 0.2rem;
-        padding-right: 0;
+        > .prepend * {
+            color: var(--primary-alt);
+        }
         button {
             display: block;
         }

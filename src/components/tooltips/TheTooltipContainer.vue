@@ -1,13 +1,7 @@
 <template>
     <div class="tooltip-container">
-        <Transition
-            :name="`tooltip-transition--${currentTooltipConfig?.position}`"
-        >
-            <component
-                :is="currentTooltip"
-                v-bind="currentTooltipConfig"
-                ref="tooltipRef"
-            />
+        <Transition :name="`tooltip-transition--${currentTooltipConfig?.position || 'bottom'}`">
+            <component :is="currentTooltip" v-bind="currentTooltipConfig" ref="tooltipRef" />
         </Transition>
     </div>
 </template>
@@ -20,27 +14,24 @@ const tooltipRef = ref();
 const currentTooltip = shallowRef<ComponentOptions | null>(null);
 const currentTooltipConfig = shallowRef<any | null>(null);
 
-TooltipController.getInstance().addEventListener(
-    ({ tooltip, tooltipConfig }) => {
-        // If no tooltip was passed, close the current one
-        if (!tooltip) {
-            currentTooltip.value = null;
-            return;
-        }
-
-        // Compare the current tooltip with the new one (and config)
-        const isTooltipAlreadyBeingShown =
-            JSON.stringify(currentTooltip.value) === JSON.stringify(tooltip) &&
-            JSON.stringify(currentTooltipConfig.value) ===
-                JSON.stringify(tooltipConfig);
-        if (isTooltipAlreadyBeingShown) return;
-
-        if (tooltip) {
-            currentTooltip.value = { ...tooltip! } as any;
-            currentTooltipConfig.value = { ...tooltipConfig };
-        }
+TooltipController.getInstance().addEventListener(({ tooltip, tooltipConfig }) => {
+    // If no tooltip was passed, close the current one
+    if (!tooltip) {
+        currentTooltip.value = null;
+        return;
     }
-);
+
+    // Compare the current tooltip with the new one (and config)
+    const isTooltipAlreadyBeingShown =
+        JSON.stringify(currentTooltip.value) === JSON.stringify(tooltip) &&
+        JSON.stringify(currentTooltipConfig.value) === JSON.stringify(tooltipConfig);
+    if (isTooltipAlreadyBeingShown) return;
+
+    if (tooltip) {
+        currentTooltip.value = { ...tooltip! } as any;
+        currentTooltipConfig.value = { ...tooltipConfig };
+    }
+});
 
 onMounted(() => {
     // Add a listener to the document to listen for mouseover events

@@ -9,7 +9,7 @@
                     @click="changeStep(step)"
                 >
                     <span>
-                        {{ t(`Step.${StepDefinitions[step].label}.name`) }}
+                        {{ t(`Step.${StepDefinitions[step].label}.title`) }}
                     </span>
                 </li>
             </ul>

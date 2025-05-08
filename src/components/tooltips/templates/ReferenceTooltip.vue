@@ -1,19 +1,20 @@
 <template>
     <TooltipFrame :target="target" :position="'bottom'">
         <template v-slot:content>
-            <div class="info">
-                <div class="info__html" v-html="html"></div>
+            <div class="reference">
+                <p>{{ t('Reference.page', { page: page.toString() }) }}</p>
             </div>
         </template>
     </TooltipFrame>
 </template>
 
 <script setup lang="ts">
+import { t } from '@/i18n/locale';
 import { computed } from 'vue';
 import TooltipFrame from '../TooltipFrame.vue';
 
 const props = defineProps<{
-    html: string;
+    page: number;
     target: HTMLElement;
 }>();
 
@@ -24,13 +25,13 @@ const target = computed(() => {
 </script>
 
 <style scoped lang="scss">
-.info {
+.reference {
     display: flex;
     max-width: 24rem;
     flex-direction: column;
     gap: 1.6rem;
     height: 100%;
-
+    
     * {
         font-size: 1.2rem;
     }

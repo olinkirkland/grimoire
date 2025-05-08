@@ -10,11 +10,12 @@
 .step-frame {
     max-width: 96rem;
     width: 100%;
-    margin: 0 auto;
     height: 100%;
+    margin: 0 auto;
     flex: 0 0 auto;
     overflow-y: auto;
     padding: 0.8rem;
+    scrollbar-width: none;
 
     display: flex;
     flex-direction: column;

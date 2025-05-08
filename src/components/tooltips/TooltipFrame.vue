@@ -1,10 +1,5 @@
 <template>
-    <div
-        ref="tooltip"
-        class="tooltip"
-        :style="{ left: x, top: y }"
-        :class="`tooltip--${position}`"
-    >
+    <div ref="tooltip" class="tooltip" :style="{ left: x, top: y }" :class="`tooltip--${position}`">
         <div class="tooltip__content">
             <slot name="content"></slot>
         </div>
@@ -28,14 +23,12 @@ const offset = computed(() => {
 });
 
 const tooltipWidth = computed(() => {
-    if (tooltip.value)
-        return Math.round(tooltip.value.getBoundingClientRect().width);
+    if (tooltip.value) return Math.round(tooltip.value.getBoundingClientRect().width);
     return 0;
 });
 
 const tooltipHeight = computed(() => {
-    if (tooltip.value)
-        return Math.round(tooltip.value.getBoundingClientRect().height);
+    if (tooltip.value) return Math.round(tooltip.value.getBoundingClientRect().height);
     return 0;
 });
 
@@ -45,14 +38,10 @@ const x = computed(() => {
     tooltipX += props.target.getBoundingClientRect().width / 2;
     switch (props.position) {
         case 'left':
-            tooltipX -=
-                tooltipWidth.value +
-                props.target.getBoundingClientRect().width / 2 +
-                offset.value;
+            tooltipX -= tooltipWidth.value + props.target.getBoundingClientRect().width / 2 + offset.value;
             break;
         case 'right':
-            tooltipX +=
-                props.target.getBoundingClientRect().width / 2 + offset.value;
+            tooltipX += props.target.getBoundingClientRect().width / 2 + offset.value;
             break;
         default:
             tooltipX -= tooltipWidth.value / 2;
@@ -66,14 +55,10 @@ const y = computed(() => {
     tooltipY += props.target.getBoundingClientRect().height / 2;
     switch (props.position) {
         case 'top':
-            tooltipY -=
-                tooltipHeight.value +
-                props.target.getBoundingClientRect().height / 2 +
-                offset.value;
+            tooltipY -= tooltipHeight.value + props.target.getBoundingClientRect().height / 2 + offset.value;
             break;
         case 'bottom':
-            tooltipY +=
-                props.target.getBoundingClientRect().height / 2 + offset.value;
+            tooltipY += props.target.getBoundingClientRect().height / 2 + offset.value;
             break;
         default:
             tooltipY -= tooltipHeight.value / 2;
@@ -112,7 +97,7 @@ const y = computed(() => {
         display: flex;
         flex-direction: column;
         width: max-content;
-        padding: 1.2rem;
+        padding: 0.8rem 1.2rem;
         flex: 1;
         max-width: 100%;
         overflow-x: hidden;
