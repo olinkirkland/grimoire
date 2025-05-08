@@ -26,12 +26,13 @@
         </div>
 
         <div class="controls">
-            <Button @click="onClickDeleteAdventurer">
-                <span>{{ t('Adventurer.delete-adventurer') }}</span>
-            </Button>
             <Button @click="onClickGoHome">
                 <i class="fas fa-door-open"></i>
-                <span>{{ t('Adventurer.go-home') }}</span>
+                <!-- <span>{{ t('Adventurer.go-home') }}</span> -->
+            </Button>
+            <Button @click="onClickSettings">
+                <i class="fas fa-cog"></i>
+                <!-- <span>{{ t('Adventurer.settings') }}</span> -->
             </Button>
             <Button @click="changeStep(steps[steps.indexOf(currentStep) + 1])" :disabled="currentStep === Step.REVIEW">
                 <span>{{ t('Adventurer.next-step') }}</span>
@@ -88,10 +89,10 @@ function changeStep(newStep: Step) {
     currentStep.value = newStep;
 }
 
-function onClickDeleteAdventurer() {
+function onClickSettings() {
     if (!adventurer.value) return;
-    adventurersStore.removeAdventurer(adventurer.value.id);
-    router.push({ name: PageName.HOME });
+    // adventurersStore.removeAdventurer(adventurer.value.id);
+    // router.push({ name: PageName.HOME });
 }
 
 function onClickGoHome() {
@@ -101,10 +102,15 @@ function onClickGoHome() {
 </script>
 
 <style scoped lang="scss">
+.page {
+    gap: 0;
+}
+
 nav {
     width: 100%;
     background-color: var(--background);
     box-shadow: var(--shadow-sm);
+    z-index: 1;
 }
 
 ul.steps-list {
@@ -151,18 +157,18 @@ ul.steps-list {
 
 .step-container {
     flex-grow: 1;
-    padding: 0 1.2rem;
+    overflow-y: hidden;
+    width: 100%;
 }
 
 .controls {
     display: flex;
     justify-content: center;
-    gap: 1rem;
-    padding: 1.2rem;
+    gap: 0.4rem;
+    padding: 0.4rem;
 }
 
 // Transition
-
 .step-transition-enter-from,
 .step-transition-leave-to {
     opacity: 0;
@@ -178,21 +184,21 @@ ul.steps-list {
 
 .step-transition--right-enter-from {
     opacity: 0;
-    transform: translateX(2rem); // Enter from the right
+    transform: translateX(4rem); // Enter from the right
 }
 
 .step-transition--right-leave-to {
     opacity: 0;
-    transform: translateX(-2rem); // Leave to the left
+    transform: translateX(-4rem); // Leave to the left
 }
 
 .step-transition--left-enter-from {
     opacity: 0;
-    transform: translateX(-2rem); // Enter from the left
+    transform: translateX(-4rem); // Enter from the left
 }
 
 .step-transition--left-leave-to {
     opacity: 0;
-    transform: translateX(2rem); // Leave to the right
+    transform: translateX(4rem); // Leave to the right
 }
 </style>

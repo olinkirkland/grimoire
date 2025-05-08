@@ -29,7 +29,7 @@ export default class Adventurer {
 
     // Path
     // Choose a path, gain its core talent, and pick either another talent from your path's list or a non-core talent from another path.
-    path: string;
+    path: string | null;
 
     // Talents
     // Talents are tracked in an array of strings. The character sheet gets bubbled in based on this.
@@ -77,14 +77,34 @@ export default class Adventurer {
 
     // TODO: Conditions & Notes
     // TODO: Vex
-    // TODO:
 
     constructor(name: string) {
         this.id = uuid();
-        this.name = name;
         this.createdAt = Date.now();
         this.updatedAt = Date.now();
         this.portraitId = '5bd09599-3199-44a1-adad-7e0c5926ce9d';
+
+        this.name = name;
+        this.playerName = '';
+        this.backgrounds = [];
+        this.traits = [];
+        this.desires = [];
+        this.features = [];
+        this.path = null;
+        this.talents = [];
+        this.nonPathTalentsAndNotes = '';
+        this.talentDetails = {};
+        this.stats = {
+            brawn: 0,
+            agility: 0,
+            wits: 0,
+            presence: 0
+        };
+        this.arcs = [];
+        this.bonds = [];
+        this.experience = 0;
+        this.storyPoints = 0;
+        this.sparkPoints = 0;
     }
 
     static saveToFile(fileName: string, adventurer: Adventurer) {

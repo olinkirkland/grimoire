@@ -90,9 +90,8 @@ pre {
 }
 
 .glass {
-    // slightly lighter
-    background-color: rgb(255, 255, 255, 0.05);
-    backdrop-filter: blur(1px);
+    background-color: rgb(255, 255, 255, 0.1);
+    backdrop-filter: blur(2px);
 }
 
 .center {

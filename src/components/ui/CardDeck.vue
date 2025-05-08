@@ -117,6 +117,7 @@ ul.carousel {
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     align-items: center;
+    padding-top: 2rem;
 
     > * {
         scroll-snap-align: center;

@@ -67,6 +67,7 @@ function onInput(event: Event) {
         margin-right: 0.6rem;
         height: 100%;
         border-right: 1px solid var(--surface-alt);
+        white-space: nowrap;
     }
 
     .is-slot-empty {

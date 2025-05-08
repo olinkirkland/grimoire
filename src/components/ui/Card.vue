@@ -3,7 +3,8 @@
         class="card"
         :class="{
             'card--allow-overflow': overflow,
-            'card--with-shadow': shadow
+            'card--with-shadow': shadow,
+            glass: glass
         }"
     >
         <slot></slot>
@@ -19,22 +20,34 @@ const props = defineProps({
     shadow: {
         type: Boolean,
         default: false
+    },
+    glass: {
+        type: Boolean,
+        default: false
     }
 });
 </script>
 
 <style lang="scss" scoped>
 .card {
+    max-width: 100%;
     padding: 2rem;
     border-radius: 5px;
     background-color: var(--background);
     border: 1px solid var(--surface-border);
     overflow-y: auto;
     overflow-x: hidden;
+    flex: 0 0 auto;
     display: flex;
     flex-direction: column;
     align-items: start;
     gap: 0.8rem;
+
+    &.glass {
+        background: unset;
+        border: none;
+        box-shadow: var(--shadow-sm);
+    }
 
     &--allow-overflow {
         overflow: visible;
