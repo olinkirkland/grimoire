@@ -53,7 +53,8 @@ import Button from '../ui/Button.vue';
 
 const steps = [
     Step.NAME,
-    Step.BACKGROUNDS,
+    Step.HERITAGE,
+    Step.PROFESSION,
     Step.TRAITS,
     Step.DESIRES,
     Step.FEATURES,

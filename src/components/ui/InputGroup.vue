@@ -3,16 +3,22 @@
         <div class="prepend" :class="{ 'is-slot-empty': isSlotEmpty }">
             <slot></slot>
         </div>
-        <input v-bind="attrs" :value="modelValue" @input="onInput" />
+        <input v-bind="attrs" :value="modelValue" @input="onInput" ref="input" />
+        <Button icon v-if="modelValue">
+            <i class="fas fa-times" @click="onClickClear"></i>
+        </Button>
     </div>
 </template>
 
 <script setup lang="ts">
-import { computed, defineEmits, defineProps, useAttrs, useSlots } from 'vue';
+import { computed, defineEmits, defineProps, ref, useAttrs, useSlots } from 'vue';
+import Button from './Button.vue';
 
 const props = defineProps<{
     modelValue: string;
 }>();
+
+const input = ref<HTMLInputElement | null>(null);
 
 const emit = defineEmits<{
     (e: 'update:modelValue', value: string): void;
@@ -34,6 +40,11 @@ function onInput(event: Event) {
     const target = event.target as HTMLInputElement;
     emit('update:modelValue', target.value);
 }
+
+function onClickClear() {
+    emit('update:modelValue', '');
+    if (input.value) input.value.focus();
+}
 </script>
 
 <style scoped lang="scss">
@@ -42,7 +53,6 @@ function onInput(event: Event) {
     align-items: center;
     gap: 0.4rem;
     border-radius: 5px;
-    overflow: hidden;
     height: 3.2rem;
     width: 100%;
     max-width: 40rem;
@@ -50,16 +60,25 @@ function onInput(event: Event) {
     background-color: var(--background);
     border: 1px solid var(--surface-alt);
     padding-right: 0.8rem;
-
     outline: none;
+    overflow: hidden;
+
+    button {
+        display: none;
+    }
 
     &:focus-within {
         outline: 2px solid var(--primary-alt);
         outline-offset: 0.2rem;
+        padding-right: 0;
+        button {
+            display: block;
+        }
     }
 
     > .prepend {
         display: flex;
+        flex-shrink: 0;
         gap: 0.8rem;
         align-items: center;
         padding: 0 1.2rem;
@@ -77,6 +96,9 @@ function onInput(event: Event) {
     }
 
     > input {
+        display: block;
+        width: 100%;
+        overflow: hidden;
         height: 100%;
         background-color: transparent;
         &:focus {
@@ -86,7 +108,6 @@ function onInput(event: Event) {
             opacity: 0.5;
             font-style: italic;
         }
-        flex: 1;
     }
 }
 </style>

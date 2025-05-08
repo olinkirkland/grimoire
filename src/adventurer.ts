@@ -1,11 +1,15 @@
 import { v4 as uuid } from 'uuid';
 
+export type Background = {
+    name: string;
+    knownAs: string[]; // Array of strings representing other names for the background
+    wises: string[]; // Array of strings representing the three wises of the background
+};
+
 export default class Adventurer {
     id: string;
     createdAt: number;
     updatedAt: number;
-
-    portraitId: string;
 
     // Name
     name: string;
@@ -13,7 +17,8 @@ export default class Adventurer {
 
     // Backgrounds
     // Choose two backgrounds, each with three wises, that detail your heritage or professions, covering your tools of the trade and story details.
-    backgrounds: string[];
+    heritage: Background;
+    profession: Background;
 
     // Traits
     // Choose 2 you very much are and 1 you definitely aren't: brave, caring, confident, curious, gentle, honest, honorable, persistent, protective, quiet, rash, stubborn.
@@ -82,11 +87,19 @@ export default class Adventurer {
         this.id = uuid();
         this.createdAt = Date.now();
         this.updatedAt = Date.now();
-        this.portraitId = '5bd09599-3199-44a1-adad-7e0c5926ce9d';
 
         this.name = name;
         this.playerName = '';
-        this.backgrounds = [];
+        this.heritage = {
+            name: '',
+            knownAs: [],
+            wises: []
+        };
+        this.profession = {
+            name: '',
+            knownAs: [],
+            wises: []
+        };
         this.traits = [];
         this.desires = [];
         this.features = [];

@@ -14,7 +14,7 @@
     height: 100%;
     flex: 0 0 auto;
     overflow-y: auto;
-    padding: 1.2rem;
+    padding: 0.8rem;
 
     display: flex;
     flex-direction: column;
