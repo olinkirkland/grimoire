@@ -64,39 +64,42 @@ const steps = [
     Step.BONDS,
     Step.REVIEW
 ];
-
 const adventurersStore = useAdventurersStore();
 
 // Get the adventurer ID from the route params
 const adventurerId = ref<string | null>(null);
 adventurerId.value = router.currentRoute.value.params.id as string;
 const adventurer = ref<Adventurer | null>(adventurersStore.getAdventurer(adventurerId.value) || null);
+const stepsEl = ref<HTMLElement | null>(null);
+const direction = ref<'left' | 'right'>('left');
+
+// Redirect to the first step if no step is provided in the route
+const currentStep = ref<Step>(router.currentRoute.value.params.step as Step);
+if (router.currentRoute.value.params.step === undefined) changeStep(steps[0]);
 
 if (!adventurer.value) {
     // Redirect to the home page if the adventurer is not found
     router.push({ name: PageName.LOST });
 }
 
-const stepsEl = ref<HTMLElement | null>(null);
-const currentStep = ref(steps[0]);
-const direction = ref<'left' | 'right'>('left');
-
 function changeStep(newStep: Step) {
     const currentStepIndex = steps.indexOf(currentStep.value);
     const newStepIndex = steps.indexOf(newStep);
     direction.value = newStepIndex > currentStepIndex ? 'right' : 'left';
     currentStep.value = newStep;
-    // TODO: Change the route
+    router.replace({
+        name: PageName.ADVENTURER_STEP,
+        params: { id: adventurerId.value, step: newStep }
+    });
 
     scrollNavToStep(newStep);
 }
 
 function scrollNavToStep(newStep: string) {
     // Scroll ul.steps into view (x-scrollable on mobile)
-    if (!stepsEl.value) return;    
+    if (!stepsEl.value) return;
     const stepEl = stepsEl.value.querySelector(`[data-step-id="${newStep}"]`);
     if (!stepEl) return;
-    console.log('stepEl', stepEl);
 
     const containerRect = stepsEl.value.getBoundingClientRect();
     const stepRect = stepEl.getBoundingClientRect();

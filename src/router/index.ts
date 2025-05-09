@@ -6,6 +6,7 @@ import { RouterOptions, createRouter, createWebHistory } from 'vue-router';
 export enum PageName {
     HOME = 'home-page',
     ADVENTURER = 'adventurer-page',
+    ADVENTURER_STEP = 'adventurer-step-page',
     LOST = 'lost-page'
 }
 
@@ -18,11 +19,18 @@ const routes = [
         name: PageName.HOME
     },
     {
-        path: '/adventurer/:id',
+        path: '/a/:id',
         components: {
             page: TheAdventurerPage
         },
         name: PageName.ADVENTURER
+    },
+    {
+        path: '/a/:id/:step',
+        components: {
+            page: TheAdventurerPage
+        },
+        name: PageName.ADVENTURER_STEP
     },
     {
         path: '/:pathMatch(.*)*',
