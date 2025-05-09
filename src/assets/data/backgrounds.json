@@ -1,0 +1,70 @@
+[
+    {
+        "names": ["charlatan", "spy", "swindler"],
+        "wises": ["social-graces", "spotting-marks", "timely-misdirects"]
+    },
+    {
+        "names": ["clergy", "cultist", "priest"],
+        "wises": ["allegories", "signs-of-sin", "faiths-of-the-world"]
+    },
+    {
+        "names": ["commoner", "farmer", "villager"],
+        "wises": ["local-customs", "practical-wisdom", "superstitions"]
+    },
+    {
+        "names": ["crafter", "artisan", "smith"],
+        "wises": ["crafting-quality", "trade-contacts", "wear-and-tear"]
+    },
+    {
+        "names": ["drifter", "explorer", "vagabond"],
+        "wises": ["chance-meetings", "faraway-tales", "lay-of-the-land"]
+    },
+    {
+        "names": ["entertainer", "storyteller", "minstrel"],
+        "wises": ["legends-and-tales", "crowd-behaviors", "stage-presence"]
+    },
+    {
+        "names": ["eccentric", "hermit", "recluse"],
+        "wises": ["hard-truths", "random-facts", "strange-snacks"]
+    },
+    {
+        "names": ["healer", "chirurgeon", "herbalist"],
+        "wises": ["comfort-foods", "signs-of-ailment", "herbal-properties"]
+    },
+    {
+        "names": ["hunter", "pathfinder", "trapper"],
+        "wises": ["survival", "tracks", "wildlife-behavior"]
+    },
+    {
+        "names": ["mariner", "pirate", "sailor"],
+        "wises": ["nautical-lore", "seafaring", "weather-patterns"]
+    },
+    {
+        "names": ["mystic", "occultist", "seer"],
+        "wises": ["ancient-prophecies", "leylines", "symbology"]
+    },
+    {
+        "names": ["noble", "aristocrat", "diplomat"],
+        "wises": ["diplomacy", "influential-contacts", "luxuries"]
+    },
+    {
+        "names": ["ragamuffin", "cutpurse", "urchin"],
+        "wises": ["hidden-paths", "rumors", "street-smarts"]
+    },
+    {
+        "names": ["sage", "lorekeeper", "scholar"],
+        "wises": ["ancient-histories", "peoples-of-the-world", "philosophy"]
+    },
+    {
+        "names": ["scoundrel", "brigand", "thief"],
+        "wises": ["escape-routes", "signs-of-weakness", "shady-connections"]
+    },
+    {
+        "names": ["trader", "merchant", "peddler"],
+        "wises": ["cultural-tastes", "peoples-desires", "rare-goods"]
+    },
+    {
+        "names": ["warrior", "sellsword", "soldier"],
+        "wises": ["battle-plans", "military-contacts", "war-stories"]
+    }
+]

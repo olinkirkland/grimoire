@@ -54,10 +54,9 @@ import { ref } from 'vue';
 import Button from '../ui/Button.vue';
 
 const steps = [
-    Step.NAME,
     Step.HERITAGE,
-    Step.PROFESSION,
-    Step.TRAITS,
+    Step.BACKGROUND,
+    Step.NAME_AND_TRAITS,
     Step.DESIRES,
     Step.FEATURES,
     Step.PATH,
@@ -81,7 +80,7 @@ if (!adventurer.value) {
 
 const stepsEl = ref<HTMLElement | null>(null);
 const stepId = ref<Step | null>(null);
-const currentStep = ref(Step.NAME);
+const currentStep = ref(Step.NAME_AND_TRAITS);
 const direction = ref<'left' | 'right'>('left');
 
 function changeStep(newStep: Step) {

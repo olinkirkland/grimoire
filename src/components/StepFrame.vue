@@ -14,12 +14,13 @@
     margin: 0 auto;
     flex: 0 0 auto;
     overflow-y: auto;
-    padding: 0.8rem;
+    overflow-x: hidden;
+    padding: 1rem;
     scrollbar-width: none;
 
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.8rem;
+    gap: 1rem;
 }
 </style>

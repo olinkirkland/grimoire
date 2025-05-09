@@ -1,5 +1,5 @@
 <template>
-<div class="page">
+    <div class="page">
         <div class="page__content" :class="{ center: displayedAdventurers.length === 0 }">
             <div class="hero glass">
                 <div class="logo-header">
@@ -13,13 +13,13 @@
                     ></h3>
                 </div>
 
-                <div class="flex">
+                <div class="flex center">
                     <Button primary @click="onClickNewAdventurer">
                         <i class="fas fa-plus-circle"></i>
                         <span> {{ t('Home.new-adventurer') }} </span>
                     </Button>
                     <Button @click="onClickSettings">
-                        <span>{{ t('Home.settings') }}</span>
+                        <i class="fas fa-cog"></i>
                     </Button>
                 </div>
 

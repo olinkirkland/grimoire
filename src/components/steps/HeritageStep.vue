@@ -40,72 +40,72 @@
                     </li>
                 </ul>
             </section>
-        </Card>
-        <Card class="crucible">
-            <!-- Folk -->
-            <div class="crucible-row">
-                <header>
-                    <h3>{{ t('Step.Heritage.folk') }}</h3>
-                    <Button @click="onClickRollFolk">
-                        <i class="fas fa-dice-three"></i>
-                        {{ t('roll') }}
-                    </Button>
-                </header>
-                <ul class="grid folk-grid">
-                    <li
-                        v-for="f in heritageData.folk"
-                        :class="{ selected: adventurer.heritageCrucible.folk === f }"
-                        @click="adventurer.heritageCrucible.folk = f"
-                    >
-                        <span>{{ t(`Step.Heritage.Folk.${f}`) }}</span>
-                    </li>
-                </ul>
-            </div>
-            <!-- Mood -->
-            <div class="crucible-row">
-                <header>
-                    <h3>{{ t('Step.Heritage.mood') }}</h3>
-                    <Button @click="onClickRollMood">
-                        <i class="fas fa-dice-three"></i>
-                        {{ t('roll') }}
-                    </Button>
-                </header>
-                <ul class="grid heritage-grid">
-                    <li
-                        v-for="h in heritageData.mood"
-                        :class="{ selected: adventurer.heritageCrucible.mood === h }"
-                        @click="adventurer.heritageCrucible.mood = h"
-                    >
-                        <span>{{ t(`Step.Heritage.Mood.${h}`) }}</span>
-                    </li>
-                </ul>
-            </div>
-            <!-- Land -->
-            <div class="crucible-row">
-                <header>
-                    <h3>{{ t('Step.Heritage.land') }}</h3>
-                    <Button @click="onClickRollLand">
-                        <i class="fas fa-dice-three"></i>
-                        {{ t('roll') }}
-                    </Button>
-                </header>
-                <ul class="grid heritage-grid">
-                    <li
-                        v-for="h in heritageData.land"
-                        :class="{ selected: adventurer.heritageCrucible.land === h }"
-                        @click="adventurer.heritageCrucible.land = h"
-                    >
-                        <span>{{ t(`Step.Heritage.Land.${h}`) }}</span>
-                    </li>
-                </ul>
-            </div>
+            <Card class="crucible">
+                <!-- Folk -->
+                <div class="crucible-row">
+                    <header>
+                        <h3>{{ t('Step.Heritage.folk') }}</h3>
+                        <Button @click="onClickRollFolk">
+                            <i class="fas fa-dice-three"></i>
+                            {{ t('roll') }}
+                        </Button>
+                    </header>
+                    <ul class="grid folk-grid">
+                        <li
+                            v-for="f in heritagesData.folk"
+                            :class="{ selected: adventurer.heritageCrucible.folk === f }"
+                            @click="adventurer.heritageCrucible.folk = f"
+                        >
+                            <span>{{ t(`Step.Heritage.Folk.${f}`) }}</span>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Mood -->
+                <div class="crucible-row">
+                    <header>
+                        <h3>{{ t('Step.Heritage.mood') }}</h3>
+                        <Button @click="onClickRollMood">
+                            <i class="fas fa-dice-three"></i>
+                            {{ t('roll') }}
+                        </Button>
+                    </header>
+                    <ul class="grid heritage-grid">
+                        <li
+                            v-for="h in heritagesData.mood"
+                            :class="{ selected: adventurer.heritageCrucible.mood === h }"
+                            @click="adventurer.heritageCrucible.mood = h"
+                        >
+                            <span>{{ t(`Step.Heritage.Mood.${h}`) }}</span>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Land -->
+                <div class="crucible-row">
+                    <header>
+                        <h3>{{ t('Step.Heritage.land') }}</h3>
+                        <Button @click="onClickRollLand">
+                            <i class="fas fa-dice-three"></i>
+                            {{ t('roll') }}
+                        </Button>
+                    </header>
+                    <ul class="grid heritage-grid">
+                        <li
+                            v-for="h in heritagesData.land"
+                            :class="{ selected: adventurer.heritageCrucible.land === h }"
+                            @click="adventurer.heritageCrucible.land = h"
+                        >
+                            <span>{{ t(`Step.Heritage.Land.${h}`) }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </Card>
         </Card>
     </StepFrame>
 </template>
 
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
-import heritageData from '@/assets/data/heritage.json';
+import heritagesData from '@/assets/data/heritages.json';
 import { t } from '@/i18n/locale';
 import { computed } from 'vue';
 import Button from '../ui/Button.vue';
@@ -120,37 +120,34 @@ const props = defineProps({
 });
 
 function onClickRollFolk() {
-    const folk = heritageData.folk[Math.floor(Math.random() * heritageData.folk.length)];
+    const folk = heritagesData.folk[Math.floor(Math.random() * heritagesData.folk.length)];
     props.adventurer.heritageCrucible.folk = folk;
 }
 
 function onClickRollMood() {
-    const mood = heritageData.mood[Math.floor(Math.random() * heritageData.mood.length)];
+    const mood = heritagesData.mood[Math.floor(Math.random() * heritagesData.mood.length)];
     props.adventurer.heritageCrucible.mood = mood;
 }
 
 function onClickRollLand() {
-    const land = heritageData.land[Math.floor(Math.random() * heritageData.land.length)];
+    const land = heritagesData.land[Math.floor(Math.random() * heritagesData.land.length)];
     props.adventurer.heritageCrucible.land = land;
 }
 
 const crucibleResults = computed(() => {
-    const folkKey = 'Folk.' + props.adventurer.heritageCrucible.folk;
-    const moodKey = 'Mood.' + props.adventurer.heritageCrucible.mood;
-    const landKey = 'Land.' + props.adventurer.heritageCrucible.land;
-    if (!folkKey && !moodKey && !landKey) return null; // No results yet
-
+    const { folk, mood, land } = props.adventurer.heritageCrucible;
+    if (!folk && !mood && !land) return null; // No results yet
     // Return comma joined, whatever exists
-    const results = [folkKey, moodKey, landKey].filter(Boolean).map((r) => t(`Step.Heritage.${r}`));
-    return results.length > 1 ? results.join(', ') : results[0];
+    const folkString = folk ? t(`Step.Heritage.Folk.${folk}`) : null;
+    const moodString = mood ? t(`Step.Heritage.Mood.${mood}`) : null;
+    const landString = land ? t(`Step.Heritage.Land.${land}`) : null;
+    const results = [folkString, moodString, landString].filter(Boolean);
+    return results.join(', ');
 });
 </script>
 
 <style scoped lang="scss">
 .heritage-and-wises {
-    position: sticky;
-    top: 0;
-    z-index: 1;
     width: 100%;
     .input-group {
         width: 100%;
@@ -209,11 +206,6 @@ const crucibleResults = computed(() => {
             font-style: italic;
             cursor: pointer;
 
-            * {
-                font-size: 1.4rem;
-                width: fit-content;
-            }
-
             &.selected > span {
                 color: var(--primary);
                 border-bottom: 1px solid var(--primary);
@@ -228,6 +220,11 @@ p.crucible-results > span {
 }
 
 @media (max-width: 768px) {
+    .wises {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+    }
+
     .crucible-row {
         flex-direction: column;
         gap: 0.4rem;
@@ -243,6 +240,7 @@ p.crucible-results > span {
                 font-size: 3.2rem;
             }
         }
+
         ul {
             grid-template-columns: repeat(3, 1fr);
             > li {

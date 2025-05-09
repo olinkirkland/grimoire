@@ -2,7 +2,6 @@ import { v4 as uuid } from 'uuid';
 
 export type Background = {
     name: string;
-    knownAs: string[]; // Array of strings representing other names for the background
     wises: string[]; // Array of strings representing the three wises of the background
 };
 
@@ -16,9 +15,9 @@ export default class Adventurer {
     playerName: string;
 
     // Backgrounds
-    // Choose two backgrounds, each with three wises, that detail your heritage or professions, covering your tools of the trade and story details.
+    // Choose two backgrounds, each with three wises, that detail your heritage or profession.
     heritage: Background;
-    profession: Background;
+    background: Background;
 
     // Heritage Crucible
     // Store the selected inspiration for the heritage crucible, which is a combination of folk, mood, and land.
@@ -31,10 +30,12 @@ export default class Adventurer {
     // Traits
     // Choose 2 you very much are and 1 you definitely aren't: brave, caring, confident, curious, gentle, honest, honorable, persistent, protective, quiet, rash, stubborn.
     traits: string[];
+    notTraits: string[];
 
     // Desires
     // Choose 2 you truly desire and 1 you definitely don't: belonging, glory, harmony, honor, justice, knowledge, love, power, renown, thrills, wealth, wisdom.
     desires: string[];
+    notDesires: string[];
 
     // Features
     // Write down three distinctive features, words or short phrases that others soon notice about you, like strong hands, kind eyes, or a gravelly voice.
@@ -107,16 +108,14 @@ export default class Adventurer {
 
         this.heritage = {
             name: '',
-            knownAs: [],
             wises: [
                 '', // First wise
                 '', // Second wise
                 '' // Third wise
             ]
         };
-        this.profession = {
+        this.background = {
             name: '',
-            knownAs: [],
             wises: [
                 '', // First wise
                 '', // Second wise
@@ -124,7 +123,9 @@ export default class Adventurer {
             ]
         };
         this.traits = [];
+        this.notTraits = [];
         this.desires = [];
+        this.notDesires = [];
         this.features = [];
         this.path = null;
         this.talents = [];
