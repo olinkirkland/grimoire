@@ -1,23 +1,20 @@
 <template>
     <StepFrame>
-        <Card glass class="name">
-            <p v-html="t('Step.Name-and-traits.Name.instructions')"></p>
+        <Card class="name">
+            <p v-html="t('Step.Personality.Name.instructions')"></p>
             <div class="name-inputs">
-                <InputGroup
-                    v-model="adventurer.name"
-                    :placeholder="t('Step.Name-and-traits.Adventurer-name.placeholder')"
-                >
-                    <span>{{ t('Step.Name-and-traits.Adventurer-name.label') }}</span>
+                <InputGroup v-model="adventurer.name" :placeholder="t('Step.Personality.Adventurer-name.placeholder')">
+                    <span>{{ t('Step.Personality.Adventurer-name.label') }}</span>
                 </InputGroup>
                 <InputGroup
                     v-model="adventurer.playerName"
-                    :placeholder="t('Step.Name-and-traits.Player-name.placeholder')"
+                    :placeholder="t('Step.Personality.Player-name.placeholder')"
                 >
-                    <span>{{ t('Step.Name-and-traits.Player-name.label') }}</span>
+                    <span>{{ t('Step.Personality.Player-name.label') }}</span>
                 </InputGroup>
             </div>
             <Card class="name-generator">
-                <p v-html="t('Step.Name-and-traits.Name.Generator.instructions')"></p>
+                <p v-html="t('Step.Personality.Name.Generator.instructions')"></p>
                 <ul class="pick-list">
                     <li
                         v-for="(nameTableKey, index) in Object.keys(nameTablesData)"
@@ -27,22 +24,23 @@
                         <i
                             :class="activeNameTables.includes(nameTableKey) ? 'fas fa-check-square' : 'far fa-square'"
                         ></i>
-                        <span>{{ t(`Step.Name-and-traits.Name.Generator.Tables.${nameTableKey}`) }}</span>
+                        <span>{{ t(`Step.Personality.Name.Generator.Tables.${nameTableKey}`) }}</span>
                     </li>
                 </ul>
                 <div class="flex">
                     <Button @click="onClickGenerateName" :disabled="activeNameTables.length === 0">
-                        {{ t('Step.Name-and-traits.Name.Generator.label') }}
+                        {{ t('Step.Personality.Name.Generator.label') }}
                     </Button>
                     <Button @click="onClickRollName" :disabled="activeNameTables.length === 0">
                         <i class="fas fa-random"></i>
+                        <span>{{ t('roll') }}</span>
                     </Button>
                 </div>
             </Card>
         </Card>
         <div class="traits-and-desires">
             <Card class="traits">
-                <p v-html="t('Step.Name-and-traits.Traits.instructions')"></p>
+                <p v-html="t('Step.Personality.Traits.instructions')"></p>
                 <Card>
                     <ul class="pick-list">
                         <li v-for="(trait, index) in traitsData" :key="index" @click="onClickCycleTrait(trait)">
@@ -53,7 +51,7 @@
                 </Card>
             </Card>
             <Card class="desires">
-                <p v-html="t('Step.Name-and-traits.Desires.instructions')"></p>
+                <p v-html="t('Step.Personality.Desires.instructions')"></p>
                 <Card>
                     <ul class="pick-list">
                         <li v-for="(desire, index) in desiresData" :key="index" @click="onClickCycleDesire(desire)">
@@ -64,6 +62,32 @@
                 </Card>
             </Card>
         </div>
+        <Card class="features">
+            <p v-html="t('Step.Personality.Features.instructions')"></p>
+            <ul class="features-list">
+                <li>
+                    <InputGroup
+                        v-model="adventurer.features[0]"
+                        :placeholder="t('Step.Personality.Features.placeholder-1')"
+                    >
+                    </InputGroup>
+                </li>
+                <li>
+                    <InputGroup
+                        v-model="adventurer.features[1]"
+                        :placeholder="t('Step.Personality.Features.placeholder-2')"
+                    >
+                    </InputGroup>
+                </li>
+                <li>
+                    <InputGroup
+                        v-model="adventurer.features[2]"
+                        :placeholder="t('Step.Personality.Features.placeholder-3')"
+                    >
+                    </InputGroup>
+                </li>
+            </ul>
+        </Card>
     </StepFrame>
 </template>
 
@@ -240,6 +264,13 @@ ul.pick-list {
     }
 }
 
+.features-list {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.6rem;
+}
+
 @media (max-width: 768px) {
     .traits-and-desires {
         flex-direction: column;
@@ -254,6 +285,11 @@ ul.pick-list {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
         }
+    }
+
+    .features-list {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
     }
 }
 </style>

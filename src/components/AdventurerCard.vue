@@ -1,12 +1,6 @@
 <template>
     <Card @click="onClickEditAdventurer">
-        <div class="card__header">
-            <h3 class="name">{{ adventurer.name }}</h3>
-            <p class="modified-date">{{ modifiedDate }}</p>
-        </div>
-        <div class="card__body">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div>
+        <h3 class="name" :class="{ 'name--long': adventurer.name.length > 10 }">{{ adventurer.name }}</h3>
     </Card>
 </template>
 
@@ -14,21 +8,12 @@
 import Adventurer from '@/adventurer';
 import Card from '@/components/ui/Card.vue';
 import { PageName, router } from '@/router';
-import { computed } from 'vue';
 
 const props = defineProps({
     adventurer: {
         type: Object as () => Adventurer,
         required: true
     }
-});
-
-const modifiedDate = computed(() => {
-    const d = new Date(props.adventurer.updatedAt);
-    // If the year is the current year, only show the month and day
-    const currentYear = new Date().getFullYear();
-    if (d.getFullYear() === currentYear) return d.getMonth() + 1 + '/' + d.getDate();
-    return d.toLocaleDateString();
 });
 
 function onClickEditAdventurer() {
@@ -43,60 +28,40 @@ function onClickEditAdventurer() {
 <style scoped lang="scss">
 .card {
     position: relative;
-    top: 0;
+    background-color: var(--primary);
+    border: 1px solid var(--primary-alt);
     width: 16rem;
     min-width: 16rem;
+    height: 20rem;
+    top: 0;
+
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    padding: 0;
+
     cursor: pointer;
     transition: all 0.2s ease;
 
     &:hover {
         top: -1rem;
         transform: rotate(1deg);
-        box-shadow: var(--shadow-sm);
+        box-shadow: var(--shadow-md);
     }
 
-    .card__header {
-        position: relative;
-        width: 100%;
-        padding: 1.2rem;
-        background-color: var(--primary);
-        height: 9.6rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    h3.name {
+        text-align: center;
+        font-family: var(--display);
+        font-size: 3.2rem;
+        line-height: 1;
+        max-height: 100%;
+        text-overflow: ellipsis;
+        color: var(--surface);
+        margin: 0;
+        text-shadow: 0.1rem 0.1rem 0 black;
 
-        h3.name {
-            text-align: center;
-            font-family: var(--display);
-            font-size: 3.2rem;
-            line-height: 1;
-            max-height: 100%;
-            text-overflow: ellipsis;
-            color: var(--surface);
-            margin: 0;
-            text-shadow: 0.1rem 0.1rem 0 black;
+        &--long {
+            font-size: 2rem;
         }
-
-        p {
-            position: absolute;
-            top: 0rem;
-            right: 0rem;
-            padding: 1rem;
-            font-size: 1.2rem;
-            color: var(--surface-alt);
-        }
-    }
-
-    .card__body {
-        display: flex;
-        flex-direction: column;
-        padding: 1.2rem;
-        gap: 1.2rem;
-        padding-top: 0;
     }
 }
 

@@ -1,20 +1,16 @@
 import ArcsStep from './components/steps/ArcsStep.vue';
 import BackgroundStep from './components/steps/BackgroundStep.vue';
 import BondsStep from './components/steps/BondsStep.vue';
-import DesiresStep from './components/steps/DesiresStep.vue';
-import FeaturesStep from './components/steps/FeaturesStep.vue';
 import HeritageStep from './components/steps/HeritageStep.vue';
-import NameAndTraitsStep from './components/steps/NameAndTraitsStep.vue';
 import PathStep from './components/steps/PathStep.vue';
+import PersonalityStep from './components/steps/PersonalityStep.vue';
 import ReviewStep from './components/steps/ReviewStep.vue';
 import StatsStep from './components/steps/StatsStep.vue';
 
 export enum Step {
-    NAME_AND_TRAITS = 'name',
+    PERSONALITY = 'personality',
     HERITAGE = 'heritage',
     BACKGROUND = 'background',
-    DESIRES = 'desires',
-    FEATURES = 'features',
     PATH = 'path',
     STATS = 'stats',
     ARCS = 'arcs',
@@ -23,9 +19,9 @@ export enum Step {
 }
 
 export const StepDefinitions: Record<Step, { label: string; component: any }> = {
-    [Step.NAME_AND_TRAITS]: {
-        label: 'Name-and-traits',
-        component: NameAndTraitsStep
+    [Step.PERSONALITY]: {
+        label: 'Personality',
+        component: PersonalityStep
     },
     [Step.HERITAGE]: {
         label: 'Heritage',
@@ -34,14 +30,6 @@ export const StepDefinitions: Record<Step, { label: string; component: any }> = 
     [Step.BACKGROUND]: {
         label: 'Background',
         component: BackgroundStep
-    },
-    [Step.DESIRES]: {
-        label: 'Desires',
-        component: DesiresStep
-    },
-    [Step.FEATURES]: {
-        label: 'Features',
-        component: FeaturesStep
     },
     [Step.PATH]: {
         label: 'Path',

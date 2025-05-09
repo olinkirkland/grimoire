@@ -96,13 +96,13 @@ function getStyleByDeltaToIndex(delta: number): string {
     const degrees = !delta ? 0 : direction * -2;
     const translateY = Math.abs(delta) * 0.5;
     const scale = 1.2 - Math.abs(delta) * 0.1;
-    const opacity = Math.min(1, Math.max(0, 1 - Math.abs(delta) * 0.3));
+    const brightness = 1 - Math.abs(delta) * 0.2;
 
     // Make the styles
     const transformStyle = `transform: rotate(${degrees}deg) translateY(${translateY}rem) scale(${scale});`;
-    const opacityStyle = `opacity: ${opacity};`;
+    const filterStyle = `filter: brightness(${brightness});`;
     const zIndexStyle = `z-index: ${10 - Math.abs(delta)};`;
-    return `${transformStyle} ${opacityStyle} ${zIndexStyle}`;
+    return `${transformStyle} ${filterStyle} ${zIndexStyle}`;
 }
 </script>
 
@@ -110,6 +110,7 @@ function getStyleByDeltaToIndex(delta: number): string {
 ul.carousel {
     max-width: 100%;
     overflow-x: auto;
+    overflow-y: hidden;
     display: flex;
     scrollbar-width: none;
     scroll-snap-type: x mandatory;
@@ -117,13 +118,14 @@ ul.carousel {
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     align-items: center;
-    padding-top: 2rem;
+    padding: 2rem;
 
     > * {
         scroll-snap-align: center;
     }
 
     li {
+        height: 100%;
         transition: all 0.2s ease-in-out;
     }
 }
@@ -132,11 +134,11 @@ ul.carousel:not(.flow-mode) {
     gap: 1rem;
     > li {
         transform: scale(1) rotate(0deg) translateY(0rem) !important;
-        opacity: 1 !important;
+        filter: unset !important;
     }
 }
 
-.flow-mode {
-    padding: 2rem 3.2rem;
+ul.carousel.flow-mode {
+    padding: 4rem;
 }
 </style>
