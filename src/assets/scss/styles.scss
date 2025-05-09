@@ -152,3 +152,10 @@ label {
     font-weight: normal;
     letter-spacing: 0.1rem;
 }
+
+section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}

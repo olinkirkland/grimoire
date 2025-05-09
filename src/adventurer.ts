@@ -20,6 +20,14 @@ export default class Adventurer {
     heritage: Background;
     profession: Background;
 
+    // Heritage Crucible
+    // Store the selected inspiration for the heritage crucible, which is a combination of folk, mood, and land.
+    heritageCrucible: {
+        folk: string;
+        mood: string;
+        land: string;
+    };
+
     // Traits
     // Choose 2 you very much are and 1 you definitely aren't: brave, caring, confident, curious, gentle, honest, honorable, persistent, protective, quiet, rash, stubborn.
     traits: string[];
@@ -90,15 +98,30 @@ export default class Adventurer {
 
         this.name = name;
         this.playerName = '';
+
+        this.heritageCrucible = {
+            folk: '',
+            mood: '',
+            land: ''
+        };
+
         this.heritage = {
             name: '',
             knownAs: [],
-            wises: []
+            wises: [
+                '', // First wise
+                '', // Second wise
+                '' // Third wise
+            ]
         };
         this.profession = {
             name: '',
             knownAs: [],
-            wises: []
+            wises: [
+                '', // First wise
+                '', // Second wise
+                '' // Third wise
+            ]
         };
         this.traits = [];
         this.desires = [];

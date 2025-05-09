@@ -10,6 +10,8 @@ import Link from './components/ui/Link.vue';
 import List from './components/ui/List.vue';
 import i18n from './i18n/locale';
 import { useAdventurersStore } from './store/adventurers-store';
+import ReferenceCard from './components/ui/ReferenceCard.vue';
+import StepFrame from './components/StepFrame.vue';
 
 // Create the app
 const app = createApp(App);
@@ -23,6 +25,8 @@ app.use(pinia);
 // Components
 app.component('Button', Button);
 app.component('Card', Card);
+app.component('ReferenceCard', ReferenceCard);
+app.component('StepFrame', StepFrame);
 app.component('List', List);
 app.component('InputGroup', InputGroup);
 app.component('Link', Link);

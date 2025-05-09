@@ -28,13 +28,15 @@
         <div class="controls">
             <Button @click="onClickGoHome">
                 <i class="fas fa-door-open"></i>
-                <!-- <span>{{ t('Adventurer.go-home') }}</span> -->
             </Button>
             <Button @click="onClickSettings">
                 <i class="fas fa-cog"></i>
-                <!-- <span>{{ t('Adventurer.settings') }}</span> -->
             </Button>
-            <Button @click="changeStep(steps[steps.indexOf(currentStep) + 1])" :disabled="currentStep === Step.REVIEW">
+            <Button
+                @click="changeStep(steps[steps.indexOf(currentStep) + 1])"
+                :disabled="currentStep === Step.REVIEW"
+                primary
+            >
                 <span>{{ t('Adventurer.next-step') }}</span>
                 <i class="fas fa-arrow-right"></i>
             </Button>
@@ -166,7 +168,7 @@ ul.steps-list {
     display: flex;
     justify-content: center;
     gap: 0.4rem;
-    padding: 0.4rem;
+    padding: 0.8rem;
 }
 
 // Transition

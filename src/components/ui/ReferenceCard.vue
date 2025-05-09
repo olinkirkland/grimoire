@@ -21,6 +21,7 @@ const props = defineProps({
 .card {
     flex-direction: row;
     gap: 1.2rem;
+    justify-content: space-between;
 }
 
 // iPad
