@@ -80,7 +80,7 @@ if (!adventurer.value) {
 
 const stepsEl = ref<HTMLElement | null>(null);
 const stepId = ref<Step | null>(null);
-const currentStep = ref(Step.NAME_AND_TRAITS);
+const currentStep = ref(steps[0]);
 const direction = ref<'left' | 'right'>('left');
 
 function changeStep(newStep: Step) {

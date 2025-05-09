@@ -133,17 +133,16 @@ function onClickBackground(background: any, name?: string) {
         gap: 0.8rem;
     }
 
-    ul.backgrounds-list li {
-        > * {
-            width: 50%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            * {
-                white-space: wrap;
-            }
-        }
+    ul.backgrounds-list > li {
+        padding: 0.8rem !important;
+        display: flex;
+        flex-direction: column;
 
-        gap: 0.4rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        * {
+            white-space: wrap;
+        }
     }
 }
 </style>

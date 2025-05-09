@@ -37,3 +37,14 @@ export function getUniqueName(names: string[], newName: string) {
 export function toFileName(name: string) {
     return name.replace(/[^a-z0-9]/gi, '-').toLowerCase();
 }
+
+/**
+ * This function takes a string and capitalizes the first letter.
+ * It is useful for formatting names or titles.
+ * For example, "hello world" would become "Hello world".
+ * @param name - The name to be capitalized.
+ * @returns - The name with the first letter capitalized.
+ */
+export function capitalizeFirstLetter(name: string) {
+    return name.charAt(0).toUpperCase() + name.slice(1);
+}

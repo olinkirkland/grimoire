@@ -1,5 +1,45 @@
 <template>
     <StepFrame>
+        <Card glass class="name">
+            <p v-html="t('Step.Name-and-traits.Name.instructions')"></p>
+            <div class="name-inputs">
+                <InputGroup
+                    v-model="adventurer.name"
+                    :placeholder="t('Step.Name-and-traits.Adventurer-name.placeholder')"
+                >
+                    <span>{{ t('Step.Name-and-traits.Adventurer-name.label') }}</span>
+                </InputGroup>
+                <InputGroup
+                    v-model="adventurer.playerName"
+                    :placeholder="t('Step.Name-and-traits.Player-name.placeholder')"
+                >
+                    <span>{{ t('Step.Name-and-traits.Player-name.label') }}</span>
+                </InputGroup>
+            </div>
+            <Card class="name-generator">
+                <p v-html="t('Step.Name-and-traits.Name.Generator.instructions')"></p>
+                <ul class="pick-list">
+                    <li
+                        v-for="(nameTableKey, index) in Object.keys(nameTablesData)"
+                        :key="index"
+                        @click="toggleNameTable(nameTableKey)"
+                    >
+                        <i
+                            :class="activeNameTables.includes(nameTableKey) ? 'fas fa-check-square' : 'far fa-square'"
+                        ></i>
+                        <span>{{ t(`Step.Name-and-traits.Name.Generator.Tables.${nameTableKey}`) }}</span>
+                    </li>
+                </ul>
+                <div class="flex">
+                    <Button @click="onClickGenerateName" :disabled="activeNameTables.length === 0">
+                        {{ t('Step.Name-and-traits.Name.Generator.label') }}
+                    </Button>
+                    <Button @click="onClickRollName" :disabled="activeNameTables.length === 0">
+                        <i class="fas fa-random"></i>
+                    </Button>
+                </div>
+            </Card>
+        </Card>
         <div class="traits-and-desires">
             <Card class="traits">
                 <p v-html="t('Step.Name-and-traits.Traits.instructions')"></p>
@@ -24,26 +64,19 @@
                 </Card>
             </Card>
         </div>
-        <Card glass>
-            <InputGroup v-model="adventurer.name" :placeholder="t('Step.Name-and-traits.Adventurer-name.placeholder')">
-                <span>{{ t('Step.Name-and-traits.Adventurer-name.label') }}</span>
-            </InputGroup>
-            <InputGroup
-                v-model="adventurer.playerName"
-                :placeholder="t('Step.Name-and-traits.Player-name.placeholder')"
-            >
-                <span>{{ t('Step.Name-and-traits.Player-name.label') }}</span>
-            </InputGroup>
-        </Card>
     </StepFrame>
 </template>
 
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
 import desiresData from '@/assets/data/desires.json';
+import nameTablesData from '@/assets/data/name-tables.json';
 import traitsData from '@/assets/data/traits.json';
 import { t } from '@/i18n/locale';
+import { generateMarkovName } from '@/utils/adventurer-util';
+import { ref } from 'vue';
 import StepFrame from '../StepFrame.vue';
+import Card from '../ui/Card.vue';
 
 const props = defineProps({
     adventurer: {
@@ -52,9 +85,11 @@ const props = defineProps({
     }
 });
 
+const activeNameTables = ref<string[]>([]);
+
 function getTraitSelectionClass(trait: string): string {
     if (props.adventurer.traits.includes(trait)) return 'fas fa-circle';
-    return props.adventurer.notTraits.includes(trait) ? 'far fa-times-circle' : 'far fa-circle';
+    return props.adventurer.notTraits.includes(trait) ? 'fas fa-ban' : 'far fa-circle';
 }
 
 function onClickCycleTrait(trait: string) {
@@ -83,7 +118,7 @@ function onClickCycleTrait(trait: string) {
 
 function getDesireSelectionClass(desire: string): string {
     if (props.adventurer.desires.includes(desire)) return 'fas fa-circle';
-    return props.adventurer.notDesires.includes(desire) ? 'far fa-times-circle' : 'far fa-circle';
+    return props.adventurer.notDesires.includes(desire) ? 'fas fa-ban' : 'far fa-circle';
 }
 
 function onClickCycleDesire(desire: string) {
@@ -109,9 +144,55 @@ function onClickCycleDesire(desire: string) {
         return;
     }
 }
+
+function toggleNameTable(nameTableKey: string) {
+    if (activeNameTables.value.includes(nameTableKey))
+        activeNameTables.value = activeNameTables.value.filter((table) => table !== nameTableKey);
+    else activeNameTables.value.push(nameTableKey);
+}
+
+function onClickGenerateName() {
+    // Generate a name using the selected name tables
+    const allNames: string[] = [];
+    activeNameTables.value.forEach((nameTableKey) => {
+        const nameTableData = nameTablesData[nameTableKey as keyof typeof nameTablesData];
+        allNames.push(...nameTableData);
+    });
+
+    const generatedName = generateMarkovName(allNames);
+    if (generatedName) props.adventurer.name = generatedName;
+}
+
+function onClickRollName() {
+    // Pick a random name from the selected name tables
+    const allNames: string[] = [];
+    activeNameTables.value.forEach((nameTableKey) => {
+        const nameTableData = nameTablesData[nameTableKey as keyof typeof nameTablesData];
+        allNames.push(...nameTableData);
+    });
+
+    const randomName = allNames[Math.floor(Math.random() * allNames.length)];
+    if (randomName) props.adventurer.name = randomName;
+}
 </script>
 
 <style scoped lang="scss">
+.card.name {
+    width: 100%;
+
+    .name-inputs {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+
+        > .input-group {
+            width: 100%;
+            max-width: 100%;
+        }
+    }
+}
+
 .traits-and-desires {
     display: flex;
     gap: 1rem;
@@ -136,6 +217,7 @@ ul.pick-list {
         display: flex;
         align-items: center;
         gap: 0.6rem;
+        user-select: none;
 
         cursor: pointer;
         padding: 0.4rem 0.8rem;
@@ -148,9 +230,23 @@ ul.pick-list {
     }
 }
 
+.name-generator {
+    width: 100%;
+
+    > .pick-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}
+
 @media (max-width: 768px) {
     .traits-and-desires {
         flex-direction: column;
+    }
+
+    .name-inputs {
+        grid-template-columns: 1fr !important;
     }
 }
 </style>

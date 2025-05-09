@@ -1,4 +1,5 @@
 import Adventurer from '@/adventurer';
+import { capitalizeFirstLetter } from './naming-util';
 
 /**
  * Import an adventurer from a URI.
@@ -16,4 +17,54 @@ export function importFromURI(uri: string): Adventurer | null {
  */
 export function exportURI(adventurer: Adventurer): string {
     return '';
+}
+
+/**
+ * Use Markov chains to generate a random adventurer name.
+ * @param names - An array of names to use as a base for the Markov chain.
+ * @returns A random name generated using the Markov chain algorithm.
+ */
+export function generateMarkovName(names: string[]): string | null {
+    if (names.length === 0) return null;
+    const model: Record<string, string[]> = {};
+
+    const order = 3; // Order of the Markov chain (number of characters to consider)
+    const count = 10; // Number of unique names to generate
+
+    // Build model
+    for (const name of names) {
+        const padded = '^'.repeat(order) + name.toLowerCase() + '$';
+        for (let i = 0; i <= padded.length - order; i++) {
+            const prefix = padded.slice(i, i + order);
+            const nextChar = padded[i + order];
+            if (!model[prefix]) model[prefix] = [];
+            model[prefix].push(nextChar);
+        }
+    }
+
+    const results = new Set<string>();
+
+    while (results.size < count) {
+        let prefix = '^'.repeat(order);
+        let name = '';
+        while (true) {
+            const possible = model[prefix];
+            if (!possible) break;
+            const next = possible[Math.floor(Math.random() * possible.length)];
+            if (next === '$') break;
+            name += next;
+            prefix = prefix.slice(1) + next;
+        }
+
+        const finalName = name.charAt(0).toUpperCase() + name.slice(1);
+        if (!names.includes(finalName) && finalName.length >= 3) {
+            results.add(finalName);
+        }
+    }
+
+    const name = Array.from(results)[0];
+    // Capitalize each word
+    const words = name.split(' ');
+    for (let i = 0; i < words.length; i++) words[i] = capitalizeFirstLetter(words[i]);
+    return words.join(' ');
 }
