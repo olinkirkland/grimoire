@@ -4,6 +4,7 @@
             <ul class="steps-list" ref="stepsEl">
                 <li
                     v-for="step in steps"
+                    :data-step-id="step"
                     :class="{ active: step === currentStep }"
                     :key="step"
                     @click="changeStep(step)"
@@ -77,7 +78,6 @@ if (!adventurer.value) {
 }
 
 const stepsEl = ref<HTMLElement | null>(null);
-const stepId = ref<Step | null>(null);
 const currentStep = ref(steps[0]);
 const direction = ref<'left' | 'right'>('left');
 
@@ -85,8 +85,30 @@ function changeStep(newStep: Step) {
     const currentStepIndex = steps.indexOf(currentStep.value);
     const newStepIndex = steps.indexOf(newStep);
     direction.value = newStepIndex > currentStepIndex ? 'right' : 'left';
-
     currentStep.value = newStep;
+    // TODO: Change the route
+
+    scrollNavToStep(newStep);
+}
+
+function scrollNavToStep(newStep: string) {
+    // Scroll ul.steps into view (x-scrollable on mobile)
+    if (!stepsEl.value) return;    
+    const stepEl = stepsEl.value.querySelector(`[data-step-id="${newStep}"]`);
+    if (!stepEl) return;
+    console.log('stepEl', stepEl);
+
+    const containerRect = stepsEl.value.getBoundingClientRect();
+    const stepRect = stepEl.getBoundingClientRect();
+
+    // Calculate the scroll offset needed to bring `stepEl` into view
+    const newX =
+        stepsEl.value.scrollLeft + stepRect.left - containerRect.left + (stepRect.width - containerRect.width) / 2;
+
+    stepsEl.value.scroll({
+        left: newX,
+        behavior: 'smooth'
+    });
 }
 
 function onClickSettings() {

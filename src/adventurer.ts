@@ -108,25 +108,17 @@ export default class Adventurer {
 
         this.heritage = {
             name: '',
-            wises: [
-                '', // First wise
-                '', // Second wise
-                '' // Third wise
-            ]
+            wises: ['', '', '']
         };
         this.background = {
             name: '',
-            wises: [
-                '', // First wise
-                '', // Second wise
-                '' // Third wise
-            ]
+            wises: ['', '', '']
         };
         this.traits = [];
         this.notTraits = [];
         this.desires = [];
         this.notDesires = [];
-        this.features = [];
+        this.features = ['', '', ''];
         this.path = null;
         this.talents = [];
         this.nonPathTalentsAndNotes = '';
