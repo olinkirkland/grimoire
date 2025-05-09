@@ -248,5 +248,12 @@ ul.pick-list {
     .name-inputs {
         grid-template-columns: 1fr !important;
     }
+
+    .name-generator {
+        > .pick-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
 }
 </style>
