@@ -61,6 +61,7 @@ function onToggleTracking() {
 <style scoped lang="scss">
 .settings {
     display: flex;
+    align-items: center;
     max-width: 64rem;
     width: 64rem;
     flex-direction: column;
@@ -68,9 +69,11 @@ function onToggleTracking() {
 }
 
 .card {
+    width: 100%;
     display: flex;
     flex-direction: row;
-    gap: 1.6rem;
+    gap: 2rem;
+    justify-content: space-between;
 
     h3 {
         font-weight: bold;
@@ -84,8 +87,10 @@ function onToggleTracking() {
 
 ul.language-list {
     display: flex;
-    justify-content: center;
     gap: 1rem;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
 
     > li {
         cursor: pointer;

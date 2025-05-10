@@ -1,6 +1,7 @@
 import TheAdventurerPage from '@/components/pages/TheAdventurerPage.vue';
 import TheHomePage from '@/components/pages/TheHomePage.vue';
 import TheLostPage from '@/components/pages/TheLostPage.vue';
+import { startTracking, stopTracking } from '@/tracker';
 import { RouterOptions, createRouter, createWebHistory } from 'vue-router';
 
 export enum PageName {
@@ -49,36 +50,17 @@ const routerOptions = {
 
 export const router = createRouter(routerOptions as RouterOptions);
 
-// router.afterEach(async (to, from) => { });
+router.beforeEach(async (to, from, next) => {
+    // Only track if the user has allowed it (localStorage)
 
-// router.beforeEach(async (to, from, next) => {
-//     // Only track if the user has allowed it
-//     let allowTracking: boolean = false;
-//     if (localStorage.getItem('tracking') === 'true') allowTracking = true;
-//     // Disable tracking on localhost
-//     if (window.location.hostname === 'localhost') allowTracking = false;
+    let allowTracking: boolean = false;
+    if (localStorage.getItem('tracking') === 'true') allowTracking = true;
 
-//     if (localStorage.getItem('tracking') === null) {
-//         // If localStorage is not available, show the tracking prompt to enable tracking
-//         ModalController.open(ConfirmModal, {
-//             title: t('UI.Modals.Tracking.title'),
-//             message: t('UI.Modals.Tracking.message'),
-//             confirmText: t('UI.Modals.Tracking.Controls.confirm'),
-//             cancelText: t('UI.Modals.Tracking.Controls.cancel'),
-//             isConfirmButtonCta: true,
-//             onConfirm: () => {
-//                 localStorage.setItem('tracking', 'true');
-//                 ModalController.close();
-//             },
-//             onCancel: () => {
-//                 localStorage.setItem('tracking', 'false');
-//                 ModalController.close();
-//             }
-//         });
-//     }
+    // Disable tracking on localhost
+    if (window.location.hostname === 'localhost') allowTracking = false;
 
-//     if (allowTracking) startTracking();
-//     else stopTracking();
+    if (allowTracking) startTracking();
+    else stopTracking();
 
-//     next();
-// });
+    next();
+});

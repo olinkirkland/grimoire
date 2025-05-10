@@ -5,7 +5,8 @@
             'btn--icon': icon,
             'btn--disabled': disabled,
             'btn--primary': primary,
-            'full-width': fullWidth
+            'full-width': fullWidth,
+            'full-width-mobile': fullWidthMobile
         }"
         :disabled="disabled"
     >
@@ -22,7 +23,8 @@ const props = defineProps({
     primary: Boolean,
     danger: Boolean,
     disabled: Boolean,
-    fullWidth: Boolean
+    fullWidth: Boolean,
+    fullWidthMobile: Boolean
 });
 </script>
 
@@ -102,16 +104,14 @@ button {
     pointer-events: none;
     opacity: 0.4;
 
-    // .btn__content {
-    //     border-color: transparent;
-    //     background-color: transparent;
-    //     * {
-    //         opacity: 0.3;
-    //     }
-    // }
-
     .btn__shadow {
         background-color: transparent;
+    }
+}
+
+@media (max-width: 768px) {
+    .full-width-mobile > .btn__content {
+        justify-content: center;
     }
 }
 </style>

@@ -2,17 +2,85 @@
     <ModalFrame>
         <template v-slot:header>
             <ModalHeader closeButton>
-                <h2>{{ t('Modals.App-settings.title') }}</h2>
+                <h2>{{ t('Modals.Adventurer-settings.title') }}</h2>
             </ModalHeader>
         </template>
-        <template v-slot:content> </template>
+        <template v-slot:content>
+            <div class="settings">
+                <Card>
+                    <div>
+                        <h3>{{ t('Modals.Adventurer-settings.Delete.title') }}</h3>
+                        <p v-html="t('Modals.Adventurer-settings.Delete.description')"></p>
+                    </div>
+                    <i class="fas fa-trash" @click="onClickDelete"></i>
+                </Card>
+            </div>
+        </template>
     </ModalFrame>
 </template>
 
 <script setup lang="ts">
 import ModalFrame from '@/components/modals/ModalFrame.vue';
 import ModalHeader from '@/components/modals/ModalHeader.vue';
+import ModalController from '@/controllers/modal-controller';
 import { t } from '@/i18n/locale';
+import ConfirmModal from './ConfirmModal.vue';
+import Adventurer from '@/adventurer';
+import { useAdventurersStore } from '@/store/adventurers-store';
+import { PageName, router } from '@/router';
+import AdventurerSettingsModal from './AdventurerSettingsModal.vue';
+import LoadingModal from './LoadingModal.vue';
+
+const props = defineProps<{
+    adventurer: Adventurer;
+}>();
+
+function onClickDelete() {
+    // Are you sure?
+    ModalController.close();
+    ModalController.open(ConfirmModal, {
+        title: t('Modals.Adventurer-settings.Delete.title'),
+        message: t('Modals.Adventurer-settings.Delete.description'),
+        isConfirmButtonPrimary: true,
+        confirmText: t('Modals.Delete.Controls.confirm'),
+        cancelText: t('Modals.Delete.Controls.cancel'),
+        onConfirm: () => {
+            useAdventurersStore().removeAdventurer(props.adventurer.id);
+            router.push({ name: PageName.HOME });
+
+            // Show Loading Modal for 0.5 seconds
+            ModalController.close();
+            ModalController.open(LoadingModal);
+            setTimeout(() => {
+                ModalController.close();
+            }, 500);
+        },
+        onCancel: () => {
+            // Return to the previous modal
+            ModalController.close();
+            ModalController.open(AdventurerSettingsModal, {
+                adventurer: props.adventurer
+            });
+        }
+    });
+}
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.card {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    justify-content: space-between;
+
+    h3 {
+        font-weight: bold;
+    }
+
+    > i {
+        cursor: pointer;
+        font-size: 1.6rem;
+    }
+}
+</style>

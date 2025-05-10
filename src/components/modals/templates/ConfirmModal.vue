@@ -10,22 +10,16 @@
                 <p v-html="props.message"></p>
 
                 <div class="choices">
-                    <Button class="btn" @click="onClickCancel">
-                        <span>{{
-                            props.cancelText ||
-                            useI18n().t('Modals.Confirm.Controls.cancel')
-                        }}</span>
+                    <Button @click="onClickCancel" :fullWidthMobile="true">
+                        <span>{{ props.cancelText || useI18n().t('Modals.Confirm.Controls.cancel') }}</span>
                     </Button>
                     <Button
-                        class="btn"
                         :primary="props.isConfirmButtonPrimary"
                         :danger="props.isConfirmButtonDanger"
+                        :fullWidthMobile="true"
                         @click="props.onConfirm"
                     >
-                        <span>{{
-                            props.confirmText ||
-                            useI18n().t('Modals.Confirm.Controls.confirm')
-                        }}</span>
+                        <span>{{ props.confirmText || useI18n().t('Modals.Confirm.Controls.confirm') }}</span>
                     </Button>
                 </div>
             </div>
@@ -34,10 +28,11 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n';
-import ModalController from '@/controllers/modal-controller';
 import ModalFrame from '@/components/modals/ModalFrame.vue';
 import ModalHeader from '@/components/modals/ModalHeader.vue';
+import Button from '@/components/ui/Button.vue';
+import ModalController from '@/controllers/modal-controller';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps<{
     title: string;

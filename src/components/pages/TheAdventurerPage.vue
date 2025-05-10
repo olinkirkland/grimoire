@@ -53,6 +53,8 @@ import { Step, StepDefinitions } from '@/step';
 import { useAdventurersStore } from '@/store/adventurers-store';
 import { ref } from 'vue';
 import Button from '../ui/Button.vue';
+import ModalController from '@/controllers/modal-controller';
+import AdventurerSettingsModal from '../modals/templates/AdventurerSettingsModal.vue';
 
 const steps = [
     Step.HERITAGE,
@@ -116,8 +118,9 @@ function scrollNavToStep(newStep: string) {
 
 function onClickSettings() {
     if (!adventurer.value) return;
-    // adventurersStore.removeAdventurer(adventurer.value.id);
-    // router.push({ name: PageName.HOME });
+    ModalController.open(AdventurerSettingsModal, {
+        adventurer: adventurer.value
+    });
 }
 
 function onClickGoHome() {
