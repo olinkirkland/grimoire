@@ -1,6 +1,6 @@
 <template>
     <Card @click="onClickEditAdventurer">
-        <h3 class="name" :class="{ 'name--long': adventurer.name.length > 10 }">{{ adventurer.name }}</h3>
+        <h3 class="name" :class="{ 'name--long': adventurer.name.length > 8 }">{{ adventurer.name }}</h3>
     </Card>
 </template>
 

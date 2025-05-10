@@ -53,6 +53,8 @@ import { onMounted, ref } from 'vue';
 import TheFooter from '../TheFooter.vue';
 import CardDeck from '../ui/CardDeck.vue';
 import StorageMeter from '../ui/StorageMeter.vue';
+import ModalController from '@/controllers/modal-controller';
+import AppSettingsModal from '../modals/templates/AppSettingsModal.vue';
 
 const adventurersStore = useAdventurersStore();
 const displayedAdventurers = ref<Adventurer[]>([]);
@@ -85,7 +87,7 @@ function onClickNewAdventurer() {
 }
 
 function onClickSettings() {
-    // TODO: Open settings modal
+    ModalController.open(AppSettingsModal);
 }
 </script>
 
