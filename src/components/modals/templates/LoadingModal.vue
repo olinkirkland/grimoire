@@ -2,7 +2,7 @@
     <ModalFrame>
         <template v-slot:content>
             <div class="loader">
-                <i class="fas fa-square-full fa-spin"></i>
+                <i class="fas fa-spinner fa-spin"></i>
             </div>
         </template>
     </ModalFrame>

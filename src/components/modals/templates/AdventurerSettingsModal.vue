@@ -12,7 +12,10 @@
                         <h3>{{ t('Modals.Adventurer-settings.Delete.title') }}</h3>
                         <p v-html="t('Modals.Adventurer-settings.Delete.description')"></p>
                     </div>
-                    <i class="fas fa-trash" @click="onClickDelete"></i>
+                    <Button @click="onClickDelete">
+                        <i class="fas fa-trash-alt"></i>
+                        <span>{{ t('Modals.Adventurer-settings.Delete.label') }}</span>
+                    </Button>
                 </Card>
             </div>
         </template>
@@ -30,6 +33,7 @@ import { useAdventurersStore } from '@/store/adventurers-store';
 import { PageName, router } from '@/router';
 import AdventurerSettingsModal from './AdventurerSettingsModal.vue';
 import LoadingModal from './LoadingModal.vue';
+import Button from '@/components/ui/Button.vue';
 
 const props = defineProps<{
     adventurer: Adventurer;
@@ -77,10 +81,12 @@ function onClickDelete() {
     h3 {
         font-weight: bold;
     }
+}
 
-    > i {
-        cursor: pointer;
-        font-size: 1.6rem;
+@media (max-width: 768px) {
+    .card {
+        flex-direction: column;
+        gap: 1rem;
     }
 }
 </style>

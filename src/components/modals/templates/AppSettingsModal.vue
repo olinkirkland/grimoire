@@ -25,11 +25,10 @@
                         <h3>{{ t('Modals.App-settings.Tracking.title') }}</h3>
                         <p v-html="t('Modals.App-settings.Tracking.description')"></p>
                     </div>
-                    <i
-                        class="fas"
-                        :class="isTrackingEnabled ? 'fa-toggle-on' : 'fa-toggle-off'"
-                        @click="onToggleTracking"
-                    ></i>
+                    <Button @click="onToggleTracking">
+                        <i class="fas" :class="isTrackingEnabled ? 'fa-toggle-on' : 'fa-toggle-off'"></i>
+                        <span>{{ isTrackingEnabled ? t('on') : t('off') }}</span>
+                    </Button>
                 </Card>
             </div>
         </template>
@@ -39,6 +38,7 @@
 <script setup lang="ts">
 import ModalFrame from '@/components/modals/ModalFrame.vue';
 import ModalHeader from '@/components/modals/ModalHeader.vue';
+import Button from '@/components/ui/Button.vue';
 import { changeLanguage, t } from '@/i18n/locale';
 import { startTracking, stopTracking } from '@/tracker';
 import { ref } from 'vue';
@@ -78,11 +78,6 @@ function onToggleTracking() {
     h3 {
         font-weight: bold;
     }
-
-    > i {
-        cursor: pointer;
-        font-size: 1.6rem;
-    }
 }
 
 ul.language-list {
@@ -120,6 +115,11 @@ ul.language-list {
     .settings {
         flex-direction: column;
         max-width: 100%;
+    }
+
+    .card {
+        flex-direction: column;
+        gap: 1rem;
     }
 }
 </style>
