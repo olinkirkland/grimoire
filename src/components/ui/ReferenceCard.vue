@@ -19,6 +19,7 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 .card {
+    width: 100%;
     flex-direction: row;
     gap: 1.2rem;
     justify-content: space-between;

@@ -4,7 +4,9 @@
             <p v-html="t('Step.Path.instructions')"></p>
         </ReferenceCard>
         <Card>
-            <ul></ul>
+            <ul>
+                
+            </ul>
         </Card>
     </StepFrame>
 </template>

@@ -104,7 +104,7 @@ ul.stat-list {
             flex-direction: column;
             text-align: center;
             > h2 {
-                font-size: 2.4rem;
+                font-size: 4rem;
                 color: var(--surface-alt);
                 font-weight: bold;
                 text-align: center;
