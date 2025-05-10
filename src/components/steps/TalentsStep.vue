@@ -9,7 +9,13 @@
                     <i class="fas fa-search"></i>
                 </InputGroup>
                 <Button v-if="props.adventurer.path" @click="filterOnlyMyPath = !filterOnlyMyPath">
-                    <span v-html="t(`Step.Talents.path-filter-${filterOnlyMyPath ? 'on' : 'off'}`)"></span>
+                    <span
+                        v-html="
+                            t(`Step.Talents.path-filter-${filterOnlyMyPath ? 'off' : 'on'}`, {
+                                path: t(`Step.Path.${capitalizeFirstLetter(props.adventurer.path)}.name`)
+                            })
+                        "
+                    ></span>
                 </Button>
             </div>
             <ul class="talents-list" v-if="filteredTalents.length">
@@ -45,7 +51,7 @@ const props = defineProps({
 });
 
 const searchTerm = ref<string>('');
-const filterOnlyMyPath = ref<boolean>(false);
+const filterOnlyMyPath = ref<boolean>(true);
 
 const filteredTalents = computed(() => {
     return talentsData.filter((talent) => {

@@ -3,9 +3,20 @@
         <ReferenceCard :page="54">
             <p v-html="t('Step.Path.instructions')"></p>
         </ReferenceCard>
-        <Card>
-            <ul>
-                
+        <Card class="paths">
+            <ul class="paths-list">
+                <li
+                    v-for="(path, index) in pathsData"
+                    :key="index"
+                    @click="onClickPath(path)"
+                    :class="{ selected: path === props.adventurer.path }"
+                >
+                    <h2>{{ t(`Step.Path.${capitalizeFirstLetter(path)}.name`) }}</h2>
+                    <p class="also-known-as">
+                        {{ t(`Step.Path.${capitalizeFirstLetter(path)}.also`) }}
+                    </p>
+                    <p v-html="t(`Step.Path.${capitalizeFirstLetter(path)}.description`)"></p>
+                </li>
             </ul>
         </Card>
     </StepFrame>
@@ -13,7 +24,9 @@
 
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
+import pathsData from '@/assets/data/paths.json';
 import { t } from '@/i18n/locale';
+import { capitalizeFirstLetter } from '@/utils/naming-util';
 import StepFrame from '../StepFrame.vue';
 import Card from '../ui/Card.vue';
 import ReferenceCard from '../ui/ReferenceCard.vue';
@@ -24,12 +37,57 @@ const props = defineProps({
         required: true
     }
 });
+
+function onClickPath(path: string) {
+    if (path === props.adventurer.path) props.adventurer.path = null;
+    else props.adventurer.path = path;
+}
 </script>
 
 <style scoped lang="scss">
 .card.paths {
-    ul {
-        display: flex;
+    width: 100%;
+    ul.paths-list {
+        width: 100%;
+        display: grid;
+        gap: 0.4rem;
+        grid-template-columns: repeat(auto-fill, minmax(28rem, 1fr));
+
+        > li {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: 1rem;
+            border-radius: 5px;
+
+            &.selected {
+                background-color: var(--surface);
+                border: 1px solid var(--surface-alt);
+            }
+
+            > h2 {
+                color: var(--surface-alt);
+                font-weight: bold;
+                text-transform: uppercase;
+                font-size: 2.4rem;
+            }
+            > p.also-known-as {
+                color: var(--surface-alt);
+                font-size: 1.4rem;
+                font-style: italic;
+                margin-bottom: 0.4rem;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .card.paths {
+        ul.paths-list {
+            grid-template-columns: 1fr;
+        }
     }
 }
 </style>
