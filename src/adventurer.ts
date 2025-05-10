@@ -124,10 +124,10 @@ export default class Adventurer {
         this.nonPathTalentsAndNotes = '';
         this.talentDetails = {};
         this.stats = {
-            brawn: 0,
-            agility: 0,
-            wits: 0,
-            presence: 0
+            brawn: 1,
+            agility: 1,
+            wits: 1,
+            presence: 1
         };
         this.arcs = [];
         this.bonds = [];

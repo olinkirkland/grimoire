@@ -6,12 +6,14 @@ import PathStep from './components/steps/PathStep.vue';
 import PersonalityStep from './components/steps/PersonalityStep.vue';
 import ReviewStep from './components/steps/ReviewStep.vue';
 import StatsStep from './components/steps/StatsStep.vue';
+import TalentsStep from './components/steps/TalentsStep.vue';
 
 export enum Step {
     PERSONALITY = 'personality',
     HERITAGE = 'heritage',
     BACKGROUND = 'background',
     PATH = 'path',
+    TALENTS = 'talents',
     STATS = 'stats',
     ARCS = 'arcs',
     BONDS = 'bonds',
@@ -34,6 +36,10 @@ export const StepDefinitions: Record<Step, { label: string; component: any }> = 
     [Step.PATH]: {
         label: 'Path',
         component: PathStep
+    },
+    [Step.TALENTS]: {
+        label: 'Talents',
+        component: TalentsStep
     },
     [Step.STATS]: {
         label: 'Stats',

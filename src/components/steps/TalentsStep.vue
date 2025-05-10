@@ -1,7 +1,7 @@
 <template>
     <StepFrame>
         <ReferenceCard :page="54">
-            <p v-html="t('Step.Path.instructions')"></p>
+            <p v-html="t('Step.Talents.instructions')"></p>
         </ReferenceCard>
         <Card>
             <ul></ul>
@@ -11,10 +11,10 @@
 
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
-import { t } from '@/i18n/locale';
-import StepFrame from '../StepFrame.vue';
 import Card from '../ui/Card.vue';
+import StepFrame from '../StepFrame.vue';
 import ReferenceCard from '../ui/ReferenceCard.vue';
+import { t } from '@/i18n/locale';
 
 const props = defineProps({
     adventurer: {

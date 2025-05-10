@@ -8,10 +8,26 @@
                 <InputGroup v-model="adventurer.heritage.name" :placeholder="t('Step.Heritage.placeholder')">
                     <span>{{ t('Step.Heritage.label') }}</span>
                 </InputGroup>
-                <p v-if="crucibleResults" class="crucible-results">
-                    {{ t('Step.Heritage.crucible-results') }}
-                    <span>{{ crucibleResults }}</span>
-                </p>
+                <div class="crucible-results">
+                    <Button
+                        @click="
+                            onClickRollFolk();
+                            onClickRollMood();
+                            onClickRollLand();
+                        "
+                    >
+                        <i class="fas fa-random"></i>
+                        {{ t('roll') }}
+                    </Button>
+                    <p>
+                        {{
+                            crucibleResults
+                                ? t('Step.Heritage.crucible-results')
+                                : t('Step.Heritage.crucible-results-empty')
+                        }}
+                        <span>{{ crucibleResults }}</span>
+                    </p>
+                </div>
             </section>
 
             <section>
@@ -230,9 +246,14 @@ const crucibleResults = computed(() => {
     }
 }
 
-p.crucible-results > span {
-    font-style: italic;
-    color: var(--surface-alt);
+.crucible-results {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    p > span {
+        font-style: italic;
+        color: var(--surface-alt);
+    }
 }
 
 @media (max-width: 768px) {

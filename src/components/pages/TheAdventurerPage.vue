@@ -3,7 +3,7 @@
         <nav>
             <ul class="steps-list" ref="stepsEl">
                 <li
-                    v-for="step in steps"
+                    v-for="step in stepsOrder"
                     :data-step-id="step"
                     :class="{ active: step === currentStep }"
                     :key="step"
@@ -34,7 +34,7 @@
                 <i class="fas fa-cog"></i>
             </Button>
             <Button
-                @click="changeStep(steps[steps.indexOf(currentStep) + 1])"
+                @click="changeStep(stepsOrder[stepsOrder.indexOf(currentStep) + 1])"
                 :disabled="currentStep === Step.REVIEW"
                 primary
             >
@@ -47,20 +47,21 @@
 
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
+import ModalController from '@/controllers/modal-controller';
 import { t } from '@/i18n/locale';
 import { PageName, router } from '@/router';
 import { Step, StepDefinitions } from '@/step';
 import { useAdventurersStore } from '@/store/adventurers-store';
 import { ref } from 'vue';
-import Button from '../ui/Button.vue';
-import ModalController from '@/controllers/modal-controller';
 import AdventurerSettingsModal from '../modals/templates/AdventurerSettingsModal.vue';
+import Button from '../ui/Button.vue';
 
-const steps = [
+const stepsOrder = [
     Step.HERITAGE,
     Step.BACKGROUND,
     Step.PERSONALITY,
     Step.PATH,
+    Step.TALENTS,
     Step.STATS,
     Step.ARCS,
     Step.BONDS,
@@ -77,7 +78,7 @@ const direction = ref<'left' | 'right'>('left');
 
 // Redirect to the first step if no step is provided in the route
 const currentStep = ref<Step>(router.currentRoute.value.params.step as Step);
-if (router.currentRoute.value.params.step === undefined) changeStep(steps[0]);
+if (router.currentRoute.value.params.step === undefined) changeStep(stepsOrder[0]);
 
 if (!adventurer.value) {
     // Redirect to the home page if the adventurer is not found
@@ -85,8 +86,8 @@ if (!adventurer.value) {
 }
 
 function changeStep(newStep: Step) {
-    const currentStepIndex = steps.indexOf(currentStep.value);
-    const newStepIndex = steps.indexOf(newStep);
+    const currentStepIndex = stepsOrder.indexOf(currentStep.value);
+    const newStepIndex = stepsOrder.indexOf(newStep);
     direction.value = newStepIndex > currentStepIndex ? 'right' : 'left';
     currentStep.value = newStep;
     router.replace({
