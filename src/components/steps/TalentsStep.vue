@@ -54,33 +54,57 @@ const searchTerm = ref<string>('');
 const filterOnlyMyPath = ref<boolean>(true);
 
 const filteredTalents = computed(() => {
-    return talentsData.filter((talent) => {
-        // Filter by path if the adventurer has one
-        if (filterOnlyMyPath.value && talent.source !== props.adventurer.path) return false;
+    return talentsData
+        .filter((talent) => {
+            // Filter by path if the adventurer has one
+            if (filterOnlyMyPath.value && talent.source !== props.adventurer.path) return false;
 
-        // Filter by search term
-        if (!searchTerm.value) return true;
-        const name = t(`Step.Talents.${capitalizeFirstLetter(talent.id)}.name`).toLowerCase();
-        const description = t(`Step.Talents.${capitalizeFirstLetter(talent.id)}.description`).toLowerCase();
-        return (
-            name.includes(searchTerm.value.toLowerCase()) || // Match name
-            description.includes(searchTerm.value.toLowerCase()) || // Match description
-            talent.source.toLowerCase().includes(searchTerm.value.toLowerCase()) // Match source
-        );
-    });
+            // Filter by search term
+            if (!searchTerm.value) return true;
+            const name = t(`Step.Talents.${capitalizeFirstLetter(talent.id)}.name`).toLowerCase();
+            const description = t(`Step.Talents.${capitalizeFirstLetter(talent.id)}.description`).toLowerCase();
+            return (
+                name.includes(searchTerm.value.toLowerCase()) || // Match name
+                description.includes(searchTerm.value.toLowerCase()) || // Match description
+                talent.source.toLowerCase().includes(searchTerm.value.toLowerCase()) // Match source
+            );
+        })
+        .sort((a, b) => {
+            // Sort by name
+            const nameA = t(`Step.Talents.${capitalizeFirstLetter(a.id)}.name`).toLowerCase();
+            const nameB = t(`Step.Talents.${capitalizeFirstLetter(b.id)}.name`).toLowerCase();
+            if (nameA < nameB) return -1;
+            if (nameA > nameB) return 1;
+            return 0;
+        });
 });
 </script>
 
 <style scoped lang="scss">
 .card.paths {
     width: 100%;
+    padding: 0;
+    gap: 0;
+
+    .filters {
+        padding: 1.6rem;
+    }
+
     ul.talents-list {
         width: 100%;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
-        gap: 1rem;
+        display: flex;
+        flex-direction: column;
+
+        > li {
+            padding: 0.8rem 1.6rem;
+            &:nth-child(odd) {
+                background-color: var(--overlay);
+            }
+        }
+
         > li .talent-info > p:nth-child(1) {
             font-weight: bold;
+            margin-bottom: 0.4rem;
         }
     }
 }
@@ -94,6 +118,8 @@ const filteredTalents = computed(() => {
 }
 
 p.no-results {
+    padding: 1.6rem;
+    padding-top: 0;
     font-style: italic;
 }
 
