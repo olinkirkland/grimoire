@@ -1,5 +1,5 @@
 <template>
-    <div>TRAITS STEP</div>
+    <div>WEAPON MASTERY</div>
 </template>
 
 <script setup lang="ts">

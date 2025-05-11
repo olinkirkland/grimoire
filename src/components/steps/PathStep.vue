@@ -6,7 +6,7 @@
         <Card class="paths">
             <ul class="paths-list">
                 <li
-                    v-for="(path, index) in pathsData"
+                    v-for="(path, index) in pathsOrder"
                     :key="index"
                     @click="onClickPath(path)"
                     :class="{ selected: path === props.adventurer.path }"
@@ -24,12 +24,12 @@
 
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
-import pathsData from '@/assets/data/paths.json';
 import { t } from '@/i18n/locale';
 import { capitalizeFirstLetter } from '@/utils/naming-util';
 import StepFrame from '../StepFrame.vue';
 import Card from '../ui/Card.vue';
 import ReferenceCard from '../ui/ReferenceCard.vue';
+import { Path } from '@/path';
 
 const props = defineProps({
     adventurer: {
@@ -37,6 +37,21 @@ const props = defineProps({
         required: true
     }
 });
+
+const pathsOrder = [
+    Path.BARD,
+    Path.BERSERKER,
+    Path.CLERIC,
+    Path.DRUID,
+    Path.FIGHTER,
+    Path.MONK,
+    Path.PALADIN,
+    Path.RANGER,
+    Path.ROGUE,
+    Path.SORCERER,
+    Path.WARLOCK,
+    Path.WIZARD
+];
 
 function onClickPath(path: string) {
     if (path === props.adventurer.path) props.adventurer.path = null;

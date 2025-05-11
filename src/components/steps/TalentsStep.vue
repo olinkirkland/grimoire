@@ -59,7 +59,7 @@ const props = defineProps({
 });
 
 const searchTerm = ref<string>('');
-const filterOnlyMyPath = ref<boolean>(true);
+const filterOnlyMyPath = ref<boolean>(props.adventurer.path ? true : false);
 
 const filteredTalents = computed(() => {
     return talentsData

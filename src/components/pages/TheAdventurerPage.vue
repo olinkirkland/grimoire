@@ -9,9 +9,7 @@
                     :key="step"
                     @click="changeStep(step)"
                 >
-                    <span>
-                        {{ t(`Step.${StepDefinitions[step].label}.title`) }}
-                    </span>
+                    <span>{{ getStepLabel(step) }}</span>
                 </li>
             </ul>
         </nav>
@@ -49,24 +47,75 @@
 import Adventurer from '@/adventurer';
 import ModalController from '@/controllers/modal-controller';
 import { t } from '@/i18n/locale';
+import { Path } from '@/path';
 import { PageName, router } from '@/router';
-import { Step, StepDefinitions } from '@/step';
+import { Step, StepDefinitions, StepType } from '@/step';
 import { useAdventurersStore } from '@/store/adventurers-store';
-import { ref } from 'vue';
+import { capitalizeFirstLetter } from '@/utils/naming-util';
+import { computed, ref } from 'vue';
 import AdventurerSettingsModal from '../modals/templates/AdventurerSettingsModal.vue';
 import Button from '../ui/Button.vue';
 
-const stepsOrder = [
-    Step.HERITAGE,
-    Step.BACKGROUND,
-    Step.PERSONALITY,
-    Step.PATH,
-    Step.TALENTS,
-    Step.STATS,
-    Step.ARCS,
-    Step.BONDS,
-    Step.REVIEW
-];
+const stepsOrder = computed<Step[]>(() => {
+    const steps = [
+        Step.HERITAGE,
+        Step.BACKGROUND,
+        Step.PERSONALITY,
+        Step.PATH,
+        Step.TALENTS,
+        Step.STATS,
+        Step.ARCS,
+        Step.BONDS,
+        Step.REVIEW
+    ];
+
+    // Dynamically insert steps (core talents) based on the adventurer's path
+    const path = adventurer.value?.path;
+    const indexAfterPath = steps.indexOf(Step.PATH) + 1;
+    if (path) {
+        switch (path) {
+            case Path.BARD:
+                steps.splice(indexAfterPath, 0, Step.BARDSONG);
+                break;
+            case Path.BERSERKER:
+                steps.splice(indexAfterPath, 0, Step.FRENZY);
+                break;
+            case Path.CLERIC:
+                steps.splice(indexAfterPath, 0, Step.CHANNEL_DIVINITY);
+                break;
+            case Path.DRUID:
+                steps.splice(indexAfterPath, 0, Step.WILD_SHAPE);
+                break;
+            case Path.FIGHTER:
+                steps.splice(indexAfterPath, 0, Step.WEAPON_MASTERY);
+                break;
+            case Path.MONK:
+                steps.splice(indexAfterPath, 0, Step.DISCIPLINE);
+                break;
+            case Path.PALADIN:
+                steps.splice(indexAfterPath, 0, Step.OATHSWORN);
+                break;
+            case Path.RANGER:
+                steps.splice(indexAfterPath, 0, Step.HUNTERS_MARK);
+                break;
+            case Path.ROGUE:
+                steps.splice(indexAfterPath, 0, Step.EXPERTISE);
+                break;
+            case Path.SORCERER:
+                steps.splice(indexAfterPath, 0, Step.SORCERY);
+                break;
+            case Path.WARLOCK:
+                steps.splice(indexAfterPath, 0, Step.PACT);
+                break;
+            case Path.WIZARD:
+                steps.splice(indexAfterPath, 0, Step.SPELLCRAFT);
+                break;
+        }
+    }
+
+    return steps;
+});
+
 const adventurersStore = useAdventurersStore();
 
 // Get the adventurer ID from the route params
@@ -78,7 +127,7 @@ const direction = ref<'left' | 'right'>('left');
 
 // Redirect to the first step if no step is provided in the route
 const currentStep = ref<Step>(router.currentRoute.value.params.step as Step);
-if (router.currentRoute.value.params.step === undefined) changeStep(stepsOrder[0]);
+if (router.currentRoute.value.params.step === undefined) changeStep(stepsOrder.value[0]);
 
 if (!adventurer.value) {
     // Redirect to the home page if the adventurer is not found
@@ -86,8 +135,8 @@ if (!adventurer.value) {
 }
 
 function changeStep(newStep: Step) {
-    const currentStepIndex = stepsOrder.indexOf(currentStep.value);
-    const newStepIndex = stepsOrder.indexOf(newStep);
+    const currentStepIndex = stepsOrder.value.indexOf(currentStep.value);
+    const newStepIndex = stepsOrder.value.indexOf(newStep);
     direction.value = newStepIndex > currentStepIndex ? 'right' : 'left';
     currentStep.value = newStep;
     router.replace({
@@ -96,6 +145,14 @@ function changeStep(newStep: Step) {
     });
 
     scrollNavToStep(newStep);
+}
+
+function getStepLabel(step: Step) {
+    const stepType = StepDefinitions[step].type;
+    let stepTypeSymbol = '';
+    if (stepType === StepType.CORE_TALENT) stepTypeSymbol = '◈';
+    if (stepType === StepType.TALENT) stepTypeSymbol = '◆';
+    if (StepDefinitions[step]) return stepTypeSymbol + ' ' + t(`Step.${capitalizeFirstLetter(step)}.title`);
 }
 
 function scrollNavToStep(newStep: string) {
@@ -157,6 +214,7 @@ ul.steps-list {
         padding: 0.8rem 1.6rem;
         cursor: pointer;
         span {
+            line-height: 1.2;
             font-size: 1.6rem;
             white-space: nowrap;
         }
