@@ -7,6 +7,7 @@ import PersonalityStep from './components/steps/PersonalityStep.vue';
 import ReviewStep from './components/steps/ReviewStep.vue';
 import StatsStep from './components/steps/StatsStep.vue';
 import TalentsStep from './components/steps/TalentsStep.vue';
+import TalentStep from './components/steps/TalentStep.vue';
 
 export enum Step {
     PERSONALITY = 'personality',
@@ -17,7 +18,8 @@ export enum Step {
     STATS = 'stats',
     ARCS = 'arcs',
     BONDS = 'bonds',
-    REVIEW = 'review'
+    REVIEW = 'review',
+    TALENT = 'talent'
 }
 
 export const StepDefinitions: Record<Step, { label: string; component: any }> = {
@@ -56,5 +58,9 @@ export const StepDefinitions: Record<Step, { label: string; component: any }> = 
     [Step.REVIEW]: {
         label: 'Review',
         component: ReviewStep
+    },
+    [Step.TALENT]: {
+        label: 'Talent',
+        component: TalentStep
     }
 };

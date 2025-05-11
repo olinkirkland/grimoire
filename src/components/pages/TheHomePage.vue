@@ -23,16 +23,21 @@
                     </Button>
                 </div>
 
-                <ul class="adventurers-list">
-                    <li
-                        v-for="adventurer in displayedAdventurers"
-                        :key="adventurer.id"
-                        @click="onClickAdventurer(adventurer)"
-                    >
-                        <i class="fas fa-user"></i>
-                        <span>{{ adventurer.name }}</span>
-                    </li>
-                </ul>
+                <Card class="adventurers">
+                    <ul class="adventurers-list">
+                        <li
+                            v-for="adventurer in displayedAdventurers"
+                            :key="adventurer.id"
+                            @click="onClickAdventurer(adventurer)"
+                        >
+                            <i class="fas fa-user"></i>
+                            <span>{{ adventurer.name }}</span>
+                            <em v-if="adventurer.path" class="muted">{{
+                                t(`Step.Path.${capitalizeFirstLetter(adventurer.path)}.name`)
+                            }}</em>
+                        </li>
+                    </ul>
+                </Card>
 
                 <StorageMeter
                     v-if="false"
@@ -59,7 +64,7 @@ import ModalController from '@/controllers/modal-controller';
 import { t } from '@/i18n/locale';
 import { PageName, router } from '@/router';
 import { useAdventurersStore } from '@/store/adventurers-store';
-import { getUniqueName } from '@/utils/naming-util';
+import { capitalizeFirstLetter, getUniqueName } from '@/utils/naming-util';
 import { onMounted, ref } from 'vue';
 import AppSettingsModal from '../modals/templates/AppSettingsModal.vue';
 import TheFooter from '../TheFooter.vue';
@@ -143,22 +148,35 @@ function onClickAdventurer(adventurer: Adventurer) {
     }
 }
 
+.card.adventurers {
+    padding: 0;
+    max-width: 64rem;
+    min-width: 40rem;
+    width: 100%;
+}
+
 ul.adventurers-list {
-    max-width: 40rem;
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1rem;
+    flex-direction: column;
+    max-height: 24rem;
+    width: 100%;
     > li {
         display: flex;
+        width: 100%;
         align-items: center;
         cursor: pointer;
         gap: 0.8rem;
         padding: 0.8rem 1.2rem;
-        border-radius: 5px;
-        border: 1px solid var(--surface-alt);
+        &:nth-of-type(odd) {
+            background-color: var(--overlay);
+        }
+
         > i {
             color: var(--surface-alt);
+        }
+
+        > em {
+            margin-left: auto;
         }
     }
 }
@@ -191,8 +209,20 @@ h1.logo {
         justify-content: flex-start;
     }
 
+    .card.adventurers {
+        min-width: unset;
+    }
+
     ul.adventurers-list {
-        max-width: 100%;
+        > li {
+            > span {
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            em {
+                display: none;
+            }
+        }
     }
 }
 </style>
