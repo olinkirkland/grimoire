@@ -3,6 +3,21 @@
         <ReferenceCard :page="54">
             <p v-html="t('Step.Talents.instructions')"></p>
         </ReferenceCard>
+        <Card glass>
+            <ul class="added-talents">
+                <li v-for="(talent, index) in props.adventurer.talents" :key="index">
+                    <Card>
+                        <div class="added-talent-info">
+                            <h3>{{ t(`Step.Talents.${capitalizeFirstLetter(talent)}.name`) }}</h3>
+                            <Button @click="props.adventurer.talents.splice(index, 1)">
+                                <i class="fas fa-times"></i>
+                                <span>{{ t('Step.Talents.remove') }}</span>
+                            </Button>
+                        </div>
+                    </Card>
+                </li>
+            </ul>
+        </Card>
         <Card class="talents">
             <div class="filters">
                 <InputGroup :placeholder="t('Step.Talents.search-placeholder')" v-model="searchTerm">
@@ -27,7 +42,20 @@
                 <ul class="talents-list" v-if="filteredTalents.length">
                     <li v-for="(talent, index) in filteredTalents" :key="index">
                         <div class="talent-info">
-                            <h3>{{ t(`Step.Talents.${capitalizeFirstLetter(talent.id)}.name`) }}</h3>
+                            <header>
+                                <h3>{{ t(`Step.Talents.${capitalizeFirstLetter(talent.id)}.name`) }}</h3>
+                                <Button
+                                    :disabled="adventurer.talents.includes(talent.id)"
+                                    @click="adventurer.talents.push(talent.id)"
+                                >
+                                    <i v-if="adventurer.talents.includes(talent.id)" class="fas fa-check"></i>
+                                    <i v-else class="fas fa-plus"></i>
+                                    <span v-if="adventurer.talents.includes(talent.id)">
+                                        {{ t('Step.Talents.added') }}
+                                    </span>
+                                    <span v-else>{{ t('Step.Talents.add') }}</span>
+                                </Button>
+                            </header>
                             <p v-html="t(`Step.Talents.${capitalizeFirstLetter(talent.id)}.description`)"></p>
                         </div>
                     </li>
@@ -99,7 +127,14 @@ const filteredTalents = computed(() => {
 
         > li {
             width: 100%;
-            padding: 0.8rem 1.6rem;
+            padding: 0.8rem;
+
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+            }
+
             &:nth-child(odd) {
                 background-color: var(--overlay);
             }
@@ -127,6 +162,13 @@ p.no-results {
 .card.filtered-talents {
     width: 100%;
     padding: 0;
+}
+
+ul.added-talents {
+    width: 100%;
+    display: flex;
+    overflow-x: auto;
+    gap: 1rem;
 }
 
 @media (max-width: 768px) {
