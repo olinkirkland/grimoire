@@ -25,11 +25,11 @@
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
 import { t } from '@/i18n/locale';
+import { Path } from '@/path';
 import { capitalizeFirstLetter } from '@/utils/naming-util';
 import StepFrame from '../StepFrame.vue';
 import Card from '../ui/Card.vue';
 import ReferenceCard from '../ui/ReferenceCard.vue';
-import { Path } from '@/path';
 
 const props = defineProps({
     adventurer: {
@@ -74,7 +74,7 @@ function onClickPath(path: string) {
             cursor: pointer;
             user-select: none;
             border: 1px solid transparent;
-            padding: 1rem;
+            padding: 1.2rem 1.6rem;
             border-radius: 5px;
 
             &.selected {
