@@ -8,21 +8,26 @@
                 <InputGroup :placeholder="t('Step.Talents.search-placeholder')" v-model="searchTerm">
                     <i class="fas fa-search"></i>
                 </InputGroup>
-                <Button v-if="props.adventurer.path" @click="filterOnlyMyPath = !filterOnlyMyPath">
-                    <span
-                        v-html="
-                            t(`Step.Talents.path-filter-${filterOnlyMyPath ? 'off' : 'on'}`, {
-                                path: t(`Step.Path.${capitalizeFirstLetter(props.adventurer.path)}.name`)
-                            })
-                        "
-                    ></span>
-                </Button>
+                <ButtonBar v-if="props.adventurer.path">
+                    <Button @click="filterOnlyMyPath = true" :pressed="filterOnlyMyPath">
+                        <span
+                            v-html="
+                                t('Step.Talents.filter-by-path', {
+                                    path: t(`Step.Path.${capitalizeFirstLetter(props.adventurer.path)}.name`)
+                                })
+                            "
+                        ></span>
+                    </Button>
+                    <Button @click="filterOnlyMyPath = false" :pressed="!filterOnlyMyPath">
+                        <span v-html="t('Step.Talents.filter-all-paths')"></span>
+                    </Button>
+                </ButtonBar>
             </div>
             <Card class="filtered-talents">
                 <ul class="talents-list" v-if="filteredTalents.length">
                     <li v-for="(talent, index) in filteredTalents" :key="index">
                         <div class="talent-info">
-                            <p>{{ t(`Step.Talents.${capitalizeFirstLetter(talent.id)}.name`) }}</p>
+                            <h3>{{ t(`Step.Talents.${capitalizeFirstLetter(talent.id)}.name`) }}</h3>
                             <p v-html="t(`Step.Talents.${capitalizeFirstLetter(talent.id)}.description`)"></p>
                         </div>
                     </li>
@@ -41,6 +46,7 @@ import { capitalizeFirstLetter } from '@/utils/naming-util';
 import { computed, ref } from 'vue';
 import StepFrame from '../StepFrame.vue';
 import Button from '../ui/Button.vue';
+import ButtonBar from '../ui/ButtonBar.vue';
 import Card from '../ui/Card.vue';
 import InputGroup from '../ui/InputGroup.vue';
 import ReferenceCard from '../ui/ReferenceCard.vue';
@@ -99,8 +105,7 @@ const filteredTalents = computed(() => {
             }
         }
 
-        > li .talent-info > p:nth-child(1) {
-            font-weight: bold;
+        > li .talent-info > h3 {
             margin-bottom: 0.4rem;
         }
     }

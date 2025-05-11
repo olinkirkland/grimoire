@@ -5,6 +5,7 @@
             'btn--icon': icon,
             'btn--disabled': disabled,
             'btn--primary': primary,
+            pressed: pressed,
             'full-width': fullWidth,
             'full-width-mobile': fullWidthMobile
         }"
@@ -24,7 +25,8 @@ const props = defineProps({
     danger: Boolean,
     disabled: Boolean,
     fullWidth: Boolean,
-    fullWidthMobile: Boolean
+    fullWidthMobile: Boolean,
+    pressed: Boolean
 });
 </script>
 
@@ -52,13 +54,14 @@ button {
     border: 1px solid var(--surface-border);
     cursor: pointer;
     transition: all 0.1s ease-in-out;
+}
 
-    &:active,
-    &:focus {
-        transition: unset;
-        filter: brightness(0.95);
-        top: 0;
-    }
+button.pressed > .btn__content,
+.btn__content:active,
+.btn__content:focus {
+    transition: unset;
+    filter: brightness(0.95);
+    top: 0;
 }
 
 .btn__shadow {

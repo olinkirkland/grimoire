@@ -11,7 +11,7 @@
                     @click="onClickPath(path)"
                     :class="{ selected: path === props.adventurer.path }"
                 >
-                    <h2>{{ t(`Step.Path.${capitalizeFirstLetter(path)}.name`) }}</h2>
+                    <h3>{{ t(`Step.Path.${capitalizeFirstLetter(path)}.name`) }}</h3>
                     <p class="also-known-as">
                         {{ t(`Step.Path.${capitalizeFirstLetter(path)}.also`) }}
                     </p>
@@ -67,12 +67,6 @@ function onClickPath(path: string) {
                 border: 1px solid var(--surface-alt);
             }
 
-            > h2 {
-                color: var(--surface-alt);
-                font-weight: bold;
-                text-transform: uppercase;
-                font-size: 2.4rem;
-            }
             > p.also-known-as {
                 color: var(--surface-alt);
                 font-size: 1.4rem;
