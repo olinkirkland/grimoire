@@ -3,7 +3,7 @@
         <ReferenceCard :page="54">
             <p v-html="t('Step.Talents.instructions')"></p>
         </ReferenceCard>
-        <Card class="paths">
+        <Card class="talents">
             <div class="filters">
                 <InputGroup :placeholder="t('Step.Talents.search-placeholder')" v-model="searchTerm">
                     <i class="fas fa-search"></i>
@@ -18,15 +18,17 @@
                     ></span>
                 </Button>
             </div>
-            <ul class="talents-list" v-if="filteredTalents.length">
-                <li v-for="(talent, index) in filteredTalents" :key="index">
-                    <div class="talent-info">
-                        <p>{{ t(`Step.Talents.${capitalizeFirstLetter(talent.id)}.name`) }}</p>
-                        <p v-html="t(`Step.Talents.${capitalizeFirstLetter(talent.id)}.description`)"></p>
-                    </div>
-                </li>
-            </ul>
-            <p class="no-results" v-else>{{ t('Step.Talents.no-results') }}</p>
+            <Card class="filtered-talents">
+                <ul class="talents-list" v-if="filteredTalents.length">
+                    <li v-for="(talent, index) in filteredTalents" :key="index">
+                        <div class="talent-info">
+                            <p>{{ t(`Step.Talents.${capitalizeFirstLetter(talent.id)}.name`) }}</p>
+                            <p v-html="t(`Step.Talents.${capitalizeFirstLetter(talent.id)}.description`)"></p>
+                        </div>
+                    </li>
+                </ul>
+                <p class="no-results" v-else>{{ t('Step.Talents.no-results') }}</p>
+            </Card>
         </Card>
     </StepFrame>
 </template>
@@ -81,14 +83,8 @@ const filteredTalents = computed(() => {
 </script>
 
 <style scoped lang="scss">
-.card.paths {
+.card.talents {
     width: 100%;
-    padding: 0;
-    gap: 0;
-
-    .filters {
-        padding: 1.6rem;
-    }
 
     ul.talents-list {
         width: 100%;
@@ -96,6 +92,7 @@ const filteredTalents = computed(() => {
         flex-direction: column;
 
         > li {
+            width: 100%;
             padding: 0.8rem 1.6rem;
             &:nth-child(odd) {
                 background-color: var(--overlay);
@@ -119,8 +116,12 @@ const filteredTalents = computed(() => {
 
 p.no-results {
     padding: 1.6rem;
-    padding-top: 0;
     font-style: italic;
+}
+
+.card.filtered-talents {
+    width: 100%;
+    padding: 0;
 }
 
 @media (max-width: 768px) {
