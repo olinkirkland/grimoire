@@ -210,6 +210,10 @@ const crucibleResults = computed(() => {
     padding: 1.6rem 2rem;
     width: 100%;
 
+    header {
+        width: 12rem;
+    }
+
     &:nth-of-type(odd) {
         background-color: var(--overlay);
     }
@@ -220,14 +224,6 @@ const crucibleResults = computed(() => {
 
     &:last-child {
         padding-bottom: 2rem;
-    }
-
-    h3 {
-        font-size: 2.4rem;
-        font-weight: bold;
-        text-transform: uppercase;
-        color: var(--surface-alt);
-        width: 12rem;
     }
 
     ul {
@@ -264,14 +260,12 @@ const crucibleResults = computed(() => {
 
     .crucible-row {
         flex-direction: column;
-        gap: 0.4rem;
         header {
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 0.4rem solid var(--surface-alt);
             padding-bottom: 0.6rem;
-            margin-bottom: 0.4rem;
 
             h3 {
                 font-size: 3.2rem;

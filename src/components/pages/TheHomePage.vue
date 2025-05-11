@@ -1,19 +1,19 @@
 <template>
     <div class="page">
         <div class="page__content" :class="{ center: displayedAdventurers.length === 0 }">
-            <div class="hero glass">
+            <h1 class="logo">{{ t('Brand.name') }}</h1>
+            <Card class="hero">
                 <div class="logo-header">
-                    <h1 class="logo">{{ t('Brand.name') }}</h1>
-                    <h3
+                    <h2
                         v-html="
                             t('Brand.tagline', {
                                 url: 'https://www.drivethrurpg.com/en/product/508618/grimwild?affiliate_id=4237062'
                             })
                         "
-                    ></h3>
+                    ></h2>
                 </div>
 
-                <div class="flex center">
+                <div class="controls">
                     <Button primary @click="onClickNewAdventurer">
                         <i class="fas fa-plus-circle"></i>
                         <span> {{ t('Home.new-adventurer') }} </span>
@@ -23,19 +23,30 @@
                     </Button>
                 </div>
 
+                <ul class="adventurers-list">
+                    <li
+                        v-for="adventurer in displayedAdventurers"
+                        :key="adventurer.id"
+                        @click="onClickAdventurer(adventurer)"
+                    >
+                        <i class="fas fa-user"></i>
+                        <span>{{ adventurer.name }}</span>
+                    </li>
+                </ul>
+
                 <StorageMeter
                     v-if="false"
                     :usedBytes="adventurersStore.bytesUsedEstimate()"
                     :maxBytes="5 * 1024 * 1024"
                 />
-            </div>
-            <CardDeck v-if="displayedAdventurers.length > 0">
+            </Card>
+            <!-- <CardDeck v-if="displayedAdventurers.length > 0">
                 <AdventurerCard
                     v-for="adventurer in displayedAdventurers"
                     :adventurer="adventurer"
                     :key="adventurer.id"
                 ></AdventurerCard>
-            </CardDeck>
+            </CardDeck> -->
         </div>
         <TheFooter />
     </div>
@@ -43,18 +54,17 @@
 
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
-import AdventurerCard from '@/components/AdventurerCard.vue';
 import Button from '@/components/ui/Button.vue';
+import ModalController from '@/controllers/modal-controller';
 import { t } from '@/i18n/locale';
 import { PageName, router } from '@/router';
 import { useAdventurersStore } from '@/store/adventurers-store';
 import { getUniqueName } from '@/utils/naming-util';
 import { onMounted, ref } from 'vue';
-import TheFooter from '../TheFooter.vue';
-import CardDeck from '../ui/CardDeck.vue';
-import StorageMeter from '../ui/StorageMeter.vue';
-import ModalController from '@/controllers/modal-controller';
 import AppSettingsModal from '../modals/templates/AppSettingsModal.vue';
+import TheFooter from '../TheFooter.vue';
+import Card from '../ui/Card.vue';
+import StorageMeter from '../ui/StorageMeter.vue';
 
 const adventurersStore = useAdventurersStore();
 const displayedAdventurers = ref<Adventurer[]>([]);
@@ -89,6 +99,13 @@ function onClickNewAdventurer() {
 function onClickSettings() {
     ModalController.open(AppSettingsModal);
 }
+
+function onClickAdventurer(adventurer: Adventurer) {
+    router.push({
+        name: PageName.ADVENTURER,
+        params: { id: adventurer.id }
+    });
+}
 </script>
 
 <style lang="scss" scoped>
@@ -104,6 +121,7 @@ function onClickSettings() {
 .page__content {
     width: 100%;
     min-height: 100vh;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -125,6 +143,26 @@ function onClickSettings() {
     }
 }
 
+ul.adventurers-list {
+    max-width: 40rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    > li {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        gap: 0.8rem;
+        padding: 0.8rem 1.2rem;
+        border-radius: 5px;
+        border: 1px solid var(--surface-alt);
+        > i {
+            color: var(--surface-alt);
+        }
+    }
+}
+
 .logo-header {
     display: flex;
     width: 100%;
@@ -132,6 +170,13 @@ function onClickSettings() {
     justify-content: center;
     margin-bottom: 0.8rem;
     text-align: center;
+}
+
+.controls {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
 }
 
 h1.logo {
@@ -144,6 +189,10 @@ h1.logo {
     .page__content {
         padding-top: 1.2rem;
         justify-content: flex-start;
+    }
+
+    ul.adventurers-list {
+        max-width: 100%;
     }
 }
 </style>
