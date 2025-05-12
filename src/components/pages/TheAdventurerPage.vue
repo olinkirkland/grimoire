@@ -164,9 +164,14 @@ function changeStep(newStep: Step) {
 function getStepLabel(step: Step) {
     const stepType = StepDefinitions[step].type;
     let stepTypeSymbol = '';
-    if (stepType === StepType.CORE_TALENT) stepTypeSymbol = '◈';
-    if (stepType === StepType.TALENT) stepTypeSymbol = '◆';
-    if (StepDefinitions[step]) return stepTypeSymbol + ' ' + t(`Step.${capitalizeFirstLetter(step)}.title`);
+    if (stepType === StepType.CORE_TALENT) stepTypeSymbol = '◈ ';
+    if (stepType === StepType.TALENT) stepTypeSymbol = '◆ ';
+    if (step === Step.PATH && adventurer.value?.path) {
+        return t('Step.Path.title-of-the', {
+            path: t(`Step.Path.${capitalizeFirstLetter(adventurer.value.path)}.name`)
+        });
+    }
+    if (StepDefinitions[step]) return stepTypeSymbol + t(`Step.${capitalizeFirstLetter(step)}.title`);
 }
 
 function scrollNavToStep(newStep: string) {
