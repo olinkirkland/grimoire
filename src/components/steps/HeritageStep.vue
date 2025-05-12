@@ -11,9 +11,14 @@
                 <div class="crucible-results">
                     <CrucibleCard>
                         {{ t(`Step.Heritage.Mood.${adventurer.heritageCrucibles.mood}`) }}
-                        <Button @click="onClickRollMood">
-                            <i class="fas fa-random"></i>
-                        </Button>
+                        <ButtonBar>
+                            <Button @click="onClickRollMood">
+                                <i class="fas fa-random"></i>
+                            </Button>
+                            <Button @click="onOpenCrucible('mood')">
+                                <i class="fas fa-border-all"></i>
+                            </Button>
+                        </ButtonBar>
                     </CrucibleCard>
                     <p>
                         {{
