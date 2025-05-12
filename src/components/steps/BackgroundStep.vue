@@ -106,7 +106,7 @@ function onClickBackground(background: any, name?: string) {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.6rem;
+    gap: 1rem;
 }
 
 .card.table {

@@ -1,19 +1,37 @@
 <template>
-    <ModalFrame>
+    <ModalFrame class="crucible-modal">
         <template v-slot:header>
-            <ModalHeader>
+            <ModalHeader close-button>
                 <h2>{{ props.title }}</h2>
             </ModalHeader>
         </template>
         <template v-slot:content>
-            <div class="crucible">
-                <p class="crucible__message" v-html="props.message"></p>
+            <ReferenceCard :page="6">
+                <p class="crucible-description" v-html="t('Crucible.description')"></p>
+            </ReferenceCard>
+            <div class="crucible-choice">
+                <p>
+                    {{ props.labelFunction(currentValue) }}
+                </p>
+                <Button @click="onClickRoll">
+                    <i class="fas fa-random"></i>
+                    <span>{{ t('Crucible.roll') }}</span>
+                </Button>
+            </div>
+            <Card class="crucible">
                 <ul>
-                    <li v-for="(item, index) in props.items" :key="index">
-                        {{ item }}
+                    <li
+                        v-for="(item, index) in items"
+                        :key="index"
+                        :class="{
+                            selected: item === currentValue
+                        }"
+                        @click="onClickItem(item)"
+                    >
+                        {{ props.labelFunction(item) }}
                     </li>
                 </ul>
-            </div>
+            </Card>
         </template>
     </ModalFrame>
 </template>
@@ -21,27 +39,92 @@
 <script setup lang="ts">
 import ModalFrame from '@/components/modals/ModalFrame.vue';
 import ModalHeader from '@/components/modals/ModalHeader.vue';
+import Card from '@/components/ui/Card.vue';
+import ReferenceCard from '@/components/ui/ReferenceCard.vue';
+import { t } from '@/i18n/locale';
+import { ref } from 'vue';
 
 const props = defineProps<{
     title: string;
-    message: string;
-    items: string[]; // Expects 36 items
+    items: string[]; // Expect 36 items
+    labelFunction: (value: string) => string;
+    modelValue: string;
+    onUpdateModelValue: (value: string) => void;
 }>();
+
+const currentValue = ref(props.modelValue);
+
+function onClickItem(item: string) {
+    currentValue.value = item;
+    props.onUpdateModelValue(item);
+}
+
+function onClickRoll() {
+    const randomIndex = Math.floor(Math.random() * props.items.length);
+    currentValue.value = props.items[randomIndex];
+    props.onUpdateModelValue(currentValue.value);
+}
 </script>
 
 <style scoped lang="scss">
+.crucible-choice {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    p {
+        color: var(--primary-alt);
+        text-align: center;
+        padding: 1.6rem;
+        font-size: 2.4rem;
+    }
+}
+
+.crucible-modal {
+    max-width: 96rem;
+}
+
 .crucible {
     display: flex;
-    max-width: 32rem;
     flex-direction: column;
+    padding: 0;
     gap: 1.6rem;
     justify-content: space-between;
-    height: 100%;
 
-    > .crucible__message {
-        display: flex;
-        flex-direction: column;
-        gap: 1.2rem;
+    .crucible-description {
+        font-size: 1.6rem;
+    }
+
+    .crucible-choice {
+        padding: 1.6rem;
+        color: var(--primary);
+        text-align: center;
+        margin-bottom: 0.8rem;
+    }
+
+    > ul {
+        display: grid;
+        width: 100%;
+        grid-template-columns: repeat(6, 1fr);
+        padding: 1.6rem;
+
+        > li {
+            cursor: pointer;
+            padding: 0.4rem 0.8rem;
+            background-color: var(--background);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            &.selected {
+                color: var(--primary-alt);
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .crucible {
+        > ul {
+            grid-template-columns: repeat(2, 1fr);
+        }
     }
 }
 </style>

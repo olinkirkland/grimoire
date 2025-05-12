@@ -8,7 +8,7 @@
         <template v-slot:content>
             <div class="settings">
                 <!-- Language -->
-                <ul class="language-list">
+                <ul class="language-list" v-if="languages.length > 1">
                     <li
                         v-for="l in languages"
                         :key="l"
@@ -70,7 +70,7 @@ import { bytesToReadable } from '@/utils/storage-util';
 
 const props = defineProps<{}>();
 
-const languages = ['en', 'de', 'fr', 'es', 'it'];
+const languages = ['en'];
 const isTrackingEnabled = ref(localStorage.getItem('tracking') === 'true');
 
 function onToggleTracking() {

@@ -8,26 +8,25 @@
                 <InputGroup v-model="adventurer.heritage.name" :placeholder="t('Step.Heritage.placeholder')">
                     <span>{{ t('Step.Heritage.label') }}</span>
                 </InputGroup>
-                <div class="crucible-results">
-                    <CrucibleCard>
-                        {{ t(`Step.Heritage.Mood.${adventurer.heritageCrucibles.mood}`) }}
-                        <ButtonBar>
-                            <Button @click="onClickRollMood">
-                                <i class="fas fa-random"></i>
-                            </Button>
-                            <Button @click="onOpenCrucible('mood')">
-                                <i class="fas fa-border-all"></i>
-                            </Button>
-                        </ButtonBar>
-                    </CrucibleCard>
-                    <p>
-                        {{
-                            crucibleResults
-                                ? t('Step.Heritage.crucible-results')
-                                : t('Step.Heritage.crucible-results-empty')
-                        }}
-                        <span>{{ crucibleResults }}</span>
-                    </p>
+                <div class="crucible-cards">
+                    <CrucibleCard
+                        :items="heritagesData.folk"
+                        :labelFunction="(item: string) => t(`Step.Heritage.Folk.${item}`)"
+                        v-model="adventurer.heritageCrucibles.folk"
+                        :title="t('Step.Heritage.folk')"
+                    />
+                    <CrucibleCard
+                        :items="heritagesData.mood"
+                        :labelFunction="(item: string) => t(`Step.Heritage.Mood.${item}`)"
+                        v-model="adventurer.heritageCrucibles.mood"
+                        :title="t('Step.Heritage.mood')"
+                    />
+                    <CrucibleCard
+                        :items="heritagesData.land"
+                        :labelFunction="(item: string) => t(`Step.Heritage.Land.${item}`)"
+                        v-model="adventurer.heritageCrucibles.land"
+                        :title="t('Step.Heritage.land')"
+                    />
                 </div>
             </section>
 
@@ -65,61 +64,15 @@
 import Adventurer from '@/adventurer';
 import heritagesData from '@/assets/data/heritages.json';
 import { t } from '@/i18n/locale';
-import { computed } from 'vue';
-import Button from '../ui/Button.vue';
 import Card from '../ui/Card.vue';
-import InputGroup from '../ui/InputGroup.vue';
-import ButtonBar from '../ui/ButtonBar.vue';
 import CrucibleCard from '../ui/CrucibleCard.vue';
+import InputGroup from '../ui/InputGroup.vue';
 
 const props = defineProps({
     adventurer: {
         type: Object as () => Adventurer,
         required: true
     }
-});
-
-function onClickRollFolk() {
-    const folk = heritagesData.folk[Math.floor(Math.random() * heritagesData.folk.length)];
-    props.adventurer.heritageCrucibles.folk = folk;
-}
-
-function onClickRollMood() {
-    const mood = heritagesData.mood[Math.floor(Math.random() * heritagesData.mood.length)];
-    props.adventurer.heritageCrucibles.mood = mood;
-}
-
-function onClickRollLand() {
-    const land = heritagesData.land[Math.floor(Math.random() * heritagesData.land.length)];
-    props.adventurer.heritageCrucibles.land = land;
-}
-
-function onClickCrucible(category: string, value: string) {
-    switch (category) {
-        case 'folk':
-            if (props.adventurer.heritageCrucibles.folk === value) props.adventurer.heritageCrucibles.folk = '';
-            else props.adventurer.heritageCrucibles.folk = value;
-            break;
-        case 'mood':
-            if (props.adventurer.heritageCrucibles.mood === value) props.adventurer.heritageCrucibles.mood = '';
-            else props.adventurer.heritageCrucibles.mood = value;
-            break;
-        case 'land':
-            if (props.adventurer.heritageCrucibles.land === value) props.adventurer.heritageCrucibles.land = '';
-            else props.adventurer.heritageCrucibles.land = value;
-            break;
-    }
-}
-
-const crucibleResults = computed(() => {
-    const { folk, mood, land } = props.adventurer.heritageCrucibles;
-    if (!folk && !mood && !land) return null; // No results yet
-    // Return comma joined, whatever exists
-    const folkString = folk ? t(`Step.Heritage.Folk.${folk}`) : null;
-    const moodString = mood ? t(`Step.Heritage.Mood.${mood}`) : null;
-    const landString = land ? t(`Step.Heritage.Land.${land}`) : null;
-    const results = [folkString, moodString, landString].filter(Boolean);
-    return results.join(', ');
 });
 </script>
 
@@ -140,7 +93,7 @@ const crucibleResults = computed(() => {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.6rem;
+    gap: 1rem;
 }
 
 .crucible {
@@ -186,13 +139,12 @@ const crucibleResults = computed(() => {
     }
 }
 
-.crucible-results {
-    display: flex;
-    align-items: center;
+.crucible-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
-    p > span {
-        font-style: italic;
-        color: var(--surface-alt);
+    > .card {
+        width: 100%;
     }
 }
 
@@ -202,28 +154,8 @@ const crucibleResults = computed(() => {
         gap: 0.8rem;
     }
 
-    .crucible-row {
-        flex-direction: column;
-        header {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding-bottom: 0.6rem;
-
-            h3 {
-                font-size: 3.2rem;
-            }
-        }
-
-        ul {
-            grid-template-columns: repeat(3, 1fr);
-            > li {
-                padding: 0.4rem;
-                text-overflow: ellipsis;
-                overflow: hidden;
-            }
-        }
+    .crucible-cards {
+        grid-template-columns: 1fr;
     }
 }
 </style>
