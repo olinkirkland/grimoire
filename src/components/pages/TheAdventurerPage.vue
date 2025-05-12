@@ -36,7 +36,8 @@
                 :disabled="currentStep === Step.REVIEW"
                 primary
             >
-                <span>{{ t('Adventurer.next-step') }}</span>
+                <!-- <span>{{ t('Adventurer.next-step') }}</span> -->
+                <span>{{ nextStepLabel }}</span>
                 <i class="fas fa-arrow-right"></i>
             </Button>
         </div>
@@ -124,6 +125,12 @@ adventurerId.value = router.currentRoute.value.params.id as string;
 const adventurer = ref<Adventurer | null>(adventurersStore.getAdventurer(adventurerId.value) || null);
 const stepsEl = ref<HTMLElement | null>(null);
 const direction = ref<'left' | 'right'>('left');
+
+const nextStepLabel = computed(() => {
+    const currentStepIndex = stepsOrder.value.indexOf(currentStep.value);
+    if (currentStepIndex === -1 || currentStepIndex === stepsOrder.value.length - 1) return '';
+    return t(`Step.${capitalizeFirstLetter(stepsOrder.value[currentStepIndex + 1])}.title`);
+});
 
 // Redirect to the first step if no step is provided in the route
 const currentStep = ref<Step>(router.currentRoute.value.params.step as Step);

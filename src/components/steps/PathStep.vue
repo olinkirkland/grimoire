@@ -1,6 +1,6 @@
 <template>
     <StepFrame>
-        <ReferenceCard :page="54">
+        <ReferenceCard :page="52">
             <p v-html="t('Step.Path.instructions')"></p>
         </ReferenceCard>
         <Card class="paths">
@@ -10,6 +10,7 @@
                     :key="index"
                     @click="onClickPath(path)"
                     :class="{ selected: path === props.adventurer.path }"
+                    @mouseover="onHoverPath($event.currentTarget!, path)"
                 >
                     <h3>{{ t(`Step.Path.${capitalizeFirstLetter(path)}.name`) }}</h3>
                     <p class="also-known-as">
@@ -30,6 +31,8 @@ import { capitalizeFirstLetter } from '@/utils/naming-util';
 import StepFrame from '../StepFrame.vue';
 import Card from '../ui/Card.vue';
 import ReferenceCard from '../ui/ReferenceCard.vue';
+import TooltipController from '@/controllers/tooltip-controller';
+import InfoTooltip from '../tooltips/templates/InfoTooltip.vue';
 
 const props = defineProps({
     adventurer: {
@@ -56,6 +59,13 @@ const pathsOrder = [
 function onClickPath(path: string) {
     if (path === props.adventurer.path) props.adventurer.path = null;
     else props.adventurer.path = path;
+}
+
+function onHoverPath(target: EventTarget, path: string) {
+    // TooltipController.open(InfoTooltip, {
+    //     html: t(`Step.Path.${capitalizeFirstLetter(path)}.name`),
+    //     target
+    // });
 }
 </script>
 
@@ -108,6 +118,7 @@ function onClickPath(path: string) {
     .card.paths {
         ul.paths-list {
             grid-template-columns: 1fr;
+            grid-auto-rows: auto;
         }
     }
 }

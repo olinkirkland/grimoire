@@ -138,7 +138,8 @@ function onClickAdventurer(adventurer: Adventurer) {
     }
 }
 
-.hero {
+.card.hero {
+    width: unset;
     box-shadow: var(--shadow-sm);
     border-radius: 5px;
     padding: 2rem;

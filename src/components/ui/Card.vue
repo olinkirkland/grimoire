@@ -30,6 +30,7 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 .card {
+    width: 100%;
     max-width: 100%;
     padding: 2rem;
     border-radius: 5px;
