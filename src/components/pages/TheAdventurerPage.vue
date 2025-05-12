@@ -47,7 +47,7 @@
 import Adventurer from '@/adventurer';
 import ModalController from '@/controllers/modal-controller';
 import { t } from '@/i18n/locale';
-import { Path } from '@/path';
+import { CoreTalentsByPath, Path } from '@/path';
 import { PageName, router } from '@/router';
 import { Step, StepDefinitions, StepType } from '@/step';
 import { useAdventurersStore } from '@/store/adventurers-store';
@@ -56,7 +56,7 @@ import { computed, ref } from 'vue';
 import AdventurerSettingsModal from '../modals/templates/AdventurerSettingsModal.vue';
 import Button from '../ui/Button.vue';
 
-const stepsOrder = computed<Step[]>(() => {
+const stepsOrder = computed<string[]>(() => {
     const steps = [
         Step.HERITAGE,
         Step.BACKGROUND,
@@ -69,49 +69,10 @@ const stepsOrder = computed<Step[]>(() => {
         Step.REVIEW
     ];
 
-    // Dynamically insert steps (core talents) based on the adventurer's path
+    // Dynamically insert a core talent step based on the adventurer's path
     const path = adventurer.value?.path;
     const indexAfterPath = steps.indexOf(Step.PATH) + 1;
-    if (path) {
-        switch (path) {
-            case Path.BARD:
-                steps.splice(indexAfterPath, 0, Step.BARDSONG);
-                break;
-            case Path.BERSERKER:
-                steps.splice(indexAfterPath, 0, Step.FRENZY);
-                break;
-            case Path.CLERIC:
-                steps.splice(indexAfterPath, 0, Step.CHANNEL_DIVINITY);
-                break;
-            case Path.DRUID:
-                steps.splice(indexAfterPath, 0, Step.WILD_SHAPE);
-                break;
-            case Path.FIGHTER:
-                steps.splice(indexAfterPath, 0, Step.WEAPON_MASTERY);
-                break;
-            case Path.MONK:
-                steps.splice(indexAfterPath, 0, Step.DISCIPLINE);
-                break;
-            case Path.PALADIN:
-                steps.splice(indexAfterPath, 0, Step.OATHSWORN);
-                break;
-            case Path.RANGER:
-                steps.splice(indexAfterPath, 0, Step.HUNTERS_MARK);
-                break;
-            case Path.ROGUE:
-                steps.splice(indexAfterPath, 0, Step.EXPERTISE);
-                break;
-            case Path.SORCERER:
-                steps.splice(indexAfterPath, 0, Step.SORCERY);
-                break;
-            case Path.WARLOCK:
-                steps.splice(indexAfterPath, 0, Step.PACT);
-                break;
-            case Path.WIZARD:
-                steps.splice(indexAfterPath, 0, Step.SPELLCRAFT);
-                break;
-        }
-    }
+    if (path) steps.splice(indexAfterPath, 0, CoreTalentsByPath[path]);
 
     return steps;
 });
@@ -132,8 +93,8 @@ const nextStepLabel = computed(() => {
 });
 
 // Redirect to the first step if no step is provided in the route
-const currentStep = computed<Step>(() => {
-    const step = router.currentRoute.value.params.step as Step;
+const currentStep = computed<string>(() => {
+    const step = router.currentRoute.value.params.step as string;
     if (stepsOrder.value.includes(step)) return step;
     router.replace({
         name: PageName.ADVENTURER_STEP,
@@ -149,7 +110,7 @@ if (!adventurer.value) {
     router.push({ name: PageName.LOST });
 }
 
-function changeStep(newStep: Step) {
+function changeStep(newStep: string) {
     const currentStepIndex = stepsOrder.value.indexOf(currentStep.value);
     const newStepIndex = stepsOrder.value.indexOf(newStep);
     direction.value = newStepIndex > currentStepIndex ? 'right' : 'left';
@@ -161,7 +122,7 @@ function changeStep(newStep: Step) {
     scrollNavToStep(newStep);
 }
 
-function getStepLabel(step: Step) {
+function getStepLabel(step: string) {
     const stepType = StepDefinitions[step].type;
     let stepTypeSymbol = '';
     if (stepType === StepType.CORE_TALENT) stepTypeSymbol = '◈ ';

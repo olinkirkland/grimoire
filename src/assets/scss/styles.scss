@@ -74,6 +74,10 @@ pre {
     width: 100%;
 }
 
+:not(input) {
+    user-select: none;
+}
+
 .flex {
     display: flex;
     justify-content: flex-start;

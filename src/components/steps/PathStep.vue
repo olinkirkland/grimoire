@@ -10,7 +10,6 @@
                     :key="index"
                     @click="onClickPath(path)"
                     :class="{ selected: path === props.adventurer.path }"
-                    @mouseover="onHoverPath($event.currentTarget!, path)"
                 >
                     <h3>{{ t(`Step.Path.${capitalizeFirstLetter(path)}.name`) }}</h3>
                     <p class="also-known-as">
@@ -26,13 +25,11 @@
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
 import { t } from '@/i18n/locale';
-import { Path } from '@/path';
+import { CoreTalentsByPath, Path } from '@/path';
 import { capitalizeFirstLetter } from '@/utils/naming-util';
 import StepFrame from '../StepFrame.vue';
 import Card from '../ui/Card.vue';
 import ReferenceCard from '../ui/ReferenceCard.vue';
-import TooltipController from '@/controllers/tooltip-controller';
-import InfoTooltip from '../tooltips/templates/InfoTooltip.vue';
 
 const props = defineProps({
     adventurer: {
@@ -57,15 +54,15 @@ const pathsOrder = [
 ];
 
 function onClickPath(path: string) {
+    // When the path is changed, remove its talentsData
+    const oldPath = props.adventurer.path;
+    if (oldPath) {
+        const coreTalentKey = CoreTalentsByPath[oldPath];
+        if (props.adventurer.talentsData[coreTalentKey]) delete props.adventurer.talentsData[coreTalentKey];
+    }
+
     if (path === props.adventurer.path) props.adventurer.path = null;
     else props.adventurer.path = path;
-}
-
-function onHoverPath(target: EventTarget, path: string) {
-    // TooltipController.open(InfoTooltip, {
-    //     html: t(`Step.Path.${capitalizeFirstLetter(path)}.name`),
-    //     target
-    // });
 }
 </script>
 
@@ -83,7 +80,6 @@ function onHoverPath(target: EventTarget, path: string) {
             display: flex;
             flex-direction: column;
             cursor: pointer;
-            user-select: none;
             border: 1px solid transparent;
             padding: 1.2rem 1.6rem;
             border-radius: 5px;

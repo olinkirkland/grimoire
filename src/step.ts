@@ -20,40 +20,40 @@ import TalentsStep from './components/steps/TalentsStep.vue';
 import WeaponMasteryStep from './components/steps/WeaponMasteryStep.vue';
 import WildShapeStep from './components/steps/WildShapeStep.vue';
 
-export enum Step {
-    PERSONALITY = 'personality',
-    HERITAGE = 'heritage',
-    BACKGROUND = 'background',
-    PATH = 'path',
-    TALENTS = 'talents',
-    STATS = 'stats',
-    ARCS = 'arcs',
-    BONDS = 'bonds',
-    REVIEW = 'review',
+export const Step = {
+    PERSONALITY: 'personality',
+    HERITAGE: 'heritage',
+    BACKGROUND: 'background',
+    PATH: 'path',
+    TALENTS: 'talents',
+    STATS: 'stats',
+    ARCS: 'arcs',
+    BONDS: 'bonds',
+    REVIEW: 'review',
 
     // Core Talents
-    BARDSONG = 'bardsong',
-    FRENZY = 'frenzy',
-    CHANNEL_DIVINITY = 'channel-divinity',
-    WILD_SHAPE = 'wild-shape',
-    WEAPON_MASTERY = 'weapon-mastery',
-    DISCIPLINE = 'discipline',
-    OATHSWORN = 'oathsworn',
-    HUNTERS_MARK = 'hunters-mark',
-    EXPERTISE = 'expertise',
-    SORCERY = 'sorcery',
-    PACT = 'pact',
-    SPELLCRAFT = 'spellcraft'
-}
+    BARDSONG: 'bardsong',
+    FRENZY: 'frenzy',
+    CHANNEL_DIVINITY: 'channel-divinity',
+    WILD_SHAPE: 'wild-shape',
+    WEAPON_MASTERY: 'weapon-mastery',
+    DISCIPLINE: 'discipline',
+    OATHSWORN: 'oathsworn',
+    HUNTERS_MARK: 'hunters-mark',
+    EXPERTISE: 'expertise',
+    SORCERY: 'sorcery',
+    PACT: 'pact',
+    SPELLCRAFT: 'spellcraft'
+};
 
-export enum StepType {
-    MAIN = 'main',
-    CORE_TALENT = 'core-talent',
-    TALENT = 'talent',
-    OTHER = 'other'
-}
+export const StepType = {
+    MAIN: 'main',
+    CORE_TALENT: 'core-talent',
+    TALENT: 'talent',
+    OTHER: 'other'
+};
 
-export const StepDefinitions: Record<Step, { component: any; type: StepType }> = {
+export const StepDefinitions: Record<string, { component: any; type: string }> = {
     [Step.PERSONALITY]: {
         component: PersonalityStep,
         type: StepType.MAIN

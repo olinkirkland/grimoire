@@ -241,7 +241,6 @@ ul.pick-list {
         display: flex;
         align-items: center;
         gap: 0.6rem;
-        user-select: none;
 
         cursor: pointer;
         padding: 0.4rem 0.8rem;

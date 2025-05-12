@@ -49,12 +49,11 @@ export default class Adventurer {
     // Talents are tracked in an array of strings. The character sheet gets bubbled in based on this.
     talents: string[];
 
-    // Non-path talents & notes are stored in a string and rendered in the text box on the character sheet.
-    nonPathTalentsAndNotes: string;
-
-    // Talent Details
-    // Talents sometimes have bubbles, checkboxes, or other stuff that needs to be tracked on the character sheet.
-    talentDetails: {};
+    // Talent data is an object that contains customized information for each chosen talent.
+    // It's stored in a key/value format, where the key is the talent name and the value is an object with varying properties.
+    talentsData: {
+        [key: string]: any;
+    };
 
     // Stats
     // Begin with 1 in each stat, then assign 4 more points amongst them as you like, to a max of 3 in any single stat.
@@ -121,8 +120,7 @@ export default class Adventurer {
         this.features = ['', '', ''];
         this.path = null;
         this.talents = [];
-        this.nonPathTalentsAndNotes = '';
-        this.talentDetails = {};
+        this.talentsData = {};
         this.stats = {
             brawn: 1,
             agility: 1,

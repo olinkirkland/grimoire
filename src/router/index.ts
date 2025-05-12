@@ -4,12 +4,12 @@ import TheLostPage from '@/components/pages/TheLostPage.vue';
 import { startTracking, stopTracking } from '@/tracker';
 import { RouterOptions, createRouter, createWebHistory } from 'vue-router';
 
-export enum PageName {
-    HOME = 'home-page',
-    ADVENTURER = 'adventurer-page',
-    ADVENTURER_STEP = 'adventurer-step-page',
-    LOST = 'lost-page'
-}
+export const PageName = {
+    HOME: 'home-page',
+    ADVENTURER: 'adventurer-page',
+    ADVENTURER_STEP: 'adventurer-step-page',
+    LOST: 'lost-page'
+};
 
 const routes = [
     {

@@ -1,0 +1,16 @@
+{
+    "styles": [
+        "chaotic",
+        "dire",
+        "fiery",
+        "gentle",
+        "haunting",
+        "playful",
+        "nostalgic",
+        "rousing",
+        "vicious",
+        "whimsical"
+    ],
+    "tune": ["anthem", "aria", "ballad", "chant", "ditty", "hymn", "ode", "requiem", "rhapsody", "serenade"],
+    "impact": ["affection", "awe", "calm", "despair", "fear", "fury", "hope", "joy", "mockery", "wonder"]
+}
