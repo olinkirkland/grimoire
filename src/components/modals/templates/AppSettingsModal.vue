@@ -46,7 +46,7 @@ import { useI18n } from 'vue-i18n';
 
 const props = defineProps<{}>();
 
-const languages = ['en', 'de', 'fr'];
+const languages = ['en', 'de', 'fr', 'es', 'it'];
 const isTrackingEnabled = ref(localStorage.getItem('tracking') === 'true');
 
 function onToggleTracking() {
