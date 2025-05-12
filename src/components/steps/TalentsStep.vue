@@ -18,6 +18,7 @@
                                     <span>{{ t('Step.Talents.remove') }}</span>
                                 </Button>
                             </header>
+                            <h2>{{ getSourceLabel(talentsData.find((t) => t.id === talent)!.source) }}</h2>
                             <p v-html="t(`Step.Talents.${capitalizeFirstLetter(talent)}.description`)"></p>
                         </div>
                     </Card>
@@ -62,6 +63,7 @@
                                     <span v-else>{{ t('Step.Talents.add') }}</span>
                                 </Button>
                             </header>
+                            <h2>{{ getSourceLabel(talent.source) }}</h2>
                             <p v-html="t(`Step.Talents.${capitalizeFirstLetter(talent.id)}.description`)"></p>
                         </div>
                     </li>
@@ -120,6 +122,11 @@ const filteredTalents = computed(() => {
             return 0;
         });
 });
+
+function getSourceLabel(source: string): string {
+    const path = t(`Step.Path.${capitalizeFirstLetter(source)}.name`);
+    return t('Step.Talents.talent-by-path', { path });
+}
 </script>
 
 <style scoped lang="scss">
@@ -140,15 +147,45 @@ ul.talents-list {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
+            gap: 1rem;
+
+            > h3 {
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+
+        h2 {
+            font-style: italic;
+            font-size: 1.4rem;
+            color: var(--surface-alt);
+            margin-top: -0.4rem;
+            margin-bottom: 0.8rem;
         }
 
         &:nth-child(odd) {
             background-color: var(--overlay);
         }
     }
+}
 
-    > li .talent-info > h3 {
-        margin-bottom: 0.4rem;
+.added-talents ul.talents-list > li {
+    .card {
+        background-color: var(--primary-light);
+        border: 1px solid var(--primary);
+        box-shadow: var(--shadow-sm);
+
+        * {
+            color: var(--primary-alt);
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            opacity: 0.6;
+            font-style: italic;
+            margin-top: -0.4rem;
+            margin-bottom: 0.8rem;
+        }
     }
 }
 

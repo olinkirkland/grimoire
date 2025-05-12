@@ -108,7 +108,8 @@ function onHoverPath(target: EventTarget, path: string) {
                 color: var(--surface-alt);
                 font-size: 1.4rem;
                 font-style: italic;
-                margin-bottom: 0.4rem;
+                margin-top: -0.4rem;
+                margin-bottom: 0.8rem;
             }
         }
     }
