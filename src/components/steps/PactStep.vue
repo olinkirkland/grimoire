@@ -1,10 +1,18 @@
 <template>
     <StepFrame>
-        <ReferenceCard :page="54">
+        <ReferenceCard :page="74">
             <div>
                 <h2>{{ t('Step.Core-talent.heading') }}</h2>
                 <h3>◈ {{ t(`Step.Pact.title`) }}</h3>
                 <p v-html="t(`Step.Pact.description`)"></p>
+                <div class="gifts-obligations">
+                    <Card class="gifts">
+                        <p v-html="t('Step.Pact.gifts')"></p>
+                    </Card>
+                    <Card class="obligations">
+                        <p v-html="t('Step.Pact.obligations')"></p>
+                    </Card>
+                </div>
                 <Card class="growth">
                     <p>
                         <strong>{{ t('Step.Core-talent.growth') }}</strong
@@ -13,6 +21,10 @@
                 </Card>
             </div>
         </ReferenceCard>
+        <Card class="patron-creation">
+            <div>TODO: PATRON CREATION</div>
+            <div>TODO: PATRON CRUCIBLE</div>
+        </Card>
     </StepFrame>
 </template>
 
@@ -39,5 +51,18 @@ const props = defineProps({
 .card.growth {
     margin-top: 1rem;
     background-color: var(--surface);
+}
+
+.gifts-obligations {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+    .gifts-obligations {
+        grid-template-columns: 1fr;
+    }
 }
 </style>

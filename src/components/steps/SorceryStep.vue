@@ -1,6 +1,6 @@
 <template>
     <StepFrame>
-        <ReferenceCard :page="54">
+        <ReferenceCard :page="72">
             <div>
                 <h2>{{ t('Step.Core-talent.heading') }}</h2>
                 <h3>◈ {{ t(`Step.Sorcery.title`) }}</h3>
@@ -13,8 +13,9 @@
                 </Card>
             </div>
         </ReferenceCard>
-        <Card class="">
-            
+        <Card class="random-wild-surges">
+            <div>TODO: RANDOM WILD SURGE INSTRUCTIONS</div>
+            <div>TODO: WILD SURGE CRUCIBLE</div>
         </Card>
     </StepFrame>
 </template>

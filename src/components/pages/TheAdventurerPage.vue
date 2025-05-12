@@ -153,7 +153,6 @@ function changeStep(newStep: Step) {
     const currentStepIndex = stepsOrder.value.indexOf(currentStep.value);
     const newStepIndex = stepsOrder.value.indexOf(newStep);
     direction.value = newStepIndex > currentStepIndex ? 'right' : 'left';
-    currentStep.value = newStep;
     router.replace({
         name: PageName.ADVENTURER_STEP,
         params: { id: adventurerId.value, step: newStep }

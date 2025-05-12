@@ -13,6 +13,10 @@
                 </Card>
             </div>
         </ReferenceCard>
+        <Card class="spell-crucible">
+            <div>TODO: SPELL CRUCIBLE</div>
+            <div>TODO: SPELL EXAMPLES</div>
+        </Card>
     </StepFrame>
 </template>
 
