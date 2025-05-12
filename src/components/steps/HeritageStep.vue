@@ -9,16 +9,12 @@
                     <span>{{ t('Step.Heritage.label') }}</span>
                 </InputGroup>
                 <div class="crucible-results">
-                    <Button
-                        @click="
-                            onClickRollFolk();
-                            onClickRollMood();
-                            onClickRollLand();
-                        "
-                    >
-                        <i class="fas fa-random"></i>
-                        {{ t('roll') }}
-                    </Button>
+                    <CrucibleCard>
+                        {{ t(`Step.Heritage.Mood.${adventurer.heritageCrucibles.mood}`) }}
+                        <Button @click="onClickRollMood">
+                            <i class="fas fa-random"></i>
+                        </Button>
+                    </CrucibleCard>
                     <p>
                         {{
                             crucibleResults
@@ -56,65 +52,6 @@
                     </li>
                 </ul>
             </section>
-            <Card class="crucible">
-                <!-- Folk -->
-                <div class="crucible-row">
-                    <header>
-                        <h3>{{ t('Step.Heritage.folk') }}</h3>
-                        <Button @click="onClickRollFolk">
-                            <i class="fas fa-random"></i>
-                            {{ t('roll') }}
-                        </Button>
-                    </header>
-                    <ul class="grid folk-grid">
-                        <li
-                            v-for="f in heritagesData.folk"
-                            :class="{ selected: adventurer.heritageCrucible.folk === f }"
-                            @click="onClickCrucible('folk', f)"
-                        >
-                            <span>{{ t(`Step.Heritage.Folk.${f}`) }}</span>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Mood -->
-                <div class="crucible-row">
-                    <header>
-                        <h3>{{ t('Step.Heritage.mood') }}</h3>
-                        <Button @click="onClickRollMood">
-                            <i class="fas fa-random"></i>
-                            {{ t('roll') }}
-                        </Button>
-                    </header>
-                    <ul class="grid heritage-grid">
-                        <li
-                            v-for="h in heritagesData.mood"
-                            :class="{ selected: adventurer.heritageCrucible.mood === h }"
-                            @click="onClickCrucible('mood', h)"
-                        >
-                            <span>{{ t(`Step.Heritage.Mood.${h}`) }}</span>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Land -->
-                <div class="crucible-row">
-                    <header>
-                        <h3>{{ t('Step.Heritage.land') }}</h3>
-                        <Button @click="onClickRollLand">
-                            <i class="fas fa-random"></i>
-                            {{ t('roll') }}
-                        </Button>
-                    </header>
-                    <ul class="grid heritage-grid">
-                        <li
-                            v-for="h in heritagesData.land"
-                            :class="{ selected: adventurer.heritageCrucible.land === h }"
-                            @click="onClickCrucible('land', h)"
-                        >
-                            <span>{{ t(`Step.Heritage.Land.${h}`) }}</span>
-                        </li>
-                    </ul>
-                </div>
-            </Card>
         </Card>
     </StepFrame>
 </template>
@@ -127,6 +64,8 @@ import { computed } from 'vue';
 import Button from '../ui/Button.vue';
 import Card from '../ui/Card.vue';
 import InputGroup from '../ui/InputGroup.vue';
+import ButtonBar from '../ui/ButtonBar.vue';
+import CrucibleCard from '../ui/CrucibleCard.vue';
 
 const props = defineProps({
     adventurer: {
@@ -137,38 +76,38 @@ const props = defineProps({
 
 function onClickRollFolk() {
     const folk = heritagesData.folk[Math.floor(Math.random() * heritagesData.folk.length)];
-    props.adventurer.heritageCrucible.folk = folk;
+    props.adventurer.heritageCrucibles.folk = folk;
 }
 
 function onClickRollMood() {
     const mood = heritagesData.mood[Math.floor(Math.random() * heritagesData.mood.length)];
-    props.adventurer.heritageCrucible.mood = mood;
+    props.adventurer.heritageCrucibles.mood = mood;
 }
 
 function onClickRollLand() {
     const land = heritagesData.land[Math.floor(Math.random() * heritagesData.land.length)];
-    props.adventurer.heritageCrucible.land = land;
+    props.adventurer.heritageCrucibles.land = land;
 }
 
 function onClickCrucible(category: string, value: string) {
     switch (category) {
         case 'folk':
-            if (props.adventurer.heritageCrucible.folk === value) props.adventurer.heritageCrucible.folk = '';
-            else props.adventurer.heritageCrucible.folk = value;
+            if (props.adventurer.heritageCrucibles.folk === value) props.adventurer.heritageCrucibles.folk = '';
+            else props.adventurer.heritageCrucibles.folk = value;
             break;
         case 'mood':
-            if (props.adventurer.heritageCrucible.mood === value) props.adventurer.heritageCrucible.mood = '';
-            else props.adventurer.heritageCrucible.mood = value;
+            if (props.adventurer.heritageCrucibles.mood === value) props.adventurer.heritageCrucibles.mood = '';
+            else props.adventurer.heritageCrucibles.mood = value;
             break;
         case 'land':
-            if (props.adventurer.heritageCrucible.land === value) props.adventurer.heritageCrucible.land = '';
-            else props.adventurer.heritageCrucible.land = value;
+            if (props.adventurer.heritageCrucibles.land === value) props.adventurer.heritageCrucibles.land = '';
+            else props.adventurer.heritageCrucibles.land = value;
             break;
     }
 }
 
 const crucibleResults = computed(() => {
-    const { folk, mood, land } = props.adventurer.heritageCrucible;
+    const { folk, mood, land } = props.adventurer.heritageCrucibles;
     if (!folk && !mood && !land) return null; // No results yet
     // Return comma joined, whatever exists
     const folkString = folk ? t(`Step.Heritage.Folk.${folk}`) : null;

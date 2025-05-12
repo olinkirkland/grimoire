@@ -44,8 +44,8 @@ function onClickDelete() {
     ModalController.close();
     ModalController.open(ConfirmModal, {
         title: t('Modals.Adventurer-settings.Delete.title'),
-        message: t('Modals.Adventurer-settings.Delete.description'),
-        isConfirmButtonPrimary: true,
+        message: t('Modals.Adventurer-settings.Delete.message', { name: props.adventurer.name }),
+        isConfirmButtonDanger: true,
         confirmText: t('Modals.Delete.Controls.confirm'),
         cancelText: t('Modals.Delete.Controls.cancel'),
         onConfirm: () => {

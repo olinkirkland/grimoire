@@ -43,7 +43,7 @@
                             "
                         ></p>
                     </div>
-                    <Button @click="onClickClearStorage" danger>
+                    <Button @click="onClickClearStorage">
                         <i class="fas fa-trash-alt"></i>
                         <span>{{ t('Modals.App-settings.Storage.delete-all') }}</span>
                     </Button>

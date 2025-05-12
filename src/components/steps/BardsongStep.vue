@@ -16,6 +16,7 @@
         <Card class="song-composition">
             <div>TODO: SONG COMPOSITION GENERATION TABLE</div>
             <div>TODO: SONG COMPOSITION EXAMPLES</div>
+            <div>TODO: BARDIC INSTRUMENT</div>
         </Card>
     </StepFrame>
 </template>

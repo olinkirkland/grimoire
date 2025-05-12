@@ -21,7 +21,7 @@ export default class Adventurer {
 
     // Heritage Crucible
     // Store the selected inspiration for the heritage crucible, which is a combination of folk, mood, and land.
-    heritageCrucible: {
+    heritageCrucibles: {
         folk: string;
         mood: string;
         land: string;
@@ -100,7 +100,7 @@ export default class Adventurer {
         this.name = name;
         this.playerName = '';
 
-        this.heritageCrucible = {
+        this.heritageCrucibles = {
             folk: '',
             mood: '',
             land: ''
