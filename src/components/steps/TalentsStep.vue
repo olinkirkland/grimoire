@@ -3,16 +3,22 @@
         <ReferenceCard :page="54">
             <p v-html="t('Step.Talents.instructions')"></p>
         </ReferenceCard>
-        <Card glass>
-            <ul class="added-talents">
-                <li v-for="(talent, index) in props.adventurer.talents" :key="index">
+        <Card glass class="added-talents">
+            <ul class="talents-list">
+                <p v-if="!props.adventurer.talents.length" class="no-results">
+                    {{ t('Step.Talents.no-added-talents') }}
+                </p>
+                <li v-else v-for="(talent, index) in props.adventurer.talents" :key="index">
                     <Card>
-                        <div class="added-talent-info">
-                            <h3>{{ t(`Step.Talents.${capitalizeFirstLetter(talent)}.name`) }}</h3>
-                            <Button @click="props.adventurer.talents.splice(index, 1)">
-                                <i class="fas fa-times"></i>
-                                <span>{{ t('Step.Talents.remove') }}</span>
-                            </Button>
+                        <div class="talent-info">
+                            <header>
+                                <h3>{{ t(`Step.Talents.${capitalizeFirstLetter(talent)}.name`) }}</h3>
+                                <Button @click="props.adventurer.talents.splice(index, 1)">
+                                    <i class="fas fa-trash"></i>
+                                    <span>{{ t('Step.Talents.remove') }}</span>
+                                </Button>
+                            </header>
+                            <p v-html="t(`Step.Talents.${capitalizeFirstLetter(talent)}.description`)"></p>
                         </div>
                     </Card>
                 </li>
@@ -38,8 +44,8 @@
                     </Button>
                 </ButtonBar>
             </div>
-            <Card class="filtered-talents">
-                <ul class="talents-list" v-if="filteredTalents.length">
+            <Card class="filtered-talents" v-if="filteredTalents.length">
+                <ul class="talents-list">
                     <li v-for="(talent, index) in filteredTalents" :key="index">
                         <div class="talent-info">
                             <header>
@@ -60,8 +66,8 @@
                         </div>
                     </li>
                 </ul>
-                <p class="no-results" v-else>{{ t('Step.Talents.no-results') }}</p>
             </Card>
+            <p class="no-results" v-else>{{ t('Step.Talents.no-results') }}</p>
         </Card>
     </StepFrame>
 </template>
@@ -87,7 +93,7 @@ const props = defineProps({
 });
 
 const searchTerm = ref<string>('');
-const filterOnlyMyPath = ref<boolean>(props.adventurer.path ? true : false);
+const filterOnlyMyPath = ref<boolean>(!!props.adventurer.path);
 
 const filteredTalents = computed(() => {
     return talentsData
@@ -119,30 +125,30 @@ const filteredTalents = computed(() => {
 <style scoped lang="scss">
 .card.talents {
     width: 100%;
+}
 
-    ul.talents-list {
+ul.talents-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    > li {
         width: 100%;
-        display: flex;
-        flex-direction: column;
+        padding: 0.8rem;
 
-        > li {
-            width: 100%;
-            padding: 0.8rem;
-
-            header {
-                display: flex;
-                justify-content: space-between;
-                align-items: flex-start;
-            }
-
-            &:nth-child(odd) {
-                background-color: var(--overlay);
-            }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
         }
 
-        > li .talent-info > h3 {
-            margin-bottom: 0.4rem;
+        &:nth-child(odd) {
+            background-color: var(--overlay);
         }
+    }
+
+    > li .talent-info > h3 {
+        margin-bottom: 0.4rem;
     }
 }
 
@@ -155,7 +161,6 @@ const filteredTalents = computed(() => {
 }
 
 p.no-results {
-    padding: 1.6rem;
     font-style: italic;
 }
 
@@ -164,17 +169,62 @@ p.no-results {
     padding: 0;
 }
 
-ul.added-talents {
+.card.added-talents {
     width: 100%;
-    display: flex;
-    overflow-x: auto;
-    gap: 1rem;
+
+    ul.talents-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(32rem, 1fr));
+        gap: 1rem;
+        height: min-content;
+        > li {
+            padding: 0;
+            height: 100%;
+            .card {
+                height: 100%;
+            }
+        }
+    }
 }
 
 @media (max-width: 768px) {
     .filters {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    // Hide the description from added talents
+    .card.added-talents {
+        > ul.talents-list {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            overflow: hidden;
+            > li {
+                width: 100%;
+                max-width: 100%;
+                > .card {
+                    overflow: hidden;
+                    > .talent-info {
+                        width: 100%;
+                        overflow: hidden;
+                        > header {
+                            margin-top: 0.2rem;
+                            width: 100%;
+                            gap: 1rem;
+                            > h3 {
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                white-space: nowrap;
+                            }
+                            button:deep(span) {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 </style>

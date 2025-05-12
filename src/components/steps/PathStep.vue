@@ -67,6 +67,7 @@ function onClickPath(path: string) {
         display: grid;
         gap: 0.4rem;
         grid-template-columns: repeat(auto-fill, minmax(28rem, 1fr));
+        grid-auto-rows: 1fr;
 
         > li {
             display: flex;
@@ -78,8 +79,19 @@ function onClickPath(path: string) {
             border-radius: 5px;
 
             &.selected {
-                background-color: var(--surface);
-                border: 1px solid var(--surface-alt);
+                background-color: var(--primary-light);
+                border: 1px solid var(--primary);
+                box-shadow: var(--shadow-sm);
+                > h3 {
+                    color: var(--primary);
+                }
+                > p.also-known-as {
+                    color: var(--primary-alt);
+                    opacity: 0.6;
+                }
+                * {
+                    color: var(--primary-alt);
+                }
             }
 
             > p.also-known-as {
