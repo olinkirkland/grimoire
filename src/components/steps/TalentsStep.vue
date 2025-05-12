@@ -13,7 +13,7 @@
                         <div class="talent-info">
                             <header>
                                 <h3>{{ t(`Step.Talents.${capitalizeFirstLetter(talent)}.name`) }}</h3>
-                                <Button @click="props.adventurer.talents.splice(index, 1)">
+                                <Button @click="props.adventurer.talents.splice(index, 1)" primary>
                                     <i class="fas fa-trash"></i>
                                     <span>{{ t('Step.Talents.remove') }}</span>
                                 </Button>
@@ -175,7 +175,9 @@ ul.talents-list {
         border: 1px solid var(--primary);
         box-shadow: var(--shadow-sm);
 
-        * {
+        h3,
+        h2,
+        p {
             color: var(--primary-alt);
         }
 
