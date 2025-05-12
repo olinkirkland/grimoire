@@ -1,6 +1,6 @@
 <template>
     <StepFrame>
-        <ReferenceCard :page="54">
+        <ReferenceCard :page="64">
             <div>
                 <h2>{{ t('Step.Core-talent.heading') }}</h2>
                 <h3>◈ {{ t(`Step.Discipline.title`) }}</h3>
@@ -13,6 +13,11 @@
                 </Card>
             </div>
         </ReferenceCard>
+        <Card class="martial-arts-style">
+            <div>TODO: MARTIAL ARTS STYLE "CONCEPT" INPUTS & TABLE</div>
+            <div>TODO: MARTIAL ARTS STYLE "STANCES & MOVES" INPUTS & TABLE</div>
+            <div>TODO: MARTIAL ARTS STYLE "WEAPONS" INPUTS & TABLE</div>
+        </Card>
     </StepFrame>
 </template>
 

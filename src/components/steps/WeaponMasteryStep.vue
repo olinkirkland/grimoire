@@ -1,6 +1,6 @@
 <template>
     <StepFrame>
-        <ReferenceCard :page="54">
+        <ReferenceCard :page="62">
             <div>
                 <h2>{{ t('Step.Core-talent.heading') }}</h2>
                 <h3>◈ {{ t(`Step.Weapon-mastery.title`) }}</h3>
@@ -13,6 +13,13 @@
                 </Card>
             </div>
         </ReferenceCard>
+        <Card class="weapon-origin">
+            <div>TODO: WEAPON ORIGIN INPUT</div>
+            <div>TODO: WEAPON ORIGIN CRUCIBLE</div>
+        </Card>
+        <Card class="weapon-knowledge">
+            <div>TODO: ADD WEAPON ADVICE</div>
+        </Card>
     </StepFrame>
 </template>
 

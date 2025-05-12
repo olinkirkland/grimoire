@@ -13,6 +13,13 @@
                 </Card>
             </div>
         </ReferenceCard>
+        <Card class="swear-your-oath">
+            <div>TODO: TENET BUILDER</div>
+        </Card>
+        <Card class="oathbreaker">
+            <div>TODO: OATHBREAKER</div>
+            <div>TODO: REDEMPTION</div>
+        </Card>
     </StepFrame>
 </template>
 

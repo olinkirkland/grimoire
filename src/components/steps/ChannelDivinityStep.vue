@@ -1,6 +1,6 @@
 <template>
     <StepFrame>
-        <ReferenceCard :page="54">
+        <ReferenceCard :page="58">
             <div>
                 <h2>{{ t('Step.Core-talent.heading') }}</h2>
                 <h3>◈ {{ t(`Step.Channel-divinity.title`) }}</h3>
@@ -13,6 +13,11 @@
                 </Card>
             </div>
         </ReferenceCard>
+        <Card class="create-god">
+            <div>TODO: GOD NAME INPUT</div>
+            <div>TODO: MAJOR & MINOR DOMAINS</div>
+            <div>TODO: DOMAINS TABLE</div>
+        </Card>
     </StepFrame>
 </template>
 

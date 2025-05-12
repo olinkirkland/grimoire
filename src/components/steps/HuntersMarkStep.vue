@@ -13,6 +13,12 @@
                 </Card>
             </div>
         </ReferenceCard>
+        <Card class="favorite-traps">
+            <div>TODO: FAVORITE TRAPS INPUTS & TABLE</div>
+        </Card>
+        <Card class="signs-of-weakness">
+            <div>TODO: TELLTALE SIGNS OF WEAKNESS EXAMPLES</div>
+        </Card>
     </StepFrame>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
     <StepFrame>
-        <ReferenceCard :page="54">
+        <ReferenceCard :page="60">
             <div>
                 <h2>{{ t('Step.Core-talent.heading') }}</h2>
                 <h3>◈ {{ t(`Step.Wild-shape.title`) }}</h3>
@@ -13,6 +13,13 @@
                 </Card>
             </div>
         </ReferenceCard>
+        <Card class="druidic-tells">
+            <div>TODO: DRUIDIC TELLS INPUT</div>
+            <div>TODO: DRUIDIC TELLS TABLE</div>
+        </Card>
+        <Card class="wild-talents">
+            <div>TODO: WILD TELLS EXAMPLES</div>
+        </Card>
     </StepFrame>
 </template>
 

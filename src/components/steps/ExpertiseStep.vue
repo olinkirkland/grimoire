@@ -13,6 +13,13 @@
                 </Card>
             </div>
         </ReferenceCard>
+        <Card class="thieves-guild">
+            <div>TODO: THIEVES GUILD NAME INPUT & DETAIL CHOOSE</div>
+        </Card>
+        <Card class="criminal-history">
+            <div>TODO: CRIMES INPUTS & TABLE</div>
+            <div>TODO: REACTION INPUT & SUGGESTIONS</div>
+        </Card>
     </StepFrame>
 </template>
 

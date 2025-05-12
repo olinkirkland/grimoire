@@ -49,7 +49,8 @@ export enum Step {
 export enum StepType {
     MAIN = 'main',
     CORE_TALENT = 'core-talent',
-    TALENT = 'talent'
+    TALENT = 'talent',
+    OTHER = 'other'
 }
 
 export const StepDefinitions: Record<Step, { component: any; type: StepType }> = {
