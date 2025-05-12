@@ -33,6 +33,46 @@ h4 {
     font-weight: normal;
 }
 
+h5 {
+    display: inline-block;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    opacity: 0.5;
+}
+
+ul.table {
+    width: 100%;
+    overflow: hidden;
+    &:not(:last-child) {
+        border-right: 1px solid var(--surface-border);
+    }
+
+    header {
+        background-color: var(--overlay);
+        border-bottom: 1px solid var(--surface-border);
+        p {
+            text-transform: uppercase;
+            text-align: center;
+            padding: 0.4rem;
+            font-size: 1.4rem;
+            color: var(--surface-alt);
+        }
+    }
+
+    > li {
+        cursor: pointer;
+        width: 100%;
+        padding: 0.4rem 0.8rem;
+        display: flex;
+        overflow: hidden;
+        justify-content: center;
+        font-style: italic;
+        &:nth-child(odd) {
+            background-color: var(--overlay);
+        }
+    }
+}
+
 p {
     line-height: 1.4;
 

@@ -1,0 +1,7 @@
+{
+    "string": ["lute", "harp", "lyre", "mandolin", "fiddle"],
+    "wind": ["flute", "bagpipes", "recorder", "oboe", "pan flute"],
+    "percussion": ["tambourine", "hand drum", "tabor", "cymbals", "bongos"],
+    "brass": ["trumpet", "trombone", "french horn", "cornett", "bugle"],
+    "other": ["singing", "chanting", "whistling", "storytelling", "dancing"]
+}

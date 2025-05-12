@@ -10,13 +10,16 @@
                 <p class="crucible-description" v-html="t('Crucible.description')"></p>
             </ReferenceCard>
             <div class="crucible-choice">
-                <p>
+                <p v-if="currentValue">
                     {{ props.labelFunction(currentValue) }}
                 </p>
-                <Button @click="onClickRoll">
+                <p v-else class="crucible-empty">
+                    {{ t('Crucible.empty') }}
+                </p>
+                <!-- <Button @click="onClickRoll">
                     <i class="fas fa-random"></i>
                     <span>{{ t('Crucible.roll') }}</span>
-                </Button>
+                </Button> -->
             </div>
             <Card class="crucible">
                 <ul>
@@ -55,6 +58,11 @@ const props = defineProps<{
 const currentValue = ref(props.modelValue);
 
 function onClickItem(item: string) {
+    if (item === currentValue.value) {
+        currentValue.value = '';
+        props.onUpdateModelValue('');
+        return;
+    }
     currentValue.value = item;
     props.onUpdateModelValue(item);
 }
@@ -71,11 +79,17 @@ function onClickRoll() {
     display: flex;
     justify-content: center;
     align-items: center;
+
     p {
         color: var(--primary-alt);
         text-align: center;
         padding: 1.6rem;
         font-size: 2.4rem;
+    }
+
+    p.crucible-empty {
+        color: var(--surface-alt);
+        font-style: italic;
     }
 }
 
