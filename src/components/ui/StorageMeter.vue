@@ -43,19 +43,17 @@ const percentageText = computed(() => {
     align-items: center;
     font-size: 1.2rem;
     color: var(--on-surface);
-    background-color: var(--surface-alt);
-    border-radius: 99px;
-    padding: 0.4rem 1.2rem;
     gap: 1.2em;
 
     p {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
+        color: var(--surface-alt);
     }
 
     .progress-bar {
         flex-grow: 1;
         height: 1rem;
-        background-color: var(--surface);
+        background-color: var(--overlay);
         border-radius: 99px;
         overflow: hidden;
         position: relative;

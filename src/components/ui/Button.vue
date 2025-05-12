@@ -5,6 +5,7 @@
             'btn--icon': icon,
             'btn--disabled': disabled,
             'btn--primary': primary,
+            'btn--danger': danger,
             pressed: pressed,
             'full-width': fullWidth,
             'full-width-mobile': fullWidthMobile
@@ -83,6 +84,20 @@ button.pressed > .btn__content,
     }
     .btn__shadow {
         background-color: var(--primary-alt);
+    }
+}
+
+// Danger button
+.btn--danger {
+    .btn__content {
+        background-color: var(--danger);
+        border: 1px solid var(--danger-alt);
+        * {
+            color: var(--background);
+        }
+    }
+    .btn__shadow {
+        background-color: var(--danger-alt);
     }
 }
 

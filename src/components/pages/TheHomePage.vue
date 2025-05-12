@@ -23,7 +23,7 @@
                     </Button>
                 </div>
 
-                <Card class="adventurers">
+                <Card class="adventurers" v-if="displayedAdventurers.length > 0">
                     <ul class="adventurers-list">
                         <li
                             v-for="adventurer in displayedAdventurers"
@@ -38,12 +38,6 @@
                         </li>
                     </ul>
                 </Card>
-
-                <StorageMeter
-                    v-if="false"
-                    :usedBytes="adventurersStore.bytesUsedEstimate()"
-                    :maxBytes="5 * 1024 * 1024"
-                />
             </Card>
             <!-- <CardDeck v-if="displayedAdventurers.length > 0">
                 <AdventurerCard
@@ -69,7 +63,6 @@ import { onMounted, ref } from 'vue';
 import AppSettingsModal from '../modals/templates/AppSettingsModal.vue';
 import TheFooter from '../TheFooter.vue';
 import Card from '../ui/Card.vue';
-import StorageMeter from '../ui/StorageMeter.vue';
 
 const adventurersStore = useAdventurersStore();
 const displayedAdventurers = ref<Adventurer[]>([]);

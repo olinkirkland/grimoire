@@ -30,19 +30,43 @@
                         <span>{{ isTrackingEnabled ? t('on') : t('off') }}</span>
                     </Button>
                 </Card>
+                <!-- Storage -->
+                <Card>
+                    <div>
+                        <h3>{{ t('Modals.App-settings.Storage.title') }}</h3>
+                        <p
+                            v-html="
+                                t('Modals.App-settings.Storage.description', {
+                                    count: useAdventurersStore().adventurers.length.toString(),
+                                    bytes: bytesToReadable(useAdventurersStore().bytesUsedEstimate())
+                                })
+                            "
+                        ></p>
+                    </div>
+                    <Button @click="onClickClearStorage" danger>
+                        <i class="fas fa-trash-alt"></i>
+                        <span>{{ t('Modals.App-settings.Storage.delete-all') }}</span>
+                    </Button>
+                </Card>
             </div>
         </template>
     </ModalFrame>
 </template>
 
 <script setup lang="ts">
+import AppSettingsModal from '@/components/modals/templates/AppSettingsModal.vue';
 import ModalFrame from '@/components/modals/ModalFrame.vue';
 import ModalHeader from '@/components/modals/ModalHeader.vue';
 import Button from '@/components/ui/Button.vue';
 import { changeLanguage, t } from '@/i18n/locale';
+import { useAdventurersStore } from '@/store/adventurers-store';
 import { startTracking, stopTracking } from '@/tracker';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import ModalController from '@/controllers/modal-controller';
+import ConfirmModal from './ConfirmModal.vue';
+import LoadingModal from './LoadingModal.vue';
+import { bytesToReadable } from '@/utils/storage-util';
 
 const props = defineProps<{}>();
 
@@ -55,6 +79,29 @@ function onToggleTracking() {
     if (allowTracking) startTracking();
     else stopTracking();
     isTrackingEnabled.value = allowTracking;
+}
+
+function onClickClearStorage() {
+    ModalController.close();
+    ModalController.open(ConfirmModal, {
+        title: t('Modals.App-settings.Storage.Confirm.title'),
+        message: t('Modals.App-settings.Storage.Confirm.message'),
+        confirmText: t('Modals.App-settings.Storage.Confirm.confirm-button'),
+        isConfirmButtonDanger: true,
+        onConfirm: () => {
+            ModalController.close();
+            ModalController.open(LoadingModal);
+            setTimeout(() => {
+                localStorage.clear();
+                location.reload();
+            }, 200);
+        },
+        cancelText: t('Modals.App-settings.Storage.Confirm.cancel-button'),
+        onCancel: () => {
+            ModalController.close();
+            ModalController.open(AppSettingsModal);
+        }
+    });
 }
 </script>
 
