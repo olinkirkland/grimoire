@@ -33,16 +33,26 @@
                 ></DomainCard>
             </div>
         </Card>
+        <Card class="holy-symbol">
+            <p v-html="t('Step.Channel-divinity.Holy-symbol.instructions')"></p>
+            <ul class="holy-symbols-list">
+                <li v-for="symbol in holySymbolsData" :key="symbol">
+                    <img :src="`${BASE_URL}assets/holy-symbols/${symbol}`" />
+                </li>
+            </ul>
+        </Card>
     </StepFrame>
 </template>
 
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
+import holySymbolsData from '@/assets/data/holy-symbols.json';
 import { t } from '@/i18n/locale';
 import StepFrame from '../StepFrame.vue';
 import DomainCard from '../ui/DomainCard.vue';
 import InputGroup from '../ui/InputGroup.vue';
 import ReferenceCard from '../ui/ReferenceCard.vue';
+import { BASE_URL } from '@/router';
 
 const props = defineProps({
     adventurer: {
@@ -82,9 +92,37 @@ const props = defineProps({
     gap: 1rem;
 }
 
+.holy-symbols-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+
+    > li {
+        width: 8rem;
+        height: 8rem;
+
+        > img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 0.4rem;
+        }
+    }
+}
+
 @media (max-width: 768px) {
     .domains-list {
         grid-template-columns: 1fr;
+    }
+
+    .holy-symbols-list {
+        gap: 0.4rem;
+
+        > li {
+            width: 6rem;
+            height: 6rem;
+        }
     }
 }
 </style>
