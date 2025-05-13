@@ -16,6 +16,7 @@
                         {{ t(`Step.Path.${capitalizeFirstLetter(path)}.also`) }}
                     </p>
                     <p v-html="t(`Step.Path.${capitalizeFirstLetter(path)}.description`)"></p>
+                    <p class="core-talent" v-html="getCoreTalentLabel(path)"></p>
                 </li>
             </ul>
         </Card>
@@ -52,6 +53,13 @@ const pathsOrder = [
     Path.WARLOCK,
     Path.WIZARD
 ];
+
+function getCoreTalentLabel(path: string) {
+    const coreTalentKey = capitalizeFirstLetter(CoreTalentsByPath[path]);
+    return t('Step.Path.core-talent', {
+        coreTalent: t(`Step.${coreTalentKey}.title`)
+    });
+}
 
 function onClickPath(path: string) {
     // When the path is changed, remove its talentsData
@@ -95,8 +103,11 @@ function onClickPath(path: string) {
                     color: var(--primary-alt);
                     opacity: 0.6;
                 }
-                * {
-                    color: var(--primary-alt);
+                > p {
+                    color: var(--primary);
+                }
+                > p.core-talent {
+                    
                 }
             }
 
@@ -109,6 +120,11 @@ function onClickPath(path: string) {
             }
         }
     }
+}
+
+p.core-talent {
+    padding-top: 0.4rem;
+    font-size: 1.4rem;
 }
 
 @media (max-width: 768px) {

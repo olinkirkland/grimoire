@@ -3,7 +3,7 @@
         <div class="prepend" :class="{ 'is-slot-empty': isSlotEmpty }">
             <slot></slot>
         </div>
-        <input v-bind="attrs" :value="modelValue" @input="onInput" ref="input" />
+        <input v-bind="attrs" :value="modelValue" @input="onInput" @keydown.enter="onEnter" ref="input" />
         <button v-if="modelValue" class="clear-button" @click="clearInput">
             <i class="fas fa-times-circle"></i>
         </button>
@@ -45,6 +45,10 @@ function clearInput() {
     if (input.value) {
         input.value.value = '';
     }
+}
+
+function onEnter() {
+    if (input.value) input.value.blur();
 }
 </script>
 
