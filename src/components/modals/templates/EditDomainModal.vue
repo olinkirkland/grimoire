@@ -33,15 +33,39 @@
                     <span> {{ t('Step.Channel-divinity.Domains.Magic.label') }} </span>
                 </InputGroup>
             </div>
+            <Card class="preset-domains table-card">
+                <ul class="table">
+                    <li v-for="(domain, index) in domainsData" :key="index" @click="onClickApplyDomain(domain)">
+                        <!-- Domain card to pick from -->
+                        <h3 v-html="t(`Step.Channel-divinity.${capitalizeFirstLetter(domain)}.name`)"></h3>
+                        <p v-html="t(`Step.Channel-divinity.${capitalizeFirstLetter(domain)}.description`)"></p>
+                        <p
+                            v-html="
+                                t(`Step.Channel-divinity.Domains.tenets-phrase`, {
+                                    tenets: t(`Step.Channel-divinity.${capitalizeFirstLetter(domain)}.tenets`)
+                                })
+                            "
+                        ></p>
+                        <p
+                            v-html="
+                                t(`Step.Channel-divinity.Domains.magic-phrase`, {
+                                    magic: t(`Step.Channel-divinity.${capitalizeFirstLetter(domain)}.magic`)
+                                })
+                            "
+                        ></p>
+                    </li></ul
+            ></Card>
         </template>
     </ModalFrame>
 </template>
 
 <script setup lang="ts">
+import domainsData from '@/assets/data/domains.json';
 import ModalFrame from '@/components/modals/ModalFrame.vue';
 import ModalHeader from '@/components/modals/ModalHeader.vue';
 import InputGroup from '@/components/ui/InputGroup.vue';
 import { t } from '@/i18n/locale';
+import { capitalizeFirstLetter } from '@/utils/naming-util';
 
 type Domain = {
     name: string;
@@ -49,15 +73,23 @@ type Domain = {
     tenets: string;
     magic: string;
 };
+
 const props = defineProps<{
     modelValue: Domain;
-    onUpdateModelValue: (value: Domain) => void;
 }>();
+
+function onClickApplyDomain(domain: string) {
+    // Set this domain to the selected one
+    const domainKey = capitalizeFirstLetter(domain);
+    props.modelValue.name = t(`Step.Channel-divinity.${domainKey}.name`);
+    props.modelValue.description = t(`Step.Channel-divinity.${domainKey}.description`);
+    props.modelValue.tenets = t(`Step.Channel-divinity.${domainKey}.tenets`);
+    props.modelValue.magic = t(`Step.Channel-divinity.${domainKey}.magic`);
+}
 </script>
 
 <style scoped lang="scss">
 .edit-domain-modal {
-    min-width: 48rem;
     max-width: 96rem;
 
     .edit-domain-modal__content {
@@ -69,6 +101,23 @@ const props = defineProps<{
         > .input-group {
             width: 100%;
             max-width: unset;
+        }
+    }
+}
+
+.preset-domains {
+    margin-top: 1rem;
+    li {
+        display: flex;
+        flex-direction: column;
+        font-style: normal;
+
+        h3 {
+            margin-bottom: 0;
+        }
+
+        h3 + p {
+            font-style: italic;
         }
     }
 }
