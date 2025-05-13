@@ -1,6 +1,6 @@
 import Adventurer from '@/adventurer';
-import { capitalizeFirstLetter } from './naming-util';
 import { Step } from '@/step';
+import { capitalizeFirstLetter } from './naming-util';
 
 /**
  * Import an adventurer from a URI.
@@ -85,6 +85,32 @@ export function getTalentTemplate(key: string): any | null {
                 frenzySources: [],
                 notFrenzySources: [],
                 scars: ['', '', '']
+            };
+            break;
+        case Step.CHANNEL_DIVINITY:
+            return {
+                godName: '',
+                holySymbol: '',
+                domains: [
+                    {
+                        name: '',
+                        description: '',
+                        tenets: '',
+                        magic: ''
+                    },
+                    {
+                        name: '',
+                        description: '',
+                        tenets: '',
+                        magic: ''
+                    },
+                    {
+                        name: '',
+                        description: '',
+                        tenets: '',
+                        magic: ''
+                    }
+                ]
             };
             break;
     }

@@ -50,6 +50,10 @@ const props = defineProps({
         box-shadow: var(--shadow-sm);
     }
 
+    &--with-shadow {
+        box-shadow: var(--shadow-sm);
+    }
+
     &--allow-overflow {
         overflow: visible;
     }

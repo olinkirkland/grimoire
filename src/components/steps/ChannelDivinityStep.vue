@@ -14,9 +14,24 @@
             </div>
         </ReferenceCard>
         <Card class="create-god">
-            <div>TODO: GOD NAME INPUT</div>
-            <div>TODO: MAJOR & MINOR DOMAINS</div>
-            <div>TODO: DOMAINS TABLE</div>
+            <p v-html="t('Step.Channel-divinity.God-name.instructions')"></p>
+            <InputGroup
+                class="god-name-input"
+                v-model="adventurer.talentsData['channel-divinity'].godName"
+                :placeholder="t('Step.Channel-divinity.God-name.placeholder')"
+            >
+                <i class="fas fa-praying-hands"></i>
+                <span> {{ t('Step.Channel-divinity.God-name.label') }} </span>
+            </InputGroup>
+            <p v-html="t('Step.Channel-divinity.Domains.instructions')"></p>
+            <div class="domains-list">
+                <DomainCard
+                    v-for="(domain, index) in adventurer.talentsData['channel-divinity'].domains"
+                    :primary="index === 0"
+                    :key="index"
+                    :domain="domain"
+                ></DomainCard>
+            </div>
         </Card>
     </StepFrame>
 </template>
@@ -25,6 +40,8 @@
 import Adventurer from '@/adventurer';
 import { t } from '@/i18n/locale';
 import StepFrame from '../StepFrame.vue';
+import DomainCard from '../ui/DomainCard.vue';
+import InputGroup from '../ui/InputGroup.vue';
 import ReferenceCard from '../ui/ReferenceCard.vue';
 
 const props = defineProps({
@@ -41,8 +58,27 @@ const props = defineProps({
     color: var(--surface-alt);
 }
 
+.god-name-input {
+    width: 100%;
+    max-width: 100%;
+}
+
 .card.growth {
     margin-top: 1rem;
     background-color: var(--surface);
+}
+
+.domain-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    width: 100%;
+}
+
+.domains-list {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
 }
 </style>
