@@ -3,8 +3,22 @@
         <div class="prepend" :class="{ 'is-slot-empty': isSlotEmpty }">
             <slot></slot>
         </div>
-        <input v-bind="attrs" :value="modelValue" @input="onInput" @keydown.enter="onEnter" ref="input" />
-        <button v-if="modelValue" class="clear-button" @click="onClickClear">
+        <input
+            v-bind="attrs"
+            :value="modelValue"
+            @input="onInput"
+            @keydown.enter="onEnter"
+            ref="input"
+            autocomplete="off"
+            @focus="showClearButton = true"
+            @blur="onBlur"
+        />
+        <button
+            class="clear"
+            @click="onClickClear"
+            :class="{ show: showClearButton && modelValue.length > 0 }"
+            tabindex="-1"
+        >
             <i class="fas fa-times-circle"></i>
         </button>
     </div>
@@ -19,12 +33,22 @@ const props = defineProps<{
 
 const input = ref<HTMLInputElement | null>(null);
 
+const showClearButton = ref(false);
+
 const emit = defineEmits<{
     (e: 'update:modelValue', value: string): void;
 }>();
 
 const attrs: Record<string, unknown> = useAttrs();
 const slots: Record<string, unknown> = useSlots();
+
+function onBlur() {
+    // Wait for the next frame to hide the clear button
+    // This is a workaround for the issue where the button is hidden immediately after clicking it (iOS)
+    requestAnimationFrame(() => {
+        showClearButton.value = false;
+    });
+}
 
 const isSlotEmpty = computed(() => {
     //@ts-ignore
@@ -41,6 +65,8 @@ function onInput(event: Event) {
 }
 
 function onClickClear() {
+    // Focus the input before clearing because on iOS the input will lose focus
+    // and the cursor will be removed when the input is cleared
     emit('update:modelValue', '');
     if (input.value) input.value.focus();
 }
@@ -72,9 +98,6 @@ function onEnter() {
         outline-offset: 0.2rem;
         > .prepend * {
             color: var(--primary-alt);
-        }
-        button {
-            display: block;
         }
     }
 
@@ -114,8 +137,7 @@ function onEnter() {
         }
     }
 
-    > .clear-button {
-        position: relative;
+    > button.clear {
         background: transparent;
         border: none;
         color: var(--primary);
@@ -126,7 +148,11 @@ function onEnter() {
         left: 0.4rem;
     }
 
-    &:focus-within > .clear-button {
+    > button {
+        display: none;
+    }
+
+    > button.show {
         display: block;
     }
 }
