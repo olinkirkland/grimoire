@@ -14,6 +14,7 @@
             </div>
         </ReferenceCard>
         <Card class="song-composition">
+            <p v-html="t('Step.Bardsong.instructions')"></p>
             <Card class="song-parts">
                 <ul class="table" v-for="(category, categoryKey) in bardsongData" :key="categoryKey">
                     <header>
@@ -26,25 +27,6 @@
                     </li>
                 </ul>
             </Card>
-            <div class="song-result">
-                <Button @click="onClickRoll">
-                    <i class="fas fa-random"></i>
-                    {{ t('roll') }}
-                </Button>
-                <p
-                    v-if="chosenStyle >= 0 && chosenTune >= 0 && chosenImpact >= 0"
-                    class="song-result-text"
-                    v-html="
-                        t('Step.Bardsong.template', {
-                            style: capitalizeFirstLetter(t(`Step.Bardsong.Style.${bardsongData.style[chosenStyle]}`)),
-                            tune: capitalizeFirstLetter(t(`Step.Bardsong.Tune.${bardsongData.tune[chosenTune]}`)),
-                            impact: capitalizeFirstLetter(
-                                t(`Step.Bardsong.Impact.${bardsongData.impact[chosenImpact]}`)
-                            )
-                        })
-                    "
-                ></p>
-            </div>
             <p class="song-examples" v-html="t('Step.Bardsong.examples')"></p>
         </Card>
         <Card>
@@ -59,19 +41,26 @@
                     </li>
                 </ul>
             </Card>
+            <InputGroup
+                v-model="adventurer.talentsData.bardicInstrument"
+                class="bardic-instrument-input"
+                :placeholder="t('Step.Bardsong.Bardic-instrument.placeholder')"
+            >
+                <i class="fas fa-music"></i>
+                <span>{{ t('Step.Bardsong.Bardic-instrument.label') }}</span>
+            </InputGroup>
         </Card>
     </StepFrame>
 </template>
 
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
+import bardicInstrumentsData from '@/assets/data/bardic-instruments.json';
 import bardsongData from '@/assets/data/bardsong.json';
 import { t } from '@/i18n/locale';
 import { capitalizeFirstLetter } from '@/utils/naming-util';
-import { ref } from 'vue';
 import StepFrame from '../StepFrame.vue';
 import ReferenceCard from '../ui/ReferenceCard.vue';
-import bardicInstrumentsData from '@/assets/data/bardic-instruments.json';
 
 const props = defineProps({
     adventurer: {
@@ -79,16 +68,6 @@ const props = defineProps({
         required: true
     }
 });
-
-const chosenStyle = ref();
-const chosenTune = ref();
-const chosenImpact = ref();
-
-function onClickRoll() {
-    chosenStyle.value = Math.floor(Math.random() * bardsongData.style.length);
-    chosenTune.value = Math.floor(Math.random() * bardsongData.tune.length);
-    chosenImpact.value = Math.floor(Math.random() * bardsongData.impact.length);
-}
 </script>
 
 <style scoped lang="scss">
@@ -134,6 +113,11 @@ function onClickRoll() {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 0;
+}
+
+.bardic-instrument-input {
+    width: 100%;
+    max-width: 100%;
 }
 
 @media (max-width: 768px) {
