@@ -25,9 +25,11 @@ initializeI18nInstance();
 @use '@/assets/scss/styles.scss';
 
 .app-layout {
+    height: 100vh; // Works everywhere, but buggy on mobile Safari (includes address bar)
+    height: 100dvh; // Modern fix, uses the dynamic viewport height. Works properly with iOS Safari and all modern browsers
+    min-height: -webkit-fill-available; // Fallback for iOS Safari
+
     position: relative;
-    height: 100vh;
-    min-height: -webkit-fill-available;
     overflow: hidden;
     display: flex;
     flex-direction: column;

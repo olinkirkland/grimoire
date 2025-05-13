@@ -53,18 +53,17 @@ onMounted(() => {
 .tooltip-container {
     position: absolute;
     width: 100%;
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
+
+    height: 100vh; // Works everywhere, but buggy on mobile Safari (includes address bar)
+    height: 100dvh; // Modern fix, uses the dynamic viewport height. Works properly with iOS Safari and all modern browsers
+    min-height: -webkit-fill-available; // Fallback for iOS Safari
+
     -webkit-overflow-scrolling: touch;
     top: 0;
     display: flex;
     flex-direction: column;
     z-index: 99;
     pointer-events: none;
-}
-
-.tooltip {
-    max-height: calc(100vh - 4rem);
 }
 
 .tooltip-transition--left-enter-active {

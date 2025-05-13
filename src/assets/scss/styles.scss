@@ -4,6 +4,14 @@
     color: var(--on-surface);
 }
 
+html,
+body {
+    /* Disables pull-to-refresh and overscroll glow effect.
+     Still keeps swipe navigations. */
+    overscroll-behavior-y: none;
+    overscroll-behavior-x: none;
+}
+
 .logo {
     font-family: var(--display);
 }
@@ -139,7 +147,10 @@ pre {
 }
 
 .page {
-    height: 100vh;
+    height: 100vh; // Works everywhere, but buggy on mobile Safari (includes address bar)
+    height: 100dvh; // Modern fix, uses the dynamic viewport height. Works properly with iOS Safari and all modern browsers
+    min-height: -webkit-fill-available; // Fallback for iOS Safari
+
     gap: 0.8rem;
     display: flex;
     flex-direction: column;

@@ -77,8 +77,11 @@ ModalController.getInstance().addEventListener(({ modal, modalConfig }) => {
 <style scoped lang="scss">
 .modal-container {
     width: 100%;
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
+
+    height: 100vh; // Works everywhere, but buggy on mobile Safari (includes address bar)
+    height: 100dvh; // Modern fix, uses the dynamic viewport height. Works properly with iOS Safari and all modern browsers
+    min-height: -webkit-fill-available; // Fallback for iOS Safari
+
     -webkit-overflow-scrolling: touch;
     position: absolute;
     top: 0;
@@ -109,7 +112,7 @@ ModalController.getInstance().addEventListener(({ modal, modalConfig }) => {
 }
 
 .modal {
-    max-height: calc(100vh - 4rem);
+    max-height: calc(100dvh - 4rem);
 }
 
 // Media queries
@@ -121,14 +124,12 @@ ModalController.getInstance().addEventListener(({ modal, modalConfig }) => {
     .modal {
         min-width: 100%;
         max-width: 100%;
-        height: 100vh;
-        height: 100dvh;
-        min-height: 100vh; // Old browsers
-        min-height: 100dvh; // New browsers
-        min-height: -webkit-fill-available; // iOS
-        max-height: 100vh; // Old browsers
-        max-height: 100dvh; // New browsers
-        max-height: -webkit-fill-available; // iOS
+
+        height: 100vh; // Works everywhere, but buggy on mobile Safari (includes address bar)
+        height: 100dvh; // Modern fix, uses the dynamic viewport height. Works properly with iOS Safari and all modern browsers
+        min-height: -webkit-fill-available; // Fallback for iOS Safari
+
+        max-height: unset;
         animation: none;
         border-radius: 0;
     }
