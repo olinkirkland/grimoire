@@ -70,7 +70,6 @@ function onClickOpenCrucible() {
         labelFunction: props.labelFunction,
         modelValue: props.modelValue,
         onUpdateModelValue: (value: string) => {
-            console.log('Item selected:', value);
             emit('update:modelValue', value);
         }
     });

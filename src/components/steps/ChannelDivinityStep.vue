@@ -81,4 +81,10 @@ const props = defineProps({
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
 }
+
+@media (max-width: 768px) {
+    .domains-list {
+        grid-template-columns: 1fr;
+    }
+}
 </style>

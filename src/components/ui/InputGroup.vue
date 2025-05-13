@@ -143,8 +143,8 @@ function onEnter() {
         color: var(--primary);
         cursor: pointer;
         font-size: 1.2rem;
+        width: 2rem;
         height: 100%;
-        width: 3.6rem;
         left: 0.4rem;
     }
 

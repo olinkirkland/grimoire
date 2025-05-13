@@ -183,7 +183,7 @@ ul.talents-list {
 
         h2 {
             font-size: 1.4rem;
-            opacity: 0.6;
+            color: var(--primary);
             font-style: italic;
             margin-top: -0.4rem;
             margin-bottom: 0.8rem;
