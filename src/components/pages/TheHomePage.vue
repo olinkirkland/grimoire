@@ -39,13 +39,6 @@
                     </ul>
                 </Card>
             </Card>
-            <!-- <CardDeck v-if="displayedAdventurers.length > 0">
-                <AdventurerCard
-                    v-for="adventurer in displayedAdventurers"
-                    :adventurer="adventurer"
-                    :key="adventurer.id"
-                ></AdventurerCard>
-            </CardDeck> -->
         </div>
         <TheFooter />
     </div>
@@ -118,12 +111,7 @@ function onClickAdventurer(adventurer: Adventurer) {
 
 .page__content {
     width: 100%;
-
-    height: 100vh; // Works everywhere, but buggy on mobile Safari (includes address bar)
-    height: 100dvh; // Modern fix, uses the dynamic viewport height. Works properly with iOS Safari and all modern browsers
-    min-height: 100vh;
-    min-height: 100dvh;
-    min-height: -webkit-fill-available; // Fallback for iOS Safari
+    min-height: 100%;
 
     padding: 1rem;
     display: flex;

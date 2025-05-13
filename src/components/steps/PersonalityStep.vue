@@ -45,7 +45,7 @@
                     <ul class="pick-list">
                         <li v-for="(trait, index) in traitsData" :key="index" @click="onClickCycleTrait(trait)">
                             <i :class="getTraitSelectionClass(trait)"></i>
-                            <span>{{ trait }}</span>
+                            <span>{{ t(`Step.Personality.Traits.${trait}`) }}</span>
                         </li>
                     </ul>
                 </Card>
@@ -56,7 +56,7 @@
                     <ul class="pick-list">
                         <li v-for="(desire, index) in desiresData" :key="index" @click="onClickCycleDesire(desire)">
                             <i :class="getDesireSelectionClass(desire)"></i>
-                            <span>{{ desire }}</span>
+                            <span>{{ t(`Step.Personality.Desires.${desire}`) }}</span>
                         </li>
                     </ul>
                 </Card>
@@ -240,7 +240,7 @@ ul.pick-list {
     > li {
         display: flex;
         align-items: center;
-        gap: 0.6rem;
+        gap: 1rem;
 
         cursor: pointer;
         padding: 0.4rem 0.8rem;

@@ -23,7 +23,7 @@
                         </p>
                     </header>
                     <li v-for="(part, partKey) in category" :key="partKey">
-                        {{ t(`Step.Bardsong.${capitalizeFirstLetter(categoryKey)}.${part}`) }}
+                        <span>{{ t(`Step.Bardsong.${capitalizeFirstLetter(categoryKey)}.${part}`) }}</span>
                     </li>
                 </ul>
             </Card>
@@ -42,7 +42,7 @@
                 </ul>
             </Card>
             <InputGroup
-                v-model="adventurer.talentsData.bardicInstrument"
+                v-model="adventurer.talentsData.bardsong.bardicInstrument"
                 class="bardic-instrument-input"
                 :placeholder="t('Step.Bardsong.Bardic-instrument.placeholder')"
             >
@@ -122,10 +122,30 @@ const props = defineProps({
 
 @media (max-width: 768px) {
     .card.bardic-instrument {
-        grid-template-columns: repeat(1, 1fr);
-        header {
-            border-top: 1px solid var(--surface-border);
+        grid-template-columns: 1fr;
+
+        ul.table {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+
+            header {
+                grid-column: 1 / -1;
+                border-top: 1px solid var(--surface-border);
+            }
+
+            li {
+                display: block;
+                text-align: left;
+                background-color: transparent;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
         }
+    }
+
+    :deep(.bardic-instrument-input span) {
+        display: none;
     }
 }
 </style>

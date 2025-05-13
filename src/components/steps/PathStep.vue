@@ -27,6 +27,7 @@
 import Adventurer from '@/adventurer';
 import { t } from '@/i18n/locale';
 import { CoreTalentsByPath, Path } from '@/path';
+import { getTalentTemplate } from '@/utils/adventurer-util';
 import { capitalizeFirstLetter } from '@/utils/naming-util';
 import StepFrame from '../StepFrame.vue';
 import Card from '../ui/Card.vue';
@@ -64,13 +65,24 @@ function getCoreTalentLabel(path: string) {
 function onClickPath(path: string) {
     // When the path is changed, remove its talentsData
     const oldPath = props.adventurer.path;
+    // If there was an old path, remove its core talent from the talentsData
     if (oldPath) {
         const coreTalentKey = CoreTalentsByPath[oldPath];
         if (props.adventurer.talentsData[coreTalentKey]) delete props.adventurer.talentsData[coreTalentKey];
     }
 
-    if (path === props.adventurer.path) props.adventurer.path = null;
-    else props.adventurer.path = path;
+    if (path === props.adventurer.path) {
+        props.adventurer.path = null;
+        return;
+    }
+
+    // Set the new path
+    props.adventurer.path = path;
+
+    // Update the adventurer's talentsData with the new path's core talent
+    const newCoreTalentKey = CoreTalentsByPath[path];
+    const talentTemplate = getTalentTemplate(newCoreTalentKey);
+    if (talentTemplate) props.adventurer.talentsData[newCoreTalentKey] = talentTemplate;
 }
 </script>
 
@@ -105,9 +117,6 @@ function onClickPath(path: string) {
                 }
                 > p {
                     color: var(--primary);
-                }
-                > p.core-talent {
-                    
                 }
             }
 

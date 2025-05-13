@@ -1,5 +1,6 @@
 import Adventurer from '@/adventurer';
 import { capitalizeFirstLetter } from './naming-util';
+import { Step } from '@/step';
 
 /**
  * Import an adventurer from a URI.
@@ -67,4 +68,26 @@ export function generateMarkovName(names: string[]): string | null {
     const words = name.split(' ');
     for (let i = 0; i < words.length; i++) words[i] = capitalizeFirstLetter(words[i]);
     return words.join(' ');
+}
+
+/**
+ * Return a template for talent data, if it's available.
+ * @param name - The talent key (e.g., bardsong, frenzy)
+ * @returns The template string or null if not available.
+ */
+export function getTalentTemplate(key: string): any | null {
+    switch (key) {
+        case Step.BARDSONG:
+            return { bardicInstrument: '' };
+            break;
+        case Step.FRENZY:
+            return {
+                frenzySources: [],
+                notFrenzySources: [],
+                scars: []
+            };
+            break;
+    }
+
+    return null;
 }

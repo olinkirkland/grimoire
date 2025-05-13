@@ -41,10 +41,8 @@ function onInput(event: Event) {
 }
 
 function clearInput() {
+    if (input.value) input.value.value = '';
     emit('update:modelValue', '');
-    if (input.value) {
-        input.value.value = '';
-    }
 }
 
 function onEnter() {
@@ -118,13 +116,15 @@ function onEnter() {
 
     > .clear-button {
         display: none;
-        background: none;
+        position: relative;
+        background: transparent;
         border: none;
         color: var(--primary);
         cursor: pointer;
         font-size: 1.2rem;
-        padding: 0.2rem;
-        margin-left: 0.2rem;
+        height: 100%;
+        width: 3.6rem;
+        left: 0.6rem;
 
         &:hover {
             color: var(--primary-alt);
