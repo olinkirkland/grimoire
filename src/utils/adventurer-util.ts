@@ -84,7 +84,7 @@ export function getTalentTemplate(key: string): any | null {
             return {
                 frenzySources: [],
                 notFrenzySources: [],
-                scars: []
+                scars: ['', '', '']
             };
             break;
     }

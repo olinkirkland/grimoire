@@ -30,6 +30,20 @@
         </Card>
         <Card class="scars">
             <p v-html="t('Step.Frenzy.Scars.instructions')"></p>
+            <ul class="scars-list">
+                <InputGroup
+                    v-model="adventurer.talentsData.frenzy.scars[0]"
+                    :placeholder="t('Step.Frenzy.Scars.placeholder-1')"
+                ></InputGroup>
+                <InputGroup
+                    v-model="adventurer.talentsData.frenzy.scars[1]"
+                    :placeholder="t('Step.Frenzy.Scars.placeholder-2')"
+                ></InputGroup>
+                <InputGroup
+                    v-model="adventurer.talentsData.frenzy.scars[2]"
+                    :placeholder="t('Step.Frenzy.Scars.placeholder-3')"
+                ></InputGroup>
+            </ul>
             <Card class="table-card">
                 <ul class="table many">
                     <li v-for="scar in scarsData" :key="scar">
@@ -37,22 +51,6 @@
                     </li>
                 </ul>
             </Card>
-            <ul>
-                <li>
-                    <InputGroup
-                        v-model="adventurer.talentsData.frenzy.scars[0]"
-                        :placeholder="t('Step.Frenzy.Scars.placeholder-1')"
-                    ></InputGroup>
-                    <InputGroup
-                        v-model="adventurer.talentsData.frenzy.scars[1]"
-                        :placeholder="t('Step.Frenzy.Scars.placeholder-2')"
-                    ></InputGroup>
-                    <InputGroup
-                        v-model="adventurer.talentsData.frenzy.scars[2]"
-                        :placeholder="t('Step.Frenzy.Scars.placeholder-3')"
-                    ></InputGroup>
-                </li>
-            </ul>
         </Card>
     </StepFrame>
 </template>
@@ -145,12 +143,21 @@ ul.pick-list {
     }
 }
 
-.scars {
+.scars-list {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
 }
 
 @media (max-width: 768px) {
     ul.pick-list {
         grid-template-columns: repeat(1, 1fr);
+    }
+
+    .scars-list {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
     }
 }
 </style>
