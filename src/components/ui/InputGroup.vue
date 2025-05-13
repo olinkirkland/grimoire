@@ -4,6 +4,9 @@
             <slot></slot>
         </div>
         <input v-bind="attrs" :value="modelValue" @input="onInput" ref="input" />
+        <button v-if="modelValue" class="clear-button" @click="clearInput">
+            <i class="fas fa-times-circle"></i>
+        </button>
     </div>
 </template>
 
@@ -35,6 +38,13 @@ const isSlotEmpty = computed(() => {
 function onInput(event: Event) {
     const target = event.target as HTMLInputElement;
     emit('update:modelValue', target.value);
+}
+
+function clearInput() {
+    emit('update:modelValue', '');
+    if (input.value) {
+        input.value.value = '';
+    }
 }
 </script>
 
@@ -100,6 +110,25 @@ function onInput(event: Event) {
             opacity: 0.5;
             font-style: italic;
         }
+    }
+
+    > .clear-button {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--primary);
+        cursor: pointer;
+        font-size: 1.2rem;
+        padding: 0.2rem;
+        margin-left: 0.2rem;
+
+        &:hover {
+            color: var(--primary-alt);
+        }
+    }
+
+    &:focus-within > .clear-button {
+        display: block;
     }
 }
 </style>
