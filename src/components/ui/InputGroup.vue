@@ -4,7 +4,7 @@
             <slot></slot>
         </div>
         <input v-bind="attrs" :value="modelValue" @input="onInput" @keydown.enter="onEnter" ref="input" />
-        <button v-if="modelValue" class="clear-button" @click="clearInput">
+        <button v-if="modelValue" class="clear-button" @click="onClickClear">
             <i class="fas fa-times-circle"></i>
         </button>
     </div>
@@ -40,9 +40,9 @@ function onInput(event: Event) {
     emit('update:modelValue', target.value);
 }
 
-function clearInput() {
-    if (input.value) input.value.value = '';
+function onClickClear() {
     emit('update:modelValue', '');
+    if (input.value) input.value.focus();
 }
 
 function onEnter() {
@@ -115,7 +115,6 @@ function onEnter() {
     }
 
     > .clear-button {
-        display: none;
         position: relative;
         background: transparent;
         border: none;
@@ -124,11 +123,7 @@ function onEnter() {
         font-size: 1.2rem;
         height: 100%;
         width: 3.6rem;
-        left: 0.6rem;
-
-        &:hover {
-            color: var(--primary-alt);
-        }
+        left: 0.4rem;
     }
 
     &:focus-within > .clear-button {
