@@ -148,4 +148,13 @@ function onClickTalent(talent: string) {
         grid-column: span 1;
     }
 }
+
+@media (max-width: 768px) {
+    .card.druidic-tells {
+        grid-template-columns: 1fr;
+        > .druidic-tells-instructions {
+            grid-column: span 1;
+        }
+    }
+}
 </style>
