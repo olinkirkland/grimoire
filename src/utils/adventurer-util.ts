@@ -121,6 +121,19 @@ export function getTalentTemplate(key: string): any | null {
                 origin: '',
                 originCrucible: ''
             };
+        case Step.DISCIPLINE:
+            return {
+                martialArtsStyle: {
+                    concepts: '',
+                    stances: '',
+                    weapons: ''
+                },
+                martialArtsCrucibles: {
+                    concepts: '',
+                    stances: '',
+                    weapons: ''
+                }
+            };
     }
 
     return null;
