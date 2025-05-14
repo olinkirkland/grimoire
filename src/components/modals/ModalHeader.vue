@@ -1,12 +1,7 @@
 <template>
     <div class="modal__header">
         <slot></slot>
-        <Button
-            icon
-            class="close"
-            :class="closeButton ? '' : 'close--hidden'"
-            @click="onClickClose"
-        >
+        <Button icon class="close" :class="closeButton ? '' : 'close--hidden'" @click="onClickClose">
             <i class="fas fa-times"></i>
         </Button>
     </div>
@@ -21,9 +16,7 @@ const props = defineProps({
 });
 
 function onClickClose() {
-    props.closeButtonAction
-        ? props.closeButtonAction()
-        : ModalController.close();
+    props.closeButtonAction ? props.closeButtonAction() : ModalController.close();
 }
 </script>
 
@@ -35,8 +28,8 @@ function onClickClose() {
     padding: 0.6rem 0.8rem 0.4rem 2rem;
     width: 100%;
     gap: 1.6rem;
-    background-color: var(--surface);
-    border-bottom: 1px solid var(--surface-alt);
+    background-color: var(--overlay);
+    border-bottom: 1px solid var(--surface-border);
 
     .close {
         margin-left: auto;

@@ -15,14 +15,46 @@
         </ReferenceCard>
         <Card class="create-god">
             <p v-html="t('Step.Channel-divinity.God-name.instructions')"></p>
-            <InputGroup
-                class="god-name-input"
-                v-model="adventurer.talentsData['channel-divinity'].godName"
-                :placeholder="t('Step.Channel-divinity.God-name.placeholder')"
-            >
-                <i class="fas fa-praying-hands"></i>
-                <span> {{ t('Step.Channel-divinity.God-name.label') }} </span>
-            </InputGroup>
+            <div class="name-inputs">
+                <InputGroup
+                    v-model="adventurer.talentsData['channel-divinity'].god.name"
+                    :placeholder="t('Step.Channel-divinity.God-name.placeholder')"
+                >
+                    <span> {{ t('Step.Channel-divinity.God-name.label') }} </span>
+                </InputGroup>
+                <InputGroup
+                    v-model="adventurer.talentsData['channel-divinity'].god.epithet"
+                    :placeholder="t('Step.Channel-divinity.God-epithet.placeholder')"
+                >
+                    <span> {{ t('Step.Channel-divinity.God-epithet.label') }} </span>
+                </InputGroup>
+            </div>
+            <Card class="name-generator">
+                <p v-html="t('Step.Channel-divinity.God-name.Generator.instructions')"></p>
+                <ul class="pick-list">
+                    <li
+                        v-for="(nameTableKey, index) in Object.keys(nameTablesData)"
+                        :key="index"
+                        @click="toggleNameTable(nameTableKey)"
+                    >
+                        <i
+                            :class="activeNameTables.includes(nameTableKey) ? 'fas fa-check-square' : 'far fa-square'"
+                        ></i>
+                        <span>{{ t(`Step.Channel-divinity.God-name.Generator.Tables.${nameTableKey}`) }}</span>
+                    </li>
+                </ul>
+                <div class="flex">
+                    <Button @click="onClickGenerateName" :disabled="activeNameTables.length === 0">
+                        {{ t('Step.Channel-divinity.God-name.Generator.label') }}
+                    </Button>
+                    <Button @click="onClickRollName" :disabled="activeNameTables.length === 0">
+                        <i class="fas fa-random"></i>
+                        <span>{{ t('roll') }}</span>
+                    </Button>
+                </div>
+            </Card>
+        </Card>
+        <Card>
             <p v-html="t('Step.Channel-divinity.Domains.instructions')"></p>
             <div class="domains-list">
                 <DomainCard
@@ -46,13 +78,16 @@
 
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
+import nameTablesData from '@/assets/data/god-name-tables.json';
 import holySymbolsData from '@/assets/data/holy-symbols.json';
 import { t } from '@/i18n/locale';
+import { BASE_URL } from '@/router';
+import { generateMarkovName } from '@/utils/adventurer-util';
+import { ref } from 'vue';
 import StepFrame from '../StepFrame.vue';
 import DomainCard from '../ui/DomainCard.vue';
 import InputGroup from '../ui/InputGroup.vue';
 import ReferenceCard from '../ui/ReferenceCard.vue';
-import { BASE_URL } from '@/router';
 
 const props = defineProps({
     adventurer: {
@@ -60,6 +95,38 @@ const props = defineProps({
         required: true
     }
 });
+
+const activeNameTables = ref<string[]>([]);
+
+function toggleNameTable(nameTableKey: string) {
+    if (activeNameTables.value.includes(nameTableKey))
+        activeNameTables.value = activeNameTables.value.filter((table) => table !== nameTableKey);
+    else activeNameTables.value.push(nameTableKey);
+}
+
+function onClickGenerateName() {
+    // Generate a name using the selected name tables
+    const allNames: string[] = [];
+    activeNameTables.value.forEach((nameTableKey) => {
+        const nameTableData = nameTablesData[nameTableKey as keyof typeof nameTablesData];
+        allNames.push(...nameTableData);
+    });
+
+    const generatedName = generateMarkovName(allNames, 2);
+    if (generatedName) props.adventurer.talentsData['channel-divinity'].god.name = generatedName;
+}
+
+function onClickRollName() {
+    // Pick a random name from the selected name tables
+    const allNames: string[] = [];
+    activeNameTables.value.forEach((nameTableKey) => {
+        const nameTableData = nameTablesData[nameTableKey as keyof typeof nameTablesData];
+        allNames.push(...nameTableData);
+    });
+
+    const randomName = allNames[Math.floor(Math.random() * allNames.length)];
+    if (randomName) props.adventurer.talentsData['channel-divinity'].god.name = randomName;
+}
 </script>
 
 <style scoped lang="scss">
@@ -71,6 +138,16 @@ const props = defineProps({
 .god-name-input {
     width: 100%;
     max-width: 100%;
+}
+
+.name-generator {
+    width: 100%;
+
+    > .pick-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
 }
 
 .card.growth {
@@ -111,9 +188,52 @@ const props = defineProps({
     }
 }
 
+ul.pick-list {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+    > li {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        cursor: pointer;
+        padding: 0.4rem 0.8rem;
+        font-style: italic;
+
+        > span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}
+
+.name-inputs {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+
+    > .input-group {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
 @media (max-width: 768px) {
     .domains-list {
         grid-template-columns: 1fr;
+    }
+
+    .name-generator {
+        > .pick-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    .name-inputs {
+        grid-template-columns: 1fr !important;
     }
 
     .holy-symbols-list {

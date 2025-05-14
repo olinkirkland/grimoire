@@ -183,7 +183,7 @@ function onClickGenerateName() {
         allNames.push(...nameTableData);
     });
 
-    const generatedName = generateMarkovName(allNames);
+    const generatedName = generateMarkovName(allNames, 3);
     if (generatedName) props.adventurer.name = generatedName;
 }
 

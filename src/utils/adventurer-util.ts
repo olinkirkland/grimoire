@@ -25,11 +25,10 @@ export function exportURI(adventurer: Adventurer): string {
  * @param names - An array of names to use as a base for the Markov chain.
  * @returns A random name generated using the Markov chain algorithm.
  */
-export function generateMarkovName(names: string[]): string | null {
+export function generateMarkovName(names: string[], order: number): string | null {
     if (names.length === 0) return null;
     const model: Record<string, string[]> = {};
 
-    const order = 3; // Order of the Markov chain (number of characters to consider)
     const count = 10; // Number of unique names to generate
 
     // Build model
@@ -89,7 +88,10 @@ export function getTalentTemplate(key: string): any | null {
             break;
         case Step.CHANNEL_DIVINITY:
             return {
-                godName: '',
+                god: {
+                    name: '',
+                    epithet: ''
+                },
                 holySymbol: '',
                 domains: [
                     {

@@ -67,8 +67,8 @@ function onInput(event: Event) {
 function onClickClear() {
     // Focus the input before clearing because on iOS the input will lose focus
     // and the cursor will be removed when the input is cleared
-    emit('update:modelValue', '');
     if (input.value) input.value.focus();
+    emit('update:modelValue', '');
 }
 
 function onEnter() {

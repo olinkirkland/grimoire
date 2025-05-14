@@ -134,7 +134,7 @@ function onClickBackground(background: any, name?: string) {
     }
 
     ul.backgrounds-list > li {
-        padding: 0.8rem !important;
+        padding: 1rem !important;
         display: flex;
         flex-direction: column;
 

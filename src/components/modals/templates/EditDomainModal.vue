@@ -111,6 +111,8 @@ function onClickApplyDomain(domain: string) {
         display: flex;
         flex-direction: column;
         font-style: normal;
+        cursor: pointer;
+        padding: 1rem;
 
         h3 {
             margin-bottom: 0;
