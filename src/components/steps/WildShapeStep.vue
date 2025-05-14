@@ -31,11 +31,15 @@
                             class="existing-talent"
                             @click="onClickTalent(beastAndTalent.talent)"
                         >
-                            <p>{{ t(`Step.Talents.${capitalizeFirstLetter(beastAndTalent.talent)}.name`) }}</p>
+                            <p class="talent-name">
+                                {{ t(`Step.Talents.${capitalizeFirstLetter(beastAndTalent.talent)}.name`) }}
+                            </p>
                             <i class="fas fa-info-circle"></i>
                         </div>
                         <!-- The beast talent does not exist in the talentsData array -->
-                        <p v-else>{{ t(`Step.Wild-shape.Wild-talents.Talents.${beastAndTalent.talent}`) }}</p>
+                        <p class="talent-name" v-else>
+                            {{ t(`Step.Wild-shape.Wild-talents.Talents.${beastAndTalent.talent}`) }}
+                        </p>
                     </li>
                 </ul>
             </Card>
@@ -103,13 +107,17 @@ function onClickTalent(talent: string) {
     justify-content: space-between;
     width: 100%;
     font-style: normal;
-    > p {
-        text-align: right;
-    }
 
     > p:first-child {
         text-align: left;
         font-weight: bold;
+    }
+
+    p.talent-name {
+        text-align: right;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .existing-talent {
