@@ -116,6 +116,11 @@ export function getTalentTemplate(key: string): any | null {
             return {
                 druidicTells: ''
             };
+        case Step.WEAPON_MASTERY:
+            return {
+                origin: '',
+                originCrucible: ''
+            };
     }
 
     return null;

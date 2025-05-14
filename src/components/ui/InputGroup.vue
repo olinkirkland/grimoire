@@ -85,7 +85,6 @@ function onPressEnterKey() {
     border-radius: 5px;
     height: 3.2rem;
     width: 100%;
-    max-width: 40rem;
     min-height: 3.2rem;
     background-color: var(--background);
     border: 1px solid var(--surface-alt);
@@ -151,12 +150,6 @@ function onPressEnterKey() {
         &.show {
             display: unset;
         }
-    }
-}
-
-@media (max-width: 768px) {
-    .input-group {
-        max-width: unset;
     }
 }
 </style>

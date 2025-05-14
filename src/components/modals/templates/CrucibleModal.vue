@@ -10,16 +10,13 @@
                 <p class="crucible-description" v-html="t('Crucible.description')"></p>
             </ReferenceCard>
             <div class="crucible-choice">
-                <p v-if="currentValue">
-                    {{ props.labelFunction(currentValue) }}
-                </p>
-                <p v-else class="crucible-empty">
-                    {{ t('Crucible.empty') }}
-                </p>
-                <!-- <Button @click="onClickRoll">
+                <Button @click="onClickRoll">
                     <i class="fas fa-random"></i>
-                    <span>{{ t('Crucible.roll') }}</span>
-                </Button> -->
+                    <span v-if="currentValue">
+                        {{ props.labelFunction(currentValue) }}
+                    </span>
+                    <em v-else>{{ t('Crucible.empty') }}</em>
+                </Button>
             </div>
             <Card class="crucible">
                 <ul>
@@ -79,18 +76,7 @@ function onClickRoll() {
     display: flex;
     justify-content: center;
     align-items: center;
-
-    p {
-        color: var(--primary-alt);
-        text-align: center;
-        padding: 1.6rem;
-        font-size: 2.4rem;
-    }
-
-    p.crucible-empty {
-        color: var(--surface-alt);
-        font-style: italic;
-    }
+    padding: 1.6rem;
 }
 
 .crucible-modal {
@@ -108,13 +94,6 @@ function onClickRoll() {
         font-size: 1.6rem;
     }
 
-    .crucible-choice {
-        padding: 1.6rem;
-        color: var(--primary);
-        text-align: center;
-        margin-bottom: 0.8rem;
-    }
-
     > ul {
         display: grid;
         width: 100%;
@@ -127,6 +106,10 @@ function onClickRoll() {
             background-color: var(--background);
             overflow: hidden;
             text-overflow: ellipsis;
+            font-size: 1.4rem;
+            line-height: 1.4;
+            text-align: center;
+
             &.selected {
                 color: var(--primary-alt);
             }

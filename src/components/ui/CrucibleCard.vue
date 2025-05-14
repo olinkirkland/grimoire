@@ -1,10 +1,7 @@
 <template>
-    <Card class="card">
+    <Card class="card crucible">
         <header>
-            <i class="fas fa-border-all"></i>
-            <span>
-                {{ t('Crucible.heading', { title }) }}
-            </span>
+            {{ t('Crucible.heading', { title }) }}
         </header>
 
         <div class="card-content">
@@ -45,7 +42,8 @@ const props = defineProps({
     },
     labelFunction: {
         type: Function as unknown as () => (value: string) => string,
-        required: true
+        required: false,
+        default: (value: string) => value
     },
     modelValue: {
         type: String,
@@ -86,24 +84,21 @@ function onClickOpenCrucible() {
     header {
         width: 100%;
         background-color: var(--overlay);
-        border: 1px solid var(--surface-border);
-        padding: 0.4rem 0.8rem;
-        display: flex;
-        align-items: center;
+        border-bottom: 1px solid var(--surface-border);
+        padding: 0.6rem 0.8rem;
         gap: 0.4rem;
-
-        > * {
-            color: var(--surface-alt);
-            text-transform: uppercase;
-            font-size: 1.2rem;
-            letter-spacing: 0.1rem;
-        }
+        color: var(--surface-alt);
+        text-align: center;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 0.1rem;
     }
 
     .card-content {
         width: 100%;
         padding: 1.6rem;
-        padding-top: 0;
+        padding-top: 0.8rem;
         display: flex;
         align-items: center;
         flex-direction: column;

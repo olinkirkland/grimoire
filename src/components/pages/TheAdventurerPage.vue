@@ -47,7 +47,7 @@
 import Adventurer from '@/adventurer';
 import ModalController from '@/controllers/modal-controller';
 import { t } from '@/i18n/locale';
-import { CoreTalentsByPath, Path } from '@/path';
+import { CoreTalentsByPath } from '@/path';
 import { PageName, router } from '@/router';
 import { Step, StepDefinitions, StepType } from '@/step';
 import { useAdventurersStore } from '@/store/adventurers-store';
@@ -191,7 +191,10 @@ ul.steps-list {
 
     > li {
         position: relative;
-        padding: 0.8rem 1.6rem;
+        height: 4rem;
+        padding: 0 1.6rem;
+        display: flex;
+        align-items: center;
         cursor: pointer;
         span {
             line-height: 1.2;

@@ -96,13 +96,6 @@ function onClickTalent(talent: string) {
     background-color: var(--surface);
 }
 
-.card.druidic-tells {
-    .input-group {
-        width: 100%;
-        max-width: unset;
-    }
-}
-
 .wild-talents ul li {
     display: flex;
     align-items: center;

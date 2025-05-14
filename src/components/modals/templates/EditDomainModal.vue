@@ -97,11 +97,6 @@ function onClickApplyDomain(domain: string) {
         flex-direction: column;
         gap: 1rem;
         width: 100%;
-
-        > .input-group {
-            width: 100%;
-            max-width: unset;
-        }
     }
 }
 
