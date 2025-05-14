@@ -30,7 +30,7 @@
             ></CrucibleCard>
         </Card>
         <Card class="weapon-knowledge">
-            <div>TODO: ADD WEAPON ADVICE</div>
+            <p v-html="t(`Step.Weapon-mastery.Weapon-knowledge.instructions`)"></p>
         </Card>
     </StepFrame>
 </template>
