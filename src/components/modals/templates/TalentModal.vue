@@ -2,7 +2,7 @@
     <ModalFrame>
         <template v-slot:header>
             <ModalHeader close-button>
-                <h2>{{ t('Step.Talents.title') }}</h2>
+                <h2>{{ t('talent') }}</h2>
             </ModalHeader>
         </template>
         <template v-slot:content>

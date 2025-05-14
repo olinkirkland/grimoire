@@ -33,6 +33,9 @@ function onClickClose() {
 
     .close {
         margin-left: auto;
+        i {
+            font-size: 1.6rem !important;
+        }
     }
 }
 
