@@ -78,14 +78,12 @@ export function getTalentTemplate(key: string): any | null {
     switch (key) {
         case Step.BARDSONG:
             return { bardicInstrument: '' };
-            break;
         case Step.FRENZY:
             return {
                 frenzySources: [],
                 notFrenzySources: [],
                 scars: ['', '', '']
             };
-            break;
         case Step.CHANNEL_DIVINITY:
             return {
                 god: {
@@ -114,7 +112,10 @@ export function getTalentTemplate(key: string): any | null {
                     }
                 ]
             };
-            break;
+        case Step.WILD_SHAPE:
+            return {
+                druidicTells: ''
+            };
     }
 
     return null;

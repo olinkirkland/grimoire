@@ -17,13 +17,13 @@
             <p v-html="t('Step.Channel-divinity.God-name.instructions')"></p>
             <div class="name-inputs">
                 <InputGroup
-                    v-model="adventurer.talentsData['channel-divinity'].god.name"
+                    v-model="adventurer.talentsData[Step.CHANNEL_DIVINITY].god.name"
                     :placeholder="t('Step.Channel-divinity.God-name.placeholder')"
                 >
                     <span> {{ t('Step.Channel-divinity.God-name.label') }} </span>
                 </InputGroup>
                 <InputGroup
-                    v-model="adventurer.talentsData['channel-divinity'].god.epithet"
+                    v-model="adventurer.talentsData[Step.CHANNEL_DIVINITY].god.epithet"
                     :placeholder="t('Step.Channel-divinity.God-epithet.placeholder')"
                 >
                     <span> {{ t('Step.Channel-divinity.God-epithet.label') }} </span>
@@ -58,7 +58,7 @@
             <p v-html="t('Step.Channel-divinity.Domains.instructions')"></p>
             <div class="domains-list">
                 <DomainCard
-                    v-for="(domain, index) in adventurer.talentsData['channel-divinity'].domains"
+                    v-for="(domain, index) in adventurer.talentsData[Step.CHANNEL_DIVINITY].domains"
                     :primary="index === 0"
                     :key="index"
                     :domain="domain"
@@ -88,6 +88,7 @@ import StepFrame from '../StepFrame.vue';
 import DomainCard from '../ui/DomainCard.vue';
 import InputGroup from '../ui/InputGroup.vue';
 import ReferenceCard from '../ui/ReferenceCard.vue';
+import { Step } from '@/step';
 
 const props = defineProps({
     adventurer: {
@@ -113,7 +114,7 @@ function onClickGenerateName() {
     });
 
     const generatedName = generateMarkovName(allNames, 2);
-    if (generatedName) props.adventurer.talentsData['channel-divinity'].god.name = generatedName;
+    if (generatedName) props.adventurer.talentsData[Step.CHANNEL_DIVINITY].god.name = generatedName;
 }
 
 function onClickRollName() {
@@ -125,7 +126,7 @@ function onClickRollName() {
     });
 
     const randomName = allNames[Math.floor(Math.random() * allNames.length)];
-    if (randomName) props.adventurer.talentsData['channel-divinity'].god.name = randomName;
+    if (randomName) props.adventurer.talentsData[Step.CHANNEL_DIVINITY].god.name = randomName;
 }
 </script>
 

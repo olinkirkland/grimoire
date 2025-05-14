@@ -42,7 +42,7 @@
                 </ul>
             </Card>
             <InputGroup
-                v-model="adventurer.talentsData.bardsong.bardicInstrument"
+                v-model="adventurer.talentsData[Step.BARDSONG].bardicInstrument"
                 class="bardic-instrument-input"
                 :placeholder="t('Step.Bardsong.Bardic-instrument.placeholder')"
             >
@@ -61,6 +61,7 @@ import { t } from '@/i18n/locale';
 import { capitalizeFirstLetter } from '@/utils/naming-util';
 import StepFrame from '../StepFrame.vue';
 import ReferenceCard from '../ui/ReferenceCard.vue';
+import { Step } from '@/step';
 
 const props = defineProps({
     adventurer: {

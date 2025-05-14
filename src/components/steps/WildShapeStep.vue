@@ -7,27 +7,71 @@
                 <p v-html="t(`Step.Wild-shape.description`)"></p>
                 <Card class="growth">
                     <p>
-                        <strong>{{ t('Step.Core-talent.growth') }}</strong
-                        >: {{ t('Step.Wild-shape.growth') }}
+                        <strong>{{ t('Step.Core-talent.growth') }}</strong>
+                        : {{ t('Step.Wild-shape.growth') }}
                     </p>
                 </Card>
             </div>
         </ReferenceCard>
-        <Card class="druidic-tells">
-            <div>TODO: DRUIDIC TELLS INPUT</div>
-            <div>TODO: DRUIDIC TELLS TABLE</div>
-        </Card>
         <Card class="wild-talents">
-            <div>TODO: WILD TELLS EXAMPLES</div>
+            <p v-html="t('Step.Wild-shape.Wild-talents.instructions')"></p>
+            <Card class="table-card multi">
+                <ul
+                    class="table"
+                    v-for="wildtalentsDataHalf in [
+                        wildTalentsData.slice(0, Math.ceil(wildTalentsData.length / 2)),
+                        wildTalentsData.slice(Math.ceil(wildTalentsData.length / 2))
+                    ]"
+                >
+                    <li v-for="beastAndTalent in wildtalentsDataHalf">
+                        <p>{{ t(`Step.Wild-shape.Wild-talents.Beasts.${beastAndTalent.beast}`) }}</p>
+                        <!-- The beast talent exists in the talentsData array -->
+                        <div
+                            v-if="talentsData.find((t) => t.id === beastAndTalent.talent)"
+                            class="existing-talent"
+                            @click="onClickTalent(beastAndTalent.talent)"
+                        >
+                            <p>{{ t(`Step.Talents.${capitalizeFirstLetter(beastAndTalent.talent)}.name`) }}</p>
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <!-- The beast talent does not exist in the talentsData array -->
+                        <p v-else>{{ t(`Step.Wild-shape.Wild-talents.Talents.${beastAndTalent.talent}`) }}</p>
+                    </li>
+                </ul>
+            </Card>
+        </Card>
+        <Card class="druidic-tells">
+            <p v-html="t('Step.Wild-shape.Druidic-tells.instructions')"></p>
+            <InputGroup
+                v-model="adventurer.talentsData[Step.WILD_SHAPE].druidicTells"
+                :placeholder="t('Step.Wild-shape.Druidic-tells.placeholder')"
+            >
+                {{ t('Step.Wild-shape.Druidic-tells.label') }}
+            </InputGroup>
+            <Card class="table-card">
+                <ul class="table many many--4">
+                    <li v-for="tell in druidicTellsData" :key="tell">
+                        {{ t(`Step.Wild-shape.Druidic-tells.Table.${tell}`) }}
+                    </li>
+                </ul>
+            </Card>
         </Card>
     </StepFrame>
 </template>
 
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
+import druidicTellsData from '@/assets/data/druidic-tells.json';
+import talentsData from '@/assets/data/talents.json';
+import wildTalentsData from '@/assets/data/wild-talents.json';
+import ModalController from '@/controllers/modal-controller';
 import { t } from '@/i18n/locale';
+import { Step } from '@/step';
+import { capitalizeFirstLetter } from '@/utils/naming-util';
 import StepFrame from '../StepFrame.vue';
+import InputGroup from '../ui/InputGroup.vue';
 import ReferenceCard from '../ui/ReferenceCard.vue';
+import TalentModal from '../modals/templates/TalentModal.vue';
 
 const props = defineProps({
     adventurer: {
@@ -35,6 +79,10 @@ const props = defineProps({
         required: true
     }
 });
+
+function onClickTalent(talent: string) {
+    ModalController.open(TalentModal, { talent });
+}
 </script>
 
 <style scoped lang="scss">
@@ -46,5 +94,38 @@ const props = defineProps({
 .card.growth {
     margin-top: 1rem;
     background-color: var(--surface);
+}
+
+.card.druidic-tells {
+    .input-group {
+        width: 100%;
+        max-width: unset;
+    }
+}
+
+.wild-talents ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    > p {
+        text-align: right;
+    }
+
+    > p:first-child {
+        text-align: left;
+        font-weight: bold;
+    }
+
+    .existing-talent {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        justify-content: flex-end;
+        i {
+            color: var(--surface-alt);
+            font-size: 1.6rem;
+        }
+    }
 }
 </style>

@@ -1,0 +1,50 @@
+[
+    {
+        "beast": "chimpanzee",
+        "talent": "relentless"
+    },
+    {
+        "beast": "wolf",
+        "talent": "keen-senses"
+    },
+    {
+        "beast": "rhino",
+        "talent": "bulwark"
+    },
+    {
+        "beast": "octopus",
+        "talent": "shape-and-color-mimicking"
+    },
+    {
+        "beast": "cheetah",
+        "talent": "incredibly-fast-sprinting"
+    },
+    {
+        "beast": "bear",
+        "talent": "mighty"
+    },
+    {
+        "beast": "eagle",
+        "talent": "flight"
+    },
+    {
+        "beast": "snake",
+        "talent": "poisoner"
+    },
+    {
+        "beast": "lion",
+        "talent": "fearsome"
+    },
+    {
+        "beast": "dolphin",
+        "talent": "fast-swimmer"
+    },
+    {
+        "beast": "crocodile",
+        "talent": "swamp-camouflage"
+    },
+    {
+        "beast": "honey-badger",
+        "talent": "iron-will"
+    }
+]

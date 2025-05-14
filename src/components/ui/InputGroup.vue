@@ -153,4 +153,10 @@ function onPressEnterKey() {
         }
     }
 }
+
+@media (max-width: 768px) {
+    .input-group {
+        max-width: unset;
+    }
+}
 </style>

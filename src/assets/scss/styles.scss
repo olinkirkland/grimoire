@@ -47,7 +47,7 @@ h5 {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    font-size: 1rem;
     letter-spacing: 0.1rem;
     text-transform: uppercase;
     border-radius: 5px;
@@ -60,6 +60,17 @@ h5 {
 
 .card.table-card {
     padding: 0;
+    gap: 0;
+
+    &.multi {
+        flex-direction: row;
+    }
+}
+
+@media (max-width: 768px) {
+    .card.table-card.multi {
+        flex-direction: column;
+    }
 }
 
 ul.table {
@@ -71,12 +82,10 @@ ul.table {
 
     header {
         background-color: var(--overlay);
-        border-bottom: 1px solid var(--surface-border);
+        border-bottom: 1px dashed var(--surface-border);
         p {
-            text-transform: uppercase;
             text-align: center;
             padding: 0.4rem;
-            font-size: 1.4rem;
             color: var(--surface-alt);
         }
     }
@@ -104,11 +113,20 @@ ul.table {
         grid-template-columns: repeat(3, 1fr);
         padding: 1.6rem;
 
+        &.many--4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        &.many--5 {
+            grid-template-columns: repeat(5, 1fr);
+        }
+
         > li {
             padding: 0.4rem 0.8rem;
             background-color: var(--background);
             overflow: hidden;
             text-overflow: ellipsis;
+            text-align: center;
             &.selected {
                 color: var(--primary-alt);
             }
@@ -118,7 +136,27 @@ ul.table {
 
 @media (max-width: 768px) {
     ul.table.many {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+
+        &.many--3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        &.many--4 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    ul.table.many {
+        grid-template-columns: repeat(1, 1fr);
+
+        &.many--3 {
+            grid-template-columns: repeat(1, 1fr);
+        }
+        &.many--4 {
+            grid-template-columns: repeat(2, 1fr);
+        }
     }
 }
 

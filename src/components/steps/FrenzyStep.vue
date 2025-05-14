@@ -32,15 +32,15 @@
             <p v-html="t('Step.Frenzy.Scars.instructions')"></p>
             <ul class="scars-list">
                 <InputGroup
-                    v-model="adventurer.talentsData.frenzy.scars[0]"
+                    v-model="adventurer.talentsData[Step.FRENZY].scars[0]"
                     :placeholder="t('Step.Frenzy.Scars.placeholder-1')"
                 ></InputGroup>
                 <InputGroup
-                    v-model="adventurer.talentsData.frenzy.scars[1]"
+                    v-model="adventurer.talentsData[Step.FRENZY].scars[1]"
                     :placeholder="t('Step.Frenzy.Scars.placeholder-2')"
                 ></InputGroup>
                 <InputGroup
-                    v-model="adventurer.talentsData.frenzy.scars[2]"
+                    v-model="adventurer.talentsData[Step.FRENZY].scars[2]"
                     :placeholder="t('Step.Frenzy.Scars.placeholder-3')"
                 ></InputGroup>
             </ul>
@@ -64,6 +64,7 @@ import StepFrame from '../StepFrame.vue';
 import Card from '../ui/Card.vue';
 import InputGroup from '../ui/InputGroup.vue';
 import ReferenceCard from '../ui/ReferenceCard.vue';
+import { Step } from '@/step';
 
 const props = defineProps({
     adventurer: {
@@ -73,35 +74,38 @@ const props = defineProps({
 });
 
 function onClickCycleFrenzySource(frenzySource: string) {
-    const isInFrenzySources = props.adventurer.talentsData.frenzy.frenzySources.includes(frenzySource);
-    const isInNotFrenzySources = props.adventurer.talentsData.frenzy.notFrenzySources.includes(frenzySource);
+    const isInFrenzySources = props.adventurer.talentsData[Step.FRENZY].frenzySources.includes(frenzySource);
+    const isInNotFrenzySources = props.adventurer.talentsData[Step.FRENZY].notFrenzySources.includes(frenzySource);
 
     // If it's not in frenzySources or notFrenzySources, add it to frenzySources, and return
     if (!isInFrenzySources && !isInNotFrenzySources) {
-        props.adventurer.talentsData.frenzy.frenzySources.push(frenzySource);
+        props.adventurer.talentsData[Step.FRENZY].frenzySources.push(frenzySource);
         return;
     }
 
     // If it's in frenzySources, remove it from frenzySources, add it to notFrenzySources, and return
     if (isInFrenzySources) {
-        props.adventurer.talentsData.frenzy.frenzySources = props.adventurer.talentsData.frenzy.frenzySources.filter(
-            (f: string) => f !== frenzySource
-        );
-        props.adventurer.talentsData.frenzy.notFrenzySources.push(frenzySource);
+        props.adventurer.talentsData[Step.FRENZY].frenzySources = props.adventurer.talentsData[
+            Step.FRENZY
+        ].frenzySources.filter((f: string) => f !== frenzySource);
+        props.adventurer.talentsData[Step.FRENZY].notFrenzySources.push(frenzySource);
         return;
     }
 
     // If it's in notFrenzySources, remove it from notFrenzySources, and return
     if (isInNotFrenzySources) {
-        props.adventurer.talentsData.frenzy.notFrenzySources =
-            props.adventurer.talentsData.frenzy.notFrenzySources.filter((f: string) => f !== frenzySource);
+        props.adventurer.talentsData[Step.FRENZY].notFrenzySources = props.adventurer.talentsData[
+            Step.FRENZY
+        ].notFrenzySources.filter((f: string) => f !== frenzySource);
         return;
     }
 }
 
 function getFrenzySourceSelectionClass(frenzySource: string): string {
-    if (props.adventurer.talentsData.frenzy.frenzySources.includes(frenzySource)) return 'fas fa-circle';
-    return props.adventurer.talentsData.frenzy.notFrenzySources.includes(frenzySource) ? 'fas fa-ban' : 'far fa-circle';
+    if (props.adventurer.talentsData[Step.FRENZY].frenzySources.includes(frenzySource)) return 'fas fa-circle';
+    return props.adventurer.talentsData[Step.FRENZY].notFrenzySources.includes(frenzySource)
+        ? 'fas fa-ban'
+        : 'far fa-circle';
 }
 </script>
 
