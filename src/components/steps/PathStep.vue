@@ -132,7 +132,7 @@ function onClickPath(path: string) {
 }
 
 p.core-talent {
-    padding-top: 0.4rem;
+    padding-top: 1rem;
     font-size: 1.4rem;
 }
 

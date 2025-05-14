@@ -108,6 +108,7 @@ function onClickTalent(talent: string) {
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    font-style: normal;
     > p {
         text-align: right;
     }
