@@ -1,0 +1,33 @@
+{
+    "virtue": [
+        "honor",
+        "valor",
+        "justice",
+        "revenge",
+        "faith",
+        "doubt",
+        "mercy",
+        "judgement",
+        "strength",
+        "compassion",
+        "truth",
+        "wisdom"
+    ],
+    "connector": ["to-the", "for-the"],
+    "subject": [
+        "forgotten",
+        "powerless",
+        "redeemable",
+        "irredeemable",
+        "reformers",
+        "traditionalists",
+        "devout",
+        "faithless",
+        "evil",
+        "defiled",
+        "leaders",
+        "people"
+    ],
+    "relation": ["despite", "because-of"],
+    "motivation": ["my-desire-for", "my-trait", "my-arc-to", "my-background-of", "my-bond-with", "my-lack-of"]
+}

@@ -202,6 +202,7 @@ ul.talents-list {
 
     .search-container {
         flex: 1;
+        width: 100%;
     }
 }
 

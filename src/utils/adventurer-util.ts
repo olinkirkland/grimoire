@@ -134,6 +134,11 @@ export function getTalentTemplate(key: string): any | null {
                     weapons: ''
                 }
             };
+        case Step.OATHSWORN:
+            return {
+                builder: '',
+                tenets: ['', '', '']
+            };
     }
 
     return null;
