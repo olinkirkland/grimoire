@@ -41,20 +41,20 @@
             </Card>
         </Card>
         <Card class="druidic-tells">
-            <p v-html="t('Step.Wild-shape.Druidic-tells.instructions')"></p>
-            <InputGroup
-                v-model="adventurer.talentsData[Step.WILD_SHAPE].druidicTells"
-                :placeholder="t('Step.Wild-shape.Druidic-tells.placeholder')"
-            >
-                {{ t('Step.Wild-shape.Druidic-tells.label') }}
-            </InputGroup>
-            <Card class="table-card">
-                <ul class="table many many--4">
-                    <li v-for="tell in druidicTellsData" :key="tell">
-                        {{ t(`Step.Wild-shape.Druidic-tells.Table.${tell}`) }}
-                    </li>
-                </ul>
-            </Card>
+            <div class="druidic-tells-instructions">
+                <p v-html="t('Step.Wild-shape.Druidic-tells.instructions')"></p>
+                <InputGroup
+                    v-model="adventurer.talentsData[Step.WILD_SHAPE].druidicTells"
+                    :placeholder="t('Step.Wild-shape.Druidic-tells.placeholder')"
+                >
+                    {{ t('Step.Wild-shape.Druidic-tells.label') }}
+                </InputGroup>
+            </div>
+            <CrucibleCard
+                :title="t('Step.Wild-shape.Druidic-tells.Crucible.title')"
+                :items="druidicTellsData.map((value) => t(`Step.Wild-shape.Druidic-tells.Crucible.${value}`))"
+                v-model="adventurer.talentsData[Step.WILD_SHAPE].druidicTellsCrucible"
+            ></CrucibleCard>
         </Card>
     </StepFrame>
 </template>
@@ -72,6 +72,7 @@ import StepFrame from '../StepFrame.vue';
 import InputGroup from '../ui/InputGroup.vue';
 import ReferenceCard from '../ui/ReferenceCard.vue';
 import TalentModal from '../modals/templates/TalentModal.vue';
+import CrucibleCard from '../ui/CrucibleCard.vue';
 
 const props = defineProps({
     adventurer: {
@@ -121,6 +122,22 @@ function onClickTalent(talent: string) {
             color: var(--surface-alt);
             font-size: 1.6rem;
         }
+    }
+}
+
+.card.druidic-tells {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    > .druidic-tells-instructions {
+        grid-column: span 2;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .crucible {
+        width: 100%;
+        grid-column: span 1;
     }
 }
 </style>

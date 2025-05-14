@@ -80,6 +80,7 @@ function onClickOpenCrucible() {
     align-items: center;
     justify-content: space-between;
     padding: 0;
+    gap: 0;
 
     header {
         width: 100%;

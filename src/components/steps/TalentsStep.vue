@@ -27,9 +27,11 @@
         </Card>
         <Card class="talents">
             <div class="filters">
-                <InputGroup :placeholder="t('Step.Talents.search-placeholder')" v-model="searchTerm">
-                    <i class="fas fa-search"></i>
-                </InputGroup>
+                <div class="search-container">
+                    <InputGroup :placeholder="t('Step.Talents.search-placeholder')" v-model="searchTerm" class="search">
+                        <i class="fas fa-search"></i>
+                    </InputGroup>
+                </div>
                 <ButtonBar v-if="props.adventurer.path">
                     <Button @click="filterOnlyMyPath = true" :pressed="filterOnlyMyPath">
                         <span
@@ -172,7 +174,7 @@ ul.talents-list {
 .added-talents ul.talents-list > li {
     .card {
         background-color: var(--primary-light);
-        border: 1px solid var(--primary);
+        border: 1px solid var(--surface-border);
         box-shadow: var(--shadow-sm);
 
         h3,
@@ -197,6 +199,10 @@ ul.talents-list {
     gap: 1rem;
     justify-content: space-between;
     align-items: center;
+
+    .search-container {
+        flex: 1;
+    }
 }
 
 p.no-results {
