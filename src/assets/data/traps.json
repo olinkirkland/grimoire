@@ -1,0 +1,4 @@
+{
+    "effects": ["stunning", "falling", "noisy", "poisonous", "entangling", "injuring"],
+    "triggers": ["tripwire", "pressure-plate", "snare-loop", "bait", "hidden", "proximity"]
+}

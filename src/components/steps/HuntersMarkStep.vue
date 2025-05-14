@@ -14,7 +14,28 @@
             </div>
         </ReferenceCard>
         <Card class="favorite-traps">
-            <div>TODO: FAVORITE TRAPS INPUTS & TABLE</div>
+            <p v-html="t('Step.Hunters-mark.Traps.instructions')"></p>
+            <div class="favorite-traps-inputs">
+                <InputGroup
+                    v-model="adventurer.talentsData[Step.HUNTERS_MARK].traps[0]"
+                    :placeholder="t('Step.Hunters-mark.Traps.placeholder-1')"
+                >
+                    {{ t('Step.Hunters-mark.Traps.label') }} #1
+                </InputGroup>
+                <InputGroup
+                    v-model="adventurer.talentsData[Step.HUNTERS_MARK].traps[1]"
+                    :placeholder="t('Step.Hunters-mark.Traps.placeholder-2')"
+                >
+                    {{ t('Step.Hunters-mark.Traps.label') }} #2
+                </InputGroup>
+                <InputGroup
+                    v-model="adventurer.talentsData[Step.HUNTERS_MARK].traps[2]"
+                    :placeholder="t('Step.Hunters-mark.Traps.placeholder-3')"
+                >
+                    {{ t('Step.Hunters-mark.Traps.label') }} #3
+                </InputGroup>
+            </div>
+            <div>TODO: FAVORITE TRAPS CARD</div>
         </Card>
         <Card class="signs-of-weakness">
             <div>TODO: TELLTALE SIGNS OF WEAKNESS EXAMPLES</div>
@@ -27,6 +48,8 @@ import Adventurer from '@/adventurer';
 import { t } from '@/i18n/locale';
 import StepFrame from '../StepFrame.vue';
 import ReferenceCard from '../ui/ReferenceCard.vue';
+import InputGroup from '../ui/InputGroup.vue';
+import { Step } from '@/step';
 
 const props = defineProps({
     adventurer: {
@@ -45,5 +68,12 @@ const props = defineProps({
 .card.growth {
     margin-top: 1rem;
     background-color: var(--surface);
+}
+
+.favorite-traps-inputs {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
 }
 </style>
