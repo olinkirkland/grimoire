@@ -50,7 +50,6 @@ function getSourceLabel(source: string): string {
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 0.8rem;
     max-width: 48rem;
 
     h2 {

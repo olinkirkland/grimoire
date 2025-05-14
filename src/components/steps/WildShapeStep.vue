@@ -123,6 +123,7 @@ function onClickTalent(talent: string) {
         align-items: center;
         justify-content: flex-end;
         i {
+            cursor: pointer;
             color: var(--surface-alt);
             font-size: 1.6rem;
         }
