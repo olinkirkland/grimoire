@@ -7,7 +7,7 @@
             v-bind="attrs"
             :value="modelValue"
             @input="onInput"
-            @keydown.enter="onEnter"
+            @keydown.enter="onPressEnterKey"
             ref="input"
             autocomplete="off"
             @focus="showClearButton = true"
@@ -15,7 +15,7 @@
         />
         <button
             class="clear"
-            @click="onClickClear"
+            @mousedown="onClickClear"
             :class="{ show: showClearButton && modelValue.length > 0 }"
             tabindex="-1"
         >
@@ -71,7 +71,7 @@ function onClickClear() {
     emit('update:modelValue', '');
 }
 
-function onEnter() {
+function onPressEnterKey() {
     if (input.value) input.value.blur();
 }
 </script>
@@ -146,14 +146,11 @@ function onEnter() {
         width: 2rem;
         height: 100%;
         left: 0.4rem;
-    }
-
-    > button {
         display: none;
-    }
 
-    > button.show {
-        display: block;
+        &.show {
+            display: unset;
+        }
     }
 }
 </style>
