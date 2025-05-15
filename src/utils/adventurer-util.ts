@@ -144,6 +144,17 @@ export function getTalentTemplate(key: string): any | null {
                 builder: '',
                 traps: ['', '', '']
             };
+        case Step.EXPERTISE:
+            return {
+                guildTraits: [],
+                notGuildTraits: [],
+                crime: {
+                    severity: '',
+                    nature: '',
+                    reputation: '',
+                    reaction: ''
+                }
+            };
     }
 
     return null;
