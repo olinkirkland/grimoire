@@ -14,8 +14,8 @@
             </div>
         </ReferenceCard>
         <Card class="favorite-traps">
-            <p v-html="t('Step.Hunters-mark.Traps.instructions')"></p>
             <div class="favorite-traps-inputs">
+                <p v-html="t('Step.Hunters-mark.Traps.instructions')"></p>
                 <InputGroup
                     v-model="adventurer.talentsData[Step.HUNTERS_MARK].traps[0]"
                     :placeholder="t('Step.Hunters-mark.Traps.placeholder-1')"
@@ -71,11 +71,17 @@ const props = defineProps({
     background-color: var(--surface);
 }
 
-.favorite-traps-inputs {
-    width: 100%;
+.favorite-traps {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+}
+
+.favorite-traps-inputs {
+    grid-column: span 2;
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
+    width: 100%;
 }
 
 @media (max-width: 768px) {

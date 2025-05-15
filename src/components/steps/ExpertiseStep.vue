@@ -26,18 +26,36 @@
             </Card>
         </Card>
         <Card class="criminal-history">
-            <div>TODO: CRIMES INPUTS & TABLE</div>
-            <div>TODO: REACTION INPUT & SUGGESTIONS</div>
+            <p v-html="t('Step.Expertise.Crime.instructions')"></p>
+            <InputGroup
+                v-model="adventurer.talentsData[Step.EXPERTISE].crime"
+                :placeholder="t('Step.Expertise.Crime.placeholder')"
+            >
+                {{ t('Step.Expertise.Crime.label') }}
+            </InputGroup>
+            <Card class="table-card crime">
+                <ul class="table" v-for="(category, categoryKey) in crimeData" :key="categoryKey" :class="categoryKey">
+                    <header>
+                        <p>{{ t(`Step.Expertise.Crime.${capitalizeFirstLetter(categoryKey)}.label`) }}</p>
+                    </header>
+                    <li v-for="(part, partKey) in category" :key="partKey">
+                        {{ t(`Step.Expertise.Crime.${capitalizeFirstLetter(categoryKey)}.${part}`) }}
+                    </li>
+                </ul>
+            </Card>
         </Card>
     </StepFrame>
 </template>
 
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
+import crimeData from '@/assets/data/crime.json';
 import guildTraitsData from '@/assets/data/guild-traits.json';
 import { t } from '@/i18n/locale';
 import { Step } from '@/step';
+import { capitalizeFirstLetter } from '@/utils/naming-util';
 import StepFrame from '../StepFrame.vue';
+import InputGroup from '../ui/InputGroup.vue';
 import ReferenceCard from '../ui/ReferenceCard.vue';
 
 const props = defineProps({
@@ -113,6 +131,56 @@ ul.pick-list {
         > span {
             overflow: hidden;
             text-overflow: ellipsis;
+        }
+    }
+}
+
+.criminal-history {
+    .table-card {
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0;
+    }
+}
+
+.table-card.crime {
+    ul:nth-of-type(3) {
+        border-right: none;
+    }
+    ul > li {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+@media (min-width: 768px) {
+    ul.table.nature {
+        grid-column: -1 / 1;
+        border-top: 1px solid var(--surface-border);
+        header {
+            grid-column: -1 / 1;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .criminal-history {
+        .table-card {
+            grid-template-columns: 1fr;
+            ul {
+                border: none;
+                display: grid;
+                grid-template-columns: repeat(1, 1fr);
+                header {
+                    grid-column: 1 / -1;
+                }
+
+                &:not(:first-child) {
+                    border-top: 1px solid var(--surface-border);
+                }
+            }
         }
     }
 }

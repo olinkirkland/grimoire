@@ -22,7 +22,6 @@
                 </Button>
                 <Button @click="onClickCopy">
                     <i class="fas fa-copy"></i>
-                    <span class="hide-on-mobile">{{ t('copy') }}</span>
                 </Button>
             </div>
         </div>

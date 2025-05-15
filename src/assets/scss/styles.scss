@@ -93,15 +93,12 @@ ul.table {
     > li {
         width: 100%;
         padding: 0.4rem 0.8rem;
-        display: flex;
         overflow: hidden;
-        justify-content: center;
         font-style: italic;
-        > * {
-            width: 100%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
         &:nth-child(odd) {
             background-color: var(--overlay);
         }

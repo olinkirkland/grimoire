@@ -148,12 +148,8 @@ export function getTalentTemplate(key: string): any | null {
             return {
                 guildTraits: [],
                 notGuildTraits: [],
-                crime: {
-                    severity: '',
-                    nature: '',
-                    reputation: '',
-                    reaction: ''
-                }
+                crimeBuilder: '',
+                crime: ''
             };
     }
 

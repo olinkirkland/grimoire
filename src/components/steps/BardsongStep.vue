@@ -23,7 +23,7 @@
                         </p>
                     </header>
                     <li v-for="(part, partKey) in category" :key="partKey">
-                        <span>{{ t(`Step.Bardsong.${capitalizeFirstLetter(categoryKey)}.${part}`) }}</span>
+                        {{ t(`Step.Bardsong.${capitalizeFirstLetter(categoryKey)}.${part}`) }}
                     </li>
                 </ul>
             </Card>
@@ -127,20 +127,25 @@ const props = defineProps({
 
         ul.table {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            border: none;
+            // Automated grid
+            grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
 
             header {
                 grid-column: 1 / -1;
-                border-top: 1px solid var(--surface-border);
             }
 
             li {
                 display: block;
-                text-align: left;
+                text-align: center;
                 background-color: transparent;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+            }
+
+            &:not(:first-child) {
+                border-top: 1px solid var(--surface-border);
             }
         }
     }

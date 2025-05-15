@@ -1,0 +1,32 @@
+{
+    "severity": ["petty", "low-level", "moderate", "serious", "severe", "legendary"],
+    "reputation": ["barely-remembered", "small-bounty", "known-name", "hunted", "infamous", "most-wanted"],
+    "reaction": [
+        "i-did-what-i-had-to-do",
+        "i-was-set-up",
+        "it-was-a-misunderstanding",
+        "id-do-it-again-in-a-heartbeat",
+        "i-completely-forgot-i-did-that",
+        "ive-made-peace-with-it"
+    ],
+    "nature": [
+        "theft",
+        "fraud",
+        "spying",
+        "smuggling",
+        "banditry",
+        "kidnapping",
+        "vandalism",
+        "gambling",
+        "bribery",
+        "extortion",
+        "arms-dealing",
+        "arson",
+        "treason",
+        "robbery",
+        "assassination",
+        "heist",
+        "impersonation",
+        "necromancy"
+    ]
+}
