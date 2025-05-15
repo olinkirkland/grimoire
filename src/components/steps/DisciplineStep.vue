@@ -15,7 +15,7 @@
         </ReferenceCard>
         <Card class="martial-arts-style">
             <p v-html="t(`Step.Discipline.Martial-arts-style.instructions`)"></p>
-            <div class="martial-arts-style-inputs">
+            <div class="inputs-and-crucibles">
                 <InputGroup
                     :placeholder="t('Step.Discipline.Martial-arts-style.Concepts.placeholder')"
                     v-model="adventurer.talentsData[Step.DISCIPLINE].martialArtsStyle.concepts"
@@ -34,8 +34,6 @@
                 >
                     {{ t('Step.Discipline.Martial-arts-style.Weapons.label') }}
                 </InputGroup>
-            </div>
-            <div class="martial-arts-style-crucibles">
                 <CrucibleCard
                     :title="t('Step.Discipline.Martial-arts-style.Concepts.title')"
                     :items="
@@ -97,23 +95,51 @@ const props = defineProps({
     background-color: var(--surface);
 }
 
-.martial-arts-style-inputs {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+.inputs-and-crucibles {
+    display: grid;
     width: 100%;
+    grid-template-columns: repeat(3, 1fr);
+    > .input-group {
+        // Span whole grid
+        grid-column: 1 / -1;
+    }
+
+    gap: 1rem;
     > * {
         width: 100%;
     }
 }
 
-.martial-arts-style-crucibles {
-    display: grid;
-    width: 100%;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    > * {
-        width: 100%;
+@media (max-width: 768px) {
+    .inputs-and-crucibles {
+        grid-template-columns: repeat(1, 1fr);
+        > * {
+            width: 100%;
+            &:nth-child(1) {
+                // Concepts input
+                order: 1;
+            }
+            &:nth-child(4) {
+                // Concepts crucible
+                order: 2;
+            }
+            &:nth-child(2) {
+                // Stances input
+                order: 3;
+            }
+            &:nth-child(5) {
+                // Stances crucible
+                order: 4;
+            }
+            &:nth-child(3) {
+                // Weapons input
+                order: 5;
+            }
+            &:nth-child(6) {
+                // Weapons crucible
+                order: 6;
+            }
+        }
     }
 }
 </style>
