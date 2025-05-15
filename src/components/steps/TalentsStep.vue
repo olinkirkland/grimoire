@@ -248,6 +248,7 @@ p.no-results {
                         top: 0.75rem;
                         color: var(--primary-alt);
                         font-size: 1.4rem;
+                        cursor: pointer;
                     }
                     > h3 {
                         width: 100%;
