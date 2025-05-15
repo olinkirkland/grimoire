@@ -35,10 +35,10 @@
                     {{ t('Step.Hunters-mark.Traps.label') }} #3
                 </InputGroup>
             </div>
-            <div>TODO: FAVORITE TRAPS CARD</div>
+            <TrapsCard v-model="adventurer.talentsData[Step.HUNTERS_MARK].builder" />
         </Card>
         <Card class="signs-of-weakness">
-            <div>TODO: TELLTALE SIGNS OF WEAKNESS EXAMPLES</div>
+            <p v-html="t('Step.Hunters-mark.Signs-of-weakness.instructions')"></p>
         </Card>
     </StepFrame>
 </template>
@@ -46,10 +46,11 @@
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
 import { t } from '@/i18n/locale';
-import StepFrame from '../StepFrame.vue';
-import ReferenceCard from '../ui/ReferenceCard.vue';
-import InputGroup from '../ui/InputGroup.vue';
 import { Step } from '@/step';
+import StepFrame from '../StepFrame.vue';
+import InputGroup from '../ui/InputGroup.vue';
+import ReferenceCard from '../ui/ReferenceCard.vue';
+import TrapsCard from '../ui/TrapsCard.vue';
 
 const props = defineProps({
     adventurer: {
@@ -75,5 +76,11 @@ const props = defineProps({
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
+}
+
+@media (max-width: 768px) {
+    .favorite-traps-inputs {
+        grid-template-columns: 1fr;
+    }
 }
 </style>

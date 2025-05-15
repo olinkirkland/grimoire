@@ -1,7 +1,7 @@
 <template>
     <Card class="card crucible">
         <header>
-            {{ t('Step.Oathsworn.Oath.Tenet.builder') }}
+            {{ t('Step.Hunters-mark.Traps.builder') }}
         </header>
 
         <!-- Use some translations from crucible -->
@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import tenetData from '@/assets/data/tenet.json';
+import trapsData from '@/assets/data/traps.json';
 import { t } from '@/i18n/locale';
 import { ref } from 'vue';
 import Card from './Card.vue';
@@ -37,46 +37,31 @@ const props = defineProps({
     }
 });
 
-const virtue = ref();
-const connector = ref();
-const subject = ref();
-const relation = ref();
-const motivation = ref();
+const effect = ref();
+const trigger = ref();
 
 const emit = defineEmits<{
     (e: 'update:modelValue', value: string): void;
 }>();
 
 function onClickRoll() {
-    Object.keys(tenetData).forEach((key) => {
-        const arr: string[] = tenetData[key as keyof typeof tenetData];
+    Object.keys(trapsData).forEach((key) => {
+        const arr: string[] = trapsData[key as keyof typeof trapsData];
         const randomIndex = Math.floor(Math.random() * arr.length);
         const randomItem = arr[randomIndex];
         switch (key) {
-            case 'virtue':
-                virtue.value = randomItem;
+            case 'effects':
+                effect.value = randomItem;
                 break;
-            case 'connector':
-                connector.value = randomItem;
-                break;
-            case 'subject':
-                subject.value = randomItem;
-                break;
-            case 'relation':
-                relation.value = randomItem;
-                break;
-            case 'motivation':
-                motivation.value = randomItem;
+            case 'triggers':
+                trigger.value = randomItem;
                 break;
         }
     });
 
-    const template = t('Step.Oathsworn.Oath.Tenet.template', {
-        virtue: t(`Step.Oathsworn.Oath.Tenet.Virtue.${virtue.value}`),
-        connector: t(`Step.Oathsworn.Oath.Tenet.Connector.${connector.value}`),
-        subject: t(`Step.Oathsworn.Oath.Tenet.Subject.${subject.value}`),
-        relation: t(`Step.Oathsworn.Oath.Tenet.Relation.${relation.value}`),
-        motivation: t(`Step.Oathsworn.Oath.Tenet.Motivation.${motivation.value}`)
+    const template = t('Step.Hunters-mark.Traps.template', {
+        effect: t(`Step.Hunters-mark.Traps.Effects.${effect.value}`),
+        trigger: t(`Step.Hunters-mark.Traps.Triggers.${trigger.value}`)
     });
 
     emit('update:modelValue', template);
