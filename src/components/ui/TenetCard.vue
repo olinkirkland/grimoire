@@ -6,22 +6,20 @@
 
         <!-- Use some translations from crucible -->
         <div class="card-content">
-            <p v-if="props.modelValue" class="crucible-value">
-                {{ props.modelValue }}
-            </p>
+            <p v-if="props.modelValue" class="crucible-value" v-html="props.modelValue"></p>
             <p v-else class="crucible-value-empty">
                 <em>{{ t('Crucible.no-data') }}</em>
             </p>
-            <ButtonBar>
+            <div class="flex">
                 <Button @click="onClickRoll">
                     <i class="fas fa-random"></i>
                     <span>{{ t('Crucible.roll') }}</span>
                 </Button>
                 <Button v-if="props.modelValue" @click="onClickCopy">
                     <i class="fas fa-copy"></i>
-                    <span>{{ t('copy') }}</span>
+                    <span class="hide-on-mobile">{{ t('copy') }}</span>
                 </Button>
-            </ButtonBar>
+            </div>
         </div>
     </Card>
 </template>
@@ -128,6 +126,7 @@ function onClickCopy() {
         align-items: center;
         flex-direction: column;
         gap: 0.8rem;
+        text-align: center;
     }
 
     p.crucible-value {

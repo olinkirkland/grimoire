@@ -163,7 +163,17 @@ ul.table {
 p {
     line-height: 1.4;
 
-    > ul {
+    a {
+        font-size: inherit;
+    }
+
+    span.br {
+        display: block;
+        height: 0.4rem;
+        width: 100%;
+    }
+
+    ul {
         display: flex;
         flex-direction: column;
         padding: 0.8rem;
@@ -296,16 +306,6 @@ a {
     }
 }
 
-p > a {
-    font-size: inherit;
-}
-
-br {
-    display: block;
-    margin: 0.4rem 0;
-    border: 2px solid red;
-}
-
 label {
     font-size: 1.4rem;
     font-weight: normal;
@@ -317,4 +317,10 @@ section {
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
+}
+
+@media (max-width: 768px) {
+    .hide-on-mobile {
+        display: none;
+    }
 }

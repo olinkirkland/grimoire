@@ -11,16 +11,20 @@
             <p v-else class="crucible-value-empty">
                 <em>{{ t('Crucible.no-data') }}</em>
             </p>
-            <ButtonBar>
+            <div class="flex">
                 <Button @click="onClickRoll">
                     <i class="fas fa-random"></i>
                     <span>{{ t('Crucible.roll') }}</span>
                 </Button>
-                <Button @click="onClickOpenCrucible()">
+                <Button @click="onClickOpenCrucible">
                     <i class="fas fa-border-all"></i>
                     <span>{{ t('Crucible.choose') }}</span>
                 </Button>
-            </ButtonBar>
+                <Button @click="onClickCopy">
+                    <i class="fas fa-copy"></i>
+                    <span class="hide-on-mobile">{{ t('copy') }}</span>
+                </Button>
+            </div>
         </div>
     </Card>
 </template>
@@ -72,6 +76,19 @@ function onClickOpenCrucible() {
         }
     });
 }
+
+function onClickCopy() {
+    if (props.modelValue) {
+        navigator.clipboard
+            .writeText(props.labelFunction(props.modelValue))
+            .then(() => {
+                // Optionally show a success message or toast
+            })
+            .catch((err) => {
+                console.error('Failed to copy: ', err);
+            });
+    }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -108,10 +125,12 @@ function onClickOpenCrucible() {
 
     p.crucible-value {
         color: var(--primary-alt);
+        text-align: center;
     }
 
     p.crucible-value-empty {
         color: var(--surface-alt);
+        text-align: center;
     }
 }
 </style>

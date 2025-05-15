@@ -46,7 +46,9 @@ export function getLanguage() {
 }
 
 export function t(key: string, data?: Record<string, string>) {
-    return i18nInstance.t(key, data);
+    const localizedString = i18nInstance.t(key, data);
+    // replace <br>, <br/>, <br /> with <span class="br"></span>
+    return localizedString.replaceAll(/<br\s*\/?>/g, '<span class="br"></span>');
 }
 
 export default i18n;
