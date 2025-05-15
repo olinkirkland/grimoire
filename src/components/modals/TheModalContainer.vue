@@ -1,7 +1,9 @@
 <template>
     <div class="modal-container" :class="{ active: !!currentModal }">
         <div class="modal-container__background" @click="onClickBackground()"></div>
-        <component :is="currentModal" v-bind="currentModalConfig" ref="modalRef" />
+        <Transition name="modal-transition" mode="out-in">
+            <component :is="currentModal" v-bind="currentModalConfig" ref="modalRef" />
+        </Transition>
     </div>
 </template>
 
@@ -132,6 +134,26 @@ ModalController.getInstance().addEventListener(({ modal, modalConfig }) => {
         max-height: unset;
         animation: none;
         border-radius: 0;
+    }
+
+    // Transition (for mobile)
+    .modal-transition-enter-active,
+    .modal-transition-leave-active {
+        transition: all 0.2s ease;
+    }
+
+    .modal-transition-enter-from,
+    .modal-transition-leave-to {
+        opacity: 0;
+        transform: translateY(2rem);
+    }
+
+    .modal-transition-leave-active {
+        position: absolute;
+    }
+
+    .modal-container__background {
+        display: none;
     }
 }
 </style>

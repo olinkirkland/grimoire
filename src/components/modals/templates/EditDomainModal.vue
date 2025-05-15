@@ -9,25 +9,25 @@
             <div class="edit-domain-modal__content">
                 <p v-html="t('Modals.Edit-domain.instructions')"></p>
                 <InputGroup
-                    v-model="modelValue.name"
+                    v-model="localValue.name"
                     :placeholder="t('Step.Channel-divinity.Domains.Name.placeholder')"
                 >
                     <span> {{ t('Step.Channel-divinity.Domains.Name.label') }} </span>
                 </InputGroup>
                 <InputGroup
-                    v-model="modelValue.description"
+                    v-model="localValue.description"
                     :placeholder="t('Step.Channel-divinity.Domains.Utility.placeholder')"
                 >
                     <span> {{ t('Step.Channel-divinity.Domains.Utility.label') }} </span>
                 </InputGroup>
                 <InputGroup
-                    v-model="modelValue.tenets"
+                    v-model="localValue.tenets"
                     :placeholder="t('Step.Channel-divinity.Domains.Tenets.placeholder')"
                 >
                     <span> {{ t('Step.Channel-divinity.Domains.Tenets.label') }} </span>
                 </InputGroup>
                 <InputGroup
-                    v-model="modelValue.magic"
+                    v-model="localValue.magic"
                     :placeholder="t('Step.Channel-divinity.Domains.Magic.placeholder')"
                 >
                     <span> {{ t('Step.Channel-divinity.Domains.Magic.label') }} </span>
@@ -56,6 +56,15 @@
                     </li></ul
             ></Card>
         </template>
+        <template v-slot:footer>
+            <Button @click="onClickCancel">
+                <span>{{ t('Modals.Edit-domain.cancel') }}</span>
+            </Button>
+            <Button @click="onClickSave" primary>
+                <i class="fas fa-save"></i>
+                <span>{{ t('Modals.Edit-domain.save') }}</span>
+            </Button>
+        </template>
     </ModalFrame>
 </template>
 
@@ -64,8 +73,10 @@ import domainsData from '@/assets/data/domains.json';
 import ModalFrame from '@/components/modals/ModalFrame.vue';
 import ModalHeader from '@/components/modals/ModalHeader.vue';
 import InputGroup from '@/components/ui/InputGroup.vue';
+import ModalController from '@/controllers/modal-controller';
 import { t } from '@/i18n/locale';
 import { capitalizeFirstLetter } from '@/utils/naming-util';
+import { ref } from 'vue';
 
 type Domain = {
     name: string;
@@ -78,13 +89,34 @@ const props = defineProps<{
     modelValue: Domain;
 }>();
 
+const localValue = ref<Domain>({
+    name: props.modelValue.name,
+    description: props.modelValue.description,
+    tenets: props.modelValue.tenets,
+    magic: props.modelValue.magic
+});
+
 function onClickApplyDomain(domain: string) {
     // Set this domain to the selected one
     const domainKey = capitalizeFirstLetter(domain);
-    props.modelValue.name = t(`Step.Channel-divinity.${domainKey}.name`);
-    props.modelValue.description = t(`Step.Channel-divinity.${domainKey}.description`);
-    props.modelValue.tenets = t(`Step.Channel-divinity.${domainKey}.tenets`);
-    props.modelValue.magic = t(`Step.Channel-divinity.${domainKey}.magic`);
+    localValue.value.name = t(`Step.Channel-divinity.${domainKey}.name`);
+    localValue.value.description = t(`Step.Channel-divinity.${domainKey}.description`);
+    localValue.value.tenets = t(`Step.Channel-divinity.${domainKey}.tenets`);
+    localValue.value.magic = t(`Step.Channel-divinity.${domainKey}.magic`);
+}
+
+function onClickSave() {
+    // Emit the new value to the parent component
+    props.modelValue.description = localValue.value.description;
+    props.modelValue.name = localValue.value.name;
+    props.modelValue.tenets = localValue.value.tenets;
+    props.modelValue.magic = localValue.value.magic;
+    ModalController.close();
+}
+
+function onClickCancel() {
+    // Close the modal without saving
+    ModalController.close();
 }
 </script>
 

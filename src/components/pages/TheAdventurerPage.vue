@@ -24,7 +24,7 @@
             </Transition>
         </div>
 
-        <div class="controls">
+        <footer>
             <Button @click="onClickGoHome">
                 <i class="fas fa-door-open"></i>
             </Button>
@@ -39,7 +39,7 @@
                 <span>{{ nextStepLabel }}</span>
                 <i class="fas fa-arrow-right"></i>
             </Button>
-        </div>
+        </footer>
     </div>
 </template>
 
@@ -231,11 +231,13 @@ ul.steps-list {
     width: 100%;
 }
 
-.controls {
+footer {
+    width: 100%;
     display: flex;
     justify-content: center;
     gap: 0.4rem;
-    padding: 0.8rem;
+    padding: 1rem;
+    border-top: 0.1rem solid var(--surface-border);
 }
 
 // Transition
