@@ -12,6 +12,7 @@
                     <Card>
                         <div class="talent-info">
                             <header>
+                                <i class="fas fa-info-circle" @click="onClickTalent(talent)"></i>
                                 <h3>{{ t(`Step.Talents.${capitalizeFirstLetter(talent)}.name`) }}</h3>
                                 <Button @click="props.adventurer.talents.splice(index, 1)" primary>
                                     <i class="fas fa-trash"></i>
@@ -19,7 +20,7 @@
                                 </Button>
                             </header>
                             <h2>{{ getSourceLabel(talentsData.find((t) => t.id === talent)!.source) }}</h2>
-                            <p v-html="t(`Step.Talents.${capitalizeFirstLetter(talent)}.description`)"></p>
+                            <!-- <p v-html="t(`Step.Talents.${capitalizeFirstLetter(talent)}.description`)"></p> -->
                         </div>
                     </Card>
                 </li>
@@ -88,6 +89,8 @@ import ButtonBar from '../ui/ButtonBar.vue';
 import Card from '../ui/Card.vue';
 import InputGroup from '../ui/InputGroup.vue';
 import ReferenceCard from '../ui/ReferenceCard.vue';
+import ModalController from '@/controllers/modal-controller';
+import TalentModal from '../modals/templates/TalentModal.vue';
 
 const props = defineProps({
     adventurer: {
@@ -129,6 +132,10 @@ function getSourceLabel(source: string): string {
     const path = t(`Step.Path.${capitalizeFirstLetter(source)}.name`);
     return t('Step.Talents.talent-by-path', { path });
 }
+
+function onClickTalent(talent: string) {
+    ModalController.open(TalentModal, { talent });
+}
 </script>
 
 <style scoped lang="scss">
@@ -152,6 +159,7 @@ ul.talents-list {
             gap: 1rem;
 
             > h3 {
+                margin-bottom: 0;
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
@@ -228,6 +236,27 @@ p.no-results {
             height: 100%;
             .card {
                 height: 100%;
+                width: 100%;
+                .talent-info {
+                    width: 100%;
+                }
+                header {
+                    display: flex;
+                    gap: 0.6rem;
+                    > i {
+                        position: relative;
+                        top: 0.75rem;
+                        color: var(--primary-alt);
+                        font-size: 1.4rem;
+                    }
+                    > h3 {
+                        width: 100%;
+                        white-space: nowrap;
+                    }
+                    button {
+                        margin-left: auto;
+                    }
+                }
             }
         }
     }
@@ -255,8 +284,8 @@ p.no-results {
                         width: 100%;
                         overflow: hidden;
                         > header {
-                            margin-top: 0.2rem;
                             width: 100%;
+                            margin-top: 0.2rem;
                             gap: 1rem;
                             > h3 {
                                 overflow: hidden;
