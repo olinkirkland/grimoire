@@ -15,7 +15,7 @@
             </div>
             <Card class="name-generator">
                 <p v-html="t('Step.Personality.Name.Generator.instructions')"></p>
-                <ul class="pick-list">
+                <ul class="names-list">
                     <li
                         v-for="(nameTableKey, index) in Object.keys(nameTablesData)"
                         :key="index"
@@ -41,25 +41,21 @@
         <div class="traits-and-desires">
             <Card class="traits">
                 <p v-html="t('Step.Personality.Traits.instructions')"></p>
-                <Card>
-                    <ul class="pick-list">
-                        <li v-for="(trait, index) in traitsData" :key="index" @click="onClickCycleTrait(trait)">
-                            <i :class="getTraitSelectionClass(trait)"></i>
-                            <span>{{ t(`Step.Personality.Traits.${trait}`) }}</span>
-                        </li>
-                    </ul>
-                </Card>
+                <PickList
+                    :items="traitsData"
+                    v-model:selected-items="adventurer.traits"
+                    v-model:not-selected-items="adventurer.notTraits"
+                    :label-function="(item) => t(`Step.Personality.Traits.${item}`)"
+                />
             </Card>
             <Card class="desires">
                 <p v-html="t('Step.Personality.Desires.instructions')"></p>
-                <Card>
-                    <ul class="pick-list">
-                        <li v-for="(desire, index) in desiresData" :key="index" @click="onClickCycleDesire(desire)">
-                            <i :class="getDesireSelectionClass(desire)"></i>
-                            <span>{{ t(`Step.Personality.Desires.${desire}`) }}</span>
-                        </li>
-                    </ul>
-                </Card>
+                <PickList
+                    :items="desiresData"
+                    v-model:selected-items="adventurer.desires"
+                    v-model:not-selected-items="adventurer.notDesires"
+                    :label-function="(item) => t(`Step.Personality.Desires.${item}`)"
+                />
             </Card>
         </div>
         <Card class="features">
@@ -101,6 +97,7 @@ import { generateMarkovName } from '@/utils/adventurer-util';
 import { ref } from 'vue';
 import StepFrame from '../StepFrame.vue';
 import Card from '../ui/Card.vue';
+import PickList from '../ui/PickList.vue';
 
 const props = defineProps({
     adventurer: {
@@ -110,64 +107,6 @@ const props = defineProps({
 });
 
 const activeNameTables = ref<string[]>([]);
-
-function getTraitSelectionClass(trait: string): string {
-    if (props.adventurer.traits.includes(trait)) return 'fas fa-circle';
-    return props.adventurer.notTraits.includes(trait) ? 'fas fa-ban' : 'far fa-circle';
-}
-
-function onClickCycleTrait(trait: string) {
-    const isInTraits = props.adventurer.traits.includes(trait);
-    const isInNotTraits = props.adventurer.notTraits.includes(trait);
-
-    // If it's not in traits or notTraits, add it to traits, and return
-    if (!isInTraits && !isInNotTraits) {
-        props.adventurer.traits.push(trait);
-        return;
-    }
-
-    // If it's in traits, remove it from traits, add it to notTraits, and return
-    if (isInTraits) {
-        props.adventurer.traits = props.adventurer.traits.filter((t) => t !== trait);
-        props.adventurer.notTraits.push(trait);
-        return;
-    }
-
-    // If it's in notTraits, remove it from notTraits, and return
-    if (isInNotTraits) {
-        props.adventurer.notTraits = props.adventurer.notTraits.filter((t) => t !== trait);
-        return;
-    }
-}
-
-function getDesireSelectionClass(desire: string): string {
-    if (props.adventurer.desires.includes(desire)) return 'fas fa-circle';
-    return props.adventurer.notDesires.includes(desire) ? 'fas fa-ban' : 'far fa-circle';
-}
-
-function onClickCycleDesire(desire: string) {
-    const isInDesires = props.adventurer.desires.includes(desire);
-    const isInNotDesires = props.adventurer.notDesires.includes(desire);
-
-    // If it's not in desires or notDesires, add it to desires, and return
-    if (!isInDesires && !isInNotDesires) {
-        props.adventurer.desires.push(desire);
-        return;
-    }
-
-    // If it's in desires, remove it from desires, add it to notDesires, and return
-    if (isInDesires) {
-        props.adventurer.desires = props.adventurer.desires.filter((d) => d !== desire);
-        props.adventurer.notDesires.push(desire);
-        return;
-    }
-
-    // If it's in notDesires, remove it from notDesires, and return
-    if (isInNotDesires) {
-        props.adventurer.notDesires = props.adventurer.notDesires.filter((d) => d !== desire);
-        return;
-    }
-}
 
 function toggleNameTable(nameTableKey: string) {
     if (activeNameTables.value.includes(nameTableKey))
@@ -225,41 +164,29 @@ function onClickRollName() {
 
 .card.traits,
 .card.desires {
-    flex: 1;
-    .card {
-        width: 100%;
-        background-color: var(--overlay);
-        padding: 0.4rem;
-    }
-}
-
-ul.pick-list {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
-    > li {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-
-        cursor: pointer;
-        padding: 0.4rem 0.8rem;
-        font-style: italic;
-
-        > span {
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-    }
+    flex: 1; // Make the cards take equal space
 }
 
 .name-generator {
     width: 100%;
 
-    > .pick-list {
+    > ul.names-list {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 0.4rem;
+
+        > li {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            cursor: pointer;
+
+            i {
+                font-size: 1.6rem;
+            }
+        }
     }
 }
 

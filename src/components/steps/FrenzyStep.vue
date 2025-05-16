@@ -15,18 +15,12 @@
         </ReferenceCard>
         <Card>
             <p v-html="t('Step.Frenzy.Frenzy-source.instructions')"></p>
-            <Card class="frenzy-source">
-                <ul class="pick-list">
-                    <li
-                        v-for="(frenzySource, index) in frenzySourceData"
-                        :key="index"
-                        @click="onClickCycleFrenzySource(frenzySource)"
-                    >
-                        <i :class="getFrenzySourceSelectionClass(frenzySource)"></i>
-                        <span>{{ t(`Step.Frenzy.Frenzy-source.${frenzySource}`) }}</span>
-                    </li>
-                </ul>
-            </Card>
+            <PickList
+                :items="frenzySourceData"
+                v-model:selected-items="adventurer.talentsData[Step.FRENZY].frenzySources"
+                v-model:not-selected-items="adventurer.talentsData[Step.FRENZY].notFrenzySources"
+                :label-function="(frenzySource) => t(`Step.Frenzy.Frenzy-source.${frenzySource}`)"
+            />
         </Card>
         <Card class="scars">
             <p v-html="t('Step.Frenzy.Scars.instructions')"></p>
@@ -60,11 +54,12 @@ import Adventurer from '@/adventurer';
 import frenzySourceData from '@/assets/data/frenzy-source.json';
 import scarsData from '@/assets/data/scars.json';
 import { t } from '@/i18n/locale';
+import { Step } from '@/step';
 import StepFrame from '../StepFrame.vue';
 import Card from '../ui/Card.vue';
 import InputGroup from '../ui/InputGroup.vue';
+import PickList from '../ui/PickList.vue';
 import ReferenceCard from '../ui/ReferenceCard.vue';
-import { Step } from '@/step';
 
 const props = defineProps({
     adventurer: {
@@ -126,27 +121,6 @@ function getFrenzySourceSelectionClass(frenzySource: string): string {
     padding: 0.4rem;
 }
 
-ul.pick-list {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(32rem, 1fr));
-
-    > li {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        gap: 1rem;
-
-        cursor: pointer;
-        padding: 0.4rem 0.8rem;
-        font-style: italic;
-
-        > span {
-            width: 100%;
-        }
-    }
-}
-
 .scars-list {
     width: 100%;
     display: grid;
@@ -155,10 +129,6 @@ ul.pick-list {
 }
 
 @media (max-width: 768px) {
-    ul.pick-list {
-        grid-template-columns: repeat(1, 1fr);
-    }
-
     .scars-list {
         grid-template-columns: 1fr;
         gap: 0.8rem;
