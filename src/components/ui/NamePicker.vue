@@ -13,7 +13,8 @@
         </ul>
         <div class="flex">
             <Button @click="onClickGenerateName" :disabled="activeNameTables.length === 0">
-                {{ t('generate') }}
+                <i class="fas fa-magic"></i>
+                <span>{{ t('generate') }}</span>
             </Button>
             <Button @click="onClickRollName" :disabled="activeNameTables.length === 0">
                 <i class="fas fa-random"></i>
@@ -26,7 +27,7 @@
 <script setup lang="ts">
 import { t } from '@/i18n/locale';
 import { generateMarkovName } from '@/utils/adventurer-util';
-import { ref } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 
 const props = defineProps({
     id: {
@@ -54,6 +55,26 @@ const props = defineProps({
 const activeNameTables = ref<string[]>([]);
 
 const emit = defineEmits(['update:name']);
+
+const localStorageKey = `name-picker.${props.id}`;
+
+onMounted(() => {
+    const stored = localStorage.getItem(localStorageKey);
+    if (stored) {
+        try {
+            const parsed = JSON.parse(stored);
+            if (Array.isArray(parsed)) {
+                activeNameTables.value = parsed;
+            }
+        } catch (e) {
+            // ignore parse errors
+        }
+    }
+});
+
+watch(activeNameTables, (val) => {
+    localStorage.setItem(localStorageKey, JSON.stringify(val));
+}, { deep: true });
 
 function toggleNameTable(nameTableKey: string) {
     if (activeNameTables.value.includes(nameTableKey))
