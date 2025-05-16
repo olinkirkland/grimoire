@@ -18,20 +18,16 @@
                     <em v-else>{{ t('Crucible.empty') }}</em>
                 </Button>
             </div>
-            <Card class="crucible">
-                <ul>
-                    <li
-                        v-for="(item, index) in items"
-                        :key="index"
-                        :class="{
-                            selected: item === currentValue
-                        }"
+            <TableCard :items="props.items" many>
+                <template #item="{ item }">
+                    <span
+                        class="crucible-item ellipsis text-center"
+                        :class="{ selected: item === currentValue }"
                         @click="onClickItem(item)"
+                        >{{ props.labelFunction(item) }}</span
                     >
-                        {{ props.labelFunction(item) }}
-                    </li>
-                </ul>
-            </Card>
+                </template>
+            </TableCard>
         </template>
     </ModalFrame>
 </template>
@@ -41,6 +37,7 @@ import ModalFrame from '@/components/modals/ModalFrame.vue';
 import ModalHeader from '@/components/modals/ModalHeader.vue';
 import Card from '@/components/ui/Card.vue';
 import ReferenceCard from '@/components/ui/ReferenceCard.vue';
+import TableCard from '@/components/ui/TableCard.vue';
 import { t } from '@/i18n/locale';
 import { ref } from 'vue';
 
@@ -93,35 +90,16 @@ function onClickRoll() {
     .crucible-description {
         font-size: 1.6rem;
     }
-
-    > ul {
-        display: grid;
-        width: 100%;
-        grid-template-columns: repeat(6, 1fr);
-        padding: 1.6rem;
-
-        > li {
-            cursor: pointer;
-            padding: 0.4rem 0.8rem;
-            background-color: var(--background);
-            overflow: hidden;
-            text-overflow: ellipsis;
-            font-size: 1.4rem;
-            line-height: 1.4;
-            text-align: center;
-
-            &.selected {
-                color: var(--primary-alt);
-            }
-        }
-    }
 }
 
-@media (max-width: 768px) {
-    .crucible {
-        > ul {
-            grid-template-columns: repeat(2, 1fr);
-        }
+:deep(.crucible-item) {
+    cursor: pointer;
+    border-bottom: 1px solid transparent; // Hidden border to keep the height consistent
+    &.selected {
+        margin: 0 auto;
+        width: fit-content;
+        color: var(--primary);
+        border-bottom: 1px solid var(--primary);
     }
 }
 </style>
