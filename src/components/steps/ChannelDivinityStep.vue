@@ -81,38 +81,6 @@ const props = defineProps({
         required: true
     }
 });
-
-const activeNameTables = ref<string[]>([]);
-
-function toggleNameTable(nameTableKey: string) {
-    if (activeNameTables.value.includes(nameTableKey))
-        activeNameTables.value = activeNameTables.value.filter((table) => table !== nameTableKey);
-    else activeNameTables.value.push(nameTableKey);
-}
-
-function onClickGenerateName() {
-    // Generate a name using the selected name tables
-    const allNames: string[] = [];
-    activeNameTables.value.forEach((nameTableKey) => {
-        const nameTableData = nameTablesData[nameTableKey as keyof typeof nameTablesData];
-        allNames.push(...nameTableData);
-    });
-
-    const generatedName = generateMarkovName(allNames, 2);
-    if (generatedName) props.adventurer.talentsData[Step.CHANNEL_DIVINITY].god.name = generatedName;
-}
-
-function onClickRollName() {
-    // Pick a random name from the selected name tables
-    const allNames: string[] = [];
-    activeNameTables.value.forEach((nameTableKey) => {
-        const nameTableData = nameTablesData[nameTableKey as keyof typeof nameTablesData];
-        allNames.push(...nameTableData);
-    });
-
-    const randomName = allNames[Math.floor(Math.random() * allNames.length)];
-    if (randomName) props.adventurer.talentsData[Step.CHANNEL_DIVINITY].god.name = randomName;
-}
 </script>
 
 <style scoped lang="scss">
