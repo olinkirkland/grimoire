@@ -13,6 +13,8 @@ import List from './components/ui/List.vue';
 import ReferenceCard from './components/ui/ReferenceCard.vue';
 import i18n from './i18n/locale';
 import { useAdventurersStore } from './store/adventurers-store';
+import Table from './components/ui/Table.vue';
+import TableGroup from './components/ui/TableGroup.vue';
 
 // Create the app
 const app = createApp(App);
@@ -33,6 +35,8 @@ app.component('List', List);
 app.component('InputGroup', InputGroup);
 app.component('Link', Link);
 app.component('ComboBox', ComboBox);
+app.component('Table', Table);
+app.component('TableGroup', TableGroup);
 
 // Load adventurers from localStorage
 const adventurersStore = useAdventurersStore();

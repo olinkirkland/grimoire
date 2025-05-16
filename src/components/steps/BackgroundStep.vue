@@ -36,18 +36,14 @@
                 </ul>
             </section>
 
-            <Card class="table">
-                <ul class="backgrounds-list">
-                    <li
-                        v-for="(background, index) in backgroundsData"
-                        :key="index"
-                        @click="onClickBackground(background)"
-                    >
-                        <p v-html="makeBackgroundNamesString(background.names)"></p>
-                        <p v-html="makeBackgroundWisesString(background.wises)"></p>
-                    </li>
-                </ul>
-            </Card>
+            <Table :items="backgroundsData">
+                <template #item="{ item }">
+                    <div class="background-item" @click="onClickBackground(item)">
+                        <p v-html="makeBackgroundNamesString(item.names)"></p>
+                        <p v-html="makeBackgroundWisesString(item.wises)"></p>
+                    </div>
+                </template>
+            </Table>
         </Card>
     </StepFrame>
 </template>
@@ -109,22 +105,11 @@ function onClickBackground(background: any, name?: string) {
     gap: 1rem;
 }
 
-.card.table {
+.background-item {
     width: 100%;
-    padding: 0;
-    ul.backgrounds-list {
-        width: 100%;
-        > li {
-            cursor: pointer;
-            width: 100%;
-            padding: 0.4rem 0.8rem;
-            display: flex;
-            justify-content: space-between;
-            &:nth-child(odd) {
-                background-color: var(--overlay);
-            }
-        }
-    }
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
 }
 
 @media (max-width: 768px) {
@@ -133,8 +118,7 @@ function onClickBackground(background: any, name?: string) {
         gap: 0.8rem;
     }
 
-    ul.backgrounds-list > li {
-        padding: 1rem !important;
+    .background-item {
         display: flex;
         flex-direction: column;
 
