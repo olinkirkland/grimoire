@@ -42,7 +42,7 @@ const props = defineProps({
 .table-card--many > ul {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    padding: 0.4rem;
+    padding: 2rem;
     gap: 0rem;
     > li {
         background-color: unset;
@@ -69,7 +69,7 @@ li {
 
 @media (max-width: 768px) {
     .table-card--many > ul {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 </style>

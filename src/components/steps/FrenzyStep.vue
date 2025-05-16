@@ -40,7 +40,7 @@
             </ul>
             <TableCard :title="t('Step.Frenzy.Scars.title')" :items="scarsData" :many="true">
                 <template #item="{ item }">
-                    <span>{{ t(`Step.Frenzy.Scars.${item}`) }}</span>
+                    <span class="text-center">{{ t(`Step.Frenzy.Scars.${item}`) }}</span>
                 </template>
             </TableCard>
         </Card>
