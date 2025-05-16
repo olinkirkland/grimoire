@@ -109,7 +109,7 @@ function onClickCopy() {
         display: flex;
         align-items: center;
         flex-direction: column;
-        gap: 0.8rem;
+        gap: 1rem;
         text-align: center;
     }
 

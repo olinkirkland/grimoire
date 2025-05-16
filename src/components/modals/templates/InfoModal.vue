@@ -50,7 +50,7 @@ const props = defineProps<{
 
 .choices {
     display: flex;
-    gap: 0.8rem;
+    gap: 1rem;
     justify-content: flex-end;
 }
 

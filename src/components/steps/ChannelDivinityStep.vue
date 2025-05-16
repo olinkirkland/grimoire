@@ -112,7 +112,7 @@ const props = defineProps({
 .domain-block {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: 1rem;
     width: 100%;
 }
 

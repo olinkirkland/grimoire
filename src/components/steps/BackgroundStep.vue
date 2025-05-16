@@ -115,7 +115,7 @@ function onClickBackground(background: any, name?: string) {
 @media (max-width: 768px) {
     .wises {
         grid-template-columns: 1fr;
-        gap: 0.8rem;
+        gap: 1rem;
     }
 
     .background-item {

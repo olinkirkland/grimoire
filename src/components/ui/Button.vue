@@ -46,7 +46,7 @@ button {
     position: relative;
     top: -0.2rem;
     display: flex;
-    gap: 0.8rem;
+    gap: 1rem;
     align-items: center;
     height: 3.2rem;
     padding: 0 1.2rem;

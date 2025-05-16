@@ -15,34 +15,36 @@
         </ReferenceCard>
         <Card class="wild-talents">
             <p v-html="t('Step.Wild-shape.Wild-talents.instructions')"></p>
-            <Card class="table-card multi">
-                <ul
-                    class="table"
+            <TableGroup merge>
+                <TableCard
                     v-for="wildtalentsDataHalf in [
                         wildTalentsData.slice(0, Math.ceil(wildTalentsData.length / 2)),
                         wildTalentsData.slice(Math.ceil(wildTalentsData.length / 2))
                     ]"
+                    :items="wildtalentsDataHalf"
                 >
-                    <li v-for="beastAndTalent in wildtalentsDataHalf">
-                        <p>{{ t(`Step.Wild-shape.Wild-talents.Beasts.${beastAndTalent.beast}`) }}</p>
+                    <template #item="{ item }">
+                        <p>
+                            <strong>{{ t(`Step.Wild-shape.Wild-talents.Beasts.${item.beast}`) }}</strong>
+                        </p>
                         <!-- The beast talent exists in the talentsData array -->
                         <div
-                            v-if="talentsData.find((t) => t.id === beastAndTalent.talent)"
+                            v-if="talentsData.find((t) => t.id === item.talent)"
                             class="existing-talent"
-                            @click="onClickTalent(beastAndTalent.talent)"
+                            @click="onClickTalent(item.talent)"
                         >
                             <p class="talent-name">
-                                {{ t(`Step.Talents.${capitalizeFirstLetter(beastAndTalent.talent)}.name`) }}
+                                {{ t(`Step.Talents.${capitalizeFirstLetter(item.talent)}.name`) }}
                             </p>
                             <i class="fas fa-info-circle"></i>
                         </div>
                         <!-- The beast talent does not exist in the talentsData array -->
                         <p class="talent-name" v-else>
-                            {{ t(`Step.Wild-shape.Wild-talents.Talents.${beastAndTalent.talent}`) }}
+                            {{ t(`Step.Wild-shape.Wild-talents.Talents.${item.talent}`) }}
                         </p>
-                    </li>
-                </ul>
-            </Card>
+                    </template>
+                </TableCard>
+            </TableGroup>
         </Card>
         <Card class="druidic-tells">
             <div class="druidic-tells-instructions">
@@ -72,11 +74,13 @@ import ModalController from '@/controllers/modal-controller';
 import { t } from '@/i18n/locale';
 import { Step } from '@/step';
 import { capitalizeFirstLetter } from '@/utils/naming-util';
+import TalentModal from '../modals/templates/TalentModal.vue';
 import StepFrame from '../StepFrame.vue';
+import CrucibleCard from '../ui/CrucibleCard.vue';
 import InputGroup from '../ui/InputGroup.vue';
 import ReferenceCard from '../ui/ReferenceCard.vue';
-import TalentModal from '../modals/templates/TalentModal.vue';
-import CrucibleCard from '../ui/CrucibleCard.vue';
+import TableCard from '../ui/TableCard.vue';
+import TableGroup from '../ui/TableGroup.vue';
 
 const props = defineProps({
     adventurer: {
@@ -101,36 +105,21 @@ function onClickTalent(talent: string) {
     background-color: var(--surface);
 }
 
-.wild-talents ul li {
+.existing-talent {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    font-style: normal;
+    gap: 1rem;
+    margin-left: auto;
 
-    > p:first-child {
-        text-align: left;
-        font-weight: bold;
+    i {
+        cursor: pointer;
+        color: var(--surface-alt);
+        font-size: 1.6rem;
     }
+}
 
-    p.talent-name {
-        text-align: right;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .existing-talent {
-        display: flex;
-        gap: 1rem;
-        align-items: center;
-        justify-content: flex-end;
-        i {
-            cursor: pointer;
-            color: var(--surface-alt);
-            font-size: 1.6rem;
-        }
-    }
+.talent-name {
+    margin-left: auto;
 }
 
 .card.druidic-tells {

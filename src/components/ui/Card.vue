@@ -42,7 +42,7 @@ const props = defineProps({
     display: flex;
     flex-direction: column;
     align-items: start;
-    gap: 0.8rem;
+    gap: 1rem;
 
     &.glass {
         background: unset;

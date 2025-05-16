@@ -153,7 +153,7 @@ ul.adventurers-list {
         width: 100%;
         align-items: center;
         cursor: pointer;
-        gap: 0.8rem;
+        gap: 1rem;
         padding: 0.8rem 1.2rem;
         &:nth-of-type(odd) {
             background-color: var(--overlay);

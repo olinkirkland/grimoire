@@ -76,7 +76,7 @@ function onClickEdit() {
     display: flex;
     padding-top: 0.8rem;
     margin-top: auto;
-    gap: 0.8rem;
+    gap: 1rem;
 }
 
 .card {

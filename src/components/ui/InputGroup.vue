@@ -105,7 +105,7 @@ function onPressEnterKey() {
     > .prepend {
         display: flex;
         flex-shrink: 0;
-        gap: 0.8rem;
+        gap: 1rem;
         align-items: center;
         padding: 0 1.2rem;
         background-color: var(--surface);

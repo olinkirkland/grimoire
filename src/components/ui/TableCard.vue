@@ -1,5 +1,5 @@
 <template>
-    <Card class="table-card">
+    <Card class="table-card" :class="{ 'table-card--many': props.many }">
         <header v-if="title" class="table-header">
             <h2>{{ title }}</h2>
         </header>
@@ -18,8 +18,12 @@ const props = defineProps({
         required: false
     },
     items: {
-        type: Array,
+        type: Array as () => any[],
         required: true
+    },
+    many: {
+        type: Boolean,
+        default: false
     }
 });
 </script>
@@ -28,10 +32,19 @@ const props = defineProps({
 .card {
     padding: 0;
     gap: 0;
+
+    ul {
+        width: 100%;
+    }
 }
 
-ul {
-    width: 100%;
+.table-card--many > ul {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 1rem;
+    > li {
+        background-color: unset;
+    }
 }
 
 header {

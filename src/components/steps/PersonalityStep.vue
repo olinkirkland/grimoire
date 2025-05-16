@@ -170,7 +170,7 @@ function onClickRollName() {
 
     .features-list {
         grid-template-columns: 1fr;
-        gap: 0.8rem;
+        gap: 1rem;
     }
 }
 </style>
