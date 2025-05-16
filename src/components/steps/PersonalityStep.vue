@@ -13,30 +13,14 @@
                     <span>{{ t('Step.Personality.Player-name.label') }}</span>
                 </InputGroup>
             </div>
-            <Card class="name-generator">
+            <NamePicker
+                id="adventurer-name"
+                :nameTables="nameTablesData"
+                :name-category-label-function="(item) => t(`Step.Personality.Name.Generator.Tables.${item}`)"
+                v-model:name="adventurer.name"
+            >
                 <p v-html="t('Step.Personality.Name.Generator.instructions')"></p>
-                <ul class="names-list">
-                    <li
-                        v-for="(nameTableKey, index) in Object.keys(nameTablesData)"
-                        :key="index"
-                        @click="toggleNameTable(nameTableKey)"
-                    >
-                        <i
-                            :class="activeNameTables.includes(nameTableKey) ? 'fas fa-check-square' : 'far fa-square'"
-                        ></i>
-                        <span>{{ t(`Step.Personality.Name.Generator.Tables.${nameTableKey}`) }}</span>
-                    </li>
-                </ul>
-                <div class="flex">
-                    <Button @click="onClickGenerateName" :disabled="activeNameTables.length === 0">
-                        {{ t('Step.Personality.Name.Generator.label') }}
-                    </Button>
-                    <Button @click="onClickRollName" :disabled="activeNameTables.length === 0">
-                        <i class="fas fa-random"></i>
-                        <span>{{ t('roll') }}</span>
-                    </Button>
-                </div>
-            </Card>
+            </NamePicker>
         </Card>
         <div class="traits-and-desires">
             <Card class="traits">
@@ -97,6 +81,7 @@ import { generateMarkovName } from '@/utils/adventurer-util';
 import { ref } from 'vue';
 import StepFrame from '../StepFrame.vue';
 import Card from '../ui/Card.vue';
+import NamePicker from '../ui/NamePicker.vue';
 import PickList from '../ui/PickList.vue';
 
 const props = defineProps({
@@ -167,29 +152,6 @@ function onClickRollName() {
     flex: 1; // Make the cards take equal space
 }
 
-.name-generator {
-    width: 100%;
-
-    > ul.names-list {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 1rem;
-        margin-bottom: 0.4rem;
-
-        > li {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            cursor: pointer;
-
-            i {
-                font-size: 1.6rem;
-            }
-        }
-    }
-}
-
 .features-list {
     width: 100%;
     display: grid;
@@ -204,13 +166,6 @@ function onClickRollName() {
 
     .name-inputs {
         grid-template-columns: 1fr !important;
-    }
-
-    .name-generator {
-        > .pick-list {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-        }
     }
 
     .features-list {

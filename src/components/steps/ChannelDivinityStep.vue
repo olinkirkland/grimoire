@@ -29,30 +29,14 @@
                     <span> {{ t('Step.Channel-divinity.God-epithet.label') }} </span>
                 </InputGroup>
             </div>
-            <Card class="name-generator">
+            <NamePicker
+                id="god-name"
+                :name-tables="nameTablesData"
+                :name-category-label-function="(key) => t(`Step.Channel-divinity.God-name.Generator.Tables.${key}`)"
+                v-model:name="adventurer.talentsData[Step.CHANNEL_DIVINITY].god.name"
+            >
                 <p v-html="t('Step.Channel-divinity.God-name.Generator.instructions')"></p>
-                <ul class="pick-list">
-                    <li
-                        v-for="(nameTableKey, index) in Object.keys(nameTablesData)"
-                        :key="index"
-                        @click="toggleNameTable(nameTableKey)"
-                    >
-                        <i
-                            :class="activeNameTables.includes(nameTableKey) ? 'fas fa-check-square' : 'far fa-square'"
-                        ></i>
-                        <span>{{ t(`Step.Channel-divinity.God-name.Generator.Tables.${nameTableKey}`) }}</span>
-                    </li>
-                </ul>
-                <div class="flex">
-                    <Button @click="onClickGenerateName" :disabled="activeNameTables.length === 0">
-                        {{ t('Step.Channel-divinity.God-name.Generator.label') }}
-                    </Button>
-                    <Button @click="onClickRollName" :disabled="activeNameTables.length === 0">
-                        <i class="fas fa-random"></i>
-                        <span>{{ t('roll') }}</span>
-                    </Button>
-                </div>
-            </Card>
+            </NamePicker>
         </Card>
         <Card>
             <p v-html="t('Step.Channel-divinity.Domains.instructions')"></p>
@@ -82,13 +66,14 @@ import nameTablesData from '@/assets/data/god-name-tables.json';
 import holySymbolsData from '@/assets/data/holy-symbols.json';
 import { t } from '@/i18n/locale';
 import { BASE_URL } from '@/router';
+import { Step } from '@/step';
 import { generateMarkovName } from '@/utils/adventurer-util';
 import { ref } from 'vue';
 import StepFrame from '../StepFrame.vue';
 import DomainCard from '../ui/DomainCard.vue';
 import InputGroup from '../ui/InputGroup.vue';
+import NamePicker from '../ui/NamePicker.vue';
 import ReferenceCard from '../ui/ReferenceCard.vue';
-import { Step } from '@/step';
 
 const props = defineProps({
     adventurer: {
