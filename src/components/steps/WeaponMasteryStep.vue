@@ -105,6 +105,8 @@ ul.weapon-style {
         align-items: center;
         gap: 0;
         transition: box-shadow 0.2s ease-in-out;
+        padding: 1rem;
+
 
         > em {
             font-size: 1.2rem;

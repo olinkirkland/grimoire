@@ -110,7 +110,7 @@ const props = defineProps({
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .inputs-and-crucibles {
         grid-template-columns: repeat(1, 1fr);
         > * {

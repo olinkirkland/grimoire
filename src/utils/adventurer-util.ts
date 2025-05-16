@@ -155,8 +155,8 @@ export function getTalentTemplate(key: string): any | null {
             return {
                 magicPathsAndTechniques: [],
                 wildSurgeCrucibles: {
-                    first: '',
-                    second: ''
+                    a: '',
+                    b: ''
                 }
             };
     }

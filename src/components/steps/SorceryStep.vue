@@ -15,7 +15,7 @@
                         }"
                     >
                         <span>{{ t(`Step.Sorcery.Magic-paths.${magicPath}`) }}</span>
-                        <em>{{ t(`Step.Sorcery.Magic-paths.description`) }}</em>
+                        <em class="text-center">{{ t(`Step.Sorcery.Magic-paths.label`) }}</em>
                     </Card>
                 </ul>
                 <ul class="magic-techniques">
@@ -29,7 +29,7 @@
                         }"
                     >
                         <span>{{ t(`Step.Sorcery.Magic-techniques.${magicTechnique}`) }}</span>
-                        <em>{{ t(`Step.Sorcery.Magic-techniques.description`) }}</em>
+                        <em class="text-center">{{ t(`Step.Sorcery.Magic-techniques.label`) }}</em>
                     </Card>
                 </ul>
                 <Card class="growth">
@@ -41,20 +41,35 @@
             </div>
         </ReferenceCard>
         <Card class="random-wild-surges">
-            <div>TODO: RANDOM WILD SURGE INSTRUCTIONS</div>
-            <div>TODO: WILD SURGE CRUCIBLE</div>
+            <p v-html="t('Step.Sorcery.Wild-surges.instructions')"></p>
+            <div class="crucibles">
+                <CrucibleCard
+                    :title="t('Step.Sorcery.Wild-surges.A.title')"
+                    :items="wildSurgesData.a"
+                    :label-function="(item) => t(`Step.Sorcery.Wild-surges.A.${item}`)"
+                    v-model="adventurer.talentsData[Step.SORCERY].wildSurgeCrucibles.a"
+                />
+                <CrucibleCard
+                    :title="t('Step.Sorcery.Wild-surges.B.title')"
+                    :items="wildSurgesData.b"
+                    :label-function="(item) => t(`Step.Sorcery.Wild-surges.B.${item}`)"
+                    v-model="adventurer.talentsData[Step.SORCERY].wildSurgeCrucibles.b"
+                />
+            </div>
         </Card>
     </StepFrame>
 </template>
 
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
+import magicPathsData from '@/assets/data/magic-paths.json';
+import magicTechniquesData from '@/assets/data/magic-techniques.json';
 import { t } from '@/i18n/locale';
 import { Step } from '@/step';
 import StepFrame from '../StepFrame.vue';
 import ReferenceCard from '../ui/ReferenceCard.vue';
-import magicPathsData from '@/assets/data/magic-paths.json';
-import magicTechniquesData from '@/assets/data/magic-techniques.json';
+import CrucibleCard from '../ui/CrucibleCard.vue';
+import wildSurgesData from '@/assets/data/wild-surges.json';
 
 const props = defineProps({
     adventurer: {
@@ -89,7 +104,7 @@ ul.magic-techniques {
     margin-top: 1rem;
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(8, 1fr);
     gap: 1rem;
 
     .card {
@@ -98,10 +113,12 @@ ul.magic-techniques {
         align-items: center;
         gap: 0;
         transition: box-shadow 0.2s ease-in-out;
+        padding: 1rem;
 
         > em {
             font-size: 1.2rem;
             color: var(--surface-alt);
+            white-space: nowrap;
         }
 
         &.selected {
@@ -114,6 +131,31 @@ ul.magic-techniques {
                 opacity: 0.6;
             }
         }
+    }
+}
+
+.crucibles {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    > .card {
+        width: 100%;
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 1024px) {
+    ul.magic-paths,
+    ul.magic-techniques {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    ul.magic-paths,
+    ul.magic-techniques {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 </style>

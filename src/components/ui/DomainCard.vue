@@ -1,5 +1,5 @@
 <template>
-    <Card :class="{ 'card--primary': primary, empty: !domain.name }" shadow>
+    <Card :class="{ empty: !domain.name }" shadow>
         <h3>{{ domain.name }}</h3>
         <p class="domain-type">{{ t(`Step.Channel-divinity.Domains.${primary ? 'major' : 'minor'}`) }}</p>
         <p v-if="!domain.name" class="no-domain">
@@ -19,11 +19,11 @@
             ></p>
         </div>
         <div class="controls">
-            <Button @click="onClickRoll" :primary="primary">
+            <Button @click="onClickRoll">
                 <i class="fas fa-random"></i>
                 <span>{{ t('roll') }}</span>
             </Button>
-            <Button @click="onClickEdit" :primary="primary">
+            <Button @click="onClickEdit">
                 <i class="fas fa-edit"></i>
                 <span>{{ t('edit') }}</span>
             </Button>
@@ -95,16 +95,6 @@ function onClickEdit() {
 .empty {
     .controls {
         margin-top: unset;
-    }
-}
-
-.card--primary {
-    background-color: var(--primary-light);
-    > h3 {
-        color: var(--primary-alt);
-    }
-    > .domain-type {
-        color: var(--primary);
     }
 }
 
