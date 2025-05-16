@@ -1,6 +1,6 @@
 <template>
     <StepFrame>
-        <ReferenceCard :page="62">
+        <ReferenceCard :page="62" floating-reference-tip>
             <div>
                 <h2>{{ t('Step.Core-talent.heading') }}</h2>
                 <h3>◈ {{ t(`Step.Weapon-mastery.title`) }}</h3>

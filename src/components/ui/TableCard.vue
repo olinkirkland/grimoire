@@ -4,7 +4,7 @@
             <h2>{{ title }}</h2>
         </header>
         <ul>
-            <li v-for="(item, index) in items" :key="index" class="table-row">
+            <li v-for="(item, index) in items" :key="index">
                 <slot name="item" :item="item"></slot>
             </li>
         </ul>
@@ -30,6 +30,7 @@ const props = defineProps({
 
 <style scoped lang="scss">
 .card {
+    // Max size
     padding: 0;
     gap: 0;
 
@@ -40,8 +41,9 @@ const props = defineProps({
 
 .table-card--many > ul {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    padding: 1rem;
+    grid-template-columns: repeat(6, 1fr);
+    padding: 0.4rem;
+    gap: 0rem;
     > li {
         background-color: unset;
     }
@@ -59,10 +61,15 @@ li {
     width: 100%;
     padding: 0.4rem 0.8rem;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    overflow: hidden;
     &:nth-child(odd) {
         background-color: var(--overlay);
+    }
+}
+
+@media (max-width: 768px) {
+    .table-card--many > ul {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 </style>

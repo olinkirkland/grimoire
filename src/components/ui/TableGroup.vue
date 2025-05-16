@@ -1,5 +1,5 @@
 <template>
-    <Card class="tables-group" :class="{ 'tables-group--merge': merge }">
+    <Card class="table-group" :class="{ 'tables-group--merge': merge }">
         <slot></slot>
     </Card>
 </template>
@@ -16,15 +16,21 @@ const props = defineProps({
 </script>
 
 <style scoped lang="scss">
-.tables-group {
-    padding: 0;
+.table-group {
     width: 100%;
-    display: flex;
-    flex-direction: row;
+    padding: 0;
     gap: 0;
 
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0rem, 1fr));
+
+    > * {
+        width: 100%;
+        overflow: hidden;
+    }
+
     :deep(.table-card) {
-        flex: 1;
         border-radius: 0;
         border: none;
         &:not(:last-child) {
@@ -34,8 +40,8 @@ const props = defineProps({
 }
 
 @media (max-width: 768px) {
-    .tables-group {
-        flex-direction: column;
+    .table-group {
+        grid-template-columns: 1fr;
         :deep(.table-card) {
             &:not(:last-child) {
                 border-right: none;
@@ -46,7 +52,7 @@ const props = defineProps({
     // If the tables are not merged, add a bottom border to each table
     // An example of merging would be a split table, where you have half the items on the left and half on the right
     // for layout purposes (see WildShapeStep.vue)
-    .tables-group:not(.tables-group--merge) {
+    .table-group:not(.tables-group--merge) {
         :deep(.table-card) {
             &:not(:last-child) {
                 border-bottom: 1px solid var(--surface-border);

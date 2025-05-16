@@ -147,10 +147,6 @@ pre {
     }
 }
 
-.text-center {
-    text-align: center;
-}
-
 .page {
     height: 100vh; // Works everywhere, but buggy on mobile Safari (includes address bar)
     height: 100dvh; // Modern fix, uses the dynamic viewport height. Works properly with iOS Safari and all modern browsers
@@ -219,6 +215,19 @@ section {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+}
+
+.ellipsis {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    max-width: 100%;
+}
+
+.text-center {
+    text-align: center;
 }
 
 @media (max-width: 768px) {

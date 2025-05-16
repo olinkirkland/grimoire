@@ -1,5 +1,5 @@
 <template>
-    <div class="flex center">
+    <div class="reference-tip flex center">
         <i
             class="fas fa-book-open"
             @mouseover="

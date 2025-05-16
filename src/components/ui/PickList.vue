@@ -1,6 +1,6 @@
 <template>
     <Card>
-        <ul class="pick-list" :class="{ wide: averageItemLength > 20 }">
+        <ul class="pick-list" :class="{ wide: averageItemLength > 12 }">
             <li v-for="(item, index) in items" :key="index" @click="onClickCycleItem(item)">
                 <i :class="getItemSelectionClass(item)"></i>
                 <span v-html="labelFunction ? labelFunction(item) : item"></span>
@@ -25,11 +25,12 @@ const emit = defineEmits<{
 }>();
 
 const averageItemLength = computed(() => {
-    const totalLength = props.items.reduce((acc, item) => {
-        const length = props.labelFunction ? props.labelFunction(item).length : item.length;
-        return acc + length;
-    }, 0);
-    return Math.floor(totalLength / props.items.length);
+    // Take the average of the top 10% of items
+    const labels = props.items.map((item) => (props.labelFunction ? props.labelFunction(item) : item));
+    const topItems = labels.sort((a, b) => b.length - a.length).slice(0, Math.ceil(labels.length * 0.1));
+    console.log(topItems);
+    const totalLength = topItems.reduce((acc, item) => acc + item.length, 0);
+    return totalLength / topItems.length;
 });
 
 function getItemSelectionClass(item: string): string {
