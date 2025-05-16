@@ -10,7 +10,6 @@
                         v-for="(style, index) in weaponStylesData"
                         @click="adventurer.talentsData[Step.WEAPON_MASTERY].style = style"
                         :key="index"
-                        class="weapon-style-card"
                         :class="{ selected: style === adventurer.talentsData[Step.WEAPON_MASTERY].style }"
                     >
                         <span>{{ t(`Step.Weapon-mastery.Weapon-style.${style}`) }}</span>
@@ -99,6 +98,7 @@ ul.weapon-style {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
+
     .card {
         cursor: pointer;
         box-shadow: var(--shadow-sm);

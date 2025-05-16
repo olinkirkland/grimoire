@@ -151,6 +151,14 @@ export function getTalentTemplate(key: string): any | null {
                 crimeBuilder: '',
                 crime: ''
             };
+        case Step.SORCERY:
+            return {
+                magicPathsAndTechniques: [],
+                wildSurgeCrucibles: {
+                    first: '',
+                    second: ''
+                }
+            };
     }
 
     return null;
