@@ -159,6 +159,22 @@ export function getTalentTemplate(key: string): any | null {
                     b: ''
                 }
             };
+        case Step.PACT:
+            return {
+                patron: {
+                    name: '',
+                    nature: '',
+                    desires: '',
+                    communication: '',
+                    followerSize: 'some',
+                    knownFacts: '',
+                    color: '',
+                    patronCrucibles: {
+                        nature: '',
+                        desires: ''
+                    }
+                }
+            };
     }
 
     return null;

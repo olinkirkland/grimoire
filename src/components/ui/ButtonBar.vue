@@ -1,10 +1,17 @@
 <template>
-    <div class="button-bar">
+    <div class="button-bar" :class="{ 'full-width': fullWidth }">
         <slot></slot>
     </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const props = defineProps({
+    fullWidth: {
+        type: Boolean,
+        default: false
+    }
+});
+</script>
 
 <style scoped lang="scss">
 .button-bar {
@@ -36,6 +43,16 @@
     :deep(button:last-child > .btn__shadow) {
         border-top-right-radius: 5px;
         border-bottom-right-radius: 5px;
+    }
+}
+
+.button-bar.full-width {
+    width: 100%;
+    :deep(button) {
+        flex: 1;
+        > .btn__content {
+            justify-content: center;
+        }
     }
 }
 </style>

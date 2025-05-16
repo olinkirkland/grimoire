@@ -22,16 +22,94 @@
             </div>
         </ReferenceCard>
         <Card class="patron-creation">
-            <div>TODO: PATRON CREATION</div>
-            <div>TODO: PATRON CRUCIBLE</div>
+            <p v-html="t('Step.Pact.Patron-creation.instructions')"></p>
+            <InputGroup
+                v-model="adventurer.talentsData[Step.PACT].patron.name"
+                :placeholder="t('Step.Pact.Name.placeholder')"
+            >
+                {{ t('Step.Pact.Name.label') }}
+            </InputGroup>
+            <NamePicker
+                id="patron-name"
+                :name-tables="nameTablesData"
+                :name-category-label-function="(item) => t(`Step.Pact.Name.Tables.${item}`)"
+                v-model:name="adventurer.talentsData[Step.PACT].patron.name"
+            >
+                <p v-html="t('Step.Pact.Name.instructions')"></p>
+            </NamePicker>
+            <div class="trappings">
+                <div>
+                    <p v-html="t('Step.Pact.Communication.instructions')"></p>
+                    <InputGroup
+                        v-model="adventurer.talentsData[Step.PACT].patron.communication"
+                        :placeholder="t('Step.Pact.Communication.placeholder')"
+                    >
+                    </InputGroup>
+                </div>
+                <div>
+                    <p v-html="t('Step.Pact.Color.instructions')"></p>
+                    <InputGroup
+                        v-model="adventurer.talentsData[Step.PACT].patron.color"
+                        :placeholder="t('Step.Pact.Color.placeholder')"
+                    >
+                    </InputGroup>
+                </div>
+                <div>
+                    <p v-html="t('Step.Pact.Followers.instructions')"></p>
+                    <ButtonBar class="followers" full-width>
+                        <!-- Many, Some, Just me -->
+                        <Button
+                            @click="adventurer.talentsData[Step.PACT].patron.followers = 'many'"
+                            :pressed="adventurer.talentsData[Step.PACT].patron.followers === 'many'"
+                        >
+                            {{ t('Step.Pact.Followers.many') }}
+                        </Button>
+                        <Button
+                            @click="adventurer.talentsData[Step.PACT].patron.followers = 'some'"
+                            :pressed="adventurer.talentsData[Step.PACT].patron.followers === 'some'"
+                        >
+                            {{ t('Step.Pact.Followers.some') }}
+                        </Button>
+                        <Button
+                            @click="adventurer.talentsData[Step.PACT].patron.followers = 'just-me'"
+                            :pressed="adventurer.talentsData[Step.PACT].patron.followers === 'just-me'"
+                        >
+                            <span class="span ellipsis">
+                                {{ t('Step.Pact.Followers.just-me') }}
+                            </span>
+                        </Button>
+                    </ButtonBar>
+                </div>
+            </div>
+            <div class="crucibles">
+                <CrucibleCard
+                    :title="t('Step.Pact.Patron-creation.Crucibles.Nature.label')"
+                    :items="patronTrappingsData.nature"
+                    :label-function="(item) => t(`Step.Pact.Patron-creation.Crucibles.Nature.${item}`)"
+                    v-model="adventurer.talentsData[Step.PACT].patron.patronCrucibles.nature"
+                />
+                <CrucibleCard
+                    :title="t('Step.Pact.Patron-creation.Crucibles.Desires.label')"
+                    :items="patronTrappingsData.desires"
+                    :label-function="(item) => t(`Step.Pact.Patron-creation.Crucibles.Desires.${item}`)"
+                    v-model="adventurer.talentsData[Step.PACT].patron.patronCrucibles.desires"
+                />
+            </div>
         </Card>
     </StepFrame>
 </template>
 
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
+import nameTablesData from '@/assets/data/patron-name-tables.json';
+import patronTrappingsData from '@/assets/data/patron-trappings.json';
 import { t } from '@/i18n/locale';
+import { Step } from '@/step';
 import StepFrame from '../StepFrame.vue';
+import ButtonBar from '../ui/ButtonBar.vue';
+import CrucibleCard from '../ui/CrucibleCard.vue';
+import InputGroup from '../ui/InputGroup.vue';
+import NamePicker from '../ui/NamePicker.vue';
 import ReferenceCard from '../ui/ReferenceCard.vue';
 
 const props = defineProps({
@@ -60,8 +138,40 @@ const props = defineProps({
     margin-top: 1rem;
 }
 
+.crucibles {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    > * {
+        width: 100%;
+    }
+}
+
+.trappings {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 1rem 0;
+    > div {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
 @media (max-width: 768px) {
     .gifts-obligations {
+        grid-template-columns: 1fr;
+    }
+
+    .trappings {
+        grid-template-columns: 1fr;
+    }
+
+    .crucibles {
         grid-template-columns: 1fr;
     }
 }

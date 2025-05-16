@@ -15,7 +15,7 @@
             </div>
             <NamePicker
                 id="adventurer-name"
-                :nameTables="nameTablesData"
+                :name-tables="nameTablesData"
                 :name-category-label-function="(item) => t(`Step.Personality.Name.Generator.Tables.${item}`)"
                 v-model:name="adventurer.name"
             >
