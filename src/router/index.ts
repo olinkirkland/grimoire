@@ -1,5 +1,6 @@
 import TheAdventurerPage from '@/components/pages/TheAdventurerPage.vue';
 import TheHomePage from '@/components/pages/TheHomePage.vue';
+import TheImportPage from '@/components/pages/TheImportPage.vue';
 import TheLostPage from '@/components/pages/TheLostPage.vue';
 import { startTracking, stopTracking } from '@/tracker';
 import { RouterOptions, createRouter, createWebHistory } from 'vue-router';
@@ -8,7 +9,8 @@ export const PageName = {
     HOME: 'home-page',
     ADVENTURER: 'adventurer-page',
     ADVENTURER_STEP: 'adventurer-step-page',
-    LOST: 'lost-page'
+    LOST: 'lost-page',
+    IMPORT: 'import-page'
 };
 
 const routes = [
@@ -39,6 +41,14 @@ const routes = [
             page: TheLostPage // 404 page
         },
         name: PageName.LOST
+    },
+    {
+        // Import a base64 encoded JSON string of the adventurer data
+        path: '/i/:data',
+        components: {
+            page: TheImportPage
+        },
+        name: PageName.IMPORT
     }
 ];
 

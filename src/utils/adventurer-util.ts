@@ -1,14 +1,24 @@
 import Adventurer from '@/adventurer';
 import { Step } from '@/step';
+import { v4 as uuid } from 'uuid';
 import { capitalizeFirstLetter } from './naming-util';
 
 /**
  * Import an adventurer from a URI.
- * @param uri - The URI to import.
+ * @param uri - The URI string to import.
  * @returns The imported adventurer or null if the import failed.
  */
-export function importFromURI(uri: string): Adventurer | null {
-    return null;
+export function decodeURI(uri: string): Adventurer | null {
+    // Convert URL-safe Base64 back to standard Base64
+    const base64String = uri
+        .replace(/-/g, '+') // Replace '-' with '+'
+        .replace(/_/g, '/'); // Replace '_' with '/'
+
+    // Decode Base64 to UTF-8 string
+    const jsonString = new TextDecoder().decode(Uint8Array.from(atob(base64String), (char) => char.charCodeAt(0)));
+
+    // Parse JSON string to object
+    return JSON.parse(jsonString);
 }
 
 /**
@@ -16,8 +26,24 @@ export function importFromURI(uri: string): Adventurer | null {
  * @param adventurer - The adventurer to export.
  * @returns The URI string.
  */
-export function exportURI(adventurer: Adventurer): string {
-    return '';
+export function encodeURI(adventurer: Adventurer): string {
+    // Convert JSON object to a string
+    const copy = { ...adventurer };
+    copy.id = uuid();
+    const jsonString = JSON.stringify(adventurer);
+
+    // Encode the string to UTF-8 and then Base64
+    const base64String = btoa(
+        new TextEncoder().encode(jsonString).reduce((acc, byte) => acc + String.fromCharCode(byte), '')
+    );
+
+    // Make the Base64 URL-safe
+    const urlSafeBase64 = base64String
+        .replace(/\+/g, '-') // Replace '+' with '-'
+        .replace(/\//g, '_') // Replace '/' with '_'
+        .replace(/=+$/, ''); // Remove trailing '='
+
+    return urlSafeBase64;
 }
 
 /**
