@@ -6,7 +6,7 @@
             'btn--disabled': disabled,
             'btn--primary': primary,
             'btn--danger': danger,
-            pressed: pressed,
+            pressed: pressed || disabled,
             'full-width': fullWidth,
             'full-width-mobile': fullWidthMobile
         }"

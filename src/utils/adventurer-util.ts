@@ -175,6 +175,19 @@ export function getTalentTemplate(key: string): any | null {
                     }
                 }
             };
+        case Step.SPELLCRAFT:
+            return {
+                spellCrucibles: {
+                    style: '',
+                    essence: '',
+                    focus: ''
+                },
+                builder: {
+                    theorem: '',
+                    magicSchool: ''
+                },
+                theorems: []
+            };
     }
 
     return null;

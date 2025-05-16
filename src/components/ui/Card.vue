@@ -46,7 +46,6 @@ const props = defineProps({
 
     &.glass {
         background: unset;
-        border: none;
         box-shadow: var(--shadow-sm);
     }
 
