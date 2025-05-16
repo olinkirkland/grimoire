@@ -15,32 +15,39 @@
         </ReferenceCard>
         <Card class="song-composition">
             <p v-html="t('Step.Bardsong.instructions')"></p>
-            <Card class="song-parts">
-                <ul class="table" v-for="(category, categoryKey) in bardsongData" :key="categoryKey">
-                    <header>
-                        <p>
-                            {{ t(`Step.Bardsong.${capitalizeFirstLetter(categoryKey)}.name`) }}
-                        </p>
-                    </header>
-                    <li v-for="(part, partKey) in category" :key="partKey">
-                        {{ t(`Step.Bardsong.${capitalizeFirstLetter(categoryKey)}.${part}`) }}
-                    </li>
-                </ul>
-            </Card>
+            <TableGroup>
+                <TableCard :title="t('Step.Bardsong.Style.name')" :items="bardsongData.style">
+                    <template #item="{ item }">
+                        {{ item }}
+                    </template>
+                </TableCard>
+                <TableCard :title="t('Step.Bardsong.Tune.name')" :items="bardsongData.tune">
+                    <template #item="{ item }">
+                        {{ item }}
+                    </template>
+                </TableCard>
+                <TableCard :title="t('Step.Bardsong.Impact.name')" :items="bardsongData.impact">
+                    <template #item="{ item }">
+                        {{ item }}
+                    </template>
+                </TableCard>
+            </TableGroup>
             <p class="song-examples" v-html="t('Step.Bardsong.examples')"></p>
         </Card>
         <Card>
             <p v-html="t('Step.Bardsong.Bardic-instrument.instructions')"></p>
-            <Card class="bardic-instrument">
-                <ul class="table" v-for="(category, categoryKey) in bardicInstrumentsData" :key="categoryKey">
-                    <header>
-                        <p>{{ t(`Step.Bardsong.Bardic-instrument.${categoryKey}`) }}</p>
-                    </header>
-                    <li v-for="(part, partKey) in category" :key="partKey">
-                        {{ t(`Step.Bardsong.Bardic-instrument.${part}`) }}
-                    </li>
-                </ul>
-            </Card>
+            <TableGroup>
+                <TableCard
+                    v-for="(category, categoryKey) in bardicInstrumentsData"
+                    :key="categoryKey"
+                    :title="t(`Step.Bardsong.Bardic-instrument.${categoryKey}`)"
+                    :items="category"
+                >
+                    <template #item="{ item }">
+                        {{ t(`Step.Bardsong.Bardic-instrument.${item}`) }}
+                    </template>
+                </TableCard>
+            </TableGroup>
             <InputGroup
                 v-model="adventurer.talentsData[Step.BARDSONG].bardicInstrument"
                 class="bardic-instrument-input"
@@ -58,10 +65,11 @@ import Adventurer from '@/adventurer';
 import bardicInstrumentsData from '@/assets/data/bardic-instruments.json';
 import bardsongData from '@/assets/data/bardsong.json';
 import { t } from '@/i18n/locale';
-import { capitalizeFirstLetter } from '@/utils/naming-util';
+import { Step } from '@/step';
 import StepFrame from '../StepFrame.vue';
 import ReferenceCard from '../ui/ReferenceCard.vue';
-import { Step } from '@/step';
+import TableCard from '../ui/TableCard.vue';
+import TableGroup from '../ui/TableGroup.vue';
 
 const props = defineProps({
     adventurer: {
@@ -82,74 +90,7 @@ const props = defineProps({
     background-color: var(--surface);
 }
 
-.card.song-composition {
-    width: 100%;
-}
-
-.card.song-parts {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    width: 100%;
-    padding: 0;
-    gap: 0;
-}
-
-.song-result {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-
-    .song-result-text {
-        color: var(--primary);
-    }
-
-    .song-result-empty {
-        color: var(--surface-alt);
-        font-style: italic;
-    }
-}
-
-.card.bardic-instrument {
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 0;
-}
-
-.bardic-instrument-input {
-    width: 100%;
-    max-width: 100%;
-}
-
 @media (max-width: 768px) {
-    .card.bardic-instrument {
-        grid-template-columns: 1fr;
-
-        ul.table {
-            display: grid;
-            border: none;
-            // Automated grid
-            grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
-
-            header {
-                grid-column: 1 / -1;
-            }
-
-            li {
-                display: block;
-                text-align: center;
-                background-color: transparent;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
-            &:not(:first-child) {
-                border-top: 1px solid var(--surface-border);
-            }
-        }
-    }
-
     :deep(.bardic-instrument-input span) {
         display: none;
     }

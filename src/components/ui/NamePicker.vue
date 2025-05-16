@@ -72,9 +72,13 @@ onMounted(() => {
     }
 });
 
-watch(activeNameTables, (val) => {
-    localStorage.setItem(localStorageKey, JSON.stringify(val));
-}, { deep: true });
+watch(
+    activeNameTables,
+    (val) => {
+        localStorage.setItem(localStorageKey, JSON.stringify(val));
+    },
+    { deep: true }
+);
 
 function toggleNameTable(nameTableKey: string) {
     if (activeNameTables.value.includes(nameTableKey))
@@ -121,7 +125,7 @@ function onClickRollName() {
         > li {
             display: flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.5rem;
             cursor: pointer;
 
             > * {

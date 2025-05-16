@@ -1,5 +1,5 @@
 <template>
-    <Card class="table">
+    <Card class="table-card">
         <header v-if="title" class="table-header">
             <h2>{{ title }}</h2>
         </header>
@@ -27,15 +27,27 @@ const props = defineProps({
 <style scoped lang="scss">
 .card {
     padding: 0;
+    gap: 0;
 }
+
 ul {
     width: 100%;
+}
+
+header {
+    width: 100%;
+    text-align: center;
+    padding: 0.4rem 0.8rem;
+    color: var(--surface-alt);
+    border-bottom: 1px dashed var(--surface-border);
 }
 
 li {
     width: 100%;
     padding: 0.4rem 0.8rem;
     display: flex;
+    align-items: center;
+    justify-content: center;
     &:nth-child(odd) {
         background-color: var(--overlay);
     }

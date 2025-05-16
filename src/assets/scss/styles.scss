@@ -58,105 +58,6 @@ h5 {
     margin-right: 0.4rem;
 }
 
-.card.table-card {
-    padding: 0;
-    gap: 0;
-
-    &.multi {
-        flex-direction: row;
-    }
-}
-
-@media (max-width: 768px) {
-    .card.table-card.multi {
-        flex-direction: column;
-    }
-}
-
-ul.table {
-    width: 100%;
-    overflow: hidden;
-    &:not(:last-child) {
-        border-right: 1px solid var(--surface-border);
-    }
-
-    header {
-        background-color: var(--overlay);
-        border-bottom: 1px dashed var(--surface-border);
-        p {
-            text-align: center;
-            padding: 0.4rem;
-            color: var(--surface-alt);
-        }
-    }
-
-    > li {
-        width: 100%;
-        padding: 0.4rem 0.8rem;
-        overflow: hidden;
-        font-style: italic;
-        width: 100%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        text-align: center;
-        &:nth-child(odd) {
-            background-color: var(--overlay);
-        }
-    }
-
-    &.many {
-        display: grid;
-        width: 100%;
-        grid-template-columns: repeat(3, 1fr);
-        padding: 1.6rem;
-
-        &.many--4 {
-            grid-template-columns: repeat(4, 1fr);
-        }
-
-        &.many--5 {
-            grid-template-columns: repeat(5, 1fr);
-        }
-
-        > li {
-            padding: 0.4rem 0.8rem;
-            background-color: var(--background);
-            overflow: hidden;
-            text-overflow: ellipsis;
-            text-align: center;
-            &.selected {
-                color: var(--primary-alt);
-            }
-        }
-    }
-}
-
-@media (max-width: 768px) {
-    ul.table.many {
-        grid-template-columns: repeat(2, 1fr);
-
-        &.many--3 {
-            grid-template-columns: repeat(3, 1fr);
-        }
-        &.many--4 {
-            grid-template-columns: repeat(3, 1fr);
-        }
-    }
-}
-
-@media (max-width: 480px) {
-    ul.table.many {
-        grid-template-columns: repeat(1, 1fr);
-
-        &.many--3 {
-            grid-template-columns: repeat(1, 1fr);
-        }
-        &.many--4 {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-}
-
 p {
     line-height: 1.4;
 
@@ -244,6 +145,10 @@ pre {
         justify-content: center;
         align-items: center;
     }
+}
+
+.text-center {
+    text-align: center;
 }
 
 .page {

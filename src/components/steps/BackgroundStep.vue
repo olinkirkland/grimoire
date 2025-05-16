@@ -36,14 +36,14 @@
                 </ul>
             </section>
 
-            <Table :items="backgroundsData">
+            <TableCard :items="backgroundsData">
                 <template #item="{ item }">
                     <div class="background-item" @click="onClickBackground(item)">
                         <p v-html="makeBackgroundNamesString(item.names)"></p>
                         <p v-html="makeBackgroundWisesString(item.wises)"></p>
                     </div>
                 </template>
-            </Table>
+            </TableCard>
         </Card>
     </StepFrame>
 </template>
