@@ -96,6 +96,7 @@ function onClickDelete() {
 .card {
     width: 100%;
     display: flex;
+    max-width: 64rem;
     flex-direction: row;
     gap: 2rem;
     justify-content: space-between;

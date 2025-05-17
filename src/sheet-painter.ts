@@ -50,7 +50,7 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
 
             // Backgrounds
             ctx.fillText(adventurer.background.name, sheetData.background1.x, sheetData.background1.y);
-            ctx.fillText(adventurer.background.name, sheetData.background2.x, sheetData.background2.y);
+            ctx.fillText(adventurer.heritage.name, sheetData.background2.x, sheetData.background2.y);
 
             // Wises 1
             ctx.font = `24px ${font}`;
