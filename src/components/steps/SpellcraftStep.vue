@@ -177,7 +177,8 @@ function onClickRemoveTheorem(index: number) {
 
 .theorem-inputs {
     width: 100%;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     > .input-group {
         flex: 1;
@@ -223,6 +224,14 @@ function onClickRemoveTheorem(index: number) {
         * {
             white-space: wrap;
         }
+    }
+
+    .theorem-inputs {
+        grid-template-columns: 1fr;
+    }
+
+    .crucibles {
+        grid-template-columns: 1fr;
     }
 }
 </style>

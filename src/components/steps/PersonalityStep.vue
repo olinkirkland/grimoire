@@ -77,8 +77,6 @@ import desiresData from '@/assets/data/desires.json';
 import nameTablesData from '@/assets/data/name-tables.json';
 import traitsData from '@/assets/data/traits.json';
 import { t } from '@/i18n/locale';
-import { generateMarkovName } from '@/utils/adventurer-util';
-import { ref } from 'vue';
 import StepFrame from '../StepFrame.vue';
 import Card from '../ui/Card.vue';
 import NamePicker from '../ui/NamePicker.vue';
@@ -90,38 +88,6 @@ const props = defineProps({
         required: true
     }
 });
-
-const activeNameTables = ref<string[]>([]);
-
-function toggleNameTable(nameTableKey: string) {
-    if (activeNameTables.value.includes(nameTableKey))
-        activeNameTables.value = activeNameTables.value.filter((table) => table !== nameTableKey);
-    else activeNameTables.value.push(nameTableKey);
-}
-
-function onClickGenerateName() {
-    // Generate a name using the selected name tables
-    const allNames: string[] = [];
-    activeNameTables.value.forEach((nameTableKey) => {
-        const nameTableData = nameTablesData[nameTableKey as keyof typeof nameTablesData];
-        allNames.push(...nameTableData);
-    });
-
-    const generatedName = generateMarkovName(allNames, 3);
-    if (generatedName) props.adventurer.name = generatedName;
-}
-
-function onClickRollName() {
-    // Pick a random name from the selected name tables
-    const allNames: string[] = [];
-    activeNameTables.value.forEach((nameTableKey) => {
-        const nameTableData = nameTablesData[nameTableKey as keyof typeof nameTablesData];
-        allNames.push(...nameTableData);
-    });
-
-    const randomName = allNames[Math.floor(Math.random() * allNames.length)];
-    if (randomName) props.adventurer.name = randomName;
-}
 </script>
 
 <style scoped lang="scss">

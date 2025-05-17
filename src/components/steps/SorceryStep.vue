@@ -157,5 +157,9 @@ ul.magic-techniques {
     ul.magic-techniques {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .crucibles {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
 </style>

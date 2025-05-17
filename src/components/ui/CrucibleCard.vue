@@ -14,7 +14,7 @@
             <div class="flex">
                 <Button @click="onClickRoll">
                     <i class="fas fa-random"></i>
-                    <span class="hide-on-mobile">{{ t('Crucible.roll') }}</span>
+                    <span class="hide-on-tablet">{{ t('Crucible.roll') }}</span>
                 </Button>
                 <Button @click="onClickOpenCrucible">
                     <i class="fas fa-border-all"></i>
