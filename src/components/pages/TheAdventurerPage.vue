@@ -34,7 +34,7 @@
             </Button>
             <Button
                 @click="changeStep(stepsOrder[stepsOrder.indexOf(currentStep) + 1])"
-                :disabled="currentStep === Step.REVIEW"
+                v-if="currentStep !== Step.REVIEW"
                 primary
             >
                 <span>{{ nextStepLabel }}</span>

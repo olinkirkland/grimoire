@@ -65,6 +65,7 @@ import { toFileName } from '@/utils/naming-util';
 import { onMounted, ref } from 'vue';
 import StepFrame from '../StepFrame.vue';
 import Button from '../ui/Button.vue';
+import { trackEvent } from '@/tracker';
 
 const props = defineProps({
     adventurer: {
@@ -146,6 +147,18 @@ function onClickCopyURI() {
     setTimeout(() => {
         showCopyNotification.value = false;
     }, 2000);
+
+    trackEvent('copy-uri', {
+        name: props.adventurer.name,
+        path: props.adventurer.path,
+        stats: {
+            brawn: props.adventurer.stats.brawn,
+            agility: props.adventurer.stats.agility,
+            wits: props.adventurer.stats.wits,
+            presence: props.adventurer.stats.presence
+        },
+        talents: props.adventurer.talents
+    });
 }
 
 function onClickSaveImage() {
@@ -156,6 +169,18 @@ function onClickSaveImage() {
     link.href = sheetDataURL.value.replace('image/png', 'image/octet-stream');
     link.click();
     link.remove();
+
+    trackEvent('save-image', {
+        name: props.adventurer.name,
+        path: props.adventurer.path,
+        stats: {
+            brawn: props.adventurer.stats.brawn,
+            agility: props.adventurer.stats.agility,
+            wits: props.adventurer.stats.wits,
+            presence: props.adventurer.stats.presence
+        },
+        talents: props.adventurer.talents
+    });
 }
 </script>
 

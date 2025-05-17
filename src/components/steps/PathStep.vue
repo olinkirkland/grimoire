@@ -32,6 +32,7 @@ import { capitalizeFirstLetter } from '@/utils/naming-util';
 import StepFrame from '../StepFrame.vue';
 import Card from '../ui/Card.vue';
 import ReferenceCard from '../ui/ReferenceCard.vue';
+import { trackEvent } from '@/tracker';
 
 const props = defineProps({
     adventurer: {
@@ -83,6 +84,8 @@ function onClickPath(path: string) {
     const newCoreTalentKey = CoreTalentsByPath[path];
     const talentTemplate = getTalentTemplate(newCoreTalentKey);
     if (talentTemplate) props.adventurer.talentsData[newCoreTalentKey] = talentTemplate;
+
+    trackEvent('path-selected', { path });
 }
 </script>
 

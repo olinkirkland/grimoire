@@ -51,6 +51,7 @@ import ModalController from '@/controllers/modal-controller';
 import { t } from '@/i18n/locale';
 import { PageName, router } from '@/router';
 import { useAdventurersStore } from '@/store/adventurers-store';
+import { trackEvent } from '@/tracker';
 import { capitalizeFirstLetter, getUniqueName } from '@/utils/naming-util';
 import { onMounted, ref } from 'vue';
 import AppSettingsModal from '../modals/templates/AppSettingsModal.vue';
@@ -85,6 +86,8 @@ function onClickNewAdventurer() {
         name: PageName.ADVENTURER,
         params: { id: newAdventurer.id }
     });
+
+    trackEvent('new-adventurer');
 }
 
 function onClickSettings() {
