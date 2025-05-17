@@ -3,27 +3,65 @@
         <Card>
             <p v-html="$t('Step.Review.instructions')"></p>
             <div class="flex center">
-                <Button @click="onClickCopyURI" :disabled="showNotification">
+                <Button @click="onClickCopyURI" :disabled="showCopyNotification">
                     <i
                         class="fas"
                         :class="{
-                            'fa-check': showNotification,
-                            'fa-copy': !showNotification
+                            'fa-check': showCopyNotification,
+                            'fa-copy': !showCopyNotification
                         }"
                     ></i>
-                    {{ $t(showNotification ? 'Step.Review.copied' : 'Step.Review.Share.label') }}
+                    {{ $t(showCopyNotification ? 'Step.Review.copied' : 'Step.Review.Share.label') }}
                 </Button>
+                <Button @click="onClickSaveImage">
+                    <i class="fas fa-download"></i>
+                    {{ $t('Step.Review.Save.label') }}
+                </Button>
+                <Button @click="generateImage"> GENERATE </Button>
             </div>
+
+            <!-- Colors -->
+            <ButtonBar class="color-bar">
+                <Button
+                    v-for="color in colors"
+                    :key="color.name"
+                    @click="onClickChangeColor(color.value)"
+                    :pressed="color.value === props.adventurer.options.color"
+                >
+                    <div class="color-box" :style="{ backgroundColor: color.value }"></div>
+                    {{ t(`Color.${color.name}`) }}
+                </Button>
+            </ButtonBar>
+
+            <!-- Fonts -->
+            <ButtonBar class="font-bar">
+                <Button
+                    v-for="font in fonts"
+                    :key="font"
+                    @click="onClickChangeFont(font)"
+                    :pressed="props.adventurer.options.font === font"
+                >
+                    {{ font }}
+                </Button>
+            </ButtonBar>
+
+            <Card class="preview-card">
+                <img ref="sheetPreview" class="preview" />
+            </Card>
         </Card>
     </StepFrame>
 </template>
 
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
+import { t } from '@/i18n/locale';
 import { BASE_URL } from '@/router';
+import { paintSheet } from '@/sheet-painter';
 import { encodeURI } from '@/utils/adventurer-util';
-import { ref } from 'vue';
+import { toFileName } from '@/utils/naming-util';
+import { onMounted, ref } from 'vue';
 import StepFrame from '../StepFrame.vue';
+import Button from '../ui/Button.vue';
 
 const props = defineProps({
     adventurer: {
@@ -32,7 +70,62 @@ const props = defineProps({
     }
 });
 
-const showNotification = ref(false);
+const showCopyNotification = ref(false);
+const sheetDataURL = ref('');
+const sheetPreview = ref<HTMLImageElement | null>(null);
+
+const fonts = ['Arvo', 'Courier New'];
+const colors = [
+    {
+        name: 'forest',
+        value: '#717854'
+    },
+    {
+        name: 'blood',
+        value: '#7a2727'
+    },
+    {
+        name: 'gold',
+        value: '#ab8450'
+    },
+    {
+        name: 'mud',
+        value: '#826262'
+    },
+    {
+        name: 'bone',
+        value: '#7a6c63'
+    },
+    {
+        name: 'tapestry',
+        value: '#4f3d61'
+    }
+];
+
+onMounted(() => {
+    generateImage();
+});
+
+function onClickChangeColor(color: string) {
+    props.adventurer.options.color = color;
+    generateImage();
+}
+
+function onClickChangeFont(font: string) {
+    props.adventurer.options.font = font;
+    generateImage();
+}
+
+async function generateImage() {
+    // TODO: Show the loading spinner
+    const canvas = await paintSheet(props.adventurer);
+    if (!canvas) return;
+
+    sheetDataURL.value = canvas.toDataURL('image/png');
+    if (!sheetPreview.value) return;
+    sheetPreview.value!.src = sheetDataURL.value;
+    sheetPreview.value!.style.opacity = '1';
+}
 
 function onClickCopyURI() {
     const encodedString = encodeURI(props.adventurer);
@@ -42,11 +135,45 @@ function onClickCopyURI() {
     textArea.select();
     document.execCommand('copy');
     document.body.removeChild(textArea);
-    showNotification.value = true;
+    showCopyNotification.value = true;
     setTimeout(() => {
-        showNotification.value = false;
+        showCopyNotification.value = false;
     }, 2000);
+}
+
+function onClickSaveImage() {
+    if (!props.adventurer.path) return;
+    const fileName = toFileName(props.adventurer.name);
+    const link = document.createElement('a');
+    link.download = `${fileName}.png`;
+    link.href = sheetDataURL.value.replace('image/png', 'image/octet-stream');
+    link.click();
+    link.remove();
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.preview-card {
+    width: 100%;
+    min-height: 8rem;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    box-shadow: var(--shadow-sm);
+}
+
+.preview {
+    width: 100%;
+    transition: all 0.2s;
+}
+
+.color-box {
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 100%;
+    border: 1px solid var(--surface-border);
+}
+</style>

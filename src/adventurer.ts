@@ -10,6 +10,12 @@ export default class Adventurer {
     createdAt: number;
     updatedAt: number;
 
+    // Options
+    options: {
+        color: string; // Color on the sheet
+        font: string; // Font on the sheet
+    };
+
     // Name
     name: string;
     playerName: string;
@@ -95,6 +101,11 @@ export default class Adventurer {
         this.id = uuid();
         this.createdAt = Date.now();
         this.updatedAt = Date.now();
+
+        this.options = {
+            color: '#717854', // Default color
+            font: 'Arvo' // Default font
+        };
 
         this.name = name;
         this.playerName = '';
