@@ -28,7 +28,6 @@ const averageItemLength = computed(() => {
     // Take the average of the top 10% of items
     const labels = props.items.map((item) => (props.labelFunction ? props.labelFunction(item) : item));
     const topItems = labels.sort((a, b) => b.length - a.length).slice(0, Math.ceil(labels.length * 0.1));
-    console.log(topItems);
     const totalLength = topItems.reduce((acc, item) => acc + item.length, 0);
     return totalLength / topItems.length;
 });

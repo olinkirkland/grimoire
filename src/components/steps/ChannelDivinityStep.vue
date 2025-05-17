@@ -67,8 +67,6 @@ import holySymbolsData from '@/assets/data/holy-symbols.json';
 import { t } from '@/i18n/locale';
 import { BASE_URL } from '@/router';
 import { Step } from '@/step';
-import { generateMarkovName } from '@/utils/adventurer-util';
-import { ref } from 'vue';
 import StepFrame from '../StepFrame.vue';
 import DomainCard from '../ui/DomainCard.vue';
 import InputGroup from '../ui/InputGroup.vue';
@@ -92,16 +90,6 @@ const props = defineProps({
 .god-name-input {
     width: 100%;
     max-width: 100%;
-}
-
-.name-generator {
-    width: 100%;
-
-    > .pick-list {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-    }
 }
 
 .card.growth {
@@ -138,26 +126,6 @@ const props = defineProps({
             height: 100%;
             object-fit: contain;
             border-radius: 0.4rem;
-        }
-    }
-}
-
-ul.pick-list {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
-    > li {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-
-        cursor: pointer;
-        padding: 0.4rem 0.8rem;
-        font-style: italic;
-
-        > span {
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
     }
 }

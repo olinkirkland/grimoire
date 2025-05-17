@@ -51,11 +51,17 @@ export function encodeURI(adventurer: Adventurer): string {
  * @param names - An array of names to use as a base for the Markov chain.
  * @returns A random name generated using the Markov chain algorithm.
  */
-export function generateMarkovName(names: string[], order: number): string | null {
+export function generateMarkovName(names: string[]): string | null {
     if (names.length === 0) return null;
     const model: Record<string, string[]> = {};
 
-    const count = 10; // Number of unique names to generate
+    // Determine the order of the Markov chain by the length of the average name
+    const totalLength = names.reduce((sum, name) => sum + name.length, 0);
+    const averageLength = Math.floor(totalLength / names.length);
+    const order = averageLength > 6 ? 3 : 2;
+    console.log(`markov order is ${order} because average length is ${averageLength}`);
+
+    const count = 5; // Number of unique names to generate
 
     // Build model
     for (const name of names) {
@@ -73,7 +79,9 @@ export function generateMarkovName(names: string[], order: number): string | nul
     while (results.size < count) {
         let prefix = '^'.repeat(order);
         let name = '';
+        let attempts = 0;
         while (true) {
+            attempts++;
             const possible = model[prefix];
             if (!possible) break;
             const next = possible[Math.floor(Math.random() * possible.length)];

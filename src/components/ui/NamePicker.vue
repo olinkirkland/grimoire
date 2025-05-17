@@ -27,7 +27,7 @@
 <script setup lang="ts">
 import { t } from '@/i18n/locale';
 import { generateMarkovName } from '@/utils/adventurer-util';
-import { ref, watch, onMounted } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 
 const props = defineProps({
     id: {
@@ -94,7 +94,7 @@ function onClickGenerateName() {
         allNames.push(...nameTableData);
     });
 
-    const generatedName = generateMarkovName(allNames, 3);
+    const generatedName = generateMarkovName(allNames);
     if (generatedName) emit('update:name', generatedName);
 }
 
