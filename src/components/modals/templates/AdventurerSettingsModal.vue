@@ -17,6 +17,27 @@
                         <span>{{ t('Modals.Adventurer-settings.Delete.label') }}</span>
                     </Button>
                 </Card>
+                <!-- Use Heritage or Background -->
+                <Card>
+                    <div>
+                        <h3>{{ t('Modals.Adventurer-settings.Use-heritage.title') }}</h3>
+                        <p v-html="t('Modals.Adventurer-settings.Use-heritage.description')"></p>
+                    </div>
+                    <ButtonBar>
+                        <Button
+                            @click="adventurer.options.useHeritage = true"
+                            :pressed="adventurer.options.useHeritage"
+                        >
+                            <span>{{ t('Modals.Adventurer-settings.Use-heritage.heritage') }}</span>
+                        </Button>
+                        <Button
+                            @click="adventurer.options.useHeritage = false"
+                            :pressed="!adventurer.options.useHeritage"
+                        >
+                            <span>{{ t('Modals.Adventurer-settings.Use-heritage.background') }}</span>
+                        </Button>
+                    </ButtonBar>
+                </Card>
             </div>
         </template>
     </ModalFrame>
@@ -34,6 +55,7 @@ import { PageName, router } from '@/router';
 import AdventurerSettingsModal from './AdventurerSettingsModal.vue';
 import LoadingModal from './LoadingModal.vue';
 import Button from '@/components/ui/Button.vue';
+import ButtonBar from '@/components/ui/ButtonBar.vue';
 
 const props = defineProps<{
     adventurer: Adventurer;
@@ -81,6 +103,12 @@ function onClickDelete() {
     h3 {
         font-weight: bold;
     }
+}
+
+.settings {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 @media (max-width: 768px) {

@@ -20,6 +20,7 @@
                     :is="StepDefinitions[currentStep].component"
                     :adventurer="adventurer"
                     :key="currentStep"
+                    :step="currentStep"
                 ></component>
             </Transition>
         </div>
@@ -58,7 +59,6 @@ import Button from '../ui/Button.vue';
 
 const stepsOrder = computed<string[]>(() => {
     const steps = [
-        Step.HERITAGE,
         Step.BACKGROUND,
         Step.PERSONALITY,
         Step.PATH,
@@ -68,6 +68,15 @@ const stepsOrder = computed<string[]>(() => {
         Step.BONDS,
         Step.REVIEW
     ];
+
+    const useHeritage = adventurer.value?.options.useHeritage;
+    if (useHeritage) {
+        // Add heritage step to the very beginning
+        steps.splice(0, 0, Step.HERITAGE);
+    } else {
+        // Add a second background step after the first one
+        steps.splice(1, 0, Step.BACKGROUND_2);
+    }
 
     // Dynamically insert a core talent step based on the adventurer's path
     const path = adventurer.value?.path;

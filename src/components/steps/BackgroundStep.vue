@@ -5,7 +5,7 @@
         </ReferenceCard>
         <Card class="background">
             <section>
-                <InputGroup v-model="adventurer.background.name" :placeholder="t('Step.Background.placeholder')">
+                <InputGroup v-model="adventurer[currentStep].name" :placeholder="t('Step.Background.placeholder')">
                     <span>{{ t('Step.Background.label') }}</span>
                 </InputGroup>
             </section>
@@ -14,21 +14,21 @@
                 <ul class="wises">
                     <li>
                         <InputGroup
-                            v-model="adventurer.background.wises[0]"
+                            v-model="adventurer[currentStep].wises[0]"
                             :placeholder="t('Step.Background.Wises.placeholder-1')"
                         >
                         </InputGroup>
                     </li>
                     <li>
                         <InputGroup
-                            v-model="adventurer.background.wises[1]"
+                            v-model="adventurer[currentStep].wises[1]"
                             :placeholder="t('Step.Background.Wises.placeholder-2')"
                         >
                         </InputGroup>
                     </li>
                     <li>
                         <InputGroup
-                            v-model="adventurer.background.wises[2]"
+                            v-model="adventurer[currentStep].wises[2]"
                             :placeholder="t('Step.Background.Wises.placeholder-3')"
                         >
                         </InputGroup>
@@ -58,8 +58,14 @@ const props = defineProps({
     adventurer: {
         type: Object as () => Adventurer,
         required: true
+    },
+    step: {
+        type: String as () => 'background' | 'background-2',
+        default: false
     }
 });
+
+const currentStep: 'background' | 'heritage' = props.step === 'background' ? 'background' : 'heritage';
 
 function makeBackgroundNamesString(names: string[]) {
     const tNames = names.map((name) => t(`Step.Background.Names.${name}`));
@@ -80,8 +86,8 @@ function makeBackgroundWisesString(wises: string[]) {
 }
 
 function onClickBackground(background: any, name?: string) {
-    props.adventurer.background.name = t(`Step.Background.Names.${background.names[0]}`);
-    props.adventurer.background.wises = background.wises.map((wise: string) => t(`Step.Background.Wises.${wise}`));
+    props.adventurer[currentStep].name = t(`Step.Background.Names.${background.names[0]}`);
+    props.adventurer[currentStep].wises = background.wises.map((wise: string) => t(`Step.Background.Wises.${wise}`));
 }
 </script>
 

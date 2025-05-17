@@ -12,6 +12,7 @@ export default class Adventurer {
 
     // Options
     options: {
+        useHeritage: boolean; // Whether to use heritage or a second background
         color: string; // Color on the sheet
         font: string; // Font on the sheet
     };
@@ -103,6 +104,7 @@ export default class Adventurer {
         this.updatedAt = Date.now();
 
         this.options = {
+            useHeritage: true, // Default to true
             color: '#717854', // Default color
             font: 'Arvo' // Default font
         };

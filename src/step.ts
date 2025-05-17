@@ -24,6 +24,7 @@ export const Step = {
     PERSONALITY: 'personality',
     HERITAGE: 'heritage',
     BACKGROUND: 'background',
+    BACKGROUND_2: 'background-2',
     PATH: 'path',
     TALENTS: 'talents',
     STATS: 'stats',
@@ -63,6 +64,10 @@ export const StepDefinitions: Record<string, { component: any; type: string }> =
         type: StepType.MAIN
     },
     [Step.BACKGROUND]: {
+        component: BackgroundStep,
+        type: StepType.MAIN
+    },
+    [Step.BACKGROUND_2]: {
         component: BackgroundStep,
         type: StepType.MAIN
     },
