@@ -2,23 +2,6 @@
     <StepFrame>
         <Card>
             <p v-html="$t('Step.Review.instructions')"></p>
-            <div class="flex center">
-                <Button @click="onClickCopyURI" :disabled="showCopyNotification">
-                    <i
-                        class="fas"
-                        :class="{
-                            'fa-check': showCopyNotification,
-                            'fa-copy': !showCopyNotification
-                        }"
-                    ></i>
-                    {{ $t(showCopyNotification ? 'Step.Review.copied' : 'Step.Review.Share.label') }}
-                </Button>
-                <Button @click="onClickSaveImage">
-                    <i class="fas fa-download"></i>
-                    {{ $t('Step.Review.Save.label') }}
-                </Button>
-                <Button @click="generateImage"> GENERATE </Button>
-            </div>
 
             <!-- Colors -->
             <ButtonBar class="color-bar">
@@ -29,21 +12,41 @@
                     :pressed="color.value === props.adventurer.options.color"
                 >
                     <div class="color-box" :style="{ backgroundColor: color.value }"></div>
-                    {{ t(`Color.${color.name}`) }}
+                    <span class="hide-on-mobile"> {{ t(`Color.${color.name}`) }}</span>
                 </Button>
             </ButtonBar>
 
-            <!-- Fonts -->
-            <ButtonBar class="font-bar">
-                <Button
-                    v-for="font in fonts"
-                    :key="font"
-                    @click="onClickChangeFont(font)"
-                    :pressed="props.adventurer.options.font === font"
-                >
-                    {{ font }}
-                </Button>
-            </ButtonBar>
+            <div class="flex wrap full-width">
+                <!-- Export -->
+                <div class="share">
+                    <Button @click="onClickSaveImage">
+                        <i class="fas fa-download"></i>
+                        {{ $t('Step.Review.Save.label') }}
+                    </Button>
+                    <Button @click="onClickCopyURI" :disabled="showCopyNotification">
+                        <i
+                            class="fas"
+                            :class="{
+                                'fa-check': showCopyNotification,
+                                'fa-copy': !showCopyNotification
+                            }"
+                        ></i>
+                        {{ $t(showCopyNotification ? 'Step.Review.copied' : 'Step.Review.Share.label') }}
+                    </Button>
+                </div>
+
+                <!-- Fonts -->
+                <ButtonBar class="font-bar">
+                    <Button
+                        v-for="font in fonts"
+                        :key="font"
+                        @click="onClickChangeFont(font)"
+                        :pressed="props.adventurer.options.font === font"
+                    >
+                        {{ font }}
+                    </Button>
+                </ButtonBar>
+            </div>
 
             <Card class="preview-card">
                 <img ref="sheetPreview" class="preview" />
@@ -76,6 +79,10 @@ const sheetPreview = ref<HTMLImageElement | null>(null);
 
 const fonts = ['Arvo', 'Courier New'];
 const colors = [
+    {
+        name: 'midnight',
+        value: '#1a1a1a'
+    },
     {
         name: 'forest',
         value: '#717854'
@@ -170,10 +177,28 @@ function onClickSaveImage() {
     transition: all 0.2s;
 }
 
+.share {
+    display: flex;
+    gap: 1rem;
+}
+
 .color-box {
     width: 1.2rem;
     height: 1.2rem;
     border-radius: 100%;
     border: 1px solid var(--surface-border);
+}
+
+@media (max-width: 768px) {
+    .share {
+        width: 100%;
+        flex-direction: column;
+        > * {
+            width: 100%;
+            :deep(.btn__content) {
+                justify-content: center;
+            }
+        }
+    }
 }
 </style>
