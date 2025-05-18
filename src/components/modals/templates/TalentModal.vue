@@ -45,7 +45,7 @@ const talentDescription = computed(() => {
 
 function getSourceLabel(source: string): string {
     const path = t(`Step.Path.${capitalizeFirstLetter(source)}.name`);
-    return t('Step.Talents.talent-by-path', { path, page: talentPage.value?.toString() });
+    return t('Step.Talents.talent-by-path', { path });
 }
 </script>
 

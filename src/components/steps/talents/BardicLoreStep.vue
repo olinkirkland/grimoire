@@ -1,0 +1,70 @@
+<template>
+    <StepFrame>
+        <ReferenceCard :page="talent.page">
+            {{ t('Step.Talents.Bardic-lore.description') }}
+        </ReferenceCard>
+        <Card>
+            <p v-html="t('Step.Bardic-lore.Wises.instructions')"></p>
+            <ul class="wises">
+                <li>
+                    <InputGroup
+                        v-model="adventurer.talentsData[Step.BARDIC_LORE].wises[0]"
+                        :placeholder="t('Step.Background.Wises.placeholder-1')"
+                    >
+                    </InputGroup>
+                </li>
+                <li>
+                    <InputGroup
+                        v-model="adventurer.talentsData[Step.BARDIC_LORE].wises[1]"
+                        :placeholder="t('Step.Background.Wises.placeholder-2')"
+                    >
+                    </InputGroup>
+                </li>
+                <li>
+                    <InputGroup
+                        v-model="adventurer.talentsData[Step.BARDIC_LORE].wises[2]"
+                        :placeholder="t('Step.Background.Wises.placeholder-3')"
+                    >
+                    </InputGroup>
+                </li>
+            </ul>
+        </Card>
+    </StepFrame>
+</template>
+
+<script setup lang="ts">
+import Adventurer from '@/adventurer';
+import talentDefinitionsData from '@/assets/data/talents.json';
+import { t } from '@/i18n/locale';
+import { Step } from '@/step';
+
+const props = defineProps({
+    adventurer: {
+        type: Object as () => Adventurer,
+        required: true
+    }
+});
+
+const talent = talentDefinitionsData.find((talent) => talent.id === Step.BARDIC_LORE)!;
+</script>
+
+<style scoped lang="scss">
+:deep(.card--reference h2) {
+    font-style: italic;
+    color: var(--surface-alt);
+}
+
+.wises {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+@media (max-width: 768px) {
+    .wises {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+</style>

@@ -25,10 +25,14 @@
                         <h3>{{ t('Modals.App-settings.Tracking.title') }}</h3>
                         <p v-html="t('Modals.App-settings.Tracking.description')"></p>
                     </div>
-                    <Button @click="onToggleTracking">
-                        <i class="fas" :class="isTrackingEnabled ? 'fa-toggle-on' : 'fa-toggle-off'"></i>
-                        <span>{{ isTrackingEnabled ? t('on') : t('off') }}</span>
-                    </Button>
+                    <ButtonBar>
+                        <Button @click="onClickTrackingOn" :pressed="isTrackingEnabled">
+                            {{ t('on') }}
+                        </Button>
+                        <Button @click="onClickTrackingOff" :pressed="!isTrackingEnabled">
+                            {{ t('off') }}
+                        </Button>
+                    </ButtonBar>
                 </Card>
                 <!-- Storage -->
                 <Card>
@@ -54,30 +58,34 @@
 </template>
 
 <script setup lang="ts">
-import AppSettingsModal from '@/components/modals/templates/AppSettingsModal.vue';
 import ModalFrame from '@/components/modals/ModalFrame.vue';
 import ModalHeader from '@/components/modals/ModalHeader.vue';
+import AppSettingsModal from '@/components/modals/templates/AppSettingsModal.vue';
+import ModalController from '@/controllers/modal-controller';
 import { changeLanguage, t } from '@/i18n/locale';
 import { useAdventurersStore } from '@/store/adventurers-store';
 import { startTracking, stopTracking } from '@/tracker';
+import { bytesToReadable } from '@/utils/storage-util';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import ModalController from '@/controllers/modal-controller';
 import ConfirmModal from './ConfirmModal.vue';
 import LoadingModal from './LoadingModal.vue';
-import { bytesToReadable } from '@/utils/storage-util';
 
 const props = defineProps<{}>();
 
 const languages = ['en'];
 const isTrackingEnabled = ref(localStorage.getItem('tracking') === 'true');
 
-function onToggleTracking() {
-    const allowTracking = !isTrackingEnabled.value;
-    localStorage.setItem('tracking', allowTracking.toString());
-    if (allowTracking) startTracking();
-    else stopTracking();
-    isTrackingEnabled.value = allowTracking;
+function onClickTrackingOn() {
+    isTrackingEnabled.value = true;
+    localStorage.setItem('tracking', isTrackingEnabled.value.toString());
+    startTracking();
+}
+
+function onClickTrackingOff() {
+    isTrackingEnabled.value = false;
+    localStorage.setItem('tracking', isTrackingEnabled.value.toString());
+    stopTracking();
 }
 
 function onClickClearStorage() {

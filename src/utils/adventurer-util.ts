@@ -222,6 +222,10 @@ export function getTalentTemplate(key: string): any | null {
                 },
                 theorems: []
             };
+        case Step.BARDIC_LORE:
+            return {
+                wises: ['', '', '']
+            };
     }
 
     return null;

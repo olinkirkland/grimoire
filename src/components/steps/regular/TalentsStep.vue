@@ -14,7 +14,7 @@
                             <header>
                                 <i class="fas fa-info-circle" @click="onClickTalent(talent)"></i>
                                 <h3>{{ t(`Step.Talents.${capitalizeFirstLetter(talent)}.name`) }}</h3>
-                                <Button @click="props.adventurer.talents.splice(index, 1)" primary>
+                                <Button @click="onClickRemoveTalent(index, talent)" primary>
                                     <i class="fas fa-trash"></i>
                                     <span>{{ t('Step.Talents.remove') }}</span>
                                 </Button>
@@ -56,7 +56,7 @@
                                 <h3>{{ t(`Step.Talents.${capitalizeFirstLetter(talent.id)}.name`) }}</h3>
                                 <Button
                                     :disabled="adventurer.talents.includes(talent.id)"
-                                    @click="adventurer.talents.push(talent.id)"
+                                    @click="onClickAddTalent(talent.id)"
                                 >
                                     <i v-if="adventurer.talents.includes(talent.id)" class="fas fa-check"></i>
                                     <i v-else class="fas fa-plus"></i>
@@ -83,6 +83,7 @@ import talentsData from '@/assets/data/talents.json';
 import TalentModal from '@/components/modals/templates/TalentModal.vue';
 import ModalController from '@/controllers/modal-controller';
 import { t } from '@/i18n/locale';
+import { getTalentTemplate } from '@/utils/adventurer-util';
 import { capitalizeFirstLetter } from '@/utils/naming-util';
 import { computed, ref } from 'vue';
 
@@ -125,11 +126,22 @@ const filteredTalents = computed(() => {
 function getSourceLabel(source: string): string {
     const path = t(`Step.Path.${capitalizeFirstLetter(source)}.name`);
     const page = talentsData.find((t) => t.source === source)?.page || -1;
-    return t('Step.Talents.talent-by-path', { path, page: page.toString() });
+    return t('Step.Talents.talent-by-path', { path });
 }
 
 function onClickTalent(talent: string) {
     ModalController.open(TalentModal, { talent });
+}
+
+function onClickAddTalent(talent: string) {
+    props.adventurer.talents.push(talent);
+    const talentTemplate = getTalentTemplate(talent);
+    if (talentTemplate) props.adventurer.talentsData[talent] = talentTemplate;
+}
+
+function onClickRemoveTalent(index: number, talent: string) {
+    props.adventurer.talents.splice(index, 1);
+    delete props.adventurer.talentsData[talent];
 }
 </script>
 
