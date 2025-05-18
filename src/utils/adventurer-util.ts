@@ -226,6 +226,14 @@ export function getTalentTemplate(key: string): any | null {
             return {
                 wises: ['', '', '']
             };
+        case Step.JACK_OF_ALL_TRADES:
+            return {
+              modify: {
+                maxStats: {
+                    // TODO: Implement max stats modifier
+                }
+              }  
+            };
     }
 
     return null;
