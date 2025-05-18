@@ -31,6 +31,10 @@ const talentSource = computed(() => {
     return talentsData.find((talent) => talent.id === props.talent)?.source;
 });
 
+const talentPage = computed(() => {
+    return talentsData.find((talent) => talent.id === props.talent)?.page || -1;
+});
+
 const talentTitle = computed(() => {
     return t(`Step.Talents.${capitalizeFirstLetter(props.talent)}.name`);
 });
@@ -41,7 +45,7 @@ const talentDescription = computed(() => {
 
 function getSourceLabel(source: string): string {
     const path = t(`Step.Path.${capitalizeFirstLetter(source)}.name`);
-    return t('Step.Talents.talent-by-path', { path });
+    return t('Step.Talents.talent-by-path', { path, page: talentPage.value?.toString() });
 }
 </script>
 

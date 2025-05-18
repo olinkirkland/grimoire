@@ -26,13 +26,11 @@
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
 import { t } from '@/i18n/locale';
-import { CoreTalentsByPath, Path } from '@/path';
+import { Path } from '@/path';
+import { CoreTalentsByPath } from '@/step';
+import { trackEvent } from '@/tracker';
 import { getTalentTemplate } from '@/utils/adventurer-util';
 import { capitalizeFirstLetter } from '@/utils/naming-util';
-import StepFrame from '../StepFrame.vue';
-import Card from '../ui/Card.vue';
-import ReferenceCard from '../ui/ReferenceCard.vue';
-import { trackEvent } from '@/tracker';
 
 const props = defineProps({
     adventurer: {

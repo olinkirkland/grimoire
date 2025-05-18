@@ -54,8 +54,6 @@ import { useAdventurersStore } from '@/store/adventurers-store';
 import { PageName, router } from '@/router';
 import AdventurerSettingsModal from './AdventurerSettingsModal.vue';
 import LoadingModal from './LoadingModal.vue';
-import Button from '@/components/ui/Button.vue';
-import ButtonBar from '@/components/ui/ButtonBar.vue';
 
 const props = defineProps<{
     adventurer: Adventurer;

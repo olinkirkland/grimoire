@@ -16,7 +16,7 @@
             <NamePicker
                 id="adventurer-name"
                 :name-tables="nameTablesData"
-                :name-category-label-function="(item) => t(`Step.Personality.Name.Generator.Tables.${item}`)"
+                :name-category-label-function="(item: string) => t(`Step.Personality.Name.Generator.Tables.${item}`)"
                 v-model:name="adventurer.name"
             >
                 <p v-html="t('Step.Personality.Name.Generator.instructions')"></p>
@@ -29,7 +29,7 @@
                     :items="traitsData"
                     v-model:selected-items="adventurer.traits"
                     v-model:not-selected-items="adventurer.notTraits"
-                    :label-function="(item) => t(`Step.Personality.Traits.${item}`)"
+                    :label-function="(item: string) => t(`Step.Personality.Traits.${item}`)"
                 />
             </Card>
             <Card class="desires">
@@ -38,7 +38,7 @@
                     :items="desiresData"
                     v-model:selected-items="adventurer.desires"
                     v-model:not-selected-items="adventurer.notDesires"
-                    :label-function="(item) => t(`Step.Personality.Desires.${item}`)"
+                    :label-function="(item: string) => t(`Step.Personality.Desires.${item}`)"
                 />
             </Card>
         </div>
@@ -77,10 +77,6 @@ import desiresData from '@/assets/data/desires.json';
 import nameTablesData from '@/assets/data/name-tables.json';
 import traitsData from '@/assets/data/traits.json';
 import { t } from '@/i18n/locale';
-import StepFrame from '../StepFrame.vue';
-import Card from '../ui/Card.vue';
-import NamePicker from '../ui/NamePicker.vue';
-import PickList from '../ui/PickList.vue';
 
 const props = defineProps({
     adventurer: {

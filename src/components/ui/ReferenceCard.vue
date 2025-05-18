@@ -6,9 +6,6 @@
 </template>
 
 <script setup lang="ts">
-import ReferenceTip from '../ReferenceTip.vue';
-import Card from './Card.vue';
-
 const props = defineProps({
     page: {
         type: Number,

@@ -30,7 +30,6 @@
 <script setup lang="ts">
 import ModalFrame from '@/components/modals/ModalFrame.vue';
 import ModalHeader from '@/components/modals/ModalHeader.vue';
-import Button from '@/components/ui/Button.vue';
 import ModalController from '@/controllers/modal-controller';
 import { useI18n } from 'vue-i18n';
 

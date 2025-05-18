@@ -46,13 +46,13 @@
                 <CrucibleCard
                     :title="t('Step.Sorcery.Wild-surges.A.title')"
                     :items="wildSurgesData.a"
-                    :label-function="(item) => t(`Step.Sorcery.Wild-surges.A.${item}`)"
+                    :label-function="(item: string) => t(`Step.Sorcery.Wild-surges.A.${item}`)"
                     v-model="adventurer.talentsData[Step.SORCERY].wildSurgeCrucibles.a"
                 />
                 <CrucibleCard
                     :title="t('Step.Sorcery.Wild-surges.B.title')"
                     :items="wildSurgesData.b"
-                    :label-function="(item) => t(`Step.Sorcery.Wild-surges.B.${item}`)"
+                    :label-function="(item: string) => t(`Step.Sorcery.Wild-surges.B.${item}`)"
                     v-model="adventurer.talentsData[Step.SORCERY].wildSurgeCrucibles.b"
                 />
             </div>
@@ -64,12 +64,9 @@
 import Adventurer from '@/adventurer';
 import magicPathsData from '@/assets/data/magic-paths.json';
 import magicTechniquesData from '@/assets/data/magic-techniques.json';
+import wildSurgesData from '@/assets/data/wild-surges.json';
 import { t } from '@/i18n/locale';
 import { Step } from '@/step';
-import StepFrame from '../StepFrame.vue';
-import ReferenceCard from '../ui/ReferenceCard.vue';
-import CrucibleCard from '../ui/CrucibleCard.vue';
-import wildSurgesData from '@/assets/data/wild-surges.json';
 
 const props = defineProps({
     adventurer: {

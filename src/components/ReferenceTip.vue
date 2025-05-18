@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import TooltipController from '@/controllers/tooltip-controller';
 import { t } from '@/i18n/locale';
-import ReferenceTooltip from './tooltips/templates/ReferenceTooltip.vue';
+import ReferenceTooltip from '@/components/tooltips/templates/ReferenceTooltip.vue';
 
 const props = defineProps({
     page: {

@@ -32,7 +32,9 @@
             <NamePicker
                 id="god-name"
                 :name-tables="nameTablesData"
-                :name-category-label-function="(key) => t(`Step.Channel-divinity.God-name.Generator.Tables.${key}`)"
+                :name-category-label-function="
+                    (key: string) => t(`Step.Channel-divinity.God-name.Generator.Tables.${key}`)
+                "
                 v-model:name="adventurer.talentsData[Step.CHANNEL_DIVINITY].god.name"
             >
                 <p v-html="t('Step.Channel-divinity.God-name.Generator.instructions')"></p>
@@ -67,11 +69,6 @@ import holySymbolsData from '@/assets/data/holy-symbols.json';
 import { t } from '@/i18n/locale';
 import { BASE_URL } from '@/router';
 import { Step } from '@/step';
-import StepFrame from '../StepFrame.vue';
-import DomainCard from '../ui/DomainCard.vue';
-import InputGroup from '../ui/InputGroup.vue';
-import NamePicker from '../ui/NamePicker.vue';
-import ReferenceCard from '../ui/ReferenceCard.vue';
 
 const props = defineProps({
     adventurer: {
@@ -95,13 +92,6 @@ const props = defineProps({
 .card.growth {
     margin-top: 1rem;
     background-color: var(--surface);
-}
-
-.domain-block {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    width: 100%;
 }
 
 .domains-list {

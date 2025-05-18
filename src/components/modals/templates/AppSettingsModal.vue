@@ -57,7 +57,6 @@
 import AppSettingsModal from '@/components/modals/templates/AppSettingsModal.vue';
 import ModalFrame from '@/components/modals/ModalFrame.vue';
 import ModalHeader from '@/components/modals/ModalHeader.vue';
-import Button from '@/components/ui/Button.vue';
 import { changeLanguage, t } from '@/i18n/locale';
 import { useAdventurersStore } from '@/store/adventurers-store';
 import { startTracking, stopTracking } from '@/tracker';

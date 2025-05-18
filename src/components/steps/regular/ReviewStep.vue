@@ -63,8 +63,6 @@ import { paintSheet } from '@/sheet-painter';
 import { encodeURI } from '@/utils/adventurer-util';
 import { toFileName } from '@/utils/naming-util';
 import { onMounted, ref } from 'vue';
-import StepFrame from '../StepFrame.vue';
-import Button from '../ui/Button.vue';
 import { trackEvent } from '@/tracker';
 
 const props = defineProps({

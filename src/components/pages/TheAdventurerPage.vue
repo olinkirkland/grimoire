@@ -48,14 +48,12 @@
 import Adventurer from '@/adventurer';
 import ModalController from '@/controllers/modal-controller';
 import { t } from '@/i18n/locale';
-import { CoreTalentsByPath } from '@/path';
 import { PageName, router } from '@/router';
-import { Step, StepDefinitions, StepType } from '@/step';
+import { CoreTalentsByPath, Step, StepDefinitions, StepType } from '@/step';
 import { useAdventurersStore } from '@/store/adventurers-store';
 import { capitalizeFirstLetter } from '@/utils/naming-util';
 import { computed, ref } from 'vue';
 import AdventurerSettingsModal from '../modals/templates/AdventurerSettingsModal.vue';
-import Button from '../ui/Button.vue';
 
 const stepsOrder = computed<string[]>(() => {
     const steps = [
@@ -82,6 +80,18 @@ const stepsOrder = computed<string[]>(() => {
     const path = adventurer.value?.path;
     const indexAfterPath = steps.indexOf(Step.PATH) + 1;
     if (path) steps.splice(indexAfterPath, 0, CoreTalentsByPath[path]);
+
+    // Dynamically insert all chosen talents after the talents step
+    let insertTalentAtIndex = steps.indexOf(Step.TALENTS) + 1;
+    const talents = adventurer.value?.talents || [];
+    talents.forEach((talent) => {
+        // Check if this talent has a step defined in StepDefinitions
+        if (StepDefinitions[talent]) {
+            // Insert the talent step at the current index
+            steps.splice(insertTalentAtIndex, 0, talent);
+            insertTalentAtIndex++;
+        }
+    });
 
     return steps;
 });

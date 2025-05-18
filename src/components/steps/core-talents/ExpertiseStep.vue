@@ -63,12 +63,6 @@ import crimeData from '@/assets/data/crime.json';
 import guildTraitsData from '@/assets/data/guild-traits.json';
 import { t } from '@/i18n/locale';
 import { Step } from '@/step';
-import StepFrame from '../StepFrame.vue';
-import InputGroup from '../ui/InputGroup.vue';
-import PickList from '../ui/PickList.vue';
-import ReferenceCard from '../ui/ReferenceCard.vue';
-import TableCard from '../ui/TableCard.vue';
-import TableGroup from '../ui/TableGroup.vue';
 
 const props = defineProps({
     adventurer: {

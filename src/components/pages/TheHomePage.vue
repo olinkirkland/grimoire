@@ -46,7 +46,6 @@
 
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
-import Button from '@/components/ui/Button.vue';
 import ModalController from '@/controllers/modal-controller';
 import { t } from '@/i18n/locale';
 import { PageName, router } from '@/router';
@@ -56,7 +55,6 @@ import { capitalizeFirstLetter, getUniqueName } from '@/utils/naming-util';
 import { onMounted, ref } from 'vue';
 import AppSettingsModal from '../modals/templates/AppSettingsModal.vue';
 import TheFooter from '../TheFooter.vue';
-import Card from '../ui/Card.vue';
 
 const adventurersStore = useAdventurersStore();
 const displayedAdventurers = ref<Adventurer[]>([]);

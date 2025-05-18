@@ -32,7 +32,6 @@
 import ModalController from '@/controllers/modal-controller';
 import { t } from '@/i18n/locale';
 import CrucibleModal from '../modals/templates/CrucibleModal.vue';
-import Card from './Card.vue';
 
 const props = defineProps({
     title: {

@@ -52,7 +52,6 @@
 import Adventurer from '@/adventurer';
 import backgroundsData from '@/assets/data/backgrounds.json';
 import { t } from '@/i18n/locale';
-import InputGroup from '../ui/InputGroup.vue';
 
 const props = defineProps({
     adventurer: {

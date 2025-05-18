@@ -70,17 +70,11 @@ import Adventurer from '@/adventurer';
 import druidicTellsData from '@/assets/data/druidic-tells.json';
 import talentsData from '@/assets/data/talents.json';
 import wildTalentsData from '@/assets/data/wild-talents.json';
+import TalentModal from '@/components/modals/templates/TalentModal.vue';
 import ModalController from '@/controllers/modal-controller';
 import { t } from '@/i18n/locale';
 import { Step } from '@/step';
 import { capitalizeFirstLetter } from '@/utils/naming-util';
-import TalentModal from '../modals/templates/TalentModal.vue';
-import StepFrame from '../StepFrame.vue';
-import CrucibleCard from '../ui/CrucibleCard.vue';
-import InputGroup from '../ui/InputGroup.vue';
-import ReferenceCard from '../ui/ReferenceCard.vue';
-import TableCard from '../ui/TableCard.vue';
-import TableGroup from '../ui/TableGroup.vue';
 
 const props = defineProps({
     adventurer: {

@@ -80,17 +80,11 @@
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
 import talentsData from '@/assets/data/talents.json';
+import TalentModal from '@/components/modals/templates/TalentModal.vue';
+import ModalController from '@/controllers/modal-controller';
 import { t } from '@/i18n/locale';
 import { capitalizeFirstLetter } from '@/utils/naming-util';
 import { computed, ref } from 'vue';
-import StepFrame from '../StepFrame.vue';
-import Button from '../ui/Button.vue';
-import ButtonBar from '../ui/ButtonBar.vue';
-import Card from '../ui/Card.vue';
-import InputGroup from '../ui/InputGroup.vue';
-import ReferenceCard from '../ui/ReferenceCard.vue';
-import ModalController from '@/controllers/modal-controller';
-import TalentModal from '../modals/templates/TalentModal.vue';
 
 const props = defineProps({
     adventurer: {
@@ -130,7 +124,8 @@ const filteredTalents = computed(() => {
 
 function getSourceLabel(source: string): string {
     const path = t(`Step.Path.${capitalizeFirstLetter(source)}.name`);
-    return t('Step.Talents.talent-by-path', { path });
+    const page = talentsData.find((t) => t.source === source)?.page || -1;
+    return t('Step.Talents.talent-by-path', { path, page: page.toString() });
 }
 
 function onClickTalent(talent: string) {

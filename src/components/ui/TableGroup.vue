@@ -5,8 +5,6 @@
 </template>
 
 <script setup lang="ts">
-import Card from './Card.vue';
-
 const props = defineProps({
     merge: {
         type: Boolean,

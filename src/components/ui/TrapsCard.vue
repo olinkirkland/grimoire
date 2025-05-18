@@ -28,7 +28,6 @@
 import trapsData from '@/assets/data/traps.json';
 import { t } from '@/i18n/locale';
 import { ref } from 'vue';
-import Card from './Card.vue';
 
 const props = defineProps({
     modelValue: {

@@ -47,10 +47,6 @@
 import Adventurer from '@/adventurer';
 import { t } from '@/i18n/locale';
 import { Step } from '@/step';
-import StepFrame from '../StepFrame.vue';
-import InputGroup from '../ui/InputGroup.vue';
-import ReferenceCard from '../ui/ReferenceCard.vue';
-import TrapsCard from '../ui/TrapsCard.vue';
 
 const props = defineProps({
     adventurer: {

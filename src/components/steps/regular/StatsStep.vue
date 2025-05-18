@@ -38,9 +38,6 @@ import Adventurer from '@/adventurer';
 import { t } from '@/i18n/locale';
 import { capitalizeFirstLetter } from '@/utils/naming-util';
 import { computed } from 'vue';
-import StepFrame from '../StepFrame.vue';
-import Button from '../ui/Button.vue';
-import ReferenceCard from '../ui/ReferenceCard.vue';
 
 const props = defineProps({
     adventurer: {

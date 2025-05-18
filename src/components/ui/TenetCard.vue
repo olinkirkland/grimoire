@@ -28,7 +28,6 @@
 import tenetData from '@/assets/data/tenet.json';
 import { t } from '@/i18n/locale';
 import { ref } from 'vue';
-import Card from './Card.vue';
 
 const props = defineProps({
     modelValue: {

@@ -37,10 +37,6 @@
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
 import { t } from '@/i18n/locale';
-import StepFrame from '../StepFrame.vue';
-import InputGroup from '../ui/InputGroup.vue';
-import ReferenceCard from '../ui/ReferenceCard.vue';
-import TenetCard from '../ui/TenetCard.vue';
 
 const props = defineProps({
     adventurer: {

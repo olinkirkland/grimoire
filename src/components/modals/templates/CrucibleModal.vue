@@ -35,8 +35,6 @@
 <script setup lang="ts">
 import ModalFrame from '@/components/modals/ModalFrame.vue';
 import ModalHeader from '@/components/modals/ModalHeader.vue';
-import Card from '@/components/ui/Card.vue';
-import ReferenceCard from '@/components/ui/ReferenceCard.vue';
 import TableCard from '@/components/ui/TableCard.vue';
 import { t } from '@/i18n/locale';
 import { ref } from 'vue';

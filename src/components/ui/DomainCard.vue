@@ -33,12 +33,11 @@
 
 <script setup lang="ts">
 import domainsData from '@/assets/data/domains.json';
+import EditDomainModal from '@/components/modals/templates/EditDomainModal.vue';
 import ModalController from '@/controllers/modal-controller';
 import { t } from '@/i18n/locale';
 import { Domain } from '@/types/types';
 import { capitalizeFirstLetter } from '@/utils/naming-util';
-import EditDomainModal from '../modals/templates/EditDomainModal.vue';
-import Card from './Card.vue';
 
 const props = defineProps({
     primary: Boolean,

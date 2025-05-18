@@ -52,10 +52,6 @@ import weaponOriginData from '@/assets/data/weapon-origin.json';
 import weaponStylesData from '@/assets/data/weapon-styles.json';
 import { t } from '@/i18n/locale';
 import { Step } from '@/step';
-import StepFrame from '../StepFrame.vue';
-import CrucibleCard from '../ui/CrucibleCard.vue';
-import InputGroup from '../ui/InputGroup.vue';
-import ReferenceCard from '../ui/ReferenceCard.vue';
 
 const props = defineProps({
     adventurer: {
@@ -106,7 +102,6 @@ ul.weapon-style {
         gap: 0;
         transition: box-shadow 0.2s ease-in-out;
         padding: 1rem;
-
 
         > em {
             font-size: 1.2rem;

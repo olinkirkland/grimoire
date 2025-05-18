@@ -60,19 +60,19 @@
                 <CrucibleCard
                     :title="t('Step.Spellcraft.Style.label')"
                     :items="spellcraftData.style"
-                    :label-function="(item) => t(`Step.Spellcraft.Crucible.${item}`)"
+                    :label-function="(item: string) => t(`Step.Spellcraft.Crucible.${item}`)"
                     v-model="adventurer.talentsData[Step.SPELLCRAFT].spellCrucibles.style"
                 />
                 <CrucibleCard
                     :title="t('Step.Spellcraft.Essence.label')"
                     :items="spellcraftData.essence"
-                    :label-function="(item) => t(`Step.Spellcraft.Crucible.${item}`)"
+                    :label-function="(item: string) => t(`Step.Spellcraft.Crucible.${item}`)"
                     v-model="adventurer.talentsData[Step.SPELLCRAFT].spellCrucibles.essence"
                 />
                 <CrucibleCard
                     :title="t('Step.Spellcraft.Form.label')"
                     :items="spellcraftData.form"
-                    :label-function="(item) => t(`Step.Spellcraft.Crucible.${item}`)"
+                    :label-function="(item: string) => t(`Step.Spellcraft.Crucible.${item}`)"
                     v-model="adventurer.talentsData[Step.SPELLCRAFT].spellCrucibles.form"
                 />
             </div>
@@ -107,11 +107,6 @@ import { t } from '@/i18n/locale';
 import { Step } from '@/step';
 import { capitalizeFirstLetter } from '@/utils/naming-util';
 import { computed } from 'vue';
-import StepFrame from '../StepFrame.vue';
-import CrucibleCard from '../ui/CrucibleCard.vue';
-import InputGroup from '../ui/InputGroup.vue';
-import ReferenceCard from '../ui/ReferenceCard.vue';
-import TableCard from '../ui/TableCard.vue';
 
 const props = defineProps({
     adventurer: {

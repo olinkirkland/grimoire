@@ -19,7 +19,7 @@
                 :items="frenzySourceData"
                 v-model:selected-items="adventurer.talentsData[Step.FRENZY].frenzySources"
                 v-model:not-selected-items="adventurer.talentsData[Step.FRENZY].notFrenzySources"
-                :label-function="(frenzySource) => t(`Step.Frenzy.Frenzy-source.${frenzySource}`)"
+                :label-function="(frenzySource: string) => t(`Step.Frenzy.Frenzy-source.${frenzySource}`)"
             />
         </Card>
         <Card class="scars">
@@ -53,12 +53,6 @@ import frenzySourceData from '@/assets/data/frenzy-source.json';
 import scarsData from '@/assets/data/scars.json';
 import { t } from '@/i18n/locale';
 import { Step } from '@/step';
-import StepFrame from '../StepFrame.vue';
-import Card from '../ui/Card.vue';
-import InputGroup from '../ui/InputGroup.vue';
-import PickList from '../ui/PickList.vue';
-import ReferenceCard from '../ui/ReferenceCard.vue';
-import TableCard from '../ui/TableCard.vue';
 
 const props = defineProps({
     adventurer: {

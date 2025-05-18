@@ -64,9 +64,6 @@
 import Adventurer from '@/adventurer';
 import heritagesData from '@/assets/data/heritages.json';
 import { t } from '@/i18n/locale';
-import Card from '../ui/Card.vue';
-import CrucibleCard from '../ui/CrucibleCard.vue';
-import InputGroup from '../ui/InputGroup.vue';
 
 const props = defineProps({
     adventurer: {

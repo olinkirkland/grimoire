@@ -1,24 +1,25 @@
-import ArcsStep from './components/steps/ArcsStep.vue';
-import BackgroundStep from './components/steps/BackgroundStep.vue';
-import BardsongStep from './components/steps/BardsongStep.vue';
-import BondsStep from './components/steps/BondsStep.vue';
-import ChannelDivinityStep from './components/steps/ChannelDivinityStep.vue';
-import DisciplineStep from './components/steps/DisciplineStep.vue';
-import ExpertiseStep from './components/steps/ExpertiseStep.vue';
-import FrenzyStep from './components/steps/FrenzyStep.vue';
-import HeritageStep from './components/steps/HeritageStep.vue';
-import HuntersMarkStep from './components/steps/HuntersMarkStep.vue';
-import OathswornStep from './components/steps/OathswornStep.vue';
-import PactStep from './components/steps/PactStep.vue';
-import PathStep from './components/steps/PathStep.vue';
-import PersonalityStep from './components/steps/PersonalityStep.vue';
-import ReviewStep from './components/steps/ReviewStep.vue';
-import SorceryStep from './components/steps/SorceryStep.vue';
-import SpellcraftStep from './components/steps/SpellcraftStep.vue';
-import StatsStep from './components/steps/StatsStep.vue';
-import TalentsStep from './components/steps/TalentsStep.vue';
-import WeaponMasteryStep from './components/steps/WeaponMasteryStep.vue';
-import WildShapeStep from './components/steps/WildShapeStep.vue';
+import { Path } from '@/path';
+import BardsongStep from './components/steps/core-talents/BardsongStep.vue';
+import ChannelDivinityStep from './components/steps/core-talents/ChannelDivinityStep.vue';
+import DisciplineStep from './components/steps/core-talents/DisciplineStep.vue';
+import ExpertiseStep from './components/steps/core-talents/ExpertiseStep.vue';
+import FrenzyStep from './components/steps/core-talents/FrenzyStep.vue';
+import HuntersMarkStep from './components/steps/core-talents/HuntersMarkStep.vue';
+import OathswornStep from './components/steps/core-talents/OathswornStep.vue';
+import PactStep from './components/steps/core-talents/PactStep.vue';
+import SorceryStep from './components/steps/core-talents/SorceryStep.vue';
+import SpellcraftStep from './components/steps/core-talents/SpellcraftStep.vue';
+import WeaponMasteryStep from './components/steps/core-talents/WeaponMasteryStep.vue';
+import WildShapeStep from './components/steps/core-talents/WildShapeStep.vue';
+import ArcsStep from './components/steps/regular/ArcsStep.vue';
+import BackgroundStep from './components/steps/regular/BackgroundStep.vue';
+import BondsStep from './components/steps/regular/BondsStep.vue';
+import HeritageStep from './components/steps/regular/HeritageStep.vue';
+import PathStep from './components/steps/regular/PathStep.vue';
+import PersonalityStep from './components/steps/regular/PersonalityStep.vue';
+import ReviewStep from './components/steps/regular/ReviewStep.vue';
+import StatsStep from './components/steps/regular/StatsStep.vue';
+import TalentsStep from './components/steps/regular/TalentsStep.vue';
 
 export const Step = {
     PERSONALITY: 'personality',
@@ -44,7 +45,28 @@ export const Step = {
     EXPERTISE: 'expertise',
     SORCERY: 'sorcery',
     PACT: 'pact',
-    SPELLCRAFT: 'spellcraft'
+    SPELLCRAFT: 'spellcraft',
+
+    // Talents
+    BARDIC_LORE: 'bardic-lore',
+    JACK_OF_ALL_TRADES: 'jack-of-all-trades',
+    WARSONGS: 'warsongs',
+    HERBALISM: 'herbalism'
+};
+
+export const CoreTalentsByPath = {
+    [Path.BARD]: Step.BARDSONG,
+    [Path.BERSERKER]: Step.FRENZY,
+    [Path.CLERIC]: Step.CHANNEL_DIVINITY,
+    [Path.DRUID]: Step.WILD_SHAPE,
+    [Path.FIGHTER]: Step.WEAPON_MASTERY,
+    [Path.MONK]: Step.DISCIPLINE,
+    [Path.PALADIN]: Step.OATHSWORN,
+    [Path.RANGER]: Step.HUNTERS_MARK,
+    [Path.ROGUE]: Step.EXPERTISE,
+    [Path.SORCERER]: Step.SORCERY,
+    [Path.WARLOCK]: Step.PACT,
+    [Path.WIZARD]: Step.SPELLCRAFT
 };
 
 export const StepType = {
@@ -145,4 +167,22 @@ export const StepDefinitions: Record<string, { component: any; type: string }> =
         component: SpellcraftStep,
         type: StepType.CORE_TALENT
     }
+
+    // Talents
+    // [Step.BARDIC_LORE]: {
+    //     component: BardicLoreStep,
+    //     type: StepType.TALENT
+    // },
+    // [Step.JACK_OF_ALL_TRADES]: {
+    //     component: JackOfAllTradesStep,
+    //     type: StepType.TALENT
+    // },
+    // [Step.WARSONGS]: {
+    //     component: WarsongsStep,
+    //     type: StepType.TALENT
+    // },
+    // [Step.HERBALISM]: {
+    //     component: HerbalismStep,
+    //     type: StepType.TALENT
+    // }
 };

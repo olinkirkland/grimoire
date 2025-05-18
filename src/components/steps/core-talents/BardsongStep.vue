@@ -66,10 +66,6 @@ import bardicInstrumentsData from '@/assets/data/bardic-instruments.json';
 import bardsongData from '@/assets/data/bardsong.json';
 import { t } from '@/i18n/locale';
 import { Step } from '@/step';
-import StepFrame from '../StepFrame.vue';
-import ReferenceCard from '../ui/ReferenceCard.vue';
-import TableCard from '../ui/TableCard.vue';
-import TableGroup from '../ui/TableGroup.vue';
 
 const props = defineProps({
     adventurer: {

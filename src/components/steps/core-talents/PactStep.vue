@@ -32,7 +32,7 @@
             <NamePicker
                 id="patron-name"
                 :name-tables="nameTablesData"
-                :name-category-label-function="(item) => t(`Step.Pact.Name.Tables.${item}`)"
+                :name-category-label-function="(item: string) => t(`Step.Pact.Name.Tables.${item}`)"
                 v-model:name="adventurer.talentsData[Step.PACT].patron.name"
             >
                 <p v-html="t('Step.Pact.Name.instructions')"></p>
@@ -85,13 +85,13 @@
                 <CrucibleCard
                     :title="t('Step.Pact.Patron-creation.Crucibles.Nature.label')"
                     :items="patronTrappingsData.nature"
-                    :label-function="(item) => t(`Step.Pact.Patron-creation.Crucibles.Nature.${item}`)"
+                    :label-function="(item: string) => t(`Step.Pact.Patron-creation.Crucibles.Nature.${item}`)"
                     v-model="adventurer.talentsData[Step.PACT].patron.patronCrucibles.nature"
                 />
                 <CrucibleCard
                     :title="t('Step.Pact.Patron-creation.Crucibles.Desires.label')"
                     :items="patronTrappingsData.desires"
-                    :label-function="(item) => t(`Step.Pact.Patron-creation.Crucibles.Desires.${item}`)"
+                    :label-function="(item: string) => t(`Step.Pact.Patron-creation.Crucibles.Desires.${item}`)"
                     v-model="adventurer.talentsData[Step.PACT].patron.patronCrucibles.desires"
                 />
             </div>
@@ -105,12 +105,6 @@ import nameTablesData from '@/assets/data/patron-name-tables.json';
 import patronTrappingsData from '@/assets/data/patron-trappings.json';
 import { t } from '@/i18n/locale';
 import { Step } from '@/step';
-import StepFrame from '../StepFrame.vue';
-import ButtonBar from '../ui/ButtonBar.vue';
-import CrucibleCard from '../ui/CrucibleCard.vue';
-import InputGroup from '../ui/InputGroup.vue';
-import NamePicker from '../ui/NamePicker.vue';
-import ReferenceCard from '../ui/ReferenceCard.vue';
 
 const props = defineProps({
     adventurer: {
