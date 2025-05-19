@@ -55,4 +55,21 @@ const props = defineProps({
         }
     }
 }
+
+// For input groups
+:deep(.input-group) {
+    z-index: 1;
+    flex: 1;
+
+    // Handle the border radiuses
+    border-radius: 0 !important;
+    &:first-child {
+        border-top-left-radius: 5px !important;
+        border-bottom-left-radius: 5px !important;
+    }
+    &:last-child {
+        border-top-right-radius: 5px !important;
+        border-bottom-right-radius: 5px !important;
+    }
+}
 </style>

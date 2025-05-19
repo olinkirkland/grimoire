@@ -256,6 +256,10 @@ export function getTalentTemplate(key: string): any | null {
                 tricks: [],
                 flaws: []
             };
+        case Step.TROPHIES:
+            return {
+                trophies: []
+            };
     }
 
     return null;

@@ -228,5 +228,9 @@ function onClickRemoveTheorem(index: number) {
     .crucibles {
         grid-template-columns: 1fr;
     }
+
+    .added-theorems-card ul {
+        grid-template-columns: 1fr;
+    }
 }
 </style>

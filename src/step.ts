@@ -20,11 +20,24 @@ import PersonalityStep from './components/steps/regular/PersonalityStep.vue';
 import ReviewStep from './components/steps/regular/ReviewStep.vue';
 import StatsStep from './components/steps/regular/StatsStep.vue';
 import TalentsStep from './components/steps/regular/TalentsStep.vue';
+import AlchemistStep from './components/steps/talents/AlchemistStep.vue';
 import AnimalCompanionStep from './components/steps/talents/AnimalCompanionStep.vue';
+import ArcaneSpecialtyStep from './components/steps/talents/ArcaneSpecialtyStep.vue';
+import ArcaneTrainingStep from './components/steps/talents/ArcaneTrainingStep.vue';
 import BardicLoreStep from './components/steps/talents/BardicLoreStep.vue';
+import DivineBlessingStep from './components/steps/talents/DivineBlessingStep.vue';
+import EldritchAffinityStep from './components/steps/talents/EldritchAffinityStep.vue';
+import EldritchGrowthStep from './components/steps/talents/EldritchGrowthStep.vue';
+import FamiliarStep from './components/steps/talents/FamiliarStep.vue';
 import HerbalismStep from './components/steps/talents/HerbalismStep.vue';
+import MasteredTheoremStep from './components/steps/talents/MasteredTheoremStep.vue';
+import OtherworldlyFormStep from './components/steps/talents/OtherworldlyFormStep.vue';
+import PrimordialBondsStep from './components/steps/talents/PrimordialBondsStep.vue';
 import PrimordialForcesStep from './components/steps/talents/PrimordialForcesStep.vue';
+import TrophiesStep from './components/steps/talents/TrophiesStep.vue';
+import TrueShapeStep from './components/steps/talents/TrueShapeStep.vue';
 import WarsongsStep from './components/steps/talents/WarsongsStep.vue';
+import WispsStep from './components/steps/talents/WispsStep.vue';
 
 export const Step = {
     PERSONALITY: 'personality',
@@ -208,70 +221,57 @@ export const StepDefinitions: Record<string, { component: any; type: string }> =
     [Step.ANIMAL_COMPANION]: {
         component: AnimalCompanionStep,
         type: StepType.TALENT
+    },
+    [Step.PRIMORDIAL_BONDS]: {
+        component: PrimordialBondsStep,
+        type: StepType.TALENT
+    },
+    [Step.TRUE_SHAPE]: {
+        component: TrueShapeStep,
+        type: StepType.TALENT
+    },
+    [Step.ARCANE_TRAINING]: {
+        component: ArcaneTrainingStep,
+        type: StepType.TALENT
+    },
+    [Step.DIVINE_BLESSING]: {
+        component: DivineBlessingStep,
+        type: StepType.TALENT
+    },
+    [Step.TROPHIES]: {
+        component: TrophiesStep,
+        type: StepType.TALENT
+    },
+    [Step.ELDRITCH_AFFINITY]: {
+        component: EldritchAffinityStep,
+        type: StepType.TALENT
+    },
+    [Step.ELDRITCH_GROWTH]: {
+        component: EldritchGrowthStep,
+        type: StepType.TALENT
+    },
+    [Step.WISPS]: {
+        component: WispsStep,
+        type: StepType.TALENT
+    },
+    [Step.OTHERWORLDLY_FORM]: {
+        component: OtherworldlyFormStep,
+        type: StepType.TALENT
+    },
+    [Step.ALCHEMIST]: {
+        component: AlchemistStep,
+        type: StepType.TALENT
+    },
+    [Step.ARCANE_SPECIALITY]: {
+        component: ArcaneSpecialtyStep,
+        type: StepType.TALENT
+    },
+    [Step.FAMILIAR]: {
+        component: FamiliarStep,
+        type: StepType.TALENT
+    },
+    [Step.MASTERED_THEOREM]: {
+        component: MasteredTheoremStep,
+        type: StepType.TALENT
     }
-    // [Step.PRIMORDIAL_BONDS]: {
-    //     // TODO: Implement PrimordialBondsStep
-    //     component: undefined,
-    //     type: StepType.TALENT
-    // },
-    // [Step.TRUE_SHAPE]: {
-    //     // TODO: Implement TrueShapeStep
-    //     component: undefined,
-    //     type: StepType.TALENT
-    // },
-    // [Step.ARCANE_TRAINING]: {
-    //     // TODO: Implement ArcaneTrainingStep
-    //     component: undefined,
-    //     type: StepType.TALENT
-    // },
-    // [Step.DIVINE_BLESSING]: {
-    //     // TODO: Implement DivineBlessingStep
-    //     component: undefined,
-    //     type: StepType.TALENT
-    // },
-    // [Step.TROPHIES]: {
-    //     // TODO: Implement TrophiesStep
-    //     component: undefined,
-    //     type: StepType.TALENT
-    // },
-    // [Step.ELDRITCH_AFFINITY]: {
-    //     // TODO: Implement EldritchAffinityStep
-    //     component: undefined,
-    //     type: StepType.TALENT
-    // },
-    // [Step.ELDRITCH_GROWTH]: {
-    //     // TODO: Implement EldritchGrowthStep
-    //     component: undefined,
-    //     type: StepType.TALENT
-    // },
-    // [Step.WISPS]: {
-    //     // TODO: Implement WispsStep
-    //     component: undefined,
-    //     type: StepType.TALENT
-    // },
-    // [Step.OTHERWORLDLY_FORM]: {
-    //     // TODO: Implement OtherworldlyFormStep
-    //     component: undefined,
-    //     type: StepType.TALENT
-    // },
-    // [Step.ALCHEMIST]: {
-    //     // TODO: Implement AlchemistStep
-    //     component: undefined,
-    //     type: StepType.TALENT
-    // },
-    // [Step.ARCANE_SPECIALITY]: {
-    //     // TODO: Implement ArcaneSpecialityStep
-    //     component: undefined,
-    //     type: StepType.TALENT
-    // },
-    // [Step.FAMILIAR]: {
-    //     // TODO: Implement FamiliarStep
-    //     component: undefined,
-    //     type: StepType.TALENT
-    // },
-    // [Step.MASTERED_THEOREM]: {
-    //     // TODO: Implement MasteredTheoremStep
-    //     component: undefined,
-    //     type: StepType.TALENT
-    // }
 };

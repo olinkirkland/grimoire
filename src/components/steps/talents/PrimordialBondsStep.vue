@@ -3,8 +3,8 @@
         <ReferenceCard :page="talent.page" floating-reference-tip>
             <div>
                 <h2>{{ t('Step.Talents.heading') }}</h2>
-                <h3>◈ {{ t(`Step.Asdf.title`) }}</h3>
-                <p v-html="t(`Step.Asdf.description`)"></p>
+                <h3>◈ {{ t(`Step.Primordial-bonds.title`) }}</h3>
+                <p v-html="t(`Step.Primordial-bonds.description`)"></p>
             </div>
         </ReferenceCard>
     </StepFrame>
@@ -23,7 +23,7 @@ const props = defineProps({
     }
 });
 
-const talent = talentDefinitionsData.find((talent) => talent.id === Step.BARDIC_LORE)!;
+const talent = talentDefinitionsData.find((talent) => talent.id === Step.PRIMORDIAL_BONDS)!;
 </script>
 
 <style scoped lang="scss">
