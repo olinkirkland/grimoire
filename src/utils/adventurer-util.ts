@@ -272,6 +272,10 @@ export function getTalentTemplate(key: string): any | null {
             return {
                 magicSchool: ''
             };
+        case Step.MASTERED_THEOREM:
+            return {
+                theorem: -1
+            };
     }
 
     return null;
