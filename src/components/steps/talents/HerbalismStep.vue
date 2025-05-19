@@ -1,7 +1,11 @@
 <template>
     <StepFrame>
-        <ReferenceCard :page="talent.page">
-            <p v-html="t('Step.Talents.Herbalism.description')"></p>
+        <ReferenceCard :page="talent.page" floating-reference-tip>
+            <div>
+                <h2>{{ t('Step.Talents.heading') }}</h2>
+                <h3>◆ {{ t(`Step.Herbalism.title`) }}</h3>
+                <p v-html="t('Step.Talents.Herbalism.description')"></p>
+            </div>
         </ReferenceCard>
         <Card glass v-if="prefixOrSuffix">
             <h3 class="full-width text-center">{{ combinedCrucibleName }}</h3>
@@ -42,7 +46,7 @@ const props = defineProps({
     }
 });
 
-const talent = talentDefinitionsData.find((talent) => talent.id === Step.BARDIC_LORE)!;
+const talent = talentDefinitionsData.find((talent) => talent.id === Step.HERBALISM)!;
 
 const combinedCrucibleName = computed(() => {
     const prefix = props.adventurer.talentsData[Step.HERBALISM].crucibles.prefix;

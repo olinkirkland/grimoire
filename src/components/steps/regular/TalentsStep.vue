@@ -20,7 +20,6 @@
                                 </Button>
                             </header>
                             <h2>{{ getSourceLabel(talentsData.find((t) => t.id === talent)!.source) }}</h2>
-                            <!-- <p v-html="t(`Step.Talents.${capitalizeFirstLetter(talent)}.description`)"></p> -->
                         </div>
                     </Card>
                 </li>

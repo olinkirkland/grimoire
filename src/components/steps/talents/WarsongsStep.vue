@@ -1,7 +1,11 @@
 <template>
     <StepFrame>
-        <ReferenceCard :page="talent.page">
-            {{ t('Step.Talents.Warsongs.description') }}
+        <ReferenceCard :page="talent.page" floating-reference-tip>
+            <div>
+                <h2>{{ t('Step.Talents.heading') }}</h2>
+                <h3>◆ {{ t(`Step.Warsongs.title`) }}</h3>
+                <p v-html="t('Step.Talents.Warsongs.description')"></p>
+            </div>
         </ReferenceCard>
 
         <Card class="song-composition">
@@ -58,7 +62,7 @@ const props = defineProps({
     }
 });
 
-const talent = talentDefinitionsData.find((talent) => talent.id === Step.BARDIC_LORE)!;
+const talent = talentDefinitionsData.find((talent) => talent.id === Step.WARSONGS)!;
 </script>
 
 <style scoped lang="scss">

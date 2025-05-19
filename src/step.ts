@@ -20,8 +20,10 @@ import PersonalityStep from './components/steps/regular/PersonalityStep.vue';
 import ReviewStep from './components/steps/regular/ReviewStep.vue';
 import StatsStep from './components/steps/regular/StatsStep.vue';
 import TalentsStep from './components/steps/regular/TalentsStep.vue';
+import AnimalCompanionStep from './components/steps/talents/AnimalCompanionStep.vue';
 import BardicLoreStep from './components/steps/talents/BardicLoreStep.vue';
 import HerbalismStep from './components/steps/talents/HerbalismStep.vue';
+import PrimordialForcesStep from './components/steps/talents/PrimordialForcesStep.vue';
 import WarsongsStep from './components/steps/talents/WarsongsStep.vue';
 
 export const Step = {
@@ -198,17 +200,15 @@ export const StepDefinitions: Record<string, { component: any; type: string }> =
     [Step.HERBALISM]: {
         component: HerbalismStep,
         type: StepType.TALENT
+    },
+    [Step.PRIMORDIAL_FORCES]: {
+        component: PrimordialForcesStep,
+        type: StepType.TALENT
+    },
+    [Step.ANIMAL_COMPANION]: {
+        component: AnimalCompanionStep,
+        type: StepType.TALENT
     }
-    // [Step.PRIMORDIAL_FORCES]: {
-    //     // TODO: Implement PrimordialForcesStep
-    //     component: undefined,
-    //     type: StepType.TALENT
-    // },
-    // [Step.ANIMAL_COMPANION]: {
-    //     // TODO: Implement AnimalCompanionStep
-    //     component: undefined,
-    //     type: StepType.TALENT
-    // },
     // [Step.PRIMORDIAL_BONDS]: {
     //     // TODO: Implement PrimordialBondsStep
     //     component: undefined,

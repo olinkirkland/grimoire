@@ -242,8 +242,18 @@ export function getTalentTemplate(key: string): any | null {
             return {
                 crucibles: {
                     prefix: '',
-                    suffix: '',
+                    suffix: ''
                 }
+            };
+        case Step.PRIMORDIAL_FORCES:
+            return {
+                takenAgain: false,
+                forces: [] // fire, water, earth, air
+            };
+        case Step.ANIMAL_COMPANION:
+            return {
+                tricks: ['', '', ''],
+                flaws: ['', ''],
             };
     }
 
