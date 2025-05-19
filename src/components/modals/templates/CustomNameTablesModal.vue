@@ -136,7 +136,6 @@ function onClickRemoveTable(id: string) {
 @media (max-width: 768px) {
     .card {
         flex-direction: column;
-        gap: 1rem;
     }
 }
 </style>

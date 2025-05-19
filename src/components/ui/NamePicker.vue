@@ -169,7 +169,8 @@ function onClickManageCustomNameTables() {
     > ul.custom-names-list {
         width: 100%;
         display: flex;
-        gap: 2rem;
+        flex-wrap: wrap;
+        gap: 1rem;
         border-top: 1px dashed var(--surface-border);
         padding-top: 1.2rem;
         margin-bottom: 0.4rem;
