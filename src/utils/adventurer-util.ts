@@ -3,6 +3,10 @@ import { Step } from '@/step';
 import { v4 as uuid } from 'uuid';
 import { capitalizeFirstLetter } from './naming-util';
 
+export const Modify = {
+    STATS: 'modify-stats'
+};
+
 /**
  * Import an adventurer from a URI.
  * @param uri - The URI string to import.
@@ -228,11 +232,7 @@ export function getTalentTemplate(key: string): any | null {
             };
         case Step.JACK_OF_ALL_TRADES:
             return {
-              modify: {
-                maxStats: {
-                    // TODO: Implement max stats modifier
-                }
-              }  
+                [Modify.STATS]: 1
             };
     }
 

@@ -3,9 +3,11 @@
         <ReferenceCard :page="14">
             <p v-html="t('Step.Stats.instructions')"></p>
         </ReferenceCard>
-        <p class="total-points">
-            {{ t('Step.Stats.points-used', { points: totalPointsUsedCount, max: maxPoints.toString() }) }}
-        </p>
+        <Card glass>
+            <p class="full-width text-center">
+                {{ t('Step.Stats.points-used', { points: totalPointsUsedCount, max: maxPoints.toString() }) }}
+            </p>
+        </Card>
         <Card class="stat">
             <ul class="stat-list">
                 <li v-for="(statKey, index) in Object.keys(adventurer.stats)" :key="index">
@@ -20,6 +22,7 @@
                             <p>{{ getStatDescription(statKey) }}</p>
                         </div>
 
+                        <!-- 3 is the max points for a stat -->
                         <Button
                             @click="onClickChangeStat(statKey, 1)"
                             :disabled="getStatValue(statKey) >= 3 || reachedMaxPoints"
@@ -36,6 +39,7 @@
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
 import { t } from '@/i18n/locale';
+import { getTalentTemplate, Modify } from '@/utils/adventurer-util';
 import { capitalizeFirstLetter } from '@/utils/naming-util';
 import { computed } from 'vue';
 
@@ -46,7 +50,23 @@ const props = defineProps({
     }
 });
 
-const maxPoints = 4;
+const maxPoints = computed(() => {
+    let points = 4;
+    // Check for Modify.STATS values in added talents
+    props.adventurer.talents.forEach((talent) => {
+        // Get the talent template
+        const template = getTalentTemplate(talent);
+        if (template) {
+            // Check if the talent has a Modify.STATS value
+            if (template[Modify.STATS]) {
+                // Add the value to the starting max points
+                points += template[Modify.STATS];
+            }
+        }
+    });
+
+    return points;
+});
 
 const getStatValue = (statKey: string) => {
     return props.adventurer.stats[statKey as keyof Adventurer['stats']];
@@ -62,18 +82,18 @@ const getStatDescription = (statKey: string) => {
 
 const totalPointsUsedCount = computed(() => {
     const totalPointsUsed = Object.values(props.adventurer.stats).reduce((acc, stat) => acc + stat, 0);
-    return `${totalPointsUsed - 4}`;
+    return `${totalPointsUsed - 4}`; // 4 is the base points (1 for each stat)
 });
 
 const reachedMaxPoints = computed(() => {
     const totalPointsUsed = Object.values(props.adventurer.stats).reduce((acc, stat) => acc + stat, 0);
-    return totalPointsUsed >= 4 + maxPoints;
+    return totalPointsUsed >= maxPoints.value + 4; // 4 is the base points (1 for each stat)
 });
 
 function onClickChangeStat(statKey: string, change: number) {
     const stat = props.adventurer.stats[statKey as keyof Adventurer['stats']];
     console.log(stat, change);
-    if (stat + change < 0 || stat + change > 3) return;
+    if (stat + change < 0 || stat + change >= maxPoints.value) return;
     props.adventurer.stats[statKey as keyof Adventurer['stats']] += change;
 }
 </script>
