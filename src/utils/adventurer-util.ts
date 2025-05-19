@@ -238,6 +238,13 @@ export function getTalentTemplate(key: string): any | null {
             return {
                 songs: ['', '', '']
             };
+        case Step.HERBALISM:
+            return {
+                crucibles: {
+                    prefix: '',
+                    suffix: '',
+                }
+            };
     }
 
     return null;

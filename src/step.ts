@@ -21,6 +21,7 @@ import ReviewStep from './components/steps/regular/ReviewStep.vue';
 import StatsStep from './components/steps/regular/StatsStep.vue';
 import TalentsStep from './components/steps/regular/TalentsStep.vue';
 import BardicLoreStep from './components/steps/talents/BardicLoreStep.vue';
+import HerbalismStep from './components/steps/talents/HerbalismStep.vue';
 import WarsongsStep from './components/steps/talents/WarsongsStep.vue';
 
 export const Step = {
@@ -191,15 +192,13 @@ export const StepDefinitions: Record<string, { component: any; type: string }> =
         type: StepType.TALENT
     },
     [Step.WARSONGS]: {
-        // TODO: Implement WarsongsStep
         component: WarsongsStep,
         type: StepType.TALENT
+    },
+    [Step.HERBALISM]: {
+        component: HerbalismStep,
+        type: StepType.TALENT
     }
-    // [Step.HERBALISM]: {
-    //     // TODO: Implement HerbalismStep
-    //     component: undefined,
-    //     type: StepType.TALENT
-    // },
     // [Step.PRIMORDIAL_FORCES]: {
     //     // TODO: Implement PrimordialForcesStep
     //     component: undefined,
