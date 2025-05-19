@@ -11,6 +11,16 @@
                 <span v-html="nameCategoryLabelFunction(nameTableKey)"></span>
             </li>
         </ul>
+        <ul class="custom-names-list" v-if="Object.keys(useCustomNameTablesStore().customNameTables).length > 0">
+            <li
+                v-for="(nameTableKey, index) in Object.keys(useCustomNameTablesStore().customNameTables)"
+                :key="index"
+                @click="toggleNameTable(nameTableKey)"
+            >
+                <i :class="activeNameTables.includes(nameTableKey) ? 'fas fa-check-square' : 'far fa-square'"></i>
+                <span v-html="nameTableKey"></span>
+            </li>
+        </ul>
         <div class="flex wrap">
             <Button @click="onClickGenerateName" :disabled="activeNameTables.length === 0">
                 <i class="fas fa-magic"></i>
@@ -32,8 +42,9 @@
 import CustomNameTablesModal from '@/components/modals/templates/CustomNameTablesModal.vue';
 import ModalController from '@/controllers/modal-controller';
 import { t } from '@/i18n/locale';
+import { useCustomNameTablesStore } from '@/store/custom-name-tables-store';
 import { generateMarkovName } from '@/utils/adventurer-util';
-import { onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 
 const props = defineProps({
     id: {
@@ -58,11 +69,15 @@ const props = defineProps({
     }
 });
 
+const localStorageKey = `name-picker.${props.id}`;
 const activeNameTables = ref<string[]>([]);
+const allNameTables = computed(() => {
+    // Combine the name tables from props and custom name tables
+    const customNameTables = useCustomNameTablesStore().customNameTables;
+    return { ...props.nameTables, ...customNameTables };
+});
 
 const emit = defineEmits(['update:name']);
-
-const localStorageKey = `name-picker.${props.id}`;
 
 onMounted(() => {
     const stored = localStorage.getItem(localStorageKey);
@@ -96,7 +111,7 @@ function onClickGenerateName() {
     // Generate a name using the selected name tables
     const allNames: string[] = [];
     activeNameTables.value.forEach((nameTableKey) => {
-        const nameTableData = props.nameTables[nameTableKey as keyof typeof props.nameTables];
+        const nameTableData = allNameTables.value[nameTableKey];
         allNames.push(...nameTableData);
     });
 
@@ -108,7 +123,7 @@ function onClickRollName() {
     // Pick a random name from the selected name tables
     const allNames: string[] = [];
     activeNameTables.value.forEach((nameTableKey) => {
-        const nameTableData = props.nameTables[nameTableKey as keyof typeof props.nameTables];
+        const nameTableData = allNameTables.value[nameTableKey];
         allNames.push(...nameTableData);
     });
 
@@ -131,22 +146,31 @@ function onClickManageCustomNameTables() {
         grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
         gap: 1rem;
         margin-bottom: 0.4rem;
+    }
 
-        > li {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
+    > ul.custom-names-list {
+        width: 100%;
+        display: flex;
+        gap: 2rem;
+        border-top: 1px dashed var(--surface-border);
+        padding-top: 1.2rem;
+        margin-bottom: 0.4rem;
+    }
 
-            > * {
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
+    > ul > li {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
 
-            i {
-                font-size: 1.6rem;
-            }
+        > * {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        i {
+            font-size: 1.6rem;
         }
     }
 }

@@ -18,6 +18,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import i18n from './i18n/locale';
 import { useAdventurersStore } from './store/adventurers-store';
+import { useCustomNameTablesStore } from './store/custom-name-tables-store';
 
 // Create the app
 const app = createApp(App);
@@ -47,6 +48,10 @@ app.component('TableGroup', TableGroup);
 // Load adventurers from localStorage
 const adventurersStore = useAdventurersStore();
 adventurersStore.loadAdventurersFromLocalStorage();
+
+// Load custom name tables from localStorage
+const customNameTablesStore = useCustomNameTablesStore();
+customNameTablesStore.loadCustomNameTablesFromLocalStorage();
 
 // Mount the app
 app.mount('#app');

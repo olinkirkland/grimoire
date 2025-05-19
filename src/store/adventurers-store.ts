@@ -17,9 +17,7 @@ export const useAdventurersStore = defineStore('adventurers', () => {
     // Load adventurers from localStorage
     function loadAdventurersFromLocalStorage(): void {
         const storedAdventurers = localStorage.getItem('adventurers');
-        adventurers.value = storedAdventurers
-            ? JSON.parse(storedAdventurers)
-            : [];
+        adventurers.value = storedAdventurers ? JSON.parse(storedAdventurers) : [];
     }
 
     // Estimate bytes used by adventurers in localStorage
@@ -41,13 +39,11 @@ export const useAdventurersStore = defineStore('adventurers', () => {
 
     // Remove a adventurer by ID
     function removeAdventurer(id: string): void {
-        adventurers.value = adventurers.value.filter(
-            (adventurer) => adventurer.id !== id
-        );
+        adventurers.value = adventurers.value.filter((adventurer) => adventurer.id !== id);
     }
 
     return {
-        adventurers: adventurers,
+        adventurers,
         loadAdventurersFromLocalStorage,
         bytesUsedEstimate,
         getAdventurer,

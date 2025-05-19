@@ -20,8 +20,8 @@
                     </div>
                     <TableCard
                         :title="t('Modals.Custom-name-tables.table-title')"
-                        :items="customNameTables"
-                        v-if="customNameTables.length > 0"
+                        :items="customNameTablesArray"
+                        v-if="customNameTablesArray.length > 0"
                     >
                         <template #item="{ item }">
                             <div class="table-item">
@@ -46,23 +46,17 @@ import nameTableExampleData from '@/assets/data/name-table-example.json';
 import ModalFrame from '@/components/modals/ModalFrame.vue';
 import ModalHeader from '@/components/modals/ModalHeader.vue';
 import { t } from '@/i18n/locale';
+import { useCustomNameTablesStore } from '@/store/custom-name-tables-store';
 import { getUniqueName } from '@/utils/naming-util';
-import { onMounted, ref } from 'vue';
+import { computed } from 'vue';
 
-type CustomNameTable = {
-    id: string;
-    names: string[];
-    createdAt: number;
-};
-
-// Import the custom name tables from the local storage
-onMounted(() => {
-    const storedNameTables = localStorage.getItem('custom-name-tables');
-    if (storedNameTables) customNameTables.value = JSON.parse(storedNameTables);
-    else customNameTables.value = [];
+const customNameTablesStore = useCustomNameTablesStore();
+const customNameTablesArray = computed(() => {
+    return Object.keys(customNameTablesStore.customNameTables).map((key) => ({
+        id: key,
+        names: customNameTablesStore.customNameTables[key]
+    }));
 });
-
-const customNameTables = ref<CustomNameTable[]>([]);
 
 function onClickDownloadExample() {
     // Create a blob from the example data and create a link to download it
@@ -78,7 +72,6 @@ function onClickDownloadExample() {
 }
 
 function onClickChooseFile() {
-    // Choose a file and read it, then parse it as JSON and store it in the local storage
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = '.json';
@@ -94,18 +87,11 @@ function onClickChooseFile() {
         reader.onload = (e) => {
             try {
                 const data = JSON.parse(e.target?.result as string);
-
                 const uniqueName = getUniqueName(
-                    customNameTables.value.map((table) => table.id),
+                    Object.keys(useCustomNameTablesStore().customNameTables),
                     file.name.split('.')[0]
                 );
-                const customNameTable: CustomNameTable = {
-                    id: uniqueName,
-                    names: data,
-                    createdAt: new Date().getTime()
-                };
-                customNameTables.value.push(customNameTable);
-                localStorage.setItem('custom-name-tables', JSON.stringify(customNameTables.value));
+                useCustomNameTablesStore().addCustomNameTable(uniqueName, data);
             } catch (error) {
                 console.error('Error parsing JSON:', error);
             }
@@ -119,9 +105,7 @@ function onClickChooseFile() {
 }
 
 function onClickRemoveTable(id: string) {
-    // Remove the table from the local storage
-    customNameTables.value = customNameTables.value.filter((table) => table.id !== id);
-    localStorage.setItem('custom-name-tables', JSON.stringify(customNameTables.value));
+    customNameTablesStore.removeCustomNameTable(id);
 }
 </script>
 
