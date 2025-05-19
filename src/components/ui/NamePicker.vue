@@ -97,9 +97,27 @@ watch(
     activeNameTables,
     (val) => {
         localStorage.setItem(localStorageKey, JSON.stringify(val));
+        validateActiveNameTables();
     },
     { deep: true }
 );
+
+watch(
+    () => useCustomNameTablesStore().customNameTables,
+    () => {
+        validateActiveNameTables();
+    },
+    { deep: true }
+);
+
+function validateActiveNameTables() {
+    // Validate the active name tables against the available name tables
+    // If a name table is not available, remove it from the active name tables
+    const validNameTables = Object.keys(allNameTables.value);
+    const keysToRemove = activeNameTables.value.filter((nameTableKey) => !validNameTables.includes(nameTableKey));
+    if (keysToRemove.length > 0)
+        activeNameTables.value = activeNameTables.value.filter((nameTableKey) => !keysToRemove.includes(nameTableKey));
+}
 
 function toggleNameTable(nameTableKey: string) {
     if (activeNameTables.value.includes(nameTableKey))
@@ -112,7 +130,7 @@ function onClickGenerateName() {
     const allNames: string[] = [];
     activeNameTables.value.forEach((nameTableKey) => {
         const nameTableData = allNameTables.value[nameTableKey];
-        allNames.push(...nameTableData);
+        if (nameTableData) allNames.push(...nameTableData);
     });
 
     const generatedName = generateMarkovName(allNames);
@@ -124,7 +142,7 @@ function onClickRollName() {
     const allNames: string[] = [];
     activeNameTables.value.forEach((nameTableKey) => {
         const nameTableData = allNameTables.value[nameTableKey];
-        allNames.push(...nameTableData);
+        if (nameTableData) allNames.push(...nameTableData);
     });
 
     const randomName = allNames[Math.floor(Math.random() * allNames.length)];
