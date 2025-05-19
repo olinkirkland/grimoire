@@ -11,7 +11,7 @@
                 <span v-html="nameCategoryLabelFunction(nameTableKey)"></span>
             </li>
         </ul>
-        <div class="flex">
+        <div class="flex wrap">
             <Button @click="onClickGenerateName" :disabled="activeNameTables.length === 0">
                 <i class="fas fa-magic"></i>
                 <span>{{ t('generate') }}</span>
@@ -20,11 +20,17 @@
                 <i class="fas fa-random"></i>
                 <span>{{ t('roll') }}</span>
             </Button>
+            <Button @click="onClickManageCustomNameTables">
+                <i class="fas fa-file-import"></i>
+                <span>{{ t('Modals.Custom-name-tables.title') }}</span>
+            </Button>
         </div>
     </Card>
 </template>
 
 <script setup lang="ts">
+import CustomNameTablesModal from '@/components/modals/templates/CustomNameTablesModal.vue';
+import ModalController from '@/controllers/modal-controller';
 import { t } from '@/i18n/locale';
 import { generateMarkovName } from '@/utils/adventurer-util';
 import { onMounted, ref, watch } from 'vue';
@@ -108,6 +114,10 @@ function onClickRollName() {
 
     const randomName = allNames[Math.floor(Math.random() * allNames.length)];
     if (randomName) emit('update:name', randomName);
+}
+
+function onClickManageCustomNameTables() {
+    ModalController.open(CustomNameTablesModal);
 }
 </script>
 

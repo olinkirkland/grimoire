@@ -2,6 +2,7 @@
     <button
         class="btn"
         :class="{
+            'btn--mini': mini,
             'btn--icon': icon,
             'btn--disabled': disabled,
             'btn--primary': primary,
@@ -21,6 +22,7 @@
 import { defineProps } from 'vue';
 
 const props = defineProps({
+    mini: Boolean,
     icon: Boolean,
     primary: Boolean,
     danger: Boolean,
@@ -114,6 +116,15 @@ button.pressed > .btn__content,
     }
     .btn__shadow {
         background-color: transparent;
+    }
+}
+
+// Mini button
+.btn.btn--mini {
+    .btn__content {
+        padding: 0.2rem;
+        width: unset;
+        height: unset;
     }
 }
 
