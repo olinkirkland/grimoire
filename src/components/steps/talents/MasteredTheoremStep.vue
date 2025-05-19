@@ -110,5 +110,8 @@ function onClickTheorem(index: number) {
 }
 
 @media (max-width: 768px) {
+    .added-theorems-card ul {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
 </style>

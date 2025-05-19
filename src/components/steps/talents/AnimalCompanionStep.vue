@@ -9,7 +9,11 @@
         </ReferenceCard>
         <Card>
             <p
-                v-html="t('Step.Animal-companion.Tricks.instructions', { count: adventurer.talentsData[Step.ANIMAL_COMPANION].takenAgain ? '6' : '3' })"
+                v-html="
+                    t('Step.Animal-companion.Tricks.instructions', {
+                        count: adventurer.talentsData[Step.ANIMAL_COMPANION].takenAgain ? '6' : '3'
+                    })
+                "
             ></p>
             <ul class="trait">
                 <Card
@@ -130,5 +134,8 @@ ul.trait {
 }
 
 @media (max-width: 768px) {
+    ul.trait {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 </style>
