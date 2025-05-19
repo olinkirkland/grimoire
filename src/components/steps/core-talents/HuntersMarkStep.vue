@@ -45,6 +45,7 @@
 
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
+import TrapsCard from '@/components/ui/TrapsCard.vue';
 import { t } from '@/i18n/locale';
 import { Step } from '@/step';
 
