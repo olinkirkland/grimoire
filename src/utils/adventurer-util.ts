@@ -260,6 +260,14 @@ export function getTalentTemplate(key: string): any | null {
             return {
                 trophies: []
             };
+        case Step.ELDRITCH_GROWTH:
+            return {
+                name: ''
+            };
+        case Step.OTHERWORLDLY_FORM:
+            return {
+                effects: []
+            };
     }
 
     return null;
