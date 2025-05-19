@@ -60,7 +60,7 @@ h5 {
 
 p {
     line-height: 1.4;
-    * {
+    :not(h5) {
         font-size: inherit;
     }
 
