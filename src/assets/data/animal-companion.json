@@ -1,0 +1,4 @@
+{
+    "tricks": ["distract", "fight", "guard", "perform", "rescue", "retrieve", "scout", "search", "track", "warn"],
+    "flaws": ["aggressive", "clumsy", "grumpy", "insatiable", "jumpy", "noisy", "overprotective", "scary", "unruly"]
+}

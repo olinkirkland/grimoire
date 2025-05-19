@@ -252,8 +252,9 @@ export function getTalentTemplate(key: string): any | null {
             };
         case Step.ANIMAL_COMPANION:
             return {
-                tricks: ['', '', ''],
-                flaws: ['', ''],
+                takenAgain: false,
+                tricks: [],
+                flaws: []
             };
     }
 
