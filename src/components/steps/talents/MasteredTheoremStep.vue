@@ -22,7 +22,7 @@
                 </Card>
             </ul>
             <p v-else>
-                <em>{{ t('Step.Spellcraft.Theorems.empty') }}</em>
+                <em>{{ t('Step.Mastered-theorem.empty') }}</em>
             </p>
         </Card>
     </StepFrame>
