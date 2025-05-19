@@ -82,7 +82,7 @@ export const Step = {
     WISPS: 'wisps',
     OTHERWORLDLY_FORM: 'otherworldly-form',
     ALCHEMIST: 'alchemist',
-    ARCANE_SPECIALITY: 'arcane-speciality',
+    ARCANE_SPECIALTY: 'arcane-specialty',
     FAMILIAR: 'familiar',
     MASTERED_THEOREM: 'mastered-theorem'
 };
@@ -262,7 +262,7 @@ export const StepDefinitions: Record<string, { component: any; type: string }> =
         component: AlchemistStep,
         type: StepType.TALENT
     },
-    [Step.ARCANE_SPECIALITY]: {
+    [Step.ARCANE_SPECIALTY]: {
         component: ArcaneSpecialtyStep,
         type: StepType.TALENT
     },

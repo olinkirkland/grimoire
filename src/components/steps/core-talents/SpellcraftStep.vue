@@ -22,7 +22,7 @@
                 >
                     <div>
                         <h3 class="ellipsis">{{ theorem.name }}</h3>
-                        <p>{{ theorem.magicSchool }}</p>
+                        <p>{{ getMagicSchoolLabel(theorem.magicSchool) }}</p>
                     </div>
                     <Button @click="onClickRemoveTheorem(index)">
                         <i class="fas fa-trash"></i>
@@ -32,6 +32,15 @@
             <p v-else>
                 <em>{{ t('Step.Spellcraft.Theorems.empty') }}</em>
             </p>
+            <p
+                v-if="adventurer.talentsData[Step.ARCANE_SPECIALTY]?.magicSchool"
+                class="specialty-note"
+                v-html="
+                    t('Step.Spellcraft.specialty', {
+                        school: adventurer.talentsData[Step.ARCANE_SPECIALTY].magicSchool
+                    })
+                "
+            ></p>
         </Card>
 
         <Card class="theorem-creation">
@@ -129,6 +138,12 @@ const isValidTheorem = computed(() => {
     );
 });
 
+function getMagicSchoolLabel(magicSchool: string) {
+    const specialty = props.adventurer.talentsData[Step.ARCANE_SPECIALTY]?.magicSchool;
+    if (!specialty || magicSchool === specialty) return `${magicSchool}`;
+    return `${magicSchool}, ${specialty}`;
+}
+
 function onClickAddTheorem() {
     if (isValidTheorem.value) {
         props.adventurer.talentsData[Step.SPELLCRAFT].theorems.push(currentTheorem.value);
@@ -207,6 +222,11 @@ function onClickRemoveTheorem(index: number) {
             }
         }
     }
+}
+
+.specialty-note {
+    font-size: 1.4rem;
+    opacity: 0.6;
 }
 
 @media (max-width: 768px) {

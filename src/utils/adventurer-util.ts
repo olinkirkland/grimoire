@@ -268,6 +268,10 @@ export function getTalentTemplate(key: string): any | null {
             return {
                 effects: []
             };
+        case Step.ARCANE_SPECIALTY:
+            return {
+                magicSchool: ''
+            };
     }
 
     return null;
