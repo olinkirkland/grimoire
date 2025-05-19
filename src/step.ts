@@ -21,6 +21,7 @@ import ReviewStep from './components/steps/regular/ReviewStep.vue';
 import StatsStep from './components/steps/regular/StatsStep.vue';
 import TalentsStep from './components/steps/regular/TalentsStep.vue';
 import BardicLoreStep from './components/steps/talents/BardicLoreStep.vue';
+import WarsongsStep from './components/steps/talents/WarsongsStep.vue';
 
 export const Step = {
     PERSONALITY: 'personality',
@@ -188,17 +189,12 @@ export const StepDefinitions: Record<string, { component: any; type: string }> =
     [Step.BARDIC_LORE]: {
         component: BardicLoreStep,
         type: StepType.TALENT
+    },
+    [Step.WARSONGS]: {
+        // TODO: Implement WarsongsStep
+        component: WarsongsStep,
+        type: StepType.TALENT
     }
-    // [Step.JACK_OF_ALL_TRADES]: {
-    //     // TODO: Implement JackOfAllTradesStep
-    //     component: undefined,
-    //     type: StepType.TALENT
-    // },
-    // [Step.WARSONGS]: {
-    //     // TODO: Implement WarsongsStep
-    //     component: undefined,
-    //     type: StepType.TALENT
-    // },
     // [Step.HERBALISM]: {
     //     // TODO: Implement HerbalismStep
     //     component: undefined,

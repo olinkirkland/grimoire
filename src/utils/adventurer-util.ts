@@ -234,6 +234,10 @@ export function getTalentTemplate(key: string): any | null {
             return {
                 [Modify.STATS]: 1
             };
+        case Step.WARSONGS:
+            return {
+                songs: ['', '', '']
+            };
     }
 
     return null;
