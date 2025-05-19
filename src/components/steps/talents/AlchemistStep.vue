@@ -3,7 +3,7 @@
         <ReferenceCard :page="talent.page" floating-reference-tip>
             <div>
                 <h2>{{ t('Step.Talents.heading') }}</h2>
-                <h3>◈ {{ t(`Step.Alchemist.title`) }}</h3>
+                <h3>◆ {{ t(`Step.Alchemist.title`) }}</h3>
                 <p v-html="t(`Step.Alchemist.description`)"></p>
             </div>
         </ReferenceCard>
