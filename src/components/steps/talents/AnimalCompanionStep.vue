@@ -22,7 +22,7 @@
                     :key="index"
                     :class="{ selected: isTraitSelected(tricks, 'tricks') }"
                 >
-                    <span>{{ t(`Step.Animal-companion.Tricks.${tricks}`) }}</span>
+                    <span class="text-center ellipsis">{{ t(`Step.Animal-companion.Tricks.${tricks}`) }}</span>
                     <em>{{ t(`Step.Animal-companion.tricks`) }}</em>
                 </Card>
             </ul>
@@ -34,7 +34,7 @@
                     :key="index"
                     :class="{ selected: isTraitSelected(flaw, 'flaws') }"
                 >
-                    <span>{{ t(`Step.Animal-companion.Flaws.${flaw}`) }}</span>
+                    <span class="text-center ellipsis">{{ t(`Step.Animal-companion.Flaws.${flaw}`) }}</span>
                     <em>{{ t(`Step.Animal-companion.flaws`) }}</em>
                 </Card>
             </ul>
