@@ -9,7 +9,7 @@
                         })
                     }}
                 </h2>
-                <h3>⬙ {{ t(`Step.Trophies.title`) }}</h3>
+                <h3>◇ {{ t(`Step.Trophies.title`) }}</h3>
                 <p v-html="t(`Step.Trophies.description`)"></p>
             </div>
         </ReferenceCard>

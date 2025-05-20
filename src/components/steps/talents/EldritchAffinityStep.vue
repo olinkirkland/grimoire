@@ -9,7 +9,7 @@
                         })
                     }}
                 </h2>
-                <h3>⬙ {{ t(`Step.Eldritch-affinity.title`) }}</h3>
+                <h3>◇ {{ t(`Step.Eldritch-affinity.title`) }}</h3>
                 <p v-html="t(`Step.Talents.Eldritch-affinity.description`)"></p>
                 <p v-html="t(`Step.Eldritch-affinity.instructions`)"></p>
                 <ul class="magic-paths">
