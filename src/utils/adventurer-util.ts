@@ -306,6 +306,11 @@ export function getTalentTemplate(key: string): any | null {
                     }
                 }
             };
+        case Step.TRUE_SHAPE:
+            return {
+                shape: '',
+                wildTalents: ['', '']
+            };
     }
 
     return null;

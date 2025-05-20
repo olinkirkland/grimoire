@@ -113,6 +113,8 @@ function onClickTalent(talent: string) {
 }
 
 .talent-name {
+    width: auto;
+    text-align: right;
     margin-left: auto;
 }
 
