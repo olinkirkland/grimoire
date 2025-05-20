@@ -18,17 +18,17 @@
             <TableGroup>
                 <TableCard :title="t('Step.Bardsong.Style.name')" :items="bardsongData.style">
                     <template #item="{ item }">
-                        <span class="ellipsis text-center">{{ item }}</span>
+                        <span class="ellipsis text-center">{{ t(`Step.Bardsong.Style.${item}`) }}</span>
                     </template>
                 </TableCard>
                 <TableCard :title="t('Step.Bardsong.Tune.name')" :items="bardsongData.tune">
                     <template #item="{ item }">
-                        <span class="ellipsis text-center">{{ item }}</span>
+                        <span class="ellipsis text-center">{{ t(`Step.Bardsong.Tune.${item}`) }}</span>
                     </template>
                 </TableCard>
                 <TableCard :title="t('Step.Bardsong.Impact.name')" :items="bardsongData.impact">
                     <template #item="{ item }">
-                        <span class="ellipsis text-center">{{ item }}</span>
+                        <span class="ellipsis text-center">{{ t(`Step.Bardsong.Impact.${item}`) }}</span>
                     </template>
                 </TableCard>
             </TableGroup>

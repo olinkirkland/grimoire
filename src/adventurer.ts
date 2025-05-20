@@ -73,7 +73,7 @@ export default class Adventurer {
 
     // Arcs
     // Choose one or two character arcs to explore. Don't get too detailed—these will get fleshed out during play and can be changed anytime.
-    arcs: string[];
+    arcs: { description: string }[];
 
     // Bonds
     // Describe your characters in detail. As you listen, choose one bond you have towards each PC, matching together an intensity and a nature of the bond.

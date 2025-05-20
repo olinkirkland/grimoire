@@ -8,14 +8,15 @@ import CrucibleCard from '@/components/ui/CrucibleCard.vue';
 import InputGroup from '@/components/ui/InputGroup.vue';
 import Link from '@/components/ui/Link.vue';
 import NamePicker from '@/components/ui/NamePicker.vue';
+import PickList from '@/components/ui/PickList.vue';
 import ReferenceCard from '@/components/ui/ReferenceCard.vue';
 import TableCard from '@/components/ui/TableCard.vue';
 import TableGroup from '@/components/ui/TableGroup.vue';
-import PickList from '@/components/ui/PickList.vue';
 import { router } from '@/router';
 import { createPinia } from 'pinia';
 import { createApp } from 'vue';
 import App from './App.vue';
+import TextAreaGroup from './components/ui/TextAreaGroup.vue';
 import i18n from './i18n/locale';
 import { useAdventurersStore } from './store/adventurers-store';
 import { useCustomNameTablesStore } from './store/custom-name-tables-store';
@@ -44,6 +45,7 @@ app.component('ReferenceTip', ReferenceTip);
 app.component('StepFrame', StepFrame);
 app.component('TableCard', TableCard);
 app.component('TableGroup', TableGroup);
+app.component('TextAreaGroup', TextAreaGroup);
 
 // Load adventurers from localStorage
 const adventurersStore = useAdventurersStore();
