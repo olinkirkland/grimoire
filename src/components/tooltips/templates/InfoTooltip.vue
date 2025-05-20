@@ -27,6 +27,7 @@ const target = computed(() => {
 .info {
     display: flex;
     max-width: 24rem;
+    text-align: center;
     flex-direction: column;
     gap: 1.6rem;
     height: 100%;

@@ -21,6 +21,7 @@
                     :adventurer="adventurer"
                     :key="currentStep"
                     :step="currentStep"
+                    :changeStep="changeStep"
                 ></component>
             </Transition>
         </div>

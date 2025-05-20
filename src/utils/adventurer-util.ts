@@ -343,7 +343,18 @@ export function getTalentTemplate(key: string): any | null {
         case Step.WISPS:
             return { traits: [] };
         case Step.ALCHEMIST:
-            return {};
+            return {
+                spellCrucibles: {
+                    style: '',
+                    essence: '',
+                    focus: ''
+                },
+                builder: {
+                    theorem: '',
+                    magicSchool: ''
+                },
+                theorems: []
+            };
         case Step.FAMILIAR:
             return {};
     }

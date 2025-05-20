@@ -7,6 +7,7 @@
             'btn--disabled': disabled,
             'btn--primary': primary,
             'btn--danger': danger,
+            'btn--square': square,
             pressed: pressed || disabled,
             'full-width': fullWidth,
             'full-width-mobile': fullWidthMobile
@@ -29,7 +30,8 @@ const props = defineProps({
     disabled: Boolean,
     fullWidth: Boolean,
     fullWidthMobile: Boolean,
-    pressed: Boolean
+    pressed: Boolean,
+    square: Boolean
 });
 </script>
 
@@ -86,6 +88,14 @@ button.pressed > .btn__content,
     }
     .btn__shadow {
         background-color: var(--primary-alt);
+    }
+}
+
+.btn--square {
+    width: 3.65rem; // Same as when just an icon is in it
+    > .btn__content {
+        padding: 0;
+        justify-content: center;
     }
 }
 
