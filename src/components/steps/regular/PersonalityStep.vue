@@ -67,6 +67,18 @@
                     </InputGroup>
                 </li>
             </ul>
+            <div class="crucibles">
+                <CrucibleCard
+                    v-for="(features, key) in featuresData"
+                    :items="features"
+                    :labelFunction="
+                        (item: string) => t(`Step.Personality.Features.Crucibles.${capitalizeFirstLetter(key)}.${item}`)
+                    "
+                    v-model="adventurer.featuresCrucibles[key]"
+                    :key="key"
+                    :title="t(`Step.Personality.Features.Crucibles.${key}`)"
+                />
+            </div>
         </Card>
     </StepFrame>
 </template>
@@ -74,9 +86,12 @@
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
 import desiresData from '@/assets/data/desires.json';
+import featuresData from '@/assets/data/features.json';
 import nameTablesData from '@/assets/data/name-tables.json';
 import traitsData from '@/assets/data/traits.json';
+import CrucibleCard from '@/components/ui/CrucibleCard.vue';
 import { t } from '@/i18n/locale';
+import { capitalizeFirstLetter } from '@/utils/naming-util';
 
 const props = defineProps({
     adventurer: {
@@ -118,7 +133,17 @@ const props = defineProps({
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.6rem;
+    gap: 1rem;
+}
+
+.crucibles {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    > * {
+        width: 100%;
+    }
 }
 
 @media (max-width: 768px) {

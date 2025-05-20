@@ -26,8 +26,7 @@ export default class Adventurer {
     heritage: Background;
     background: Background;
 
-    // Heritage Crucible
-    // Store the selected inspiration for the heritage crucible, which is a combination of folk, mood, and land.
+    // Heritage Crucibles
     heritageCrucibles: {
         folk: string;
         mood: string;
@@ -47,6 +46,16 @@ export default class Adventurer {
     // Features
     // Write down three distinctive features, words or short phrases that others soon notice about you, like strong hands, kind eyes, or a gravelly voice.
     features: string[];
+
+    // Features Crucibles
+    featuresCrucibles: {
+        age: string;
+        clothing: string;
+        voice: string;
+        body: string;
+        eyes: string;
+        hair: string;
+    };
 
     // Path
     // Choose a path, gain its core talent, and pick either another talent from your path's list or a non-core talent from another path.
@@ -132,6 +141,14 @@ export default class Adventurer {
         this.desires = [];
         this.notDesires = [];
         this.features = ['', '', ''];
+        this.featuresCrucibles = {
+            age: '',
+            clothing: '',
+            voice: '',
+            body: '',
+            eyes: '',
+            hair: ''
+        };
         this.path = null;
         this.talents = [];
         this.talentsData = {};
