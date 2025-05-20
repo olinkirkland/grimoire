@@ -3,7 +3,7 @@
         <ReferenceCard :page="15">
             <p v-html="t('Step.Arcs.instructions')"></p>
         </ReferenceCard>
-        <Card glass>
+        <Card glass :class="{ empty: adventurer.arcs.length === 0 }">
             <TextAreaGroup
                 v-for="(arc, index) in adventurer.arcs"
                 v-model="arc.description"
@@ -72,5 +72,9 @@ button.remove-arc {
 
 button.add-arc {
     margin-left: auto;
+}
+
+.empty button.add-arc {
+    margin: 0 auto;
 }
 </style>

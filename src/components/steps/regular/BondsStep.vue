@@ -3,7 +3,7 @@
         <ReferenceCard :page="14">
             <p v-html="t('Step.Bonds.instructions')"></p>
         </ReferenceCard>
-        <Card glass class="bonds">
+        <Card glass class="bonds" :class="{ empty: adventurer.bonds.length === 0 }">
             <Card class="bond-card" v-for="(bond, index) in adventurer.bonds" :key="index">
                 <header>
                     <p v-html="t('Step.Bonds.bond-with', { name: bond.name || '...' })"></p>
@@ -114,6 +114,10 @@ function removeBond(index: number) {
 
 button.add-bond {
     margin-left: auto;
+}
+
+.empty button.add-bond {
+    margin: 0 auto;
 }
 
 @media (max-width: 768px) {
