@@ -97,6 +97,7 @@ function removeBond(index: number) {
     }
 
     > .bond-card__content {
+        width: 100%;
         padding: 1rem;
         display: flex;
         flex-direction: column;
