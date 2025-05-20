@@ -82,6 +82,11 @@ const props = defineProps({
 }
 
 @media (max-width: 768px) {
+    .favorite-traps {
+        display: flex;
+        flex-direction: column;
+    }
+
     .favorite-traps-inputs {
         grid-template-columns: 1fr;
     }

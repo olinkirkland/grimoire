@@ -72,7 +72,9 @@ function onClickEdit() {
 }
 
 .controls {
+    width: 100%;
     display: flex;
+    justify-content: center;
     padding-top: 0.8rem;
     margin-top: auto;
     gap: 1rem;

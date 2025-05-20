@@ -1,5 +1,5 @@
 <template>
-    <Card class="card crucible">
+    <Card class="crucible">
         <header>
             {{ t('Step.Hunters-mark.Traps.builder') }}
         </header>

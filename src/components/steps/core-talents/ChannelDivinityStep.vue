@@ -66,6 +66,7 @@
 import Adventurer from '@/adventurer';
 import nameTablesData from '@/assets/data/god-name-tables.json';
 import holySymbolsData from '@/assets/data/holy-symbols.json';
+import DomainCard from '@/components/ui/DomainCard.vue';
 import { t } from '@/i18n/locale';
 import { BASE_URL } from '@/router';
 import { Step } from '@/step';

@@ -44,7 +44,7 @@
                     :items="category"
                 >
                     <template #item="{ item }">
-                        {{ t(`Step.Bardsong.Bardic-instrument.${item}`) }}
+                        <span>{{ t(`Step.Bardsong.Bardic-instrument.${item}`) }}</span>
                     </template>
                 </TableCard>
             </TableGroup>
