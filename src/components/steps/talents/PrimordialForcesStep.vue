@@ -13,12 +13,10 @@
                 <p v-html="t('Step.Primordial-forces.description')"></p>
                 <ul class="forces-list">
                     <li v-for="force in ['air', 'earth', 'fire', 'water']" :key="force">
-                        <Card
+                        <ToggleCard
                             @click="onClickToggleForce(force)"
-                            :class="{
-                                selected: isForceSelected(force),
-                                deactivated: adventurer.talentsData[Step.PRIMORDIAL_FORCES].special
-                            }"
+                            :selected="isForceSelected(force)"
+                            :class="{ deactivated: adventurer.talentsData[Step.PRIMORDIAL_FORCES].special }"
                         >
                             <div class="force-image">
                                 <div class="force-image__background"></div>
@@ -30,7 +28,7 @@
                                 </div>
                             </div>
                             <p>{{ t(`Step.Primordial-forces.${force}`) }}</p>
-                        </Card>
+                        </ToggleCard>
                     </li>
                 </ul>
             </div>
@@ -176,6 +174,7 @@ ul.forces-list {
     position: relative;
     width: 3.2rem;
     height: 3.2rem;
+    margin-bottom: 1rem;
 
     > .mask {
         width: 100%;

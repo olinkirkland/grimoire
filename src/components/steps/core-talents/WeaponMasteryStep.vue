@@ -6,15 +6,15 @@
                 <h3>◈ {{ t(`Step.Weapon-mastery.title`) }}</h3>
                 <p v-html="t(`Step.Weapon-mastery.description`)"></p>
                 <ul class="weapon-style">
-                    <Card
+                    <ToggleCard
                         v-for="(style, index) in weaponStylesData"
                         @click="adventurer.talentsData[Step.WEAPON_MASTERY].style = style"
                         :key="index"
-                        :class="{ selected: style === adventurer.talentsData[Step.WEAPON_MASTERY].style }"
+                        :selected="style === adventurer.talentsData[Step.WEAPON_MASTERY].style"
                     >
                         <span>{{ t(`Step.Weapon-mastery.Weapon-style.${style}`) }}</span>
                         <em>{{ t(`Step.Weapon-mastery.Weapon-style.fighting-style`) }}</em>
-                    </Card>
+                    </ToggleCard>
                 </ul>
                 <Card class="growth">
                     <p>
@@ -94,31 +94,6 @@ ul.weapon-style {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
-
-    .card {
-        cursor: pointer;
-        box-shadow: var(--shadow-sm);
-        align-items: center;
-        gap: 0;
-        transition: box-shadow 0.2s ease-in-out;
-        padding: 1rem;
-
-        > em {
-            font-size: 1.2rem;
-            color: var(--surface-alt);
-        }
-
-        &.selected {
-            transition: none;
-            box-shadow: none;
-            background-color: var(--primary-light);
-            color: var(--primary-alt);
-            > em {
-                color: var(--primary);
-                opacity: 0.6;
-            }
-        }
-    }
 }
 
 @media (max-width: 768px) {
