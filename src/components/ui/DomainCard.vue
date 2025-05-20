@@ -1,5 +1,5 @@
 <template>
-    <Card :class="{ empty: !domain.name }" shadow>
+    <Card :class="{ empty: !domain.name }">
         <h3>{{ domain.name }}</h3>
         <p class="domain-type">{{ t(`Step.Channel-divinity.Domains.${primary ? 'major' : 'minor'}`) }}</p>
         <p v-if="!domain.name" class="no-domain">
@@ -66,6 +66,7 @@ function onClickEdit() {
 
 <style scoped lang="scss">
 .domain-type {
+    width: 100%;
     color: var(--surface-alt);
     font-size: 1.4rem;
     font-style: italic;
@@ -94,12 +95,21 @@ function onClickEdit() {
 }
 
 .empty {
+    align-items: center;
+    justify-content: center;
+    > p.domain-type {
+        display: none;
+    }
+
     .controls {
         margin-top: unset;
     }
 }
 
 .no-domain {
-    font-size: 1.4rem;
+    width: 100%;
+    text-align: center;
+    font-style: italic;
+    color: var(--surface-alt);
 }
 </style>

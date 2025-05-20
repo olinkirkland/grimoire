@@ -324,6 +324,20 @@ export function getTalentTemplate(key: string): any | null {
                 },
                 theorems: []
             };
+        case Step.DIVINE_BLESSING:
+            return {
+                god: {
+                    name: '',
+                    epithet: ''
+                },
+                holySymbol: '',
+                domain: {
+                    name: '',
+                    description: '',
+                    tenets: '',
+                    magic: ''
+                }
+            };
     }
 
     return null;

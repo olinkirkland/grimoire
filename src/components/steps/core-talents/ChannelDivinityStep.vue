@@ -138,13 +138,6 @@ const props = defineProps({
         grid-template-columns: 1fr;
     }
 
-    .name-generator {
-        > .pick-list {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-
     .name-inputs {
         grid-template-columns: 1fr !important;
     }
