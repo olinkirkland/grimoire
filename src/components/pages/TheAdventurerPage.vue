@@ -146,7 +146,7 @@ function getStepLabel(step: string) {
     const stepType = StepDefinitions[step].type;
     let stepTypeSymbol = '';
     if (stepType === StepType.CORE_TALENT) stepTypeSymbol = '◈ ';
-    if (stepType === StepType.TALENT) stepTypeSymbol = '⬥ ';
+    if (stepType === StepType.TALENT) stepTypeSymbol = '⬦ ';
     if (step === Step.PATH && adventurer.value?.path) {
         return t('Step.Path.title-of-the', {
             path: t(`Step.Path.${capitalizeFirstLetter(adventurer.value.path)}.name`)

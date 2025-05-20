@@ -9,7 +9,7 @@
                         })
                     }}
                 </h2>
-                <h3>⬥ {{ t(`Step.Primordial-forces.title`) }}</h3>
+                <h3>⬦ {{ t(`Step.Primordial-forces.title`) }}</h3>
                 <p v-html="t('Step.Primordial-forces.description')"></p>
                 <ul class="forces-list">
                     <li v-for="force in ['air', 'earth', 'fire', 'water']" :key="force">

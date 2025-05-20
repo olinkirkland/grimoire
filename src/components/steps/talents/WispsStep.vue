@@ -9,7 +9,7 @@
                         })
                     }}
                 </h2>
-                <h3>⬥ {{ t(`Step.Wisps.title`) }}</h3>
+                <h3>⬦ {{ t(`Step.Wisps.title`) }}</h3>
                 <p v-html="t(`Step.Wisps.description`)"></p>
                 <ul class="traits-list">
                     <ToggleCard

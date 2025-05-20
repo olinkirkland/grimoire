@@ -9,7 +9,7 @@
                         })
                     }}
                 </h2>
-                <h3>⬥ {{ t(`Step.Mastered-theorem.title`) }}</h3>
+                <h3>⬦ {{ t(`Step.Mastered-theorem.title`) }}</h3>
                 <p v-html="t(`Step.Talents.Mastered-theorem.description`)"></p>
             </div>
         </ReferenceCard>
