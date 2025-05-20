@@ -356,7 +356,10 @@ export function getTalentTemplate(key: string): any | null {
                 theorems: []
             };
         case Step.FAMILIAR:
-            return {};
+            return {
+                name: '',
+                description: ''
+            };
     }
 
     return null;

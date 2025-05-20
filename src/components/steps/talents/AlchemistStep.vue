@@ -66,13 +66,13 @@
         </Card>
 
         <Card class="theorem-creation">
-            <p v-html="t('Step.Spellcraft.Theorems.instructions')"></p>
+            <p v-html="t('Step.Alchemist.instructions')"></p>
             <div class="theorem-inputs">
                 <InputGroup
                     v-model="adventurer.talentsData[Step.ALCHEMIST].builder.theorem"
                     :placeholder="t('Step.Spellcraft.Theorems.Name.placeholder')"
                 >
-                    {{ t('Step.Spellcraft.Theorems.Name.label') }}
+                    {{ t('Step.Alchemist.recipe-label') }}
                 </InputGroup>
                 <InputGroup
                     v-model="adventurer.talentsData[Step.ALCHEMIST].builder.magicSchool"
