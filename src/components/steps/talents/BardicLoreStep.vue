@@ -9,7 +9,7 @@
                         })
                     }}
                 </h2>
-                <h3>◇ {{ t(`Step.Bardic-lore.title`) }}</h3>
+                <h3>⬥ {{ t(`Step.Bardic-lore.title`) }}</h3>
                 {{ t('Step.Talents.Bardic-lore.description') }}
             </div>
         </ReferenceCard>

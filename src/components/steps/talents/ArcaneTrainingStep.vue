@@ -9,7 +9,7 @@
                         })
                     }}
                 </h2>
-                <h3>◇ {{ t(`Step.Arcane-training.title`) }}</h3>
+                <h3>⬥ {{ t(`Step.Arcane-training.title`) }}</h3>
                 <p v-html="t(`Step.Talents.Arcane-training.description`)"></p>
             </div>
         </ReferenceCard>
