@@ -124,7 +124,6 @@ const filteredTalents = computed(() => {
 
 function getSourceLabel(source: string): string {
     const path = t(`Step.Path.${capitalizeFirstLetter(source)}.name`);
-    const page = talentsData.find((t) => t.source === source)?.page || -1;
     return t('Step.Talents.talent-by-path', { path });
 }
 

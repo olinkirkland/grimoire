@@ -2,15 +2,26 @@
     <StepFrame>
         <ReferenceCard :page="talent.page" floating-reference-tip>
             <div>
-                <h2>{{ t('Step.Talents.heading') }}</h2>
+                <h2>
+                    {{
+                        t(`Step.Talents.talent-by-path`, {
+                            path: t(`Step.Path.${capitalizeFirstLetter(talent.source)}.name`)
+                        })
+                    }}
+                </h2>
                 <h3>◆ {{ t(`Step.Mastered-theorem.title`) }}</h3>
                 <p v-html="t(`Step.Talents.Mastered-theorem.description`)"></p>
             </div>
         </ReferenceCard>
         <Card glass class="added-theorems-card">
-            <ul v-if="adventurer.talentsData[Step.SPELLCRAFT]?.theorems.length">
+            <ul
+                v-if="
+                    adventurer.talentsData[Step.SPELLCRAFT]?.theorems.length ||
+                    adventurer.talentsData[Step.ARCANE_TRAINING]?.theorems.length
+                "
+            >
                 <Card
-                    v-for="(theorem, index) in adventurer.talentsData[Step.SPELLCRAFT].theorems"
+                    v-for="(theorem, index) in combinedTheoremsList"
                     class="added-theorem"
                     @click="onClickTheorem(index)"
                     :class="{ selected: adventurer.talentsData[Step.MASTERED_THEOREM].theorem === index }"
@@ -33,6 +44,8 @@ import Adventurer from '@/adventurer';
 import talentDefinitionsData from '@/assets/data/talents.json';
 import { t } from '@/i18n/locale';
 import { Step } from '@/step';
+import { capitalizeFirstLetter } from '@/utils/naming-util';
+import { computed } from 'vue';
 
 const props = defineProps({
     adventurer: {
@@ -42,6 +55,12 @@ const props = defineProps({
 });
 
 const talent = talentDefinitionsData.find((talent) => talent.id === Step.MASTERED_THEOREM)!;
+
+const combinedTheoremsList = computed(() => {
+    const spellcraftTheorems = props.adventurer.talentsData[Step.SPELLCRAFT]?.theorems || [];
+    const arcaneTrainingTheorems = props.adventurer.talentsData[Step.ARCANE_TRAINING]?.theorems || [];
+    return [...spellcraftTheorems, ...arcaneTrainingTheorems];
+});
 
 function getMagicSchoolLabel(magicSchool: string) {
     const specialty = props.adventurer.talentsData[Step.ARCANE_SPECIALTY]?.magicSchool;

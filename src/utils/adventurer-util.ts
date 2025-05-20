@@ -311,6 +311,19 @@ export function getTalentTemplate(key: string): any | null {
                 shape: '',
                 wildTalents: ['', '']
             };
+        case Step.ARCANE_TRAINING:
+            return {
+                spellCrucibles: {
+                    style: '',
+                    essence: '',
+                    focus: ''
+                },
+                builder: {
+                    theorem: '',
+                    magicSchool: ''
+                },
+                theorems: []
+            };
     }
 
     return null;

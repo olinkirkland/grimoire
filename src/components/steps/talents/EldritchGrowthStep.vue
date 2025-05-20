@@ -2,7 +2,13 @@
     <StepFrame>
         <ReferenceCard :page="talent.page" floating-reference-tip>
             <div>
-                <h2>{{ t('Step.Talents.heading') }}</h2>
+                <h2>
+                    {{
+                        t(`Step.Talents.talent-by-path`, {
+                            path: t(`Step.Path.${capitalizeFirstLetter(talent.source)}.name`)
+                        })
+                    }}
+                </h2>
                 <h3>◆ {{ t(`Step.Eldritch-growth.title`) }}</h3>
                 <p v-html="t(`Step.Eldritch-growth.description`)"></p>
                 <InputGroup
@@ -21,6 +27,7 @@ import Adventurer from '@/adventurer';
 import talentDefinitionsData from '@/assets/data/talents.json';
 import { t } from '@/i18n/locale';
 import { Step } from '@/step';
+import { capitalizeFirstLetter } from '@/utils/naming-util';
 
 const props = defineProps({
     adventurer: {
