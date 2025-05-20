@@ -1,4 +1,5 @@
 import Adventurer from '@/adventurer';
+import { t } from '@/i18n/locale';
 import { Step } from '@/step';
 import { v4 as uuid } from 'uuid';
 import { capitalizeFirstLetter } from './naming-util';
@@ -275,6 +276,35 @@ export function getTalentTemplate(key: string): any | null {
         case Step.MASTERED_THEOREM:
             return {
                 theorem: -1
+            };
+        case Step.PRIMORDIAL_BONDS:
+            return {
+                bonds: {
+                    fire: {
+                        name: t(`Step.Primordial-bonds.fire`),
+                        intensity: '',
+                        nature: '',
+                        description: ''
+                    },
+                    water: {
+                        name: t(`Step.Primordial-bonds.water`),
+                        intensity: '',
+                        nature: '',
+                        description: ''
+                    },
+                    earth: {
+                        name: t(`Step.Primordial-bonds.earth`),
+                        intensity: '',
+                        nature: '',
+                        description: ''
+                    },
+                    air: {
+                        name: t(`Step.Primordial-bonds.air`),
+                        intensity: '',
+                        nature: '',
+                        description: ''
+                    }
+                }
             };
     }
 

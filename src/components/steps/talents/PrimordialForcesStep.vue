@@ -120,7 +120,7 @@ function onClickUndoTakeAgain() {
     color: var(--surface-alt);
 }
 
-.card--reference p {
+.card--reference > p {
     margin-bottom: 1rem;
 }
 
