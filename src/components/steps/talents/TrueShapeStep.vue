@@ -3,7 +3,7 @@
         <ReferenceCard :page="talent.page" floating-reference-tip>
             <div>
                 <h2>{{ t(`Step.Talents.talent-by-path`, { path: t(`Step.Path.${capitalizeFirstLetter(talent.source)}.name`) }) }}</h2>
-                <h3>◆ {{ t(`Step.True-shape.title`) }}</h3>
+                <h3>⬙ {{ t(`Step.True-shape.title`) }}</h3>
                 <p v-html="t(`Step.Talents.True-shape.description`)"></p>
             </div>
         </ReferenceCard>

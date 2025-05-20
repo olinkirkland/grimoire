@@ -9,7 +9,7 @@
                         })
                     }}
                 </h2>
-                <h3>◆ {{ t(`Step.Warsongs.title`) }}</h3>
+                <h3>⬙ {{ t(`Step.Warsongs.title`) }}</h3>
                 <p v-html="t('Step.Talents.Warsongs.description')"></p>
             </div>
         </ReferenceCard>

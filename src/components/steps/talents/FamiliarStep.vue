@@ -9,16 +9,43 @@
                         })
                     }}
                 </h2>
-                <h3>◆ {{ t(`Step.Familiar.title`) }}</h3>
-                <p v-html="t(`Step.Familiar.description`)"></p>
+                <h3>⬙ {{ t(`Step.Familiar.title`) }}</h3>
+                <p v-html="t(`Step.Talents.Familiar.description`)"></p>
             </div>
         </ReferenceCard>
+        <Card>
+            <p v-html="t(`Step.Familiar.Name.instructions`)"></p>
+            <div class="inputs">
+                <InputGroup
+                    v-model="adventurer.talentsData.familiar.name"
+                    :placeholder="t(`Step.Familiar.Name.placeholder`)"
+                >
+                    <span>{{ t(`Step.Familiar.Name.label`) }}</span>
+                </InputGroup>
+                <InputGroup
+                    v-model="adventurer.talentsData.familiar.description"
+                    :placeholder="t(`Step.Familiar.Description.placeholder`)"
+                >
+                    <span>{{ t(`Step.Familiar.Description.label`) }}</span>
+                </InputGroup>
+            </div>
+            <NamePicker
+                id="adventurer-name"
+                :name-tables="nameTablesData"
+                :name-category-label-function="(item: string) => t(`Step.Familiar.Name.Generator.Tables.${item}`)"
+                v-model:name="adventurer.talentsData.familiar.name"
+            >
+                <p v-html="t('Step.Familiar.Name.Generator.instructions')"></p>
+            </NamePicker>
+        </Card>
     </StepFrame>
 </template>
 
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
+import nameTablesData from '@/assets/data/familiar-name-tables.json';
 import talentDefinitionsData from '@/assets/data/talents.json';
+import NamePicker from '@/components/ui/NamePicker.vue';
 import { t } from '@/i18n/locale';
 import { Step } from '@/step';
 import { capitalizeFirstLetter } from '@/utils/naming-util';
@@ -39,6 +66,16 @@ const talent = talentDefinitionsData.find((talent) => talent.id === Step.FAMILIA
     color: var(--surface-alt);
 }
 
+.inputs {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
 @media (max-width: 768px) {
+    .inputs {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
