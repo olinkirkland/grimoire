@@ -28,17 +28,17 @@
             <TableGroup>
                 <TableCard :title="t('Step.Bardsong.Style.name')" :items="bardsongData.style">
                     <template #item="{ item }">
-                        {{ item }}
+                        <span class="ellipsis text-center">{{ item }}</span>
                     </template>
                 </TableCard>
                 <TableCard :title="t('Step.Bardsong.Tune.name')" :items="bardsongData.tune">
                     <template #item="{ item }">
-                        {{ item }}
+                        <span class="ellipsis text-center">{{ item }}</span>
                     </template>
                 </TableCard>
                 <TableCard :title="t('Step.Bardsong.Impact.name')" :items="bardsongData.impact">
                     <template #item="{ item }">
-                        {{ item }}
+                        <span class="ellipsis text-center">{{ item }}</span>
                     </template>
                 </TableCard>
             </TableGroup>

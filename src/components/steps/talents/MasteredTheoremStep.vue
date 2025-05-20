@@ -8,7 +8,7 @@
             </div>
         </ReferenceCard>
         <Card glass class="added-theorems-card">
-            <ul v-if="adventurer.talentsData[Step.SPELLCRAFT].theorems.length">
+            <ul v-if="adventurer.talentsData[Step.SPELLCRAFT]?.theorems.length">
                 <Card
                     v-for="(theorem, index) in adventurer.talentsData[Step.SPELLCRAFT].theorems"
                     class="added-theorem"
