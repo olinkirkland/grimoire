@@ -74,11 +74,8 @@ const props = defineProps({
 
 function onToggleMagicPath(magicPath: string) {
     const index = props.adventurer.talentsData[Step.SORCERY].magicPathsAndTechniques.indexOf(magicPath);
-    if (index === -1) {
-        props.adventurer.talentsData[Step.SORCERY].magicPathsAndTechniques.push(magicPath);
-    } else {
-        props.adventurer.talentsData[Step.SORCERY].magicPathsAndTechniques.splice(index, 1);
-    }
+    if (index === -1) props.adventurer.talentsData[Step.SORCERY].magicPathsAndTechniques.push(magicPath);
+    else props.adventurer.talentsData[Step.SORCERY].magicPathsAndTechniques.splice(index, 1);
 }
 </script>
 

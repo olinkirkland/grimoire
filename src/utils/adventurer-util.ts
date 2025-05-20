@@ -339,7 +339,7 @@ export function getTalentTemplate(key: string): any | null {
                 }
             };
         case Step.ELDRITCH_AFFINITY:
-            return {};
+            return { magicPathsAndTechniques: [] };
         case Step.WISPS:
             return {};
         case Step.ALCHEMIST:
