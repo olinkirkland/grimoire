@@ -84,6 +84,14 @@
         "friendly-face": { "x": 1148, "y": 578 },
         "influence": { "x": 1148, "y": 675 },
         "jack-of-all-trades": { "x": 1148, "y": 745 },
-        "wordplay": { "x": 1148, "y": 790 }
+        "wordplay": { "x": 1148, "y": 790 },
+
+        "fearsome": { "x": 1148, "y": 484 },
+        "flesh-wounds": { "x": 1148, "y": 582 },
+        "into-the-fray": { "x": 1148, "y": 681 },
+        "joyful-warrior": { "x": 1148, "y": 750 },
+        "mighty": { "x": 1148, "y": 822 },
+        "overkill": { "x": 1148, "y": 892 },
+        "warsongs": { "x": 1148, "y": 962 }
     }
 }
