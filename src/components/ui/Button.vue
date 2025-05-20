@@ -139,8 +139,11 @@ button.pressed > .btn__content,
 }
 
 @media (max-width: 768px) {
-    .full-width-mobile > .btn__content {
-        justify-content: center;
+    .full-width-mobile {
+        width: 100%;
+        .btn__content {
+            justify-content: center;
+        }
     }
 }
 </style>

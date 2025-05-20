@@ -94,6 +94,7 @@ function autoFitTextArea() {
         align-items: center;
         padding: 0 1.2rem;
         background-color: var(--surface);
+        border-bottom: 1px solid var(--surface-alt);
         min-height: 3.2rem;
         width: 100%;
         white-space: nowrap;

@@ -15,7 +15,7 @@
                     <i class="fas fa-trash"></i>
                 </Button>
             </TextAreaGroup>
-            <Button @click="onClickAddArc" primary class="add-arc">
+            <Button @click="onClickAddArc" primary full-width-mobile class="add-arc">
                 <i class="fas fa-plus"></i>
                 <span>{{ t('Step.Arcs.add') }}</span>
             </Button>

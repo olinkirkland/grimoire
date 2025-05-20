@@ -81,6 +81,7 @@ export default class Adventurer {
         name: string; // Name of the character you have this bond with
         intensity: string; // e.g. deep, complex, growing, lowkey, etc.
         nature: string; // e.g. affection, camaraderie, curiosity, etc.
+        description: string; // Description of the bond
     }[];
 
     // Experience
