@@ -17,6 +17,7 @@ import { createPinia } from 'pinia';
 import { createApp } from 'vue';
 import App from './App.vue';
 import TextAreaGroup from './components/ui/TextAreaGroup.vue';
+import ToggleCard from './components/ui/ToggleCard.vue';
 import i18n from './i18n/locale';
 import { useAdventurersStore } from './store/adventurers-store';
 import { useCustomNameTablesStore } from './store/custom-name-tables-store';
@@ -46,6 +47,7 @@ app.component('StepFrame', StepFrame);
 app.component('TableCard', TableCard);
 app.component('TableGroup', TableGroup);
 app.component('TextAreaGroup', TextAreaGroup);
+app.component('ToggleCard', ToggleCard);
 
 // Load adventurers from localStorage
 const adventurersStore = useAdventurersStore();

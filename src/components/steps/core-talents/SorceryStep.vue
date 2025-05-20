@@ -6,31 +6,28 @@
                 <h3>◈ {{ t(`Step.Sorcery.title`) }}</h3>
                 <p v-html="t(`Step.Sorcery.description`)"></p>
                 <ul class="magic-paths">
-                    <Card
+                    <ToggleCard
                         v-for="(magicPath, index) in magicPathsData"
-                        @click="onToggleMagicPath(magicPath)"
                         :key="index"
-                        :class="{
-                            selected: adventurer.talentsData[Step.SORCERY].magicPathsAndTechniques.includes(magicPath)
-                        }"
+                        @click="onToggleMagicPath(magicPath)"
+                        :selected="adventurer.talentsData[Step.SORCERY].magicPathsAndTechniques.includes(magicPath)"
                     >
                         <span>{{ t(`Step.Sorcery.Magic-paths.${magicPath}`) }}</span>
                         <em class="text-center">{{ t(`Step.Sorcery.Magic-paths.label`) }}</em>
-                    </Card>
+                    </ToggleCard>
                 </ul>
                 <ul class="magic-techniques">
-                    <Card
+                    <ToggleCard
                         v-for="(magicTechnique, index) in magicTechniquesData"
-                        @click="onToggleMagicPath(magicTechnique)"
                         :key="index"
-                        :class="{
-                            selected:
-                                adventurer.talentsData[Step.SORCERY].magicPathsAndTechniques.includes(magicTechnique)
-                        }"
+                        @click="onToggleMagicPath(magicTechnique)"
+                        :selected="
+                            adventurer.talentsData[Step.SORCERY].magicPathsAndTechniques.includes(magicTechnique)
+                        "
                     >
                         <span>{{ t(`Step.Sorcery.Magic-techniques.${magicTechnique}`) }}</span>
                         <em class="text-center">{{ t(`Step.Sorcery.Magic-techniques.label`) }}</em>
-                    </Card>
+                    </ToggleCard>
                 </ul>
                 <Card class="growth">
                     <p>
@@ -103,32 +100,6 @@ ul.magic-techniques {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     gap: 1rem;
-
-    .card {
-        cursor: pointer;
-        box-shadow: var(--shadow-sm);
-        align-items: center;
-        gap: 0;
-        transition: box-shadow 0.2s ease-in-out;
-        padding: 1rem;
-
-        > em {
-            font-size: 1.2rem;
-            color: var(--surface-alt);
-            white-space: nowrap;
-        }
-
-        &.selected {
-            transition: none;
-            box-shadow: none;
-            background-color: var(--primary-light);
-            color: var(--primary-alt);
-            > em {
-                color: var(--primary);
-                opacity: 0.6;
-            }
-        }
-    }
 }
 
 .crucibles {
