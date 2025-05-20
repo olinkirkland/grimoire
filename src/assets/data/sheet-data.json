@@ -67,7 +67,7 @@
         "belonging": { "x": 612, "y": 968 },
         "glory": { "x": 612, "y": 1002 },
         "harmony": { "x": 612, "y": 1035 },
-        "honor": { "x": 612, "y": 1069 }, 
+        "honor": { "x": 612, "y": 1069 },
         "justice": { "x": 768, "y": 968 },
         "knowledge": { "x": 768, "y": 1002 },
         "love": { "x": 768, "y": 1035 },
@@ -76,5 +76,14 @@
         "thrills": { "x": 924, "y": 1002 },
         "wealth": { "x": 924, "y": 1035 },
         "wisdom": { "x": 924, "y": 1069 }
+    },
+    "talents": {
+        "bardic-lore": { "x": 1148, "y": 365 },
+        "dynamic-entrance": { "x": 1148, "y": 435 },
+        "forked-tongue": { "x": 1148, "y": 505 },
+        "friendly-face": { "x": 1148, "y": 578 },
+        "influence": { "x": 1148, "y": 675 },
+        "jack-of-all-trades": { "x": 1148, "y": 745 },
+        "wordplay": { "x": 1148, "y": 790 }
     }
 }

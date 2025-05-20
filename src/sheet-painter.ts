@@ -1,4 +1,5 @@
 import sheetData from '@/assets/data/sheet-data.json';
+import talentsData from '@/assets/data/talents.json';
 import rough from 'roughjs';
 import { RoughCanvas } from 'roughjs/bin/canvas';
 import Adventurer from './adventurer';
@@ -27,7 +28,7 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
             ctx.fillStyle = color;
 
             // Draw a guide grid every 100 pixels
-            // drawGrid(ctx, canvas);
+            drawGrid(ctx, canvas);
 
             // Names
             ctx.fillText(adventurer.name, sheetData.name.x, sheetData.name.y);
@@ -87,6 +88,18 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                 const point = sheetData.desires[desire as keyof typeof sheetData.desires];
                 if (point) drawRoughSlash(roughCanvas, point, color);
             });
+
+            // Fill out talent bubbles
+            console.log('Fill in talent bubbles');
+            for (const talent of adventurer.talents) {
+                // If it's not a talent from the adventurer's path, bubble it in
+                const talentPath = talentsData.find((t) => t.id === talent)?.source;
+                if (talentPath !== adventurer.path) continue;
+
+                // Bubble in the talent
+                const point = sheetData.talents[talent as keyof typeof sheetData.talents];
+                if (point) drawRoughDot(roughCanvas, point, color);
+            }
 
             resolve(canvas);
         };
