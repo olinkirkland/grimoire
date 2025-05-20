@@ -44,13 +44,7 @@
         </Card>
 
         <Card class="theorem-creation">
-            <div class="flex">
-                <p v-html="t('Step.Spellcraft.Theorems.instructions')"></p>
-                <Button primary @click="onClickAddTheorem" :disabled="!isValidTheorem">
-                    <i class="fas fa-plus"></i>
-                    <span>{{ t('Step.Spellcraft.Theorems.Add.label') }}</span>
-                </Button>
-            </div>
+            <p v-html="t('Step.Spellcraft.Theorems.instructions')"></p>
             <div class="theorem-inputs">
                 <InputGroup
                     v-model="adventurer.talentsData[Step.SPELLCRAFT].builder.theorem"
@@ -64,6 +58,10 @@
                 >
                     {{ t('Step.Spellcraft.Theorems.Magic-school.label') }}
                 </InputGroup>
+                <Button primary @click="onClickAddTheorem" :disabled="!isValidTheorem">
+                    <i class="fas fa-plus"></i>
+                    <span>{{ t('Step.Spellcraft.Theorems.Add.label') }}</span>
+                </Button>
             </div>
             <div class="crucibles">
                 <CrucibleCard
@@ -187,8 +185,7 @@ function onClickRemoveTheorem(index: number) {
 
 .theorem-inputs {
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
     gap: 1rem;
     > .input-group {
         flex: 1;
@@ -242,7 +239,13 @@ function onClickRemoveTheorem(index: number) {
     }
 
     .theorem-inputs {
-        grid-template-columns: 1fr;
+        flex-direction: column;
+        > .input-group {
+            flex: unset;
+        }
+        :deep(button > .btn__content) {
+            justify-content: center;
+        }
     }
 
     .crucibles {
