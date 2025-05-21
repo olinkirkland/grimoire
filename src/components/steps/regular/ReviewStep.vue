@@ -40,16 +40,17 @@
                     <Button
                         v-for="font in fonts"
                         :key="font"
-                        @click="onClickChangeFont(font)"
-                        :pressed="props.adventurer.options.font === font"
+                        @click="onClickChangeFont(font.value)"
+                        :pressed="props.adventurer.options.font === font.value"
                     >
-                        {{ font }}
+                        <span :style="{ fontFamily: font.value }"> {{ font.name }}</span>
                     </Button>
                 </ButtonBar>
             </div>
 
             <Card class="preview-card">
-                <img ref="sheetPreview" class="preview" />
+                <i class="fas fa-spinner fa-spin" v-if="isLoading"></i>
+                <img ref="sheetPreview" class="preview" :class="{ 'is-loading': isLoading }" />
             </Card>
         </Card>
     </StepFrame>
@@ -60,10 +61,10 @@ import Adventurer from '@/adventurer';
 import { t } from '@/i18n/locale';
 import { BASE_URL } from '@/router';
 import { paintSheet } from '@/sheet-painter';
+import { trackEvent } from '@/tracker';
 import { encodeURI } from '@/utils/adventurer-util';
 import { toFileName } from '@/utils/naming-util';
 import { onMounted, ref } from 'vue';
-import { trackEvent } from '@/tracker';
 
 const props = defineProps({
     adventurer: {
@@ -76,7 +77,21 @@ const showCopyNotification = ref(false);
 const sheetDataURL = ref('');
 const sheetPreview = ref<HTMLImageElement | null>(null);
 
-const fonts = ['Arvo', 'Courier New'];
+const fonts = [
+    {
+        name: 'Arvo',
+        value: 'Arvo'
+    },
+    {
+        name: 'Gummy',
+        value: 'Sour Gummy'
+    },
+    {
+        name: 'Fraunces',
+        value: 'Fraunces'
+    }
+];
+
 const colors = [
     {
         name: 'midnight',
@@ -108,6 +123,8 @@ const colors = [
     }
 ];
 
+const isLoading = ref(true);
+
 onMounted(() => {
     generateImage();
 });
@@ -123,7 +140,15 @@ function onClickChangeFont(font: string) {
 }
 
 async function generateImage() {
-    // TODO: Show the loading spinner
+    isLoading.value = true;
+
+    // We're painting the sheet twice to ensure the font is loaded
+    await paintSheet(props.adventurer);
+    await new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(true);
+        }, 200);
+    });
     const canvas = await paintSheet(props.adventurer);
     if (!canvas) return;
 
@@ -131,6 +156,9 @@ async function generateImage() {
     if (!sheetPreview.value) return;
     sheetPreview.value!.src = sheetDataURL.value;
     sheetPreview.value!.style.opacity = '1';
+
+    sheetPreview.value!.style.transform = 'scale(1)';
+    isLoading.value = false;
 }
 
 function onClickCopyURI() {
@@ -184,15 +212,29 @@ function onClickSaveImage() {
 
 <style scoped lang="scss">
 .preview-card {
+    position: relative;
+    display: flex;
     width: 100%;
     min-height: 8rem;
     height: fit-content;
-    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 0;
     box-shadow: var(--shadow-sm);
+
+    > i {
+        position: absolute;
+        font-size: 2.4rem;
+        color: var(--text);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .is-loading {
+        opacity: 0.2 !important;
+    }
 }
 
 .preview {

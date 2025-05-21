@@ -5,6 +5,8 @@ import { RoughCanvas } from 'roughjs/bin/canvas';
 import Adventurer from './adventurer';
 import { BASE_URL } from './router';
 
+const DEBUG_MODE = false;
+
 export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElement> {
     const color = adventurer.options.color;
     const font = adventurer.options.font;
@@ -22,46 +24,62 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
             const ctx = canvas.getContext('2d')!;
             ctx.drawImage(template, 0, 0);
 
-            ctx.strokeStyle = color;
+            // Defaults
             ctx.lineWidth = 2;
             ctx.font = `32px ${font}`;
             ctx.fillStyle = color;
+            ctx.strokeStyle = color;
+
+            const normalFont = {
+                font: `32px ${font}`,
+                color: ctx.fillStyle
+            };
+
+            const bigFont = {
+                font: `bold 48px ${font}`,
+                color: ctx.fillStyle
+            };
+
+            const smallFont = {
+                font: `20px ${font}`,
+                color: ctx.fillStyle
+            };
 
             // Draw a guide grid every 100 pixels
-            // drawGrid(ctx, canvas);
+            if (DEBUG_MODE) drawGrid(ctx, canvas);
 
             // Names
-            ctx.fillText(adventurer.name, sheetData.name.x, sheetData.name.y);
-            ctx.fillText(adventurer.playerName, sheetData.playerName.x, sheetData.playerName.y);
+            const { name, playerName } = sheetData;
+            writeText(ctx, adventurer.name, name.x, name.y, name.width, normalFont);
+            writeText(ctx, adventurer.playerName, playerName.x, playerName.y, playerName.width, normalFont);
 
             // Distinctive Features
-            ctx.font = `24px ${font}`;
-            ctx.fillText(adventurer.features[0], sheetData.features[0].x, sheetData.features[0].y);
-            ctx.fillText(adventurer.features[1], sheetData.features[1].x, sheetData.features[1].y);
-            ctx.fillText(adventurer.features[2], sheetData.features[2].x, sheetData.features[2].y);
-            ctx.font = `32px ${font}`;
+            const { features } = sheetData;
+            writeText(ctx, adventurer.features[0], features[0].x, features[0].y, features[0].width, smallFont);
+            writeText(ctx, adventurer.features[1], features[1].x, features[1].y, features[1].width, smallFont);
+            writeText(ctx, adventurer.features[2], features[2].x, features[2].y, features[2].width, smallFont);
 
             // Stats
-            ctx.font = `48px ${font}`;
-            ctx.fillText(adventurer.stats.brawn.toString(), sheetData.stats.brawn.x, sheetData.stats.brawn.y);
-            ctx.fillText(adventurer.stats.agility.toString(), sheetData.stats.agility.x, sheetData.stats.agility.y);
-            ctx.fillText(adventurer.stats.wits.toString(), sheetData.stats.wits.x, sheetData.stats.wits.y);
-            ctx.fillText(adventurer.stats.presence.toString(), sheetData.stats.presence.x, sheetData.stats.presence.y);
-            ctx.font = `32px ${font}`;
+            const { brawn, agility, wits, presence } = sheetData.stats;
+            writeText(ctx, adventurer.stats.brawn.toString(), brawn.x, brawn.y, brawn.width, bigFont);
+            writeText(ctx, adventurer.stats.agility.toString(), agility.x, agility.y, agility.width, bigFont);
+            writeText(ctx, adventurer.stats.wits.toString(), wits.x, wits.y, wits.width, bigFont);
+            writeText(ctx, adventurer.stats.presence.toString(), presence.x, presence.y, presence.width, bigFont);
 
             // Backgrounds
-            ctx.fillText(adventurer.background.name, sheetData.background1.x, sheetData.background1.y);
-            ctx.fillText(adventurer.heritage.name, sheetData.background2.x, sheetData.background2.y);
+            const { background1, background2 } = sheetData;
+            writeText(ctx, adventurer.background.name, background1.x, background1.y, background1.width, normalFont);
+            writeText(ctx, adventurer.heritage.name, background2.x, background2.y, background2.width, normalFont);
 
             // Wises 1
             ctx.font = `24px ${font}`;
-            const wisesCombined1 = adventurer.background.wises.join(', ');
+            const wisesCombined1 = adventurer.background.wises.filter((w) => w.length > 0).join(', ');
             ctx.fillText(wisesCombined1, sheetData.wises1.x, sheetData.wises1.y);
             ctx.font = `32px ${font}`;
 
             // Wises 2
             ctx.font = `24px ${font}`;
-            const wisesCombined2 = adventurer.heritage.wises.join(', ');
+            const wisesCombined2 = adventurer.heritage.wises.filter((w) => w.length > 0).join(', ');
             ctx.fillText(wisesCombined2, sheetData.wises2.x, sheetData.wises2.y);
             ctx.font = `32px ${font}`;
 
@@ -165,4 +183,111 @@ function drawRoughSlash(roughCanvas: RoughCanvas, point: { x: number; y: number 
             bowing: 0
         }
     );
+}
+
+function writeText(
+    ctx: CanvasRenderingContext2D,
+    text: string,
+    x: number,
+    y: number,
+    width: number,
+    options: { font: string; color: string },
+    maxLines: number = 1
+) {
+    // Get the current font, size, and color to restore later
+    const originalFont = ctx.font;
+    const originalColor = ctx.fillStyle;
+    const originalLineWidth = ctx.lineWidth;
+    const originalStrokeStyle = ctx.strokeStyle;
+    const originalFillStyle = ctx.fillStyle;
+
+    ctx.font = options.font;
+    ctx.fillStyle = options.color;
+
+    // Break text into lines if necessary
+    const lines = breakIntoLines(ctx, text, width, maxLines);
+    console.log(lines);
+    // Get the font size (number) from the font string
+    const fontSize = parseInt(ctx.font.match(/(\d+)/)?.[0] || '32');
+    const lineHeight = fontSize * 1.2;
+
+    lines.forEach((line, i) => {
+        ctx.fillText(line, x, y + i * lineHeight);
+    });
+
+    if (DEBUG_MODE) {
+        // Draw a rectangle around the text (use width and total height)
+        ctx.strokeStyle = options.color;
+        ctx.fillStyle = 'transparent';
+        ctx.lineWidth = 1;
+        const totalHeight = lineHeight * lines.length;
+        ctx.strokeRect(x, y - fontSize, width, totalHeight);
+        // Draw a red rectangle around each text line
+        ctx.strokeStyle = 'red';
+        lines.forEach((line, i) => {
+            const textWidth = ctx.measureText(line).width;
+            ctx.strokeRect(x, y - fontSize + i * lineHeight, textWidth, fontSize);
+        });
+    }
+
+    // Restore the original font, size, and color
+    ctx.font = originalFont;
+    ctx.fillStyle = originalColor;
+    ctx.lineWidth = originalLineWidth;
+    ctx.strokeStyle = originalStrokeStyle;
+    ctx.fillStyle = originalFillStyle;
+}
+
+// Function to fit text within a specified width
+// and break it into multiple lines if necessary
+function breakIntoLines(
+    ctx: CanvasRenderingContext2D,
+    text: string,
+    maxWidth: number,
+    maxLines: number = -1
+): string[] {
+    // If maxLines is < 0, we don't limit the number of lines
+    // If the lines are limited, use fitText to fit the text for the last line
+    const lines: string[] = [];
+    const words = text.split(' ');
+    let currentLine = '';
+    for (const word of words) {
+        const testLine = currentLine + word + ' ';
+        const metrics = ctx.measureText(testLine);
+        const testWidth = metrics.width;
+        if (testWidth > maxWidth && currentLine.length > 0) {
+            lines.push(currentLine.trim());
+            currentLine = word + ' ';
+        } else {
+            currentLine = testLine;
+        }
+    }
+    if (currentLine.length > 0) {
+        lines.push(currentLine.trim());
+    }
+    // If maxLines is set, we need to fit the last line
+    if (maxLines > 0 && lines.length > maxLines) {
+        const lastLine = lines.pop()!;
+        const fittedText = fitText(ctx, lastLine, maxWidth);
+        lines.push(fittedText);
+    }
+    return lines;
+}
+
+// Adapted from https://stackoverflow.com/a/10511598/1546303
+// Ensures that the text fits within the specified width, adding ellipsis if necessary
+function fitText(ctx: CanvasRenderingContext2D, text: string, maxWidth: number): string {
+    var width = ctx.measureText(text).width;
+    var ellipsis = '...';
+    var ellipsisWidth = ctx.measureText(ellipsis).width;
+    if (width <= maxWidth || width <= ellipsisWidth) {
+        return text;
+    } else {
+        var len = text.length;
+        while (width >= maxWidth - ellipsisWidth && len-- > 0) {
+            text = text.substring(0, len);
+            width = ctx.measureText(text).width;
+        }
+        return text + ellipsis;
+    }
 }
