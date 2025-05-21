@@ -185,6 +185,7 @@ export function getTalentTemplate(key: string): any | null {
             };
         case Step.EXPERTISE:
             return {
+                skillset: '',
                 guildTraits: [],
                 notGuildTraits: [],
                 crimeBuilder: '',

@@ -19,9 +19,9 @@ const props = defineProps({
     padding: 1rem;
 
     :deep(em) {
+        text-align: center;
         font-size: 1.2rem;
         color: var(--surface-alt);
-        white-space: nowrap;
     }
 
     &.selected {

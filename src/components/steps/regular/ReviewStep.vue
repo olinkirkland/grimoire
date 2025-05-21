@@ -79,8 +79,8 @@ const sheetPreview = ref<HTMLImageElement | null>(null);
 
 const fonts = [
     {
-        name: 'Arvo',
-        value: 'Arvo'
+        name: 'Open Sans',
+        value: 'Open Sans'
     },
     {
         name: 'Gummy',
