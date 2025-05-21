@@ -64,9 +64,14 @@ router.beforeEach(async (to, from, next) => {
     // Only track if the user has allowed it (localStorage)
 
     let allowTracking: boolean = false;
+
+    // If there's no tracking key in localStorage, set it to true
+    if (localStorage.getItem('tracking') === null) localStorage.setItem('tracking', 'true');
+
+    // User has allowed tracking
     if (localStorage.getItem('tracking') === 'true') allowTracking = true;
 
-    // Disable tracking on localhost
+    // User has denied tracking
     if (window.location.hostname === 'localhost') allowTracking = false;
 
     if (allowTracking) startTracking();
