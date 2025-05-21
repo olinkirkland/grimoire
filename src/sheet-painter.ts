@@ -5,7 +5,8 @@ import { RoughCanvas } from 'roughjs/bin/canvas';
 import Adventurer from './adventurer';
 import { BASE_URL } from './router';
 
-const DEBUG_MODE = false;
+const SHOW_TEXT_BORDERS = false;
+const SHOW_GRID = false;
 
 export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElement> {
     const color = adventurer.options.color;
@@ -46,7 +47,7 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
             };
 
             // Draw a guide grid every 100 pixels
-            if (DEBUG_MODE) drawGrid(ctx, canvas);
+            if (SHOW_GRID) drawGrid(ctx, canvas);
 
             // Names
             const { name, playerName } = sheetData;
@@ -55,9 +56,8 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
 
             // Distinctive Features
             const { features } = sheetData;
-            writeText(ctx, adventurer.features[0], features[0].x, features[0].y, features[0].width, smallFont);
-            writeText(ctx, adventurer.features[1], features[1].x, features[1].y, features[1].width, smallFont);
-            writeText(ctx, adventurer.features[2], features[2].x, features[2].y, features[2].width, smallFont);
+            const combinedFeatures = adventurer.features.filter((f) => f.length > 0).join('\n');
+            writeText(ctx, combinedFeatures, features.x, features.y, features.width, smallFont, 5, 'top');
 
             // Stats
             const { brawn, agility, wits, presence } = sheetData.stats;
@@ -68,20 +68,65 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
 
             // Backgrounds
             const { background1, background2 } = sheetData;
-            writeText(ctx, adventurer.background.name, background1.x, background1.y, background1.width, normalFont);
-            writeText(ctx, adventurer.heritage.name, background2.x, background2.y, background2.width, normalFont);
+            writeText(
+                ctx,
+                adventurer.background.name,
+                background1.x,
+                background1.y,
+                background1.width,
+                smallFont,
+                2,
+                'middle'
+            );
+            writeText(
+                ctx,
+                adventurer.heritage.name,
+                background2.x,
+                background2.y,
+                background2.width,
+                smallFont,
+                3,
+                'middle'
+            );
 
             // Wises 1
-            ctx.font = `24px ${font}`;
+            const { wises1 } = sheetData;
             const wisesCombined1 = adventurer.background.wises.filter((w) => w.length > 0).join(', ');
-            ctx.fillText(wisesCombined1, sheetData.wises1.x, sheetData.wises1.y);
-            ctx.font = `32px ${font}`;
+            writeText(ctx, wisesCombined1, wises1.x, wises1.y, wises1.width, smallFont, 2, 'middle');
 
             // Wises 2
-            ctx.font = `24px ${font}`;
+            const { wises2 } = sheetData;
             const wisesCombined2 = adventurer.heritage.wises.filter((w) => w.length > 0).join(', ');
-            ctx.fillText(wisesCombined2, sheetData.wises2.x, sheetData.wises2.y);
-            ctx.font = `32px ${font}`;
+            writeText(ctx, wisesCombined2, wises2.x, wises2.y, wises2.width, smallFont, 3, 'middle');
+
+            // Bonds
+            const { bonds } = sheetData;
+            for (let i = 0; i < Math.min(adventurer.bonds.length, 4); i++) {
+                const bond = adventurer.bonds[i];
+                const bondPoint = bonds[i];
+                if (!bondPoint) continue;
+                const { name, description } = bondPoint;
+                writeText(ctx, bond.name, name.x, name.y, name.width, normalFont, i === 0 ? 1 : 2, 'middle');
+                writeText(
+                    ctx,
+                    bond.description,
+                    description.x,
+                    description.y,
+                    description.width,
+                    smallFont,
+                    i === 0 ? 2 : 3,
+                    'middle'
+                );
+            }
+
+            // Arcs
+            const { arcs } = sheetData;
+            for (let i = 0; i < Math.min(adventurer.arcs.length, 2); i++) {
+                const arc = adventurer.arcs[i].description;
+                const arcPoint = arcs[i];
+                if (!arcPoint) continue;
+                writeText(ctx, arc, arcPoint.x, arcPoint.y, arcPoint.width, normalFont, i === 0 ? 1 : 2, 'middle');
+            }
 
             // Traits bubbles (filled)
             adventurer.traits.forEach((trait) => {
@@ -108,7 +153,6 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
             });
 
             // Fill out talent bubbles
-            console.log('Fill in talent bubbles');
             for (const talent of adventurer.talents) {
                 // If it's not a talent from the adventurer's path, bubble it in
                 const talentPath = talentsData.find((t) => t.id === talent)?.source;
@@ -192,7 +236,8 @@ function writeText(
     y: number,
     width: number,
     options: { font: string; color: string },
-    maxLines: number = 1
+    maxLines: number = 1,
+    verticalAlign: 'top' | 'middle' | 'bottom' = 'top'
 ) {
     // Get the current font, size, and color to restore later
     const originalFont = ctx.font;
@@ -206,27 +251,33 @@ function writeText(
 
     // Break text into lines if necessary
     const lines = breakIntoLines(ctx, text, width, maxLines);
-    console.log(lines);
     // Get the font size (number) from the font string
     const fontSize = parseInt(ctx.font.match(/(\d+)/)?.[0] || '32');
     const lineHeight = fontSize * 1.2;
+    const totalHeight = lineHeight * lines.length;
+
+    let startY = y;
+    if (verticalAlign === 'middle') {
+        startY = y - totalHeight / 2 + lineHeight / 2;
+    } else if (verticalAlign === 'bottom') {
+        startY = y - totalHeight + lineHeight;
+    }
 
     lines.forEach((line, i) => {
-        ctx.fillText(line, x, y + i * lineHeight);
+        ctx.fillText(line, x, startY + i * lineHeight);
     });
 
-    if (DEBUG_MODE) {
+    if (SHOW_TEXT_BORDERS) {
         // Draw a rectangle around the text (use width and total height)
-        ctx.strokeStyle = options.color;
+        ctx.strokeStyle = 'blue';
         ctx.fillStyle = 'transparent';
         ctx.lineWidth = 1;
-        const totalHeight = lineHeight * lines.length;
-        ctx.strokeRect(x, y - fontSize, width, totalHeight);
+        ctx.strokeRect(x, startY - fontSize, width, totalHeight);
         // Draw a red rectangle around each text line
         ctx.strokeStyle = 'red';
         lines.forEach((line, i) => {
             const textWidth = ctx.measureText(line).width;
-            ctx.strokeRect(x, y - fontSize + i * lineHeight, textWidth, fontSize);
+            ctx.strokeRect(x, startY - fontSize + i * lineHeight, textWidth, fontSize);
         });
     }
 
@@ -252,6 +303,28 @@ function breakIntoLines(
     const words = text.split(' ');
     let currentLine = '';
     for (const word of words) {
+        // If it contains a line break, split the line
+        if (word.includes('\n')) {
+            const parts = word.split('\n');
+            for (let i = 0; i < parts.length; i++) {
+                const part = parts[i];
+                const testLine = currentLine + part + ' ';
+                const metrics = ctx.measureText(testLine);
+                const testWidth = metrics.width;
+                if (testWidth > maxWidth && currentLine.length > 0) {
+                    lines.push(currentLine.trim());
+                    currentLine = part + ' ';
+                } else {
+                    currentLine = testLine;
+                }
+                if (i < parts.length - 1) {
+                    lines.push(currentLine.trim());
+                    currentLine = '';
+                }
+            }
+            continue;
+        }
+        // Otherwise, check if the word fits in the current line
         const testLine = currentLine + word + ' ';
         const metrics = ctx.measureText(testLine);
         const testWidth = metrics.width;
@@ -262,14 +335,18 @@ function breakIntoLines(
             currentLine = testLine;
         }
     }
-    if (currentLine.length > 0) {
-        lines.push(currentLine.trim());
-    }
-    // If maxLines is set, we need to fit the last line
+
+    if (currentLine.length > 0) lines.push(currentLine.trim());
+
+    // If maxLines is set, remove lines so that only maxLines remain, and fit the last line
     if (maxLines > 0 && lines.length > maxLines) {
-        const lastLine = lines.pop()!;
+        // Remove extra lines, keep only the first (maxLines - 1)
+        const kept = lines.slice(0, maxLines - 1);
+        // Combine the rest into one string for the last line
+        const lastLine = lines.slice(maxLines - 1).join(' ');
         const fittedText = fitText(ctx, lastLine, maxWidth);
-        lines.push(fittedText);
+        kept.push(fittedText);
+        return kept;
     }
     return lines;
 }

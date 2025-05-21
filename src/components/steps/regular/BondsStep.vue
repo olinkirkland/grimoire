@@ -94,6 +94,14 @@ function removeBond(index: number) {
         justify-content: space-between;
         background-color: var(--overlay);
         border-bottom: 1px dashed var(--surface-border);
+        overflow: hidden;
+
+        > p {
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     }
 
     > .bond-card__content {
