@@ -28,7 +28,7 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
             ctx.fillStyle = color;
 
             // Draw a guide grid every 100 pixels
-            drawGrid(ctx, canvas);
+            // drawGrid(ctx, canvas);
 
             // Names
             ctx.fillText(adventurer.name, sheetData.name.x, sheetData.name.y);
