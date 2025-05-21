@@ -6,11 +6,11 @@
                     {{ t('Brand.name') }}
                     <span class="version">v{{ version }}</span>
                 </h1>
-                <p>
+                <!-- <p>
                     <a @click="onClickChangelog">
                         {{ t('Home.Attribution.changelog') }}
                     </a>
-                </p>
+                </p> -->
                 <p v-html="t('Home.Attribution.code-and-design')"></p>
                 <!-- <p v-html="t('Home.Attribution.localization')"></p> -->
                 <a href="https://opensource.org/licenses/MIT" target="_blank">{{ t('Home.Attribution.license') }}</a>
@@ -34,7 +34,6 @@
 <script setup lang="ts">
 // Get the version from the package.json file
 import { version } from '@/../package.json';
-import ModalController from '@/controllers/modal-controller';
 import { t } from '@/i18n/locale';
 
 function onClickChangelog() {
