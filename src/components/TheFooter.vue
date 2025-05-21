@@ -34,10 +34,12 @@
 <script setup lang="ts">
 // Get the version from the package.json file
 import { version } from '@/../package.json';
+import ModalController from '@/controllers/modal-controller';
 import { t } from '@/i18n/locale';
 
 function onClickChangelog() {
     // TODO: Open changelog modal
+    // ModalController.open();
 }
 </script>
 
