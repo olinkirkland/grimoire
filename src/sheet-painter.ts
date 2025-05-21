@@ -121,12 +121,11 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
 
             // Arcs
             const { arcs } = sheetData;
-            for (let i = 0; i < Math.min(adventurer.arcs.length, 2); i++) {
-                const arc = adventurer.arcs[i].description;
-                const arcPoint = arcs[i];
-                if (!arcPoint) continue;
-                writeText(ctx, arc, arcPoint.x, arcPoint.y, arcPoint.width, normalFont, i === 0 ? 1 : 2, 'middle');
-            }
+            const combinedArcs = adventurer.arcs
+                .filter((a) => a.description.length > 0)
+                .map((a) => a.description)
+                .join(', ');
+            writeText(ctx, combinedArcs, arcs.x, arcs.y, arcs.width, smallFont, 5, 'top');
 
             // Traits bubbles (filled)
             adventurer.traits.forEach((trait) => {
