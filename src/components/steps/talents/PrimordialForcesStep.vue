@@ -16,7 +16,7 @@
                         <ToggleCard
                             @click="onClickToggleForce(force)"
                             :selected="isForceSelected(force)"
-                            :class="{ deactivated: adventurer.talentsData[Step.PRIMORDIAL_FORCES].special }"
+                            :class="{ deactivated: adventurer.talentsData[Step.PRIMORDIAL_FORCES].takenAgain }"
                         >
                             <div class="force-image">
                                 <div class="force-image__background"></div>
@@ -35,7 +35,7 @@
         </ReferenceCard>
         <Card>
             <p v-html="t('Step.Primordial-forces.Special.instructions')"></p>
-            <Button v-if="!adventurer.talentsData[Step.PRIMORDIAL_FORCES].special" @click="onClickTakeAgain" primary>
+            <Button v-if="!adventurer.talentsData[Step.PRIMORDIAL_FORCES].takenAgain" @click="onClickTakeAgain" primary>
                 <i class="fas fa-plus"></i>
                 <span>{{ t('Step.Primordial-forces.Special.button') }}</span>
             </Button>
@@ -109,12 +109,12 @@ function onClickToggleForce(force: string) {
 }
 
 function onClickTakeAgain() {
-    props.adventurer.talentsData[Step.PRIMORDIAL_FORCES].special = true;
+    props.adventurer.talentsData[Step.PRIMORDIAL_FORCES].takenAgain = true;
     props.adventurer.talentsData[Step.PRIMORDIAL_FORCES].forces = ['air', 'earth', 'fire', 'water'];
 }
 
 function onClickUndoTakeAgain() {
-    props.adventurer.talentsData[Step.PRIMORDIAL_FORCES].special = false;
+    props.adventurer.talentsData[Step.PRIMORDIAL_FORCES].takenAgain = false;
     props.adventurer.talentsData[Step.PRIMORDIAL_FORCES].forces = [];
 }
 </script>

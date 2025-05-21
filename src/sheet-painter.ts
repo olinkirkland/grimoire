@@ -99,6 +99,13 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                 // Bubble in the talent
                 const point = sheetData.talents[talent as keyof typeof sheetData.talents];
                 if (point) drawRoughDot(roughCanvas, point, color);
+
+                const takenAgain = adventurer.talentsData[talent]?.takenAgain;
+                if (takenAgain) {
+                    const secondTalentName = talent + '-2';
+                    const point2 = sheetData.talents[secondTalentName as keyof typeof sheetData.talents];
+                    if (point2) drawRoughDot(roughCanvas, point2, color);
+                }
             }
 
             resolve(canvas);
