@@ -100,8 +100,14 @@
         "iron-will": { "x": 1148, "y": 692 },
         "rings-false": { "x": 1148, "y": 790 },
         "sermons": { "x": 1148, "y": 860 },
-        "shepherd": { "x": 1148, "y": 958 }
+        "shepherd": { "x": 1148, "y": 958 },
 
-
+        "awaken": { "x": 1148, "y": 424 },
+        "herbalism": { "x": 1148, "y": 522 },
+        "kindred-spirits": { "x": 1148, "y": 620 },
+        "primordial-bonds": { "x": 1148, "y": 692 },
+        "true-shape": { "x": 1148, "y": 844 },
+        "verdant-whispers": { "x": 1148, "y": 916 },
+        "windcaller": { "x": 1148, "y": 986 }
     }
 }
