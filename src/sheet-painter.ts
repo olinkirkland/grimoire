@@ -3,7 +3,9 @@ import talentsData from '@/assets/data/talents.json';
 import rough from 'roughjs';
 import { RoughCanvas } from 'roughjs/bin/canvas';
 import Adventurer from './adventurer';
+import { t } from './i18n/locale';
 import { BASE_URL } from './router';
+import { Step } from './step';
 import { isTalentInPath } from './utils/adventurer-util';
 
 const SHOW_TEXT_BORDERS = true;
@@ -49,9 +51,11 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
             // Draw a guide grid every 100 pixels
             if (SHOW_GRID) drawGrid(ctx, canvas);
 
+            const pathData = sheetData.paths[adventurer.path as keyof typeof sheetData.paths] || {};
+
             // Add non-path talents and notes to this array
             // Use the array later to write the notes in the notes section on the sheet
-            const talentNotes = [];
+            const notesArray = [];
 
             // Names
             const { name, playerName } = sheetData;
@@ -173,14 +177,27 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
 
             // Get all (path) talents data and write it in (this includes the core talent)
             if (adventurer.path) {
-                const keys = Object.keys(adventurer.talentsData);
-                for (const key in keys) {
-                    const talent = keys[key];
-                    console.log(key);
-                    // switch (key && isTalentInPath(talent, adventurer.path)) {
-                    // }
+                for (const [key, talent] of Object.entries(adventurer.talentsData)) {
+                    if (!isTalentInPath(key, adventurer.path)) continue;
+                    switch (key) {
+                        case Step.BARDSONG:
+                            notesArray.push(`${t('Step.Bardsong.title')}: ${talent.bardicInstrument}`);
+                            break;
+                    }
                 }
             }
+
+            for (let i = 0; i < 20; i++) {
+                notesArray.push(
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+                );
+            }
+
+            // Write notes
+            // If sheetData[{path}].notes exists, override notes with it
+            const notes = pathData.notes ? pathData.notes : sheetData.notes;
+
+            writeText(ctx, notesArray.join('\n'), notes.x, notes.y, notes.width, smallFont, notes.maxLines);
 
             resolve(canvas);
         };

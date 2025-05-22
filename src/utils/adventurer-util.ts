@@ -1,7 +1,7 @@
 import talentsData from '@/assets/data/talents.json';
 import Adventurer from '@/adventurer';
 import { t } from '@/i18n/locale';
-import { Step } from '@/step';
+import { CoreTalentsByPath, Step } from '@/step';
 import { v4 as uuid } from 'uuid';
 import { capitalizeFirstLetter } from './naming-util';
 
@@ -374,6 +374,9 @@ export function getTalentTemplate(key: string): any | null {
  * @returns True if the talent belongs to the path, false otherwise.
  */
 export function isTalentInPath(talent: string, path: string): boolean {
+    // Core talent?
+    if (CoreTalentsByPath[path] === talent) return true;
+    // Non-core talent, look for source
     const source = talentsData.find((t) => t.id === talent)?.source;
     return !!source && source === path;
 }

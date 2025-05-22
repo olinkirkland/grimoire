@@ -130,6 +130,12 @@
         "wealth": { "x": 924, "y": 1035 },
         "wisdom": { "x": 924, "y": 1069 }
     },
+    "notes": { "x": 1145, "y": 927, "width": 580, "maxLines": 3 },
+    "paths": {
+        "bard": {
+            "notes": { "x": 1145, "y": 927, "width": 580, "maxLines": 10 }
+        }
+    },
     "talents": {
         "bardic-lore": { "x": 1148, "y": 365 },
         "dynamic-entrance": { "x": 1148, "y": 435 },
