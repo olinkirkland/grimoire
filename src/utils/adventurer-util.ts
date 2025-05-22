@@ -1,3 +1,4 @@
+import talentsData from '@/assets/data/talents.json';
 import Adventurer from '@/adventurer';
 import { t } from '@/i18n/locale';
 import { Step } from '@/step';
@@ -364,4 +365,15 @@ export function getTalentTemplate(key: string): any | null {
     }
 
     return null;
+}
+
+/**
+ * Return whether or not a talent belongs to a path (source).
+ * @param key - The talent key (e.g., bardic-instrument, frenzy)
+ * @param path - The path key (e.g., bard, druid)
+ * @returns True if the talent belongs to the path, false otherwise.
+ */
+export function isTalentInPath(talent: string, path: string): boolean {
+    const source = talentsData.find((t) => t.id === talent)?.source;
+    return !!source && source === path;
 }

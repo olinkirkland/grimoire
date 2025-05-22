@@ -4,13 +4,28 @@ import rough from 'roughjs';
 import { RoughCanvas } from 'roughjs/bin/canvas';
 import Adventurer from './adventurer';
 import { BASE_URL } from './router';
+import { isTalentInPath } from './utils/adventurer-util';
 
-const SHOW_TEXT_BORDERS = false;
+const SHOW_TEXT_BORDERS = true;
 const SHOW_GRID = false;
 
 export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElement> {
     const color = adventurer.options.color;
     const font = adventurer.options.font;
+    const normalFont = {
+        font: `32px ${font}`,
+        color: color
+    };
+
+    const bigFont = {
+        font: `bold 48px ${font}`,
+        color: color
+    };
+
+    const smallFont = {
+        font: `20px ${font}`,
+        color: color
+    };
 
     return new Promise((resolve, reject) => {
         const template = new Image();
@@ -31,23 +46,12 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
             ctx.fillStyle = color;
             ctx.strokeStyle = color;
 
-            const normalFont = {
-                font: `32px ${font}`,
-                color: ctx.fillStyle
-            };
-
-            const bigFont = {
-                font: `bold 48px ${font}`,
-                color: ctx.fillStyle
-            };
-
-            const smallFont = {
-                font: `20px ${font}`,
-                color: ctx.fillStyle
-            };
-
             // Draw a guide grid every 100 pixels
             if (SHOW_GRID) drawGrid(ctx, canvas);
+
+            // Add non-path talents and notes to this array
+            // Use the array later to write the notes in the notes section on the sheet
+            const talentNotes = [];
 
             // Names
             const { name, playerName } = sheetData;
@@ -121,13 +125,9 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
 
             // Arcs
             const { arcs } = sheetData;
-            const combinedArcs = adventurer.arcs
-                .filter((a) => a.description.length > 0)
-                .map((a) => a.description)
-                .join(', ');
-            writeText(ctx, combinedArcs, arcs.x, arcs.y, arcs.width, smallFont, 5, 'top');
-
-            // Talent notes (and non-path talents)
+            adventurer.arcs.forEach((arc, i) => {
+                if (i < 2) writeText(ctx, arc.description, arcs[i].x, arcs[i].y, arcs[i].width, smallFont, 2, 'top');
+            });
 
             // Traits bubbles (filled)
             adventurer.traits.forEach((trait) => {
@@ -168,6 +168,17 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                     const secondTalentName = talent + '-2';
                     const point2 = sheetData.talents[secondTalentName as keyof typeof sheetData.talents];
                     if (point2) drawRoughDot(roughCanvas, point2, color);
+                }
+            }
+
+            // Get all (path) talents data and write it in (this includes the core talent)
+            if (adventurer.path) {
+                const keys = Object.keys(adventurer.talentsData);
+                for (const key in keys) {
+                    const talent = keys[key];
+                    console.log(key);
+                    // switch (key && isTalentInPath(talent, adventurer.path)) {
+                    // }
                 }
             }
 

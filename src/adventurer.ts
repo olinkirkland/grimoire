@@ -117,7 +117,7 @@ export default class Adventurer {
         this.options = {
             useHeritage: true, // Default to true
             color: '#717854', // Default color
-            font: 'Arvo' // Default font
+            font: 'Open Sans' // Default font
         };
 
         this.name = name;
