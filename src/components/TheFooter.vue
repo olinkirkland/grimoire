@@ -6,11 +6,7 @@
                     {{ t('Brand.name') }}
                     <span class="version">v{{ version }}</span>
                 </h1>
-                <!-- <p>
-                    <a @click="onClickChangelog">
-                        {{ t('Home.Attribution.changelog') }}
-                    </a>
-                </p> -->
+                <p v-html="t('Home.Attribution.changelog')"></p>
                 <p v-html="t('Home.Attribution.code-and-design')"></p>
                 <!-- <p v-html="t('Home.Attribution.localization')"></p> -->
                 <a href="https://opensource.org/licenses/MIT" target="_blank">{{ t('Home.Attribution.license') }}</a>
@@ -21,11 +17,24 @@
             <div>
                 <!-- <p v-html="t('Home.Attribution.license-portraits')"></p> -->
                 <p v-html="t('Home.Attribution.license-icons')"></p>
-                <img
-                    src="@/assets/images/licensing/crafted-for-grimwild.png"
-                    alt="Crafted for Grimwild"
-                    class="crafted-for-grimwild"
-                />
+                <div class="crafted-for">
+                    <li>
+                        <!-- Grimwild license -->
+                        <img
+                            src="@/assets/images/licensing/crafted-for-grimwild.png"
+                            alt="Crafted for Grimwild"
+                            class="crafted-for-grimwild"
+                        />
+                    </li>
+                    <li>
+                        <!-- Moxie license -->
+                        <img
+                            src="@/assets/images/licensing/made-with-moxie.png"
+                            alt="Moxie"
+                            class="crafted-for-grimwild"
+                        />
+                    </li>
+                </div>
             </div>
         </div>
     </footer>
@@ -61,7 +70,7 @@ footer {
     p,
     a {
         font-size: 1.4rem;
-        line-height: 1.2;
+        line-height: 1.4;
     }
 
     > div {
@@ -83,9 +92,17 @@ footer {
     }
 }
 
-img.crafted-for-grimwild {
+.crafted-for {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
     margin-top: 1rem;
-    width: 12rem;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
 }
 
 @media (max-width: 768px) {
