@@ -44,7 +44,16 @@
                     :items="category"
                 >
                     <template #item="{ item }">
-                        <span class="ellipsis text-center">{{ t(`Step.Bardsong.Bardic-instrument.${item}`) }}</span>
+                        <span
+                            class="ellipsis text-center instrument-item"
+                            @click="
+                                adventurer.talentsData[Step.BARDSONG].bardicInstrument = t(
+                                    `Step.Bardsong.Bardic-instrument.${item}`
+                                )
+                            "
+                        >
+                            {{ t(`Step.Bardsong.Bardic-instrument.${item}`) }}
+                        </span>
                     </template>
                 </TableCard>
             </TableGroup>
@@ -84,6 +93,10 @@ const props = defineProps({
 .card.growth {
     margin-top: 1rem;
     background-color: var(--surface);
+}
+
+.instrument-item {
+    cursor: pointer;
 }
 
 @media (max-width: 768px) {
