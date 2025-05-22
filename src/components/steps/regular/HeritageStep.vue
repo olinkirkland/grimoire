@@ -55,6 +55,12 @@
                         </InputGroup>
                     </li>
                 </ul>
+                <CrucibleCard
+                    :items="wisesData"
+                    :labelFunction="(item: string) => t(`Step.Background.Wises.${item}`)"
+                    v-model="adventurer.heritageCrucibles.wises"
+                    :title="t('Step.Heritage.Wises.title')"
+                />
             </section>
         </Card>
     </StepFrame>
@@ -63,6 +69,7 @@
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
 import heritagesData from '@/assets/data/heritages.json';
+import wisesData from '@/assets/data/wises.json';
 import { t } from '@/i18n/locale';
 
 const props = defineProps({

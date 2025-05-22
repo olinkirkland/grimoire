@@ -31,6 +31,7 @@ export default class Adventurer {
         folk: string;
         mood: string;
         land: string;
+        wises: string;
     };
 
     // Traits
@@ -125,7 +126,8 @@ export default class Adventurer {
         this.heritageCrucibles = {
             folk: '',
             mood: '',
-            land: ''
+            land: '',
+            wises: ''
         };
 
         this.heritage = {
