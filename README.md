@@ -2,13 +2,13 @@
 
 Grimoire is a character keeper for Grimwild, a tabletop role-playing game by Oddity Press. It is designed to help players manage their characters, track their progress, and export or share printable character sheets as their characters change over time.
 
-# Core Features
+## Core Features
 
 - **Manage characters** that are stored in the browser's local storage. Any number of characters can be created, edited, and deleted.
 - **Edit characters** with a user-friendly interface that uses a form-based approach. Core talents and some talents that require customization are editable in their own bespoke sections.
 - **Export a character** either to a high-resolution PNG character sheet to print, or to a URL containing a base64-encoded JSON string, which can be shared with other players.
 
-# Installation
+## Installation
 
 To install Grimoire, clone the repository and install the required dependencies:
 
@@ -23,7 +23,7 @@ cd grimoire
 npm install
 ```
 
-# Usage
+## Usage
 
 To run Grimoire, use the following command:
 
@@ -38,7 +38,7 @@ npm run build
 npm run preview
 ```
 
-# Contributing Localization
+## Contributing Localization
 
 If you would like to contribute to the localization of Grimoire, please follow these steps:
 
@@ -51,7 +51,7 @@ If you would like to contribute to the localization of Grimoire, please follow t
 7. If you are localizing a language that is already present, please include a note about the changes you made to the existing localization.
 8. If you are adding a new language, please include a note about the language and any special considerations for that language.
 
-# License
+## License
 
 - **Code**: [MIT](./LICENSE) — free to use, modify, and distribute with attribution.
 
