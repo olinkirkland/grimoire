@@ -6,8 +6,8 @@
                     {{ t('Brand.name') }}
                     <span class="version">v{{ version }}</span>
                 </h1>
-                <p v-html="t('Home.Attribution.changelog')"></p>
                 <p v-html="t('Home.Attribution.code-and-design')"></p>
+                <p v-html="t('Home.Attribution.changelog')"></p>
                 <!-- <p v-html="t('Home.Attribution.localization')"></p> -->
                 <div class="flex">
                     <a href="https://opensource.org/licenses/MIT" target="_blank">{{
@@ -21,8 +21,6 @@
                 <p v-html="t('Home.Attribution.license-grimwild')"></p>
             </div>
             <div>
-                <!-- <p v-html="t('Home.Attribution.license-portraits')"></p> -->
-                <p v-html="t('Home.Attribution.license-icons')"></p>
                 <div class="crafted-for">
                     <li>
                         <!-- Grimwild license -->
@@ -41,6 +39,7 @@
                         />
                     </li>
                 </div>
+                <p v-html="t('Home.Attribution.license-icons')"></p>
             </div>
         </div>
     </footer>
@@ -103,7 +102,6 @@ footer {
     gap: 1rem;
     grid-template-columns: repeat(2, 1fr);
     width: 100%;
-    margin-top: 1rem;
     img {
         width: 100%;
         height: 100%;
