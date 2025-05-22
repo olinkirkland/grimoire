@@ -137,7 +137,7 @@ import InfoTooltip from '@/components/tooltips/templates/InfoTooltip.vue';
 import TooltipController from '@/controllers/tooltip-controller';
 import { t } from '@/i18n/locale';
 import { Step } from '@/step';
-import { capitalizeFirstLetter } from '@/utils/naming-util';
+import { capitalizeFirstLetter } from '@/utils/string-util';
 import { computed } from 'vue';
 
 const props = defineProps({

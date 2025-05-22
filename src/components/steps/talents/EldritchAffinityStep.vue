@@ -52,7 +52,7 @@ import magicTechniquesData from '@/assets/data/magic-techniques.json';
 import talentDefinitionsData from '@/assets/data/talents.json';
 import { t } from '@/i18n/locale';
 import { Step } from '@/step';
-import { capitalizeFirstLetter } from '@/utils/naming-util';
+import { capitalizeFirstLetter } from '@/utils/string-util';
 
 const props = defineProps({
     adventurer: {

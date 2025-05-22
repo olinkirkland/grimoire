@@ -130,10 +130,38 @@
         "wealth": { "x": 924, "y": 1035 },
         "wisdom": { "x": 924, "y": 1069 }
     },
-    "notes": { "x": 1145, "y": 927, "width": 580, "maxLines": 3 },
+    "notes": { "x": 1145, "y": 1000, "width": 580, "maxLines": 3 },
     "paths": {
         "bard": {
             "notes": { "x": 1145, "y": 927, "width": 580, "maxLines": 10 }
+        },
+        "berserker": {
+            "notes": { "x": 1145, "y": 1070, "width": 980, "maxLines": 4 }
+        },
+        "cleric": {
+            "notes": { "x": 1145, "y": 1063, "width": 980, "maxLines": 5 },
+            "god": {
+                "x": 1498,
+                "y": 112,
+                "width": 630
+            },
+            "domains": [
+                {
+                    "x": 1249,
+                    "y": 357,
+                    "width": 215
+                },
+                {
+                    "x": 1581,
+                    "y": 357,
+                    "width": 215
+                },
+                {
+                    "x": 1912,
+                    "y": 357,
+                    "width": 215
+                }
+            ]
         }
     },
     "talents": {

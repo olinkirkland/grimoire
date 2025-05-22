@@ -3,7 +3,7 @@ import Adventurer from '@/adventurer';
 import { t } from '@/i18n/locale';
 import { CoreTalentsByPath, Step } from '@/step';
 import { v4 as uuid } from 'uuid';
-import { capitalizeFirstLetter } from './naming-util';
+import { capitalizeFirstLetter } from './string-util';
 
 export const Modify = {
     STATS: 'modify-stats'

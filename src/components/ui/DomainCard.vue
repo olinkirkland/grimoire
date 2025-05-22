@@ -37,7 +37,7 @@ import EditDomainModal from '@/components/modals/templates/EditDomainModal.vue';
 import ModalController from '@/controllers/modal-controller';
 import { t } from '@/i18n/locale';
 import { Domain } from '@/types/types';
-import { capitalizeFirstLetter } from '@/utils/naming-util';
+import { capitalizeFirstLetter } from '@/utils/string-util';
 
 const props = defineProps({
     primary: Boolean,

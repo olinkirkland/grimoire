@@ -52,7 +52,7 @@ import { t } from '@/i18n/locale';
 import { PageName, router } from '@/router';
 import { CoreTalentsByPath, Step, StepDefinitions, StepType } from '@/step';
 import { useAdventurersStore } from '@/store/adventurers-store';
-import { capitalizeFirstLetter } from '@/utils/naming-util';
+import { capitalizeFirstLetter } from '@/utils/string-util';
 import { computed, ref } from 'vue';
 import AdventurerSettingsModal from '../modals/templates/AdventurerSettingsModal.vue';
 

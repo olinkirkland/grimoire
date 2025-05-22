@@ -83,7 +83,7 @@ import TalentModal from '@/components/modals/templates/TalentModal.vue';
 import ModalController from '@/controllers/modal-controller';
 import { t } from '@/i18n/locale';
 import { getTalentTemplate } from '@/utils/adventurer-util';
-import { capitalizeFirstLetter } from '@/utils/naming-util';
+import { capitalizeFirstLetter } from '@/utils/string-util';
 import { computed, ref } from 'vue';
 
 const props = defineProps({

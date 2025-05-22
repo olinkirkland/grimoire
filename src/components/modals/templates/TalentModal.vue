@@ -20,7 +20,7 @@ import talentsData from '@/assets/data/talents.json';
 import ModalFrame from '@/components/modals/ModalFrame.vue';
 import ModalHeader from '@/components/modals/ModalHeader.vue';
 import { t } from '@/i18n/locale';
-import { capitalizeFirstLetter } from '@/utils/naming-util';
+import { capitalizeFirstLetter } from '@/utils/string-util';
 import { computed } from 'vue';
 
 const props = defineProps<{

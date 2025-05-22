@@ -30,7 +30,7 @@ import { Path } from '@/path';
 import { CoreTalentsByPath } from '@/step';
 import { trackEvent } from '@/tracker';
 import { getTalentTemplate } from '@/utils/adventurer-util';
-import { capitalizeFirstLetter } from '@/utils/naming-util';
+import { capitalizeFirstLetter } from '@/utils/string-util';
 
 const props = defineProps({
     adventurer: {

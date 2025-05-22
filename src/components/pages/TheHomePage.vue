@@ -51,7 +51,7 @@ import { t } from '@/i18n/locale';
 import { PageName, router } from '@/router';
 import { useAdventurersStore } from '@/store/adventurers-store';
 import { trackEvent } from '@/tracker';
-import { capitalizeFirstLetter, getUniqueName } from '@/utils/naming-util';
+import { capitalizeFirstLetter, getUniqueName } from '@/utils/string-util';
 import { onMounted, ref } from 'vue';
 import AppSettingsModal from '../modals/templates/AppSettingsModal.vue';
 import TheFooter from '../TheFooter.vue';

@@ -76,7 +76,7 @@ import guildTraitsData from '@/assets/data/guild-traits.json';
 import skillsetData from '@/assets/data/skillset.json';
 import { t } from '@/i18n/locale';
 import { Step } from '@/step';
-import { capitalizeFirstLetter } from '@/utils/naming-util';
+import { capitalizeFirstLetter } from '@/utils/string-util';
 
 const props = defineProps({
     adventurer: {

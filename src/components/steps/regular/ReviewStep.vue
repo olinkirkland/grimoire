@@ -49,7 +49,9 @@
             </div>
 
             <Card class="preview-card">
-                <i class="fas fa-spinner fa-spin" v-if="isLoading"></i>
+                <div class="loader" v-if="isLoading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                </div>
                 <img ref="sheetPreview" class="preview" :class="{ 'is-loading': isLoading }" />
             </Card>
         </Card>
@@ -63,7 +65,7 @@ import { BASE_URL } from '@/router';
 import { paintSheet } from '@/sheet-painter';
 import { trackEvent } from '@/tracker';
 import { encodeURI } from '@/utils/adventurer-util';
-import { toFileName } from '@/utils/naming-util';
+import { toFileName } from '@/utils/string-util';
 import { onMounted, ref } from 'vue';
 
 const props = defineProps({
@@ -147,7 +149,7 @@ async function generateImage() {
     await new Promise((resolve) => {
         setTimeout(() => {
             resolve(true);
-        }, 200);
+        }, 500);
     });
     const canvas = await paintSheet(props.adventurer);
     if (!canvas) return;
@@ -212,10 +214,9 @@ function onClickSaveImage() {
 
 <style scoped lang="scss">
 .preview-card {
-    position: relative;
     display: flex;
     width: 100%;
-    min-height: 8rem;
+    min-height: 16rem;
     height: fit-content;
     flex-direction: column;
     justify-content: center;
@@ -223,13 +224,18 @@ function onClickSaveImage() {
     padding: 0;
     box-shadow: var(--shadow-sm);
 
-    > i {
-        position: absolute;
-        font-size: 2.4rem;
-        color: var(--text);
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+    > .loader {
+        position: relative;
+        height: 2.4rem;
+        width: 2.4rem;
+        > i {
+            position: absolute;
+            font-size: 2.4rem;
+            color: var(--text);
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+        }
     }
 
     .is-loading {

@@ -6,7 +6,7 @@ import Adventurer from './adventurer';
 import { t } from './i18n/locale';
 import { BASE_URL } from './router';
 import { Step } from './step';
-import { isTalentInPath } from './utils/adventurer-util';
+import { joinStrings } from './utils/string-util';
 
 const SHOW_TEXT_BORDERS = true;
 const SHOW_GRID = false;
@@ -64,7 +64,7 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
 
             // Distinctive Features
             const { features } = sheetData;
-            const combinedFeatures = adventurer.features.filter((f) => f.length > 0).join('\n');
+            const combinedFeatures = joinStrings(adventurer.features, '\n');
             writeText(ctx, combinedFeatures, features.x, features.y, features.width, smallFont, 5, 'top');
 
             // Stats
@@ -99,13 +99,13 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
 
             // Wises 1
             const { wises1 } = sheetData;
-            const wisesCombined1 = adventurer.background.wises.filter((w) => w.length > 0).join(', ');
-            writeText(ctx, wisesCombined1, wises1.x, wises1.y, wises1.width, smallFont, 2, 'middle');
+            const combinedWises1 = joinStrings(adventurer.background.wises);
+            writeText(ctx, combinedWises1, wises1.x, wises1.y, wises1.width, smallFont, 2, 'middle');
 
             // Wises 2
             const { wises2 } = sheetData;
-            const wisesCombined2 = adventurer.heritage.wises.filter((w) => w.length > 0).join(', ');
-            writeText(ctx, wisesCombined2, wises2.x, wises2.y, wises2.width, smallFont, 3, 'middle');
+            const combinedWises2 = joinStrings(adventurer.heritage.wises);
+            writeText(ctx, combinedWises2, wises2.x, wises2.y, wises2.width, smallFont, 3, 'middle');
 
             // Bonds
             const { bonds } = sheetData;
@@ -175,29 +175,126 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                 }
             }
 
-            // Get all (path) talents data and write it in (this includes the core talent)
-            if (adventurer.path) {
-                for (const [key, talent] of Object.entries(adventurer.talentsData)) {
-                    if (!isTalentInPath(key, adventurer.path)) continue;
-                    switch (key) {
-                        case Step.BARDSONG:
-                            notesArray.push(`${t('Step.Bardsong.title')}: ${talent.bardicInstrument}`);
-                            break;
-                    }
+            // Write all talents in the notes section
+            for (const [key, talent] of Object.entries(adventurer.talentsData)) {
+                // if (adventurer.path && isTalentInPath(key, adventurer.path))
+                switch (key) {
+                    case Step.BARDSONG:
+                        notesArray.push(
+                            `${t(`Step.Bardsong.Painter.bardic-instrument`, { instrument: talent.bardicInstrument })}`
+                        );
+                        break;
+                    case Step.BARDIC_LORE:
+                        if (talent.wises.length > 0)
+                            notesArray.push(
+                                `${t('Step.Bardic-lore.Painter.wises', { wises: joinStrings(adventurer.talentsData[Step.BARDIC_LORE].wises) })}`
+                            );
+                        break;
+                    case Step.FRENZY:
+                        // frenzySources: [], // could be 0, 1, or more
+                        // notFrenzySources: [], // could be 0, 1, or more
+                        // scars: ['', '', '']
+
+                        // Source
+                        // if (talent.source) const combinedSources = t(`Step.Frenzy.${talent.source}`);
+                        // If there are sources only
+                        if (talent.frenzySources.length > 0 || talent.notFrenzySources.length > 0) {
+                            if (talent.frenzySources.length > 0 && talent.notFrenzySources.length > 0) {
+                                // If there are both sources and notSources
+                                notesArray.push(
+                                    t(`Step.Frenzy.Painter.sources`, {
+                                        sources: joinStrings(
+                                            talent.frenzySources.map((s: string) =>
+                                                t(`Step.Frenzy.Frenzy-source.${s}`).toLowerCase()
+                                            ),
+                                            ` ${t('and')} `
+                                        ),
+                                        notSources: joinStrings(
+                                            talent.notFrenzySources.map((s: string) =>
+                                                t(`Step.Frenzy.Frenzy-source.${s}`).toLowerCase()
+                                            ),
+                                            ` ${t('and')} `
+                                        )
+                                    })
+                                );
+                            } else if (talent.notFrenzySources.length > 0) {
+                                // If there are notSources only
+                                notesArray.push(
+                                    t(`Step.Frenzy.Painter.sources-only-yes`, {
+                                        notSources: joinStrings(
+                                            talent.notFrenzySources.map((s: string) =>
+                                                t(`Step.Frenzy.Frenzy-source.${s}`).toLowerCase()
+                                            ),
+                                            ` ${t('and')} `
+                                        )
+                                    })
+                                );
+                            } else if (talent.frenzySources.length) {
+                                // If there are sources only
+                                notesArray.push(
+                                    t(`Step.Frenzy.Painter.sources-only-no`, {
+                                        sources: joinStrings(
+                                            talent.frenzySources.map((s: string) =>
+                                                t(`Step.Frenzy.Frenzy-source.${s}`).toLowerCase()
+                                            ),
+                                            ` ${t('and')} `
+                                        )
+                                    })
+                                );
+                            }
+                        }
+
+                        // Scars
+                        notesArray.push(t(`Step.Frenzy.Painter.scars`, { scars: joinStrings(talent.scars) }));
+                        break;
+                    case Step.WARSONGS:
+                        const combinedSongs = joinStrings(talent.songs);
+                        notesArray.push(`${t('Step.Warsongs.Painter.warsongs', { warsongs: combinedSongs })}`);
+                        break;
+                    case Step.CHANNEL_DIVINITY:
+                        // Name and Epithet
+                        if (talent.god.name || talent.god.epithet) {
+                            const combinedName = joinStrings([talent.god.name, talent.god.epithet], ', ');
+                            const { god } = sheetData.paths.cleric;
+                            writeText(ctx, combinedName, god.x, god.y, god.width, normalFont);
+                        }
+
+                        // Domains
+                        talent.domains.forEach((domain: any, index: number) => {
+                            const domainText = t(
+                                `Step.Channel-divinity.Painter.${index === 0 ? 'major' : 'minor'}-domain`,
+                                { ...domain }
+                            );
+
+                            // Write the domain in the notes section
+                            notesArray.push(domainText);
+
+                            // Write the domain in the sheet
+                            const domainPoint = sheetData.paths.cleric.domains[index];
+                            if (domainPoint)
+                                writeText(
+                                    ctx,
+                                    domain.name,
+                                    domainPoint.x,
+                                    domainPoint.y,
+                                    domainPoint.width,
+                                    normalFont
+                                );
+                        });
+
+                        break;
                 }
             }
 
-            for (let i = 0; i < 20; i++) {
-                notesArray.push(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-                );
-            }
+            // for (let i = 0; i < 4; i++) {
+            //     notesArray.push(
+            //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+            //     );
+            // }
 
-            // Write notes
-            // If sheetData[{path}].notes exists, override notes with it
+            // Write notes, use the path notes if available
             const notes = pathData.notes ? pathData.notes : sheetData.notes;
-
-            writeText(ctx, notesArray.join('\n'), notes.x, notes.y, notes.width, smallFont, notes.maxLines);
+            writeText(ctx, joinStrings(notesArray, '\n'), notes.x, notes.y, notes.width, smallFont, notes.maxLines);
 
             resolve(canvas);
         };

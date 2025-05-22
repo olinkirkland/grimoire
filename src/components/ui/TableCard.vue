@@ -45,6 +45,8 @@ const props = defineProps({
     padding: 2rem;
     gap: 0rem;
     > li {
+        display: flex;
+        align-items: center;
         background-color: unset;
     }
 }

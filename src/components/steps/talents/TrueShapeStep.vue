@@ -79,7 +79,7 @@ import InputGroup from '@/components/ui/InputGroup.vue';
 import ModalController from '@/controllers/modal-controller';
 import { t } from '@/i18n/locale';
 import { Step } from '@/step';
-import { capitalizeFirstLetter } from '@/utils/naming-util';
+import { capitalizeFirstLetter } from '@/utils/string-util';
 import { computed } from 'vue';
 
 const props = defineProps({

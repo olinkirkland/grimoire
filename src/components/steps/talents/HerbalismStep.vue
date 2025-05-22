@@ -36,7 +36,7 @@ import talentDefinitionsData from '@/assets/data/talents.json';
 import CrucibleCard from '@/components/ui/CrucibleCard.vue';
 import { t } from '@/i18n/locale';
 import { Step } from '@/step';
-import { capitalizeFirstLetter } from '@/utils/naming-util';
+import { capitalizeFirstLetter } from '@/utils/string-util';
 import { computed } from 'vue';
 
 const props = defineProps({

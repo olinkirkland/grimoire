@@ -40,7 +40,7 @@
 import Adventurer from '@/adventurer';
 import { t } from '@/i18n/locale';
 import { getTalentTemplate, Modify } from '@/utils/adventurer-util';
-import { capitalizeFirstLetter } from '@/utils/naming-util';
+import { capitalizeFirstLetter } from '@/utils/string-util';
 import { computed } from 'vue';
 
 const props = defineProps({

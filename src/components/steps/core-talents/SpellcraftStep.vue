@@ -112,7 +112,7 @@ import Adventurer from '@/adventurer';
 import spellcraftData from '@/assets/data/spellcraft.json';
 import { t } from '@/i18n/locale';
 import { Step } from '@/step';
-import { capitalizeFirstLetter } from '@/utils/naming-util';
+import { capitalizeFirstLetter } from '@/utils/string-util';
 import { computed } from 'vue';
 
 const props = defineProps({

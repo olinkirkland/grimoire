@@ -47,7 +47,7 @@ import ModalFrame from '@/components/modals/ModalFrame.vue';
 import ModalHeader from '@/components/modals/ModalHeader.vue';
 import { t } from '@/i18n/locale';
 import { useCustomNameTablesStore } from '@/store/custom-name-tables-store';
-import { getUniqueName } from '@/utils/naming-util';
+import { getUniqueName } from '@/utils/string-util';
 import { computed } from 'vue';
 
 const customNameTablesStore = useCustomNameTablesStore();

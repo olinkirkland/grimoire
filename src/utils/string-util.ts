@@ -48,3 +48,14 @@ export function toFileName(name: string) {
 export function capitalizeFirstLetter(name: string) {
     return name.charAt(0).toUpperCase() + name.slice(1);
 }
+
+/**
+ * Joins an array of strings into a single string, separated by commas (or any other separator).
+ * If any string is empty, it's skipped.
+ * @param strings - The array of strings to be joined.
+ * @param separator - The separator to use between strings. Default is a comma and space.
+ * @returns - The joined string.
+ */
+export function joinStrings(strings: string[], separator: string = ' • ') {
+    return strings.filter((str) => str.trim() !== '').join(separator);
+}

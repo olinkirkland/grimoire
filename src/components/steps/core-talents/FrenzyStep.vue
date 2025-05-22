@@ -8,7 +8,7 @@
                 <Card class="growth">
                     <p>
                         <strong>{{ t('Step.Core-talent.growth') }}</strong
-                        >: {{ t('Step.Bardsong.growth') }}
+                        >: {{ t('Step.Frenzy.growth') }}
                     </p>
                 </Card>
             </div>

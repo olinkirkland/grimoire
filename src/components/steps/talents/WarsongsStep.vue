@@ -60,7 +60,7 @@ import talentDefinitionsData from '@/assets/data/talents.json';
 import InputGroup from '@/components/ui/InputGroup.vue';
 import { t } from '@/i18n/locale';
 import { Step } from '@/step';
-import { capitalizeFirstLetter } from '@/utils/naming-util';
+import { capitalizeFirstLetter } from '@/utils/string-util';
 
 const props = defineProps({
     adventurer: {
