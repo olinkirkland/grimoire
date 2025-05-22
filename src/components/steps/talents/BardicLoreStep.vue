@@ -38,6 +38,13 @@
                     </InputGroup>
                 </li>
             </ul>
+            <CrucibleCard
+                class="wises-crucible"
+                :items="wisesData"
+                :labelFunction="(item: string) => t(`Step.Background.Wises.${item}`)"
+                v-model="adventurer.heritageCrucibles.wises"
+                :title="t('Step.Heritage.Wises.title')"
+            />
         </Card>
     </StepFrame>
 </template>
@@ -45,6 +52,7 @@
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
 import talentDefinitionsData from '@/assets/data/talents.json';
+import wisesData from '@/assets/data/wises.json';
 import { t } from '@/i18n/locale';
 import { Step } from '@/step';
 import { capitalizeFirstLetter } from '@/utils/naming-util';
@@ -70,6 +78,10 @@ const talent = talentDefinitionsData.find((talent) => talent.id === Step.BARDIC_
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
+}
+
+.wises-crucible {
+    width: 100%;
 }
 
 @media (max-width: 768px) {

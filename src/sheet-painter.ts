@@ -127,6 +127,8 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                 .join(', ');
             writeText(ctx, combinedArcs, arcs.x, arcs.y, arcs.width, smallFont, 5, 'top');
 
+            // Talent notes (and non-path talents)
+
             // Traits bubbles (filled)
             adventurer.traits.forEach((trait) => {
                 const point = sheetData.traits[trait as keyof typeof sheetData.traits];
