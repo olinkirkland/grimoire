@@ -190,6 +190,9 @@ i {
 }
 
 a {
+    display: inline-flex;
+    gap: 0.4rem;
+    align-items: center;
     text-decoration: none;
     color: var(--on-surface);
     transition: all 0.2s ease-in-out;
@@ -197,6 +200,10 @@ a {
     border-bottom: 0.1rem dashed currentColor;
     font-style: italic;
     width: fit-content;
+
+    * {
+        font-size: inherit;
+    }
 
     &:hover {
         color: var(--primary-alt);

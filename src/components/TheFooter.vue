@@ -9,7 +9,13 @@
                 <p v-html="t('Home.Attribution.changelog')"></p>
                 <p v-html="t('Home.Attribution.code-and-design')"></p>
                 <!-- <p v-html="t('Home.Attribution.localization')"></p> -->
-                <a href="https://opensource.org/licenses/MIT" target="_blank">{{ t('Home.Attribution.license') }}</a>
+                <div class="flex">
+                    <a href="https://opensource.org/licenses/MIT" target="_blank">{{
+                        t('Home.Attribution.license')
+                    }}</a>
+                    •
+                    <a href="https://github.com/olinkirkland/grimoire" target="_blank"> Github </a>
+                </div>
             </div>
             <div>
                 <p v-html="t('Home.Attribution.license-grimwild')"></p>
