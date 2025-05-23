@@ -14,6 +14,19 @@
             </div>
         </ReferenceCard>
         <Card>
+            <!-- Name and description -->
+            <InputGroup
+                v-model="adventurer.talentsData[Step.ANIMAL_COMPANION].name"
+                :placeholder="t('Step.Animal-companion.Name.placeholder')"
+            >
+                {{ t('Step.Animal-companion.Name.label') }}
+            </InputGroup>
+            <TextAreaGroup
+                v-model="adventurer.talentsData[Step.ANIMAL_COMPANION].description"
+                :placeholder="t('Step.Animal-companion.Description.placeholder')"
+            >
+                {{ t('Step.Animal-companion.Description.label') }}
+            </TextAreaGroup>
             <p
                 v-html="
                     t('Step.Animal-companion.Tricks.instructions', {
@@ -63,6 +76,8 @@
 import Adventurer from '@/adventurer';
 import animalCompanionData from '@/assets/data/animal-companion.json';
 import talentDefinitionsData from '@/assets/data/talents.json';
+import InputGroup from '@/components/ui/InputGroup.vue';
+import TextAreaGroup from '@/components/ui/TextAreaGroup.vue';
 import { t } from '@/i18n/locale';
 import { Step } from '@/step';
 import { capitalizeFirstLetter } from '@/utils/string-util';

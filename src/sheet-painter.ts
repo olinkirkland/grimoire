@@ -381,14 +381,14 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                         }
                         break;
                     case Step.ANIMAL_COMPANION:
-                        const { animalName, animalDescription, tricks, flaws } = talent;
+                        const { tricks, flaws } = talent;
                         // Name and description
-                        if (!animalName && !animalDescription) {
+                        if (!talent.name && !talent.description) {
                             notesArray.push(t(`Step.Animal-companion.Painter.no-animal-name`));
                         } else {
                             notesArray.push(
                                 t(`Step.Animal-companion.Painter.animal-name`, {
-                                    name: joinStrings([animalName, animalDescription])
+                                    name: joinStrings([talent.name, talent.description])
                                 })
                             );
                         }
