@@ -314,8 +314,16 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                                 return name + ` (${magicSchool})`;
                             });
 
-                            notesArray.push(
-                                `${t('Step.Arcane-training.Painter.theorems', { theorems: joinStrings(theoremsStrings) })}`
+                            // TODO: add to notes if not in path
+                            // `${t('Step.Arcane-training.Painter.theorems', { theorems: joinStrings(theoremsStrings) })}`
+                            writeText(
+                                ctx,
+                                `${t('Step.Arcane-training.Painter.theorems', { theorems: joinStrings(theoremsStrings) })}`,
+                                sheetData.paths.fighter.theorems.x,
+                                sheetData.paths.fighter.theorems.y,
+                                sheetData.paths.fighter.theorems.width,
+                                smallFont,
+                                2
                             );
                         }
                         break;

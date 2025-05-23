@@ -167,7 +167,13 @@
             "notes": { "x": 1145, "y": 1120, "width": 980, "maxLines": 3 }
         },
         "fighter": {
-            "notes": { "x": 1145, "y": 1090, "width": 980, "maxLines": 4 }
+            "notes": { "x": 1145, "y": 1090, "width": 980, "maxLines": 4 },
+            "theorems": {
+                "x": 1170,
+                "y": 487,
+                "width": 955,
+                "maxLines": 2
+            }
         }
     },
     "talents": {
