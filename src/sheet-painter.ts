@@ -380,6 +380,17 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                             notesArray.push(domainText);
                         }
                         break;
+                    case Step.HUNTERS_MARK:
+                        const { traps } = talent;
+                        if (traps.length > 0) {
+                            notesArray.push(
+                                t(`Step.Hunters-mark.Painter.traps`, {
+                                    traps: joinStrings(traps)
+                                })
+                            );
+                        }
+
+                        break;
                     case Step.ANIMAL_COMPANION:
                         const { tricks, flaws } = talent;
                         // Name and description
@@ -393,8 +404,9 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                             );
                         }
                         // Tricks
+                        const tricksAndFlaws = [];
                         if (tricks.length > 0) {
-                            notesArray.push(
+                            tricksAndFlaws.push(
                                 t(`Step.Animal-companion.Painter.tricks`, {
                                     tricks: joinStrings(tricks)
                                 })
@@ -402,12 +414,14 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                         }
                         // Flaws
                         if (flaws.length > 0) {
-                            notesArray.push(
+                            tricksAndFlaws.push(
                                 t(`Step.Animal-companion.Painter.flaws`, {
                                     flaws: joinStrings(flaws)
                                 })
                             );
                         }
+
+                        if (tricksAndFlaws.length > 0) notesArray.push(joinStrings(tricksAndFlaws, ' ... '));
                         break;
                     case Step.TROPHIES:
                         const { trophies } = talent;
