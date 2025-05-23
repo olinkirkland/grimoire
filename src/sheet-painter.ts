@@ -410,6 +410,17 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                         }
                         break;
                     case Step.TROPHIES:
+                        const { trophies } = talent;
+                        const trophiesArray = trophies.map((trophy: { name: string; description: string }) => {
+                            const { name, description } = trophy;
+                            return name + (description ? ` (${description})` : '');
+                        });
+
+                        notesArray.push(
+                            t(`Step.Trophies.Painter.trophies`, {
+                                trophies: joinStrings(trophiesArray)
+                            })
+                        );
                         break;
                 }
             }
