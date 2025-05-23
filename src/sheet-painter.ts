@@ -26,7 +26,7 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
     };
 
     const smallFont = {
-        font: `20px ${font}`,
+        font: `16px ${font}`,
         color: color
     };
 
@@ -351,17 +351,42 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
 
                         // Circle each force (word circle)
                         forces.forEach((force: 'fire' | 'earth' | 'air' | 'water') => {
-                            const circleData = sheetData.paths.monk['primordial-forces'][force];
-                            if (circleData) {
+                            const forcePoint = sheetData.paths.monk['primordial-forces'][force];
+                            if (forcePoint) {
                                 drawRoughCircle(
                                     roughCanvas,
-                                    { x: circleData.x, y: circleData.y },
+                                    { x: forcePoint.x, y: forcePoint.y },
                                     color,
-                                    circleData.width,
-                                    circleData.height
+                                    forcePoint.width,
+                                    forcePoint.height
                                 );
                             }
                         });
+                        break;
+                    case Step.OATHSWORN:
+                        // Enter oath tenets
+                        const { tenets } = talent;
+                        for (let i = 0; i < Math.min(tenets.length, 3); i++) {
+                            const tenet = tenets[i];
+                            const { x, y, width, maxLines } = sheetData.paths.paladin.oathsworn.tenets[i];
+                            writeText(ctx, tenet, x, y, width, smallFont, maxLines, 'middle');
+                        }
+                        break;
+                    case Step.DIVINE_BLESSING:
+                        // God
+                        const { name, epithet } = talent.god;
+                        const combinedName = joinStrings([name, epithet], ', ');
+                        notesArray.push(`${t('Step.Divine-blessing.Painter.god', { name: combinedName })}`);
+                        // Domain
+                        const { domain } = talent;
+                        if (domain) {
+                            // Write the domain in the sheet
+                            const domainPoint = sheetData.paths.paladin['divine-blessing'].domain;
+                            writeText(ctx, domain.name, domainPoint.x, domainPoint.y, domainPoint.width, normalFont);
+                            // Write the domain in the notes section
+                            const domainText = t('Step.Channel-divinity.Painter.minor-domain', { ...domain });
+                            notesArray.push(domainText);
+                        }
                         break;
                 }
             }

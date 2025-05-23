@@ -36,6 +36,7 @@
 
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
+import TenetCard from '@/components/ui/TenetCard.vue';
 import { t } from '@/i18n/locale';
 
 const props = defineProps({
