@@ -443,6 +443,10 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                             drawRoughDot(roughCanvas, sheetData.paths.rogue.skillset.skullduggery, color);
                         if (skillset === 'assassination')
                             drawRoughDot(roughCanvas, sheetData.paths.rogue.skillset.assassination, color);
+
+                        // TODO: Guild traits
+                        // TODO: Not guild traits
+                        // TODO: Criminal history
                         break;
                     case Step.ELDRITCH_AFFINITY:
                         break;
