@@ -8,6 +8,7 @@ import { BASE_URL } from './router';
 import { Step } from './step';
 import { joinStrings } from './utils/string-util';
 
+const SHOW_COORDS = false;
 const SHOW_TEXT_BORDERS = true;
 const SHOW_GRID = false;
 
@@ -327,6 +328,41 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                             );
                         }
                         break;
+                    case Step.DISCIPLINE:
+                        const { concepts, stances, weapons } = talent.martialArtsStyle;
+                        const partsArray = [];
+                        if (concepts.length > 0) partsArray.push(t('Step.Discipline.Painter.concepts', { concepts }));
+                        if (stances.length > 0) partsArray.push(t('Step.Discipline.Painter.stances', { stances }));
+                        if (weapons.length > 0) partsArray.push(t('Step.Discipline.Painter.weapons', { weapons }));
+                        notesArray.push(
+                            t(`Step.Discipline.Painter.martial-arts-style`, {
+                                style: joinStrings(partsArray)
+                            })
+                        );
+                        break;
+                    case Step.PRIMORDIAL_FORCES:
+                        const { takenAgain, forces } = talent;
+                        // If taken again, bubble in the second talent
+                        if (takenAgain) {
+                            const secondTalentName = talent + '-2';
+                            const point2 = sheetData.talents[secondTalentName as keyof typeof sheetData.talents];
+                            if (point2) drawRoughDot(roughCanvas, point2, color);
+                        }
+
+                        // Circle each force (word circle)
+                        forces.forEach((force: 'fire' | 'earth' | 'air' | 'water') => {
+                            const circleData = sheetData.paths.monk['primordial-forces'][force];
+                            if (circleData) {
+                                drawRoughCircle(
+                                    roughCanvas,
+                                    { x: circleData.x, y: circleData.y },
+                                    color,
+                                    circleData.width,
+                                    circleData.height
+                                );
+                            }
+                        });
+                        break;
                 }
             }
 
@@ -397,6 +433,33 @@ function drawRoughSlash(roughCanvas: RoughCanvas, point: { x: number; y: number 
             bowing: 0
         }
     );
+}
+
+function drawRoughCircle(
+    roughCanvas: RoughCanvas,
+    point: { x: number; y: number },
+    color: string,
+    width: number = 40,
+    height: number = 16
+) {
+    // draw a dot at the center if text borders are enabled
+    if (SHOW_COORDS) {
+        roughCanvas.ellipse(point.x, point.y, 8, 8, {
+            fill: '#00ff00',
+            fillStyle: 'solid',
+            stroke: '#ff0000',
+            strokeWidth: 2,
+            roughness: 0,
+            bowing: 0
+        });
+    }
+
+    roughCanvas.ellipse(point.x, point.y, width, height, {
+        stroke: color,
+        strokeWidth: 2,
+        roughness: 1,
+        bowing: 0
+    });
 }
 
 function writeText(

@@ -174,6 +174,35 @@
                 "width": 955,
                 "maxLines": 2
             }
+        },
+        "monk": {
+            "notes": { "x": 1145, "y": 1123, "width": 980, "maxLines": 2 },
+            "primordial-forces": {
+                "air": {
+                    "x": 1620,
+                    "y": 805,
+                    "width": 55,
+                    "height": 25
+                },
+                "earth": {
+                    "x": 1683,
+                    "y": 805,
+                    "width": 75,
+                    "height": 25
+                },
+                "fire": {
+                    "x": 1750,
+                    "y": 805,
+                    "width": 65,
+                    "height": 25
+                },
+                "water": {
+                    "x": 1823,
+                    "y": 805,
+                    "width": 80,
+                    "height": 25
+                }
+            }
         }
     },
     "talents": {

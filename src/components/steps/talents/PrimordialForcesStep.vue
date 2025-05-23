@@ -65,7 +65,7 @@ const props = defineProps({
 const talent = talentDefinitionsData.find((talent) => talent.id === Step.PRIMORDIAL_FORCES)!;
 
 function isForceSelected(force: string) {
-    return props.adventurer.talentsData[Step.PRIMORDIAL_FORCES].forces.find((f: string) => f === force);
+    return !!props.adventurer.talentsData[Step.PRIMORDIAL_FORCES].forces.find((f: string) => f === force);
 }
 
 function deselectForce(force: string) {
