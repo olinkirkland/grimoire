@@ -238,6 +238,13 @@
         },
         "ranger": {
             "notes": { "x": 1145, "y": 1080, "width": 980, "maxLines": 5 }
+        },
+        "rogue": {
+            "notes": { "x": 1145, "y": 1108, "width": 980, "maxLines": 4 },
+            "skillset": {
+                "skullduggery": { "x": 1175, "y": 229 },
+                "assassination": { "x": 1175, "y": 261 }
+            }
         }
     },
     "talents": {

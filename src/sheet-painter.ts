@@ -436,14 +436,24 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                             })
                         );
                         break;
+                    case Step.EXPERTISE:
+                        // Skillset
+                        const { skillset } = talent;
+                        if (skillset === 'skullduggery')
+                            drawRoughDot(roughCanvas, sheetData.paths.rogue.skillset.skullduggery, color);
+                        if (skillset === 'assassination')
+                            drawRoughDot(roughCanvas, sheetData.paths.rogue.skillset.assassination, color);
+                        break;
+                    case Step.ELDRITCH_AFFINITY:
+                        break;
                 }
             }
 
-            // for (let i = 0; i < 4; i++) {
-            //     notesArray.push(
-            //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-            //     );
-            // }
+            for (let i = 0; i < 4; i++) {
+                notesArray.push(
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+                );
+            }
 
             // Write notes, use the path notes if available
             const notes = pathData.notes ? pathData.notes : sheetData.notes;
