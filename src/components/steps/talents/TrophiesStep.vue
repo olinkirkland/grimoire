@@ -95,8 +95,9 @@ function onClickRemoveTrophy(index: number) {
 .added-trophies-card {
     ul {
         width: 100%;
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
         > .card {
             flex-direction: row;
             justify-content: space-between;
@@ -115,5 +116,8 @@ function onClickRemoveTrophy(index: number) {
 }
 
 @media (max-width: 768px) {
+    :deep(.added-trophies-card ul) {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
