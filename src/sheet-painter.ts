@@ -191,13 +191,7 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                             );
                         break;
                     case Step.FRENZY:
-                        // frenzySources: [], // could be 0, 1, or more
-                        // notFrenzySources: [], // could be 0, 1, or more
-                        // scars: ['', '', '']
-
                         // Source
-                        // if (talent.source) const combinedSources = t(`Step.Frenzy.${talent.source}`);
-                        // If there are sources only
                         if (talent.frenzySources.length > 0 || talent.notFrenzySources.length > 0) {
                             if (talent.frenzySources.length > 0 && talent.notFrenzySources.length > 0) {
                                 // If there are both sources and notSources
@@ -303,6 +297,26 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                                     `${t('Step.True-shape.Painter.true-shape-no-wild-talent', { shape: t(`Step.True-shape.${shape}`) })}`
                                 );
                             }
+                        }
+                        break;
+                    case Step.WEAPON_MASTERY:
+                        const { style, origin } = talent;
+                        if (style.length > 0)
+                            notesArray.push(`${t('Step.Weapon-mastery.Painter.weapon-style', { style })}`);
+                        if (origin.length > 0)
+                            notesArray.push(`${t('Step.Weapon-mastery.Painter.weapon-origin', { origin })}`);
+                        break;
+                    case Step.ARCANE_TRAINING:
+                        const { theorems } = talent;
+                        if (theorems.length > 0) {
+                            const theoremsStrings = theorems.map((theorem: { name: string; magicSchool: string }) => {
+                                const { name, magicSchool } = theorem;
+                                return name + ` (${magicSchool})`;
+                            });
+
+                            notesArray.push(
+                                `${t('Step.Arcane-training.Painter.theorems', { theorems: joinStrings(theoremsStrings) })}`
+                            );
                         }
                         break;
                 }

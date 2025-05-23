@@ -159,7 +159,8 @@ export function getTalentTemplate(key: string): any | null {
         case Step.WEAPON_MASTERY:
             return {
                 origin: '',
-                originCrucible: ''
+                originCrucible: '',
+                style: ''
             };
         case Step.DISCIPLINE:
             return {
