@@ -162,6 +162,9 @@
                     "width": 215
                 }
             ]
+        },
+        "druid": {
+            "notes": { "x": 1145, "y": 1120, "width": 980, "maxLines": 3 }
         }
     },
     "talents": {

@@ -283,6 +283,28 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                         });
 
                         break;
+                    case Step.WILD_SHAPE:
+                        // Druidic tells
+                        if (talent.druidicTells.length > 0) {
+                            notesArray.push(
+                                `${t('Step.Wild-shape.Painter.druidic-tells', { tells: talent.druidicTells })}`
+                            );
+                        }
+                        break;
+                    case Step.TRUE_SHAPE:
+                        const { shape, wildTalents } = talent;
+                        if (shape.length > 0) {
+                            if (wildTalents.length > 0) {
+                                notesArray.push(
+                                    `${t('Step.True-shape.Painter.true-shape', { shape, wildTalents: joinStrings(wildTalents, ', ') })}`
+                                );
+                            } else {
+                                notesArray.push(
+                                    `${t('Step.True-shape.Painter.true-shape-no-wild-talent', { shape: t(`Step.True-shape.${shape}`) })}`
+                                );
+                            }
+                        }
+                        break;
                 }
             }
 
