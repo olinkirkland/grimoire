@@ -244,7 +244,8 @@
             "skillset": {
                 "skullduggery": { "x": 1175, "y": 229 },
                 "assassination": { "x": 1175, "y": 261 }
-            }
+            },
+            "eldritch-affinity": { "x": 1173, "y": 642, "width": 950 }
         }
     },
     "talents": {

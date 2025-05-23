@@ -17,9 +17,7 @@
                         v-for="(magicPath, index) in magicPathsData"
                         :key="index"
                         @click="onToggleMagicPath(magicPath)"
-                        :selected="
-                            adventurer.talentsData[Step.ELDRITCH_AFFINITY].magicPathsAndTechniques.includes(magicPath)
-                        "
+                        :selected="adventurer.talentsData[Step.ELDRITCH_AFFINITY].magicPaths.includes(magicPath)"
                     >
                         <span>{{ t(`Step.Sorcery.Magic-paths.${magicPath}`) }}</span>
                         <em class="text-center">{{ t(`Step.Sorcery.Magic-paths.label`) }}</em>
@@ -27,16 +25,12 @@
                 </ul>
                 <ul class="magic-techniques">
                     <ToggleCard
-                        v-for="(magicTechnique, index) in magicTechniquesData"
+                        v-for="(technique, index) in magicTechniquesData"
                         :key="index"
-                        @click="onToggleMagicPath(magicTechnique)"
-                        :selected="
-                            adventurer.talentsData[Step.ELDRITCH_AFFINITY].magicPathsAndTechniques.includes(
-                                magicTechnique
-                            )
-                        "
+                        @click="onToggleTechnique(technique)"
+                        :selected="adventurer.talentsData[Step.ELDRITCH_AFFINITY].techniques.includes(technique)"
                     >
-                        <span>{{ t(`Step.Sorcery.Magic-techniques.${magicTechnique}`) }}</span>
+                        <span>{{ t(`Step.Sorcery.Magic-techniques.${technique}`) }}</span>
                         <em class="text-center">{{ t(`Step.Sorcery.Magic-techniques.label`) }}</em>
                     </ToggleCard>
                 </ul>
@@ -64,9 +58,15 @@ const props = defineProps({
 const talent = talentDefinitionsData.find((talent) => talent.id === Step.ELDRITCH_AFFINITY)!;
 
 function onToggleMagicPath(magicPath: string) {
-    const index = props.adventurer.talentsData[Step.ELDRITCH_AFFINITY].magicPathsAndTechniques.indexOf(magicPath);
-    if (index === -1) props.adventurer.talentsData[Step.ELDRITCH_AFFINITY].magicPathsAndTechniques.push(magicPath);
-    else props.adventurer.talentsData[Step.ELDRITCH_AFFINITY].magicPathsAndTechniques.splice(index, 1);
+    const index = props.adventurer.talentsData[Step.ELDRITCH_AFFINITY].magicPaths.indexOf(magicPath);
+    if (index === -1) props.adventurer.talentsData[Step.ELDRITCH_AFFINITY].magicPaths.push(magicPath);
+    else props.adventurer.talentsData[Step.ELDRITCH_AFFINITY].magicPaths.splice(index, 1);
+}
+
+function onToggleTechnique(magicTechnique: string) {
+    const index = props.adventurer.talentsData[Step.ELDRITCH_AFFINITY].techniques.indexOf(magicTechnique);
+    if (index === -1) props.adventurer.talentsData[Step.ELDRITCH_AFFINITY].techniques.push(magicTechnique);
+    else props.adventurer.talentsData[Step.ELDRITCH_AFFINITY].techniques.splice(index, 1);
 }
 </script>
 

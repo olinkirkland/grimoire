@@ -444,20 +444,78 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                         if (skillset === 'assassination')
                             drawRoughDot(roughCanvas, sheetData.paths.rogue.skillset.assassination, color);
 
-                        // TODO: Guild traits
-                        // TODO: Not guild traits
-                        // TODO: Criminal history
+                        // Guild
+                        const { guildTraits, notGuildTraits } = talent;
+                        if (guildTraits.length > 0) {
+                            notesArray.push(
+                                t(`Step.Expertise.Painter.guild-traits`, {
+                                    traits: joinStrings(
+                                        guildTraits.map((trait: string) =>
+                                            t(`Step.Expertise.Thieves-guild.Table.${trait}`)
+                                        )
+                                    )
+                                })
+                            );
+                        }
+                        if (notGuildTraits.length > 0) {
+                            notesArray.push(
+                                t(`Step.Expertise.Painter.not-guild-traits`, {
+                                    traits: joinStrings(
+                                        notGuildTraits.map((trait: string) =>
+                                            t(`Step.Expertise.Thieves-guild.Table.${trait}`)
+                                        )
+                                    )
+                                })
+                            );
+                        }
+
+                        // Criminal history
+                        const { crime } = talent;
+                        if (crime.length > 0) {
+                            notesArray.push(
+                                t(`Step.Expertise.Painter.criminal-history`, {
+                                    crime
+                                })
+                            );
+                        }
                         break;
                     case Step.ELDRITCH_AFFINITY:
+                        const { magicPaths, techniques } = talent;
+                        const magicPathsAndTechniques = [];
+                        if (magicPaths.length > 0) {
+                            magicPathsAndTechniques.push(
+                                t(`Step.Eldritch-affinity.Painter.magic-paths`, {
+                                    magicPaths: joinStrings(magicPaths)
+                                })
+                            );
+                        }
+                        if (techniques.length > 0) {
+                            magicPathsAndTechniques.push(
+                                t(`Step.Eldritch-affinity.Painter.techniques`, {
+                                    techniques: joinStrings(techniques)
+                                })
+                            );
+                        }
+                        if (magicPathsAndTechniques.length > 0)
+                            writeText(
+                                ctx,
+                                joinStrings(magicPathsAndTechniques, ' ... '),
+                                sheetData.paths.rogue['eldritch-affinity'].x,
+                                sheetData.paths.rogue['eldritch-affinity'].y,
+                                sheetData.paths.rogue['eldritch-affinity'].width,
+                                smallFont,
+                                2,
+                                'middle'
+                            );
                         break;
                 }
             }
 
-            for (let i = 0; i < 4; i++) {
-                notesArray.push(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-                );
-            }
+            // for (let i = 0; i < 4; i++) {
+            //     notesArray.push(
+            //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+            //     );
+            // }
 
             // Write notes, use the path notes if available
             const notes = pathData.notes ? pathData.notes : sheetData.notes;
