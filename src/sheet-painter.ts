@@ -341,15 +341,7 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                         );
                         break;
                     case Step.PRIMORDIAL_FORCES:
-                        const { takenAgain, forces } = talent;
-                        // If taken again, bubble in the second talent
-                        if (takenAgain) {
-                            const secondTalentName = talent + '-2';
-                            const point2 = sheetData.talents[secondTalentName as keyof typeof sheetData.talents];
-                            if (point2) drawRoughDot(roughCanvas, point2, color);
-                        }
-
-                        // Circle each force (word circle)
+                        const { forces } = talent;
                         forces.forEach((force: 'fire' | 'earth' | 'air' | 'water') => {
                             const forcePoint = sheetData.paths.monk['primordial-forces'][force];
                             if (forcePoint) {
@@ -374,8 +366,8 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                         break;
                     case Step.DIVINE_BLESSING:
                         // God
-                        const { name, epithet } = talent.god;
-                        const combinedName = joinStrings([name, epithet], ', ');
+                        const { god } = talent;
+                        const combinedName = joinStrings([god.name, god.epithet], ', ');
                         notesArray.push(`${t('Step.Divine-blessing.Painter.god', { name: combinedName })}`);
                         // Domain
                         const { domain } = talent;
@@ -387,6 +379,37 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                             const domainText = t('Step.Channel-divinity.Painter.minor-domain', { ...domain });
                             notesArray.push(domainText);
                         }
+                        break;
+                    case Step.ANIMAL_COMPANION:
+                        const { animalName, animalDescription, tricks, flaws } = talent;
+                        // Name and description
+                        if (!animalName && !animalDescription) {
+                            notesArray.push(t(`Step.Animal-companion.Painter.no-animal-name`));
+                        } else {
+                            notesArray.push(
+                                t(`Step.Animal-companion.Painter.animal-name`, {
+                                    name: joinStrings([animalName, animalDescription])
+                                })
+                            );
+                        }
+                        // Tricks
+                        if (tricks.length > 0) {
+                            notesArray.push(
+                                t(`Step.Animal-companion.Painter.tricks`, {
+                                    tricks: joinStrings(tricks)
+                                })
+                            );
+                        }
+                        // Flaws
+                        if (flaws.length > 0) {
+                            notesArray.push(
+                                t(`Step.Animal-companion.Painter.flaws`, {
+                                    flaws: joinStrings(flaws)
+                                })
+                            );
+                        }
+                        break;
+                    case Step.TROPHIES:
                         break;
                 }
             }

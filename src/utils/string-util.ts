@@ -57,5 +57,5 @@ export function capitalizeFirstLetter(name: string) {
  * @returns - The joined string.
  */
 export function joinStrings(strings: string[], separator: string = ' • ') {
-    return strings.filter((str) => str.trim() !== '').join(separator);
+    return strings.filter((str) => !!str && str.trim() !== '').join(separator);
 }

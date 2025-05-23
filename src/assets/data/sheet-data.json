@@ -235,6 +235,9 @@
                     "width": 200
                 }
             }
+        },
+        "ranger": {
+            "notes": { "x": 1145, "y": 1080, "width": 980, "maxLines": 5 }
         }
     },
     "talents": {
