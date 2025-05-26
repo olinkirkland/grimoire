@@ -246,6 +246,10 @@
                 "assassination": { "x": 1175, "y": 261 }
             },
             "eldritch-affinity": { "x": 1173, "y": 642, "width": 950 }
+        },
+        "sorcerer": {
+            "notes": { "x": 1145, "y": 1137, "width": 980, "maxLines": 2 },
+            "sorcery": { "x": 1173, "y": 390, "width": 950 }
         }
     },
     "talents": {

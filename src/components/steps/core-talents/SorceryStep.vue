@@ -10,7 +10,7 @@
                         v-for="(magicPath, index) in magicPathsData"
                         :key="index"
                         @click="onToggleMagicPath(magicPath)"
-                        :selected="adventurer.talentsData[Step.SORCERY].magicPathsAndTechniques.includes(magicPath)"
+                        :selected="adventurer.talentsData[Step.SORCERY].magicPaths.includes(magicPath)"
                     >
                         <span>{{ t(`Step.Sorcery.Magic-paths.${magicPath}`) }}</span>
                         <em class="text-center">{{ t(`Step.Sorcery.Magic-paths.label`) }}</em>
@@ -20,10 +20,8 @@
                     <ToggleCard
                         v-for="(magicTechnique, index) in magicTechniquesData"
                         :key="index"
-                        @click="onToggleMagicPath(magicTechnique)"
-                        :selected="
-                            adventurer.talentsData[Step.SORCERY].magicPathsAndTechniques.includes(magicTechnique)
-                        "
+                        @click="onToggleTechnique(magicTechnique)"
+                        :selected="adventurer.talentsData[Step.SORCERY].techniques.includes(magicTechnique)"
                     >
                         <span>{{ t(`Step.Sorcery.Magic-techniques.${magicTechnique}`) }}</span>
                         <em class="text-center">{{ t(`Step.Sorcery.Magic-techniques.label`) }}</em>
@@ -73,9 +71,15 @@ const props = defineProps({
 });
 
 function onToggleMagicPath(magicPath: string) {
-    const index = props.adventurer.talentsData[Step.SORCERY].magicPathsAndTechniques.indexOf(magicPath);
-    if (index === -1) props.adventurer.talentsData[Step.SORCERY].magicPathsAndTechniques.push(magicPath);
-    else props.adventurer.talentsData[Step.SORCERY].magicPathsAndTechniques.splice(index, 1);
+    const index = props.adventurer.talentsData[Step.SORCERY].magicPaths.indexOf(magicPath);
+    if (index === -1) props.adventurer.talentsData[Step.SORCERY].magicPaths.push(magicPath);
+    else props.adventurer.talentsData[Step.SORCERY].magicPaths.splice(index, 1);
+}
+
+function onToggleTechnique(technique: string) {
+    const index = props.adventurer.talentsData[Step.SORCERY].techniques.indexOf(technique);
+    if (index === -1) props.adventurer.talentsData[Step.SORCERY].techniques.push(technique);
+    else props.adventurer.talentsData[Step.SORCERY].techniques.splice(index, 1);
 }
 </script>
 

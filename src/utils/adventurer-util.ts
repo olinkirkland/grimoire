@@ -195,7 +195,8 @@ export function getTalentTemplate(key: string): any | null {
             };
         case Step.SORCERY:
             return {
-                magicPathsAndTechniques: [],
+                magicPaths: [],
+                techniques: [],
                 wildSurgeCrucibles: {
                     a: '',
                     b: ''

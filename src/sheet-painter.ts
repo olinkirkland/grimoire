@@ -508,6 +508,40 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                                 'middle'
                             );
                         break;
+                    case Step.SORCERY:
+                        const sorceryMagicPaths = talent.magicPaths;
+                        const sorceryTechniques = talent.techniques;
+                        const sorceryPathsAndTechniques = [];
+                        if (sorceryMagicPaths.length > 0) {
+                            sorceryPathsAndTechniques.push(
+                                t(`Step.Sorcery.Painter.magic-paths`, {
+                                    magicPaths: joinStrings(sorceryMagicPaths)
+                                })
+                            );
+                        }
+                        if (sorceryTechniques.length > 0) {
+                            sorceryPathsAndTechniques.push(
+                                t(`Step.Sorcery.Painter.techniques`, {
+                                    techniques: joinStrings(sorceryTechniques)
+                                })
+                            );
+                        }
+                        if (sorceryPathsAndTechniques.length > 0)
+                            writeText(
+                                ctx,
+                                joinStrings(sorceryPathsAndTechniques, ' ... '),
+                                sheetData.paths.sorcerer.sorcery.x,
+                                sheetData.paths.sorcerer.sorcery.y,
+                                sheetData.paths.sorcerer.sorcery.width,
+                                smallFont,
+                                2,
+                                'middle'
+                            );
+                        break;
+                    case Step.ELDRITCH_GROWTH:
+                        break;
+                    case Step.WISPS:
+                        break;
                 }
             }
 
