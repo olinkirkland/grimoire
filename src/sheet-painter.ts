@@ -546,6 +546,16 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                         );
                         break;
                     case Step.WISPS:
+                        const wispTraits = talent.traits;
+                        if (wispTraits.length > 0) {
+                            notesArray.push(
+                                t(`Step.Wisps.Painter.wisp-traits`, {
+                                    traits: joinStrings(
+                                        wispTraits.map((trait: string) => t(`Step.Wisps.Traits.${trait}`))
+                                    )
+                                })
+                            );
+                        }
                         break;
                 }
             }
