@@ -600,16 +600,40 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                         const { magicSchool } = talent;
                         notesArray.push(
                             t(`Step.Arcane-specialty.Painter.arcane-specialty`, {
-                                magicSchool: t(`Step.Spellcraft.Magic-schools.${capitalizeFirstLetter(magicSchool)}.label`)
+                                magicSchool: t(
+                                    `Step.Spellcraft.Magic-schools.${capitalizeFirstLetter(magicSchool)}.label`
+                                )
                             })
                         );
                         break;
                     case Step.ALCHEMIST:
+                        const recipes = talent.theorems;
+                        if (recipes.length > 0) {
+                            notesArray.push(
+                                t(`Step.Alchemist.Painter.recipes`, {
+                                    recipes: joinStrings(
+                                        recipes.map((recipe: { name: string; magicSchool: string }) => {
+                                            const { name, magicSchool } = recipe;
+                                            return `${name} (${magicSchool})`;
+                                        })
+                                    )
+                                })
+                            );
+                        }
                         break;
-
                     case Step.FAMILIAR:
                         break;
                     case Step.MASTERED_THEOREM:
+                        const theoremIndex = talent.theorem;
+                        const masteredTheorem = adventurer.talentsData[Step.SPELLCRAFT].theorems[theoremIndex];
+                        notesArray.push(
+                            t(`Step.Mastered-theorem.Painter.mastered-theorem`, {
+                                theorem: masteredTheorem.name,
+                                magicSchool: t(
+                                    `Step.Spellcraft.Magic-schools.${capitalizeFirstLetter(masteredTheorem.magicSchool)}.label`
+                                )
+                            })
+                        );
                         break;
                 }
             }
