@@ -539,6 +539,11 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                             );
                         break;
                     case Step.ELDRITCH_GROWTH:
+                        notesArray.push(
+                            t(`Step.Eldritch-growth.Painter.eldritch-growth`, {
+                                growth: talent.name
+                            })
+                        );
                         break;
                     case Step.WISPS:
                         break;
