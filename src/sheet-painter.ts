@@ -4,13 +4,13 @@ import rough from 'roughjs';
 import { RoughCanvas } from 'roughjs/bin/canvas';
 import Adventurer from './adventurer';
 import { t } from './i18n/locale';
+import { Path } from './path';
 import { BASE_URL } from './router';
 import { Step } from './step';
 import { capitalizeFirstLetter, joinStrings } from './utils/string-util';
-import { Path } from './path';
 
 const SHOW_COORDS = false;
-const SHOW_TEXT_BORDERS = true;
+const SHOW_TEXT_BORDERS = false;
 const SHOW_GRID = false;
 
 export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElement> {
@@ -356,6 +356,21 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                             }
                         });
                         break;
+                    case Step.PRIMORDIAL_BONDS:
+                        const primordialBonds = Object.values(talent.bonds).map((bond) => {
+                            const { name, intensity, nature } = bond as {
+                                name: string;
+                                intensity: string;
+                                nature: string;
+                            };
+                            const intensityAndNature = `${joinStrings([intensity, nature], ' ')}`;
+                            return intensity || nature ? `${name} (${intensityAndNature})` : name;
+                        });
+
+                        notesArray.push(
+                            t(`Step.Primordial-bonds.Painter.bonds`, { bonds: joinStrings(primordialBonds) })
+                        );
+                        break;
                     case Step.OATHSWORN:
                         // Enter oath tenets
                         const { tenets } = talent;
@@ -643,12 +658,6 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                         break;
                 }
             }
-
-            // for (let i = 0; i < 4; i++) {
-            //     notesArray.push(
-            //         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-            //     );
-            // }
 
             // Write notes, use the path notes if available
             const notes = pathData.notes ? pathData.notes : sheetData.notes;
