@@ -250,6 +250,47 @@
         "sorcerer": {
             "notes": { "x": 1145, "y": 1137, "width": 980, "maxLines": 2 },
             "sorcery": { "x": 1173, "y": 390, "width": 950 }
+        },
+        "warlock": {
+            "notes": { "x": 1145, "y": 1085, "width": 980, "maxLines": 4 },
+            "otherworldly-form": {
+                "appear-barely-visible": {
+                    "x": 1783,
+                    "y": 744,
+                    "width": 200,
+                    "height": 35
+                },
+                "fly-high-in-the-sky": {
+                    "x": 1968,
+                    "y": 744,
+                    "width": 180,
+                    "height": 35
+                },
+                "interact-with-objects": {
+                    "x": 2100,
+                    "y": 744,
+                    "width": 85,
+                    "height": 30
+                },
+                "move-swiftly": {
+                    "x": 1352,
+                    "y": 770,
+                    "width": 145,
+                    "height": 35
+                },
+                "slip-through-small-gaps": {
+                    "x": 1530,
+                    "y": 770,
+                    "width": 250,
+                    "height": 40
+                },
+                "speak": {
+                    "x": 1686,
+                    "y": 770,
+                    "width": 80,
+                    "height": 25
+                }
+            }
         }
     },
     "talents": {

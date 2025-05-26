@@ -81,6 +81,12 @@
                     </ButtonBar>
                 </div>
             </div>
+            <TextAreaGroup
+                v-model="adventurer.talentsData[Step.PACT].patron.details"
+                :placeholder="t('Step.Pact.Details.placeholder')"
+            >
+                {{ t('Step.Pact.Details.label') }}
+            </TextAreaGroup>
             <div class="crucibles">
                 <CrucibleCard
                     :title="t('Step.Pact.Patron-creation.Crucibles.Nature.label')"
@@ -103,6 +109,7 @@
 import Adventurer from '@/adventurer';
 import nameTablesData from '@/assets/data/patron-name-tables.json';
 import patronTrappingsData from '@/assets/data/patron-trappings.json';
+import TextAreaGroup from '@/components/ui/TextAreaGroup.vue';
 import { t } from '@/i18n/locale';
 import { Step } from '@/step';
 

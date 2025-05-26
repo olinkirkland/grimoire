@@ -7,6 +7,7 @@ import { t } from './i18n/locale';
 import { BASE_URL } from './router';
 import { Step } from './step';
 import { joinStrings } from './utils/string-util';
+import { Path } from './path';
 
 const SHOW_COORDS = false;
 const SHOW_TEXT_BORDERS = true;
@@ -553,6 +554,31 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                                     traits: joinStrings(
                                         wispTraits.map((trait: string) => t(`Step.Wisps.Traits.${trait}`))
                                     )
+                                })
+                            );
+                        }
+                        break;
+                    case Step.PACT:
+                        // name, nature, desires, communication, followerSize, knownFacts, color
+                        const { patron } = talent;
+                        notesArray.push(t(`Step.Pact.Painter.patron`, { ...patron }));
+                        break;
+                    case Step.OTHERWORLDLY_FORM:
+                        const otherworldlyFormEffects = talent.effects;
+                        console.log(otherworldlyFormEffects);
+                        if (adventurer.path === Path.WARLOCK) {
+                            // TODO: Circle them
+                            otherworldlyFormEffects.forEach((effect: string) => {
+                                const point =
+                                    sheetData.paths.warlock['otherworldly-form'][
+                                        effect as keyof (typeof sheetData.paths.warlock)['otherworldly-form']
+                                    ];
+                                drawRoughCircle(roughCanvas, point, color, point.width, point.height);
+                            });
+                        } else {
+                            notesArray.push(
+                                t(`Step.Otherworldly-form.Painter.otherworldly-form`, {
+                                    effects: joinStrings(otherworldlyFormEffects)
                                 })
                             );
                         }

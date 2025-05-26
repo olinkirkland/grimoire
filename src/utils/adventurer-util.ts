@@ -206,11 +206,9 @@ export function getTalentTemplate(key: string): any | null {
             return {
                 patron: {
                     name: '',
-                    nature: '',
-                    desires: '',
                     communication: '',
                     followerSize: 'some',
-                    knownFacts: '',
+                    details: '',
                     color: '',
                     patronCrucibles: {
                         nature: '',
