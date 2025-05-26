@@ -6,7 +6,7 @@ import Adventurer from './adventurer';
 import { t } from './i18n/locale';
 import { BASE_URL } from './router';
 import { Step } from './step';
-import { joinStrings } from './utils/string-util';
+import { capitalizeFirstLetter, joinStrings } from './utils/string-util';
 import { Path } from './path';
 
 const SHOW_COORDS = false;
@@ -582,6 +582,34 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                                 })
                             );
                         }
+                        break;
+                    case Step.SPELLCRAFT:
+                        const spellcraftTheorems = talent.theorems;
+                        notesArray.push(
+                            t(`Step.Spellcraft.Painter.theorems`, {
+                                theorems: joinStrings(
+                                    spellcraftTheorems.map((theorem: { name: string; magicSchool: string }) => {
+                                        const { name, magicSchool } = theorem;
+                                        return `${name} (${magicSchool})`;
+                                    })
+                                )
+                            })
+                        );
+                        break;
+                    case Step.ARCANE_SPECIALTY:
+                        const { magicSchool } = talent;
+                        notesArray.push(
+                            t(`Step.Arcane-specialty.Painter.arcane-specialty`, {
+                                magicSchool: t(`Step.Spellcraft.Magic-schools.${capitalizeFirstLetter(magicSchool)}.label`)
+                            })
+                        );
+                        break;
+                    case Step.ALCHEMIST:
+                        break;
+
+                    case Step.FAMILIAR:
+                        break;
+                    case Step.MASTERED_THEOREM:
                         break;
                 }
             }

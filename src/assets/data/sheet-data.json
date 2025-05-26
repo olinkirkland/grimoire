@@ -291,6 +291,9 @@
                     "height": 25
                 }
             }
+        },
+        "wizard": {
+            "notes": { "x": 1145, "y": 1083, "width": 980, "maxLines": 4 }
         }
     },
     "talents": {
