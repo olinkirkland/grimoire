@@ -622,6 +622,12 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                         }
                         break;
                     case Step.FAMILIAR:
+                        notesArray.push(
+                            t(`Step.Familiar.Painter.familiar`, {
+                                name: talent.name,
+                                description: talent.description
+                            })
+                        );
                         break;
                     case Step.MASTERED_THEOREM:
                         const theoremIndex = talent.theorem;
