@@ -181,16 +181,12 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
             for (const [key, talent] of Object.entries(adventurer.talentsData)) {
                 // if (adventurer.path && isTalentInPath(key, adventurer.path))
                 switch (key) {
+                    // Core Talents
                     case Step.BARDSONG:
+                        // Core Talent
                         notesArray.push(
                             `${t(`Step.Bardsong.Painter.bardic-instrument`, { instrument: talent.bardicInstrument })}`
                         );
-                        break;
-                    case Step.BARDIC_LORE:
-                        if (talent.wises.length > 0)
-                            notesArray.push(
-                                `${t('Step.Bardic-lore.Painter.wises', { wises: joinStrings(adventurer.talentsData[Step.BARDIC_LORE].wises) })}`
-                            );
                         break;
                     case Step.FRENZY:
                         // Source
@@ -243,10 +239,6 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                         // Scars
                         notesArray.push(t(`Step.Frenzy.Painter.scars`, { scars: joinStrings(talent.scars) }));
                         break;
-                    case Step.WARSONGS:
-                        const combinedSongs = joinStrings(talent.songs);
-                        notesArray.push(`${t('Step.Warsongs.Painter.warsongs', { warsongs: combinedSongs })}`);
-                        break;
                     case Step.CHANNEL_DIVINITY:
                         // Name and Epithet
                         if (talent.god.name || talent.god.epithet) {
@@ -287,6 +279,152 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                             );
                         }
                         break;
+                    case Step.WEAPON_MASTERY:
+                        // Core Talent
+                        const { style, origin } = talent;
+                        if (style.length > 0) {
+                            const styleKey = style as keyof (typeof sheetData.paths.fighter)['weapon-mastery'];
+                            const point = sheetData.paths.fighter['weapon-mastery'][styleKey];
+                            if (point) drawRoughCircle(roughCanvas, point, color, point.width, point.height);
+                        }
+                        if (origin.length > 0)
+                            notesArray.push(`${t('Step.Weapon-mastery.Painter.weapon-origin', { origin })}`);
+                        break;
+                    case Step.DISCIPLINE:
+                        const { concepts, stances, weapons } = talent.martialArtsStyle;
+                        const partsArray = [];
+                        if (concepts.length > 0) partsArray.push(t('Step.Discipline.Painter.concepts', { concepts }));
+                        if (stances.length > 0) partsArray.push(t('Step.Discipline.Painter.stances', { stances }));
+                        if (weapons.length > 0) partsArray.push(t('Step.Discipline.Painter.weapons', { weapons }));
+                        notesArray.push(
+                            t(`Step.Discipline.Painter.martial-arts-style`, {
+                                style: joinStrings(partsArray)
+                            })
+                        );
+                        break;
+                    case Step.OATHSWORN:
+                        // Enter oath tenets
+                        const { tenets } = talent;
+                        for (let i = 0; i < Math.min(tenets.length, 3); i++) {
+                            const tenet = tenets[i];
+                            const { x, y, width, maxLines } = sheetData.paths.paladin.oathsworn.tenets[i];
+                            writeText(ctx, tenet, x, y, width, smallFont, maxLines, 'middle');
+                        }
+                        break;
+                    case Step.HUNTERS_MARK:
+                        const { traps } = talent;
+                        if (traps.length > 0) {
+                            notesArray.push(
+                                t(`Step.Hunters-mark.Painter.traps`, {
+                                    traps: joinStrings(traps)
+                                })
+                            );
+                        }
+
+                        break;
+                    case Step.EXPERTISE:
+                        // Skillset
+                        const { skillset } = talent;
+                        if (skillset === 'skullduggery')
+                            drawRoughDot(roughCanvas, sheetData.paths.rogue.skillset.skullduggery, color);
+                        if (skillset === 'assassination')
+                            drawRoughDot(roughCanvas, sheetData.paths.rogue.skillset.assassination, color);
+
+                        // Guild
+                        const { guildTraits, notGuildTraits } = talent;
+                        if (guildTraits.length > 0) {
+                            notesArray.push(
+                                t(`Step.Expertise.Painter.guild-traits`, {
+                                    traits: joinStrings(
+                                        guildTraits.map((trait: string) =>
+                                            t(`Step.Expertise.Thieves-guild.Table.${trait}`)
+                                        )
+                                    )
+                                })
+                            );
+                        }
+                        if (notGuildTraits.length > 0) {
+                            notesArray.push(
+                                t(`Step.Expertise.Painter.not-guild-traits`, {
+                                    traits: joinStrings(
+                                        notGuildTraits.map((trait: string) =>
+                                            t(`Step.Expertise.Thieves-guild.Table.${trait}`)
+                                        )
+                                    )
+                                })
+                            );
+                        }
+
+                        // Criminal history
+                        const { crime } = talent;
+                        if (crime.length > 0) {
+                            notesArray.push(
+                                t(`Step.Expertise.Painter.criminal-history`, {
+                                    crime
+                                })
+                            );
+                        }
+                        break;
+                    case Step.SORCERY:
+                        const sorceryMagicPaths = talent.magicPaths;
+                        const sorceryTechniques = talent.techniques;
+                        const sorceryPathsAndTechniques = [];
+                        if (sorceryMagicPaths.length > 0) {
+                            sorceryPathsAndTechniques.push(
+                                t(`Step.Sorcery.Painter.magic-paths`, {
+                                    magicPaths: joinStrings(sorceryMagicPaths)
+                                })
+                            );
+                        }
+                        if (sorceryTechniques.length > 0) {
+                            sorceryPathsAndTechniques.push(
+                                t(`Step.Sorcery.Painter.techniques`, {
+                                    techniques: joinStrings(sorceryTechniques)
+                                })
+                            );
+                        }
+                        if (sorceryPathsAndTechniques.length > 0)
+                            writeText(
+                                ctx,
+                                joinStrings(sorceryPathsAndTechniques, ' ... '),
+                                sheetData.paths.sorcerer.sorcery.x,
+                                sheetData.paths.sorcerer.sorcery.y,
+                                sheetData.paths.sorcerer.sorcery.width,
+                                smallFont,
+                                2,
+                                'middle'
+                            );
+                        break;
+                    case Step.PACT:
+                        // name, nature, desires, communication, followerSize, knownFacts, color
+                        const { patron } = talent;
+                        notesArray.push(t(`Step.Pact.Painter.patron`, { ...patron }));
+                        break;
+                    case Step.SPELLCRAFT:
+                        const spellcraftTheorems = talent.theorems;
+                        notesArray.push(
+                            t(`Step.Spellcraft.Painter.theorems`, {
+                                theorems: joinStrings(
+                                    spellcraftTheorems.map((theorem: { name: string; magicSchool: string }) => {
+                                        const { name, magicSchool } = theorem;
+                                        return `${name} (${magicSchool})`;
+                                    })
+                                )
+                            })
+                        );
+                        break;
+
+                    // Talents
+                    case Step.BARDIC_LORE:
+                        if (talent.wises.length > 0)
+                            notesArray.push(
+                                `${t('Step.Bardic-lore.Painter.wises', { wises: joinStrings(adventurer.talentsData[Step.BARDIC_LORE].wises) })}`
+                            );
+                        break;
+                    case Step.WARSONGS:
+                        const combinedSongs = joinStrings(talent.songs);
+                        notesArray.push(`${t('Step.Warsongs.Painter.warsongs', { warsongs: combinedSongs })}`);
+                        break;
                     case Step.TRUE_SHAPE:
                         const { shape, wildTalents } = talent;
                         if (shape.length > 0) {
@@ -300,22 +438,6 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                                 );
                             }
                         }
-                        break;
-                    case Step.WEAPON_MASTERY:
-                        const { style, origin } = talent;
-                        if (style.length > 0) {
-                            if (adventurer.path === Path.FIGHTER) {
-                                const styleKey = style as keyof (typeof sheetData.paths.fighter)['weapon-mastery'];
-                                const point = sheetData.paths.fighter['weapon-mastery'][styleKey];
-                                if (point) drawRoughCircle(roughCanvas, point, color, point.width, point.height);
-                            } else {
-                                notesArray.push(
-                                    `${t('Step.Weapon-mastery.Painter.weapon-style', { style: t(`Step.Weapon-mastery.Styles.${style}`) })}`
-                                );
-                            }
-                        }
-                        if (origin.length > 0)
-                            notesArray.push(`${t('Step.Weapon-mastery.Painter.weapon-origin', { origin })}`);
                         break;
                     case Step.ARCANE_TRAINING:
                         const { theorems } = talent;
@@ -337,18 +459,6 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                                 2
                             );
                         }
-                        break;
-                    case Step.DISCIPLINE:
-                        const { concepts, stances, weapons } = talent.martialArtsStyle;
-                        const partsArray = [];
-                        if (concepts.length > 0) partsArray.push(t('Step.Discipline.Painter.concepts', { concepts }));
-                        if (stances.length > 0) partsArray.push(t('Step.Discipline.Painter.stances', { stances }));
-                        if (weapons.length > 0) partsArray.push(t('Step.Discipline.Painter.weapons', { weapons }));
-                        notesArray.push(
-                            t(`Step.Discipline.Painter.martial-arts-style`, {
-                                style: joinStrings(partsArray)
-                            })
-                        );
                         break;
                     case Step.PRIMORDIAL_FORCES:
                         const { forces } = talent;
@@ -380,15 +490,6 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                             t(`Step.Primordial-bonds.Painter.bonds`, { bonds: joinStrings(primordialBonds) })
                         );
                         break;
-                    case Step.OATHSWORN:
-                        // Enter oath tenets
-                        const { tenets } = talent;
-                        for (let i = 0; i < Math.min(tenets.length, 3); i++) {
-                            const tenet = tenets[i];
-                            const { x, y, width, maxLines } = sheetData.paths.paladin.oathsworn.tenets[i];
-                            writeText(ctx, tenet, x, y, width, smallFont, maxLines, 'middle');
-                        }
-                        break;
                     case Step.DIVINE_BLESSING:
                         // God
                         const { god } = talent;
@@ -404,17 +505,6 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                             const domainText = t('Step.Channel-divinity.Painter.minor-domain', { ...domain });
                             notesArray.push(domainText);
                         }
-                        break;
-                    case Step.HUNTERS_MARK:
-                        const { traps } = talent;
-                        if (traps.length > 0) {
-                            notesArray.push(
-                                t(`Step.Hunters-mark.Painter.traps`, {
-                                    traps: joinStrings(traps)
-                                })
-                            );
-                        }
-
                         break;
                     case Step.ANIMAL_COMPANION:
                         const { tricks, flaws } = talent;
@@ -461,49 +551,6 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                             })
                         );
                         break;
-                    case Step.EXPERTISE:
-                        // Skillset
-                        const { skillset } = talent;
-                        if (skillset === 'skullduggery')
-                            drawRoughDot(roughCanvas, sheetData.paths.rogue.skillset.skullduggery, color);
-                        if (skillset === 'assassination')
-                            drawRoughDot(roughCanvas, sheetData.paths.rogue.skillset.assassination, color);
-
-                        // Guild
-                        const { guildTraits, notGuildTraits } = talent;
-                        if (guildTraits.length > 0) {
-                            notesArray.push(
-                                t(`Step.Expertise.Painter.guild-traits`, {
-                                    traits: joinStrings(
-                                        guildTraits.map((trait: string) =>
-                                            t(`Step.Expertise.Thieves-guild.Table.${trait}`)
-                                        )
-                                    )
-                                })
-                            );
-                        }
-                        if (notGuildTraits.length > 0) {
-                            notesArray.push(
-                                t(`Step.Expertise.Painter.not-guild-traits`, {
-                                    traits: joinStrings(
-                                        notGuildTraits.map((trait: string) =>
-                                            t(`Step.Expertise.Thieves-guild.Table.${trait}`)
-                                        )
-                                    )
-                                })
-                            );
-                        }
-
-                        // Criminal history
-                        const { crime } = talent;
-                        if (crime.length > 0) {
-                            notesArray.push(
-                                t(`Step.Expertise.Painter.criminal-history`, {
-                                    crime
-                                })
-                            );
-                        }
-                        break;
                     case Step.ELDRITCH_AFFINITY:
                         const { magicPaths, techniques } = talent;
                         const magicPathsAndTechniques = [];
@@ -533,36 +580,6 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                                 'middle'
                             );
                         break;
-                    case Step.SORCERY:
-                        const sorceryMagicPaths = talent.magicPaths;
-                        const sorceryTechniques = talent.techniques;
-                        const sorceryPathsAndTechniques = [];
-                        if (sorceryMagicPaths.length > 0) {
-                            sorceryPathsAndTechniques.push(
-                                t(`Step.Sorcery.Painter.magic-paths`, {
-                                    magicPaths: joinStrings(sorceryMagicPaths)
-                                })
-                            );
-                        }
-                        if (sorceryTechniques.length > 0) {
-                            sorceryPathsAndTechniques.push(
-                                t(`Step.Sorcery.Painter.techniques`, {
-                                    techniques: joinStrings(sorceryTechniques)
-                                })
-                            );
-                        }
-                        if (sorceryPathsAndTechniques.length > 0)
-                            writeText(
-                                ctx,
-                                joinStrings(sorceryPathsAndTechniques, ' ... '),
-                                sheetData.paths.sorcerer.sorcery.x,
-                                sheetData.paths.sorcerer.sorcery.y,
-                                sheetData.paths.sorcerer.sorcery.width,
-                                smallFont,
-                                2,
-                                'middle'
-                            );
-                        break;
                     case Step.ELDRITCH_GROWTH:
                         notesArray.push(
                             t(`Step.Eldritch-growth.Painter.eldritch-growth`, {
@@ -581,11 +598,6 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                                 })
                             );
                         }
-                        break;
-                    case Step.PACT:
-                        // name, nature, desires, communication, followerSize, knownFacts, color
-                        const { patron } = talent;
-                        notesArray.push(t(`Step.Pact.Painter.patron`, { ...patron }));
                         break;
                     case Step.OTHERWORLDLY_FORM:
                         const otherworldlyFormEffects = talent.effects;
@@ -606,19 +618,6 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                                 })
                             );
                         }
-                        break;
-                    case Step.SPELLCRAFT:
-                        const spellcraftTheorems = talent.theorems;
-                        notesArray.push(
-                            t(`Step.Spellcraft.Painter.theorems`, {
-                                theorems: joinStrings(
-                                    spellcraftTheorems.map((theorem: { name: string; magicSchool: string }) => {
-                                        const { name, magicSchool } = theorem;
-                                        return `${name} (${magicSchool})`;
-                                    })
-                                )
-                            })
-                        );
                         break;
                     case Step.ARCANE_SPECIALTY:
                         const { magicSchool } = talent;
