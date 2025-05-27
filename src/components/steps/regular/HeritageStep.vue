@@ -91,7 +91,7 @@ function onClickGenerateHeritage() {
         heritagesData.mood[Math.floor(Math.random() * heritagesData.mood.length)]);
     const land = (props.adventurer.heritageCrucibles.land =
         heritagesData.land[Math.floor(Math.random() * heritagesData.land.length)]);
-    const templates = ['of-the', 'land-folk'];
+    const templates = ['folk-of-the-mood-land', 'folk-of-the-land', 'land-folk'];
     props.adventurer.heritage.name = t(
         `Step.Heritage.Templates.${templates[Math.floor(Math.random() * templates.length)]}`,
         {

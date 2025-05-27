@@ -30,14 +30,14 @@
             </p>
         </Card>
         <Card>
-            <ButtonBar>
-                <InputGroup :placeholder="t(`Step.Trophies.Name.placeholder`)" v-model="nameInput">
-                    {{ t('Step.Trophies.Name.label') }}
-                </InputGroup>
-                <Button @click="onClickAddTrophy" :disabled="!nameInput || !descriptionInput">
-                    <i class="fas fa-plus"></i>
-                </Button>
-            </ButtonBar>
+            <InputGroup :placeholder="t(`Step.Trophies.Name.placeholder`)" v-model="nameInput">
+                {{ t('Step.Trophies.Name.label') }}
+                <template #append>
+                    <Button @click="onClickAddTrophy" :disabled="!nameInput || !descriptionInput">
+                        <i class="fas fa-plus"></i>
+                    </Button>
+                </template>
+            </InputGroup>
             <InputGroup :placeholder="t(`Step.Trophies.Description.placeholder`)" v-model="descriptionInput">
                 {{ t('Step.Trophies.Description.label') }}
             </InputGroup>

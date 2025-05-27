@@ -93,7 +93,6 @@ function onPressEnterKey() {
     position: relative;
     display: flex;
     align-items: center;
-    gap: 0.4rem;
     border-radius: 5px;
     height: 3.2rem;
     width: 100%;
@@ -101,10 +100,6 @@ function onPressEnterKey() {
     background-color: var(--background);
     border: 1px solid var(--surface-alt);
     outline: none;
-
-    &.is-append-slot-empty {
-        padding-right: 0.8rem;
-    }
 
     &:focus-within {
         outline: 2px solid var(--primary-alt);
@@ -132,6 +127,11 @@ function onPressEnterKey() {
     > .append {
         position: relative;
         right: -1px;
+
+        :deep(.btn:first-of-type > .btn__content) {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
     }
 
     .is-prepend-slot-empty {
@@ -147,6 +147,7 @@ function onPressEnterKey() {
         height: 100%;
         background-color: transparent;
         color: var(--primary);
+        padding-left: 0.4rem;
 
         &:focus {
             outline: none;
@@ -163,7 +164,7 @@ function onPressEnterKey() {
         color: var(--primary);
         cursor: pointer;
         font-size: 1.2rem;
-        width: 2rem;
+        width: 3.2rem;
         height: 100%;
         left: 0.4rem;
         display: none;
