@@ -739,11 +739,14 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
 
             // Write non-path talents at beginning
             const nonPathTalents = adventurer.talents.filter((talent) => !isTalentInPath(talent, adventurer.path!));
-            notesArray.unshift(
-                t(`Step.Talents.Painter.non-path-talents`, {
-                    talents: joinStrings(nonPathTalents.map((l) => t(`Step.Talents.${capitalizeFirstLetter(l)}.name`)))
-                })
-            );
+            if (nonPathTalents.length > 0)
+                notesArray.unshift(
+                    t(`Step.Talents.Painter.non-path-talents`, {
+                        talents: joinStrings(
+                            nonPathTalents.map((l) => t(`Step.Talents.${capitalizeFirstLetter(l)}.name`))
+                        )
+                    })
+                );
 
             // Write notes, use the path notes if available
             const notes = pathData.notes ? pathData.notes : sheetData.notes;
