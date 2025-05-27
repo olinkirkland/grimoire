@@ -7,6 +7,11 @@
             <section>
                 <InputGroup v-model="adventurer[currentStep].name" :placeholder="t('Step.Background.placeholder')">
                     <span>{{ t('Step.Background.label') }}</span>
+                    <template #append>
+                        <Button @click="onClickRandomBackground">
+                            <i class="fas fa-random"></i>
+                        </Button>
+                    </template>
                 </InputGroup>
             </section>
             <section>
@@ -87,6 +92,11 @@ function makeBackgroundWisesString(wises: string[]) {
 function onClickBackground(background: any, name?: string) {
     props.adventurer[currentStep].name = t(`Step.Background.Names.${background.names[0]}`);
     props.adventurer[currentStep].wises = background.wises.map((wise: string) => t(`Step.Background.Wises.${wise}`));
+}
+
+function onClickRandomBackground() {
+    const randomBackground = backgroundsData[Math.floor(Math.random() * backgroundsData.length)];
+    onClickBackground(randomBackground);
 }
 </script>
 

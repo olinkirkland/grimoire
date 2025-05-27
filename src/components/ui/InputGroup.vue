@@ -164,6 +164,7 @@ function onPressEnterKey() {
         color: var(--primary);
         cursor: pointer;
         font-size: 1.2rem;
+        min-width: 3.2rem;
         width: 3.2rem;
         height: 100%;
         left: 0.4rem;
