@@ -101,9 +101,7 @@ function autoFitTextArea() {
     }
 
     .is-slot-empty {
-        padding: 0;
-        border: none;
-        background: none;
+        display: none;
     }
 
     > textarea {

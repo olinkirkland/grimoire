@@ -4,17 +4,19 @@
             <p v-html="t('Step.Arcs.instructions')"></p>
         </ReferenceCard>
         <Card glass :class="{ empty: adventurer.arcs.length === 0 }">
-            <TextAreaGroup
-                v-for="(arc, index) in adventurer.arcs"
-                v-model="arc.description"
-                :placeholder="t('Step.Arcs.Description.placeholder')"
-                :key="index"
-            >
-                <span>{{ t('Step.Arcs.Description.label') }}</span>
-                <Button @click="removeArc(index)" class="remove-arc" icon mini>
-                    <i class="fas fa-trash"></i>
-                </Button>
-            </TextAreaGroup>
+            <Card v-for="(arc, index) in adventurer.arcs" class="arc-card" :key="index">
+                <header>
+                    <p v-html="t('Step.Arcs.arc-name', { index: (index + 1).toString() })"></p>
+                    <!-- Remove Bond Button -->
+                    <Button @click="removeArc(index)" icon>
+                        <i class="fas fa-trash"></i>
+                    </Button>
+                </header>
+                <div class="arc-card__content">
+                    <TextAreaGroup v-model="arc.description" :placeholder="t('Step.Arcs.Description.placeholder')">
+                    </TextAreaGroup>
+                </div>
+            </Card>
             <Button @click="onClickAddArc" primary full-width-mobile class="add-arc">
                 <i class="fas fa-plus"></i>
                 <span>{{ t('Step.Arcs.add') }}</span>
@@ -45,9 +47,9 @@
 
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
+import arcsData from '@/assets/data/arcs.json';
 import TextAreaGroup from '@/components/ui/TextAreaGroup.vue';
 import { t } from '@/i18n/locale';
-import arcsData from '@/assets/data/arcs.json';
 
 const props = defineProps({
     adventurer: {
@@ -66,15 +68,36 @@ function removeArc(index: number) {
 </script>
 
 <style scoped lang="scss">
-button.remove-arc {
-    margin-left: auto;
-}
-
 button.add-arc {
     margin-left: auto;
 }
 
 .empty button.add-arc {
     margin: 0 auto;
+}
+
+.card.arc-card {
+    padding: 0;
+    gap: 0;
+    header {
+        width: 100%;
+        height: 3.2rem;
+        padding-left: 1rem;
+        padding-right: 0.4rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: var(--overlay);
+        border-bottom: 1px dashed var(--surface-border);
+        overflow: hidden;
+    }
+
+    > .arc-card__content {
+        width: 100%;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
 }
 </style>

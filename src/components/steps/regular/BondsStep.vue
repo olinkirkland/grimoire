@@ -22,11 +22,21 @@
                         <!-- Intensity -->
                         <InputGroup v-model="bond.intensity" :placeholder="t('Step.Bonds.Intensity.placeholder')">
                             <span>{{ t('Step.Bonds.Intensity.label') }}</span>
+                            <template #append>
+                                <Button @click="bond.intensity = getRandomIntensity()">
+                                    <i class="fas fa-random"></i>
+                                </Button>
+                            </template>
                         </InputGroup>
 
                         <!-- Nature -->
                         <InputGroup v-model="bond.nature" :placeholder="t('Step.Bonds.Nature.placeholder')">
                             <span>{{ t('Step.Bonds.Nature.label') }}</span>
+                            <template #append>
+                                <Button @click="bond.nature = getRandomNature()">
+                                    <i class="fas fa-random"></i>
+                                </Button>
+                            </template>
                         </InputGroup>
                     </div>
                     <TextAreaGroup v-model="bond.description" :placeholder="t('Step.Bonds.Description.placeholder')">
@@ -77,6 +87,16 @@ function onClickAddBond() {
 
 function removeBond(index: number) {
     props.adventurer.bonds.splice(index, 1);
+}
+
+function getRandomIntensity() {
+    const intensities = bondsData.intensity;
+    return t(`Step.Bonds.Intensity.${intensities[Math.floor(Math.random() * intensities.length)]}`);
+}
+
+function getRandomNature() {
+    const natures = bondsData.nature;
+    return t(`Step.Bonds.Nature.${natures[Math.floor(Math.random() * natures.length)]}`);
 }
 </script>
 
