@@ -52,6 +52,8 @@ const pathsOrder = [
     Path.SORCERER,
     Path.WARLOCK,
     Path.WIZARD,
+    Path.ARTIFICER,
+    Path.PSION,
     Path.ADVENTURER
 ];
 

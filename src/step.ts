@@ -66,6 +66,8 @@ export const Step = {
     SORCERY: 'sorcery',
     PACT: 'pact',
     SPELLCRAFT: 'spellcraft',
+    AWAKENED_MIND: 'awakened-mind',
+    INGENUITY: 'ingenuity',
 
     // Talents
     BARDIC_LORE: 'bardic-lore',
@@ -102,7 +104,9 @@ export const CoreTalentsByPath = {
     [Path.ROGUE]: Step.EXPERTISE,
     [Path.SORCERER]: Step.SORCERY,
     [Path.WARLOCK]: Step.PACT,
-    [Path.WIZARD]: Step.SPELLCRAFT
+    [Path.WIZARD]: Step.SPELLCRAFT,
+    [Path.ARTIFICER]: Step.INGENUITY,
+    [Path.PSION]: Step.AWAKENED_MIND
 };
 
 export const StepType = {
