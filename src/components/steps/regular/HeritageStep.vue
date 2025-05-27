@@ -7,6 +7,11 @@
             <section>
                 <InputGroup v-model="adventurer.heritage.name" :placeholder="t('Step.Heritage.placeholder')">
                     <span>{{ t('Step.Heritage.label') }}</span>
+                    <template #append>
+                        <Button @click="onClickGenerateHeritage" class="generate-heritage">
+                            <i class="fas fa-magic"></i>
+                        </Button>
+                    </template>
                 </InputGroup>
                 <div class="crucible-cards">
                     <CrucibleCard
@@ -78,6 +83,24 @@ const props = defineProps({
         required: true
     }
 });
+
+function onClickGenerateHeritage() {
+    const folk = (props.adventurer.heritageCrucibles.folk =
+        heritagesData.folk[Math.floor(Math.random() * heritagesData.folk.length)]);
+    const mood = (props.adventurer.heritageCrucibles.mood =
+        heritagesData.mood[Math.floor(Math.random() * heritagesData.mood.length)]);
+    const land = (props.adventurer.heritageCrucibles.land =
+        heritagesData.land[Math.floor(Math.random() * heritagesData.land.length)]);
+    const templates = ['of-the', 'land-folk'];
+    props.adventurer.heritage.name = t(
+        `Step.Heritage.Templates.${templates[Math.floor(Math.random() * templates.length)]}`,
+        {
+            folk: t(`Step.Heritage.Folk.${folk}`),
+            mood: t(`Step.Heritage.Mood.${mood}`),
+            land: t(`Step.Heritage.Land.${land}`)
+        }
+    );
+}
 </script>
 
 <style scoped lang="scss">

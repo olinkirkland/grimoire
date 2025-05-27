@@ -1,6 +1,6 @@
 <template>
-    <div class="input-group">
-        <div class="prepend" :class="{ 'is-slot-empty': isSlotEmpty }">
+    <div class="input-group" :class="{ 'is-append-slot-empty': isAppendSlotEmpty }">
+        <div class="prepend" :class="{ 'is-prepend-slot-empty': isPrependSlotEmpty }">
             <slot></slot>
         </div>
         <input
@@ -21,6 +21,9 @@
         >
             <i class="fas fa-times-circle"></i>
         </button>
+        <div class="append">
+            <slot name="append"></slot>
+        </div>
     </div>
 </template>
 
@@ -50,13 +53,20 @@ function onBlur() {
     });
 }
 
-const isSlotEmpty = computed(() => {
+const isPrependSlotEmpty = computed(() => {
     //@ts-ignore
     const defaultSlot = slots.default?.();
     const children = defaultSlot?.filter((v: any) => v.type !== Comment && v.type !== Text) ?? [];
     if (children.length === 0) return true;
     const firstChild = children[0];
     return firstChild?.children?.length === 0;
+});
+
+const isAppendSlotEmpty = computed(() => {
+    //@ts-ignore
+    const appendSlot = slots.append?.();
+    const children = appendSlot?.filter((v: any) => v.type !== Comment && v.type !== Text) ?? [];
+    return children.length === 0;
 });
 
 function onInput(event: Event) {
@@ -90,9 +100,11 @@ function onPressEnterKey() {
     min-height: 3.2rem;
     background-color: var(--background);
     border: 1px solid var(--surface-alt);
-    padding-right: 0.8rem;
     outline: none;
-    overflow: hidden;
+
+    &.is-append-slot-empty {
+        padding-right: 0.8rem;
+    }
 
     &:focus-within {
         outline: 2px solid var(--primary-alt);
@@ -113,9 +125,16 @@ function onPressEnterKey() {
         height: 100%;
         border-right: 1px solid var(--surface-alt);
         white-space: nowrap;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
     }
 
-    .is-slot-empty {
+    > .append {
+        position: relative;
+        right: -1px;
+    }
+
+    .is-prepend-slot-empty {
         padding: 0;
         border: none;
         background: none;
