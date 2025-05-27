@@ -23,7 +23,7 @@
                     {{ t('Step.Hunters-mark.Traps.label') }} #1
                     <template #append>
                         <Button @click="adventurer.talentsData[Step.HUNTERS_MARK].traps[0] = generateRandomTrap()">
-                            <i class="fas fa-random"></i>
+                            <i class="fas fa-magic"></i>
                         </Button>
                     </template>
                 </InputGroup>
@@ -34,7 +34,7 @@
                     {{ t('Step.Hunters-mark.Traps.label') }} #2
                     <template #append>
                         <Button @click="adventurer.talentsData[Step.HUNTERS_MARK].traps[1] = generateRandomTrap()">
-                            <i class="fas fa-random"></i>
+                            <i class="fas fa-magic"></i>
                         </Button>
                     </template>
                 </InputGroup>

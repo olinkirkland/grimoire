@@ -42,6 +42,11 @@
                 :placeholder="t('Step.Expertise.Crime.placeholder')"
             >
                 {{ t('Step.Expertise.Crime.label') }}
+                <template #append>
+                    <Button @click="onClickGenerateCrime">
+                        <i class="fas fa-magic"></i>
+                    </Button>
+                </template>
             </InputGroup>
             <TableGroup>
                 <TableCard :title="t('Step.Expertise.Crime.Severity.label')" :items="crimeData.severity">
@@ -84,6 +89,24 @@ const props = defineProps({
         required: true
     }
 });
+
+function onClickGenerateCrime() {
+    const severity = crimeData.severity[Math.floor(Math.random() * crimeData.severity.length)];
+    const reputation = crimeData.reputation[Math.floor(Math.random() * crimeData.reputation.length)];
+    const reaction = crimeData.reaction[Math.floor(Math.random() * crimeData.reaction.length)];
+    const nature = crimeData.nature[Math.floor(Math.random() * crimeData.nature.length)];
+    const templates = ['variant-1', 'variant-2'];
+
+    props.adventurer.talentsData[Step.EXPERTISE].crime = t(
+        `Step.Expertise.Crime.Templates.${templates[Math.floor(Math.random() * templates.length)]}`,
+        {
+            severity: t(`Step.Expertise.Crime.Severity.${severity}`),
+            reputation: t(`Step.Expertise.Crime.Reputation.${reputation}`),
+            reaction: t(`Step.Expertise.Crime.Reaction.${reaction}`),
+            nature: t(`Step.Expertise.Crime.Nature.${nature}`)
+        }
+    );
+}
 </script>
 
 <style scoped lang="scss">
