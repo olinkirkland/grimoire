@@ -6,6 +6,7 @@
             <!-- Colors -->
             <ButtonBar class="color-bar">
                 <Button
+                    :disabled="!adventurer.path"
                     v-for="color in colors"
                     :key="color.name"
                     @click="onClickChangeColor(color.value)"
@@ -19,7 +20,7 @@
             <div class="flex wrap full-width">
                 <!-- Export -->
                 <div class="share">
-                    <Button @click="onClickSaveImage">
+                    <Button @click="onClickSaveImage" :disabled="!adventurer.path">
                         <i class="fas fa-download"></i>
                         {{ $t('Step.Review.Save.label') }}
                     </Button>
@@ -38,6 +39,8 @@
                 <!-- Fonts -->
                 <ButtonBar class="font-bar">
                     <Button
+                        :disabled="!adventurer.path"
+                        class="font-button"
                         v-for="font in fonts"
                         :key="font"
                         @click="onClickChangeFont(font.value)"
@@ -48,12 +51,20 @@
                 </ButtonBar>
             </div>
 
-            <Card class="preview-card">
+            <Card class="preview-card" v-if="sheetDataURL">
                 <div class="loader" v-if="isLoading">
                     <i class="fas fa-spinner fa-spin"></i>
                 </div>
                 <img ref="sheetPreview" class="preview" :class="{ 'is-loading': isLoading }" />
             </Card>
+        </Card>
+
+        <Card v-if="!adventurer.path" glass>
+            <p v-html="t('Step.Review.Error.instructions')"></p>
+            <Button @click="onClickGoToPath" primary>
+                <i class="fas fa-arrow-left"></i>
+                <span>{{ t('Step.Review.Error.button') }}</span>
+            </Button>
         </Card>
     </StepFrame>
 </template>
@@ -63,6 +74,7 @@ import Adventurer from '@/adventurer';
 import { t } from '@/i18n/locale';
 import { BASE_URL } from '@/router';
 import { paintSheet } from '@/sheet-painter';
+import { Step } from '@/step';
 import { trackEvent } from '@/tracker';
 import { encodeURI } from '@/utils/adventurer-util';
 import { toFileName } from '@/utils/string-util';
@@ -71,6 +83,10 @@ import { onMounted, ref } from 'vue';
 const props = defineProps({
     adventurer: {
         type: Object as () => Adventurer,
+        required: true
+    },
+    changeStep: {
+        type: Function as unknown as () => (step: string) => void,
         required: true
     }
 });
@@ -130,6 +146,10 @@ const isLoading = ref(true);
 onMounted(() => {
     generateImage();
 });
+
+function onClickGoToPath() {
+    props.changeStep(Step.PATH);
+}
 
 function onClickChangeColor(color: string) {
     props.adventurer.options.color = color;
