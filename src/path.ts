@@ -1,4 +1,5 @@
 export const Path = {
+    ADVENTURER: 'adventurer',
     BARD: 'bard',
     BERSERKER: 'berserker',
     CLERIC: 'cleric',
@@ -10,5 +11,7 @@ export const Path = {
     ROGUE: 'rogue',
     SORCERER: 'sorcerer',
     WARLOCK: 'warlock',
-    WIZARD: 'wizard'
+    WIZARD: 'wizard',
+    PSION: 'psion',
+    ARTIFICER: 'artificer'
 };

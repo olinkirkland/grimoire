@@ -7,7 +7,7 @@ import { t } from './i18n/locale';
 import { Path } from './path';
 import { BASE_URL } from './router';
 import { Step } from './step';
-import { capitalizeFirstLetter, joinStrings } from './utils/string-util';
+import { capitalizeFirstLetter, joinStrings, removeHtmlTags } from './utils/string-util';
 
 const SHOW_COORDS = false;
 const SHOW_TEXT_BORDERS = false;
@@ -412,6 +412,50 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                                 )
                             })
                         );
+                        break;
+                    case Step.CUSTOM:
+                        writeText(
+                            ctx,
+                            talent.name,
+                            sheetData.paths.adventurer.talent.name.x,
+                            sheetData.paths.adventurer.talent.name.y,
+                            sheetData.paths.adventurer.talent.name.width,
+                            bigFont,
+                            1,
+                            'top'
+                        );
+
+                        writeText(
+                            ctx,
+                            talent.description + '\n' + t(`Step.Custom.Growth.label`) + ':' + talent.growth,
+                            sheetData.paths.adventurer.talent.description.x,
+                            sheetData.paths.adventurer.talent.description.y,
+                            sheetData.paths.adventurer.talent.description.width,
+                            smallFont,
+                            sheetData.paths.adventurer.talent.description.maxLines,
+                            'top'
+                        );
+
+                        // Draw a white rectangle
+                        const rect = sheetData.paths.adventurer.rectangle;
+                        ctx.fillStyle = 'white';
+                        ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
+
+                        notesArray.push(t(`Step.Custom.Painter.talents-heading`));
+
+                        // Add a list of all talent names to the notes
+                        const talentNamesAndDescriptions = adventurer.talents.map((l) => {
+                            return (
+                                t(`Step.Talents.${capitalizeFirstLetter(l)}.name`).toUpperCase() +
+                                ': ' +
+                                removeHtmlTags(t(`Step.Talents.${capitalizeFirstLetter(l)}.description`))
+                            );
+                        });
+
+                        notesArray.push(joinStrings(talentNamesAndDescriptions, '\n'));
+                        notesArray.push('   ');
+                        notesArray.push(t(`Step.Custom.Painter.notes-heading`));
+
                         break;
 
                     // Talents

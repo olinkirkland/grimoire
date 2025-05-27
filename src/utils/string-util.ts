@@ -59,3 +59,12 @@ export function capitalizeFirstLetter(name: string) {
 export function joinStrings(strings: string[], separator: string = ' • ') {
     return strings.filter((str) => !!str && str.trim() !== '').join(separator);
 }
+
+/**
+ * This function removes any HTML tags from the string.
+ * @param string - The string to be cleaned.
+ * @returns - The cleaned string without HTML tags.
+ */
+export function removeHtmlTags(string: string) {
+    return string.replace(/<\/?[^>]+(>|$)/g, '');
+}

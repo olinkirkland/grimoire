@@ -32,7 +32,7 @@
                         <i class="fas fa-search"></i>
                     </InputGroup>
                 </div>
-                <ButtonBar v-if="props.adventurer.path">
+                <ButtonBar v-if="props.adventurer.path && props.adventurer.path !== 'adventurer'">
                     <Button @click="filterOnlyMyPath = true" :pressed="filterOnlyMyPath">
                         <span
                             v-html="
@@ -94,7 +94,7 @@ const props = defineProps({
 });
 
 const searchTerm = ref<string>('');
-const filterOnlyMyPath = ref<boolean>(!!props.adventurer.path);
+const filterOnlyMyPath = ref<boolean>(!!props.adventurer.path && props.adventurer.path !== 'adventurer');
 
 const filteredTalents = computed(() => {
     return talentsData

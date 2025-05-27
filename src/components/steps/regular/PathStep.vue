@@ -51,7 +51,8 @@ const pathsOrder = [
     Path.ROGUE,
     Path.SORCERER,
     Path.WARLOCK,
-    Path.WIZARD
+    Path.WIZARD,
+    Path.ADVENTURER
 ];
 
 function getCoreTalentLabel(path: string) {

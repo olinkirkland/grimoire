@@ -116,6 +116,13 @@ export function generateMarkovName(names: string[]): string | null {
  */
 export function getTalentTemplate(key: string): any | null {
     switch (key) {
+        case Step.CUSTOM:
+            return {
+                name: '',
+                description: '',
+                growth: ''
+            };
+            break;
         case Step.BARDSONG:
             return { bardicInstrument: '' };
         case Step.FRENZY:

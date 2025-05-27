@@ -1,6 +1,7 @@
 import { Path } from '@/path';
 import BardsongStep from './components/steps/core-talents/BardsongStep.vue';
 import ChannelDivinityStep from './components/steps/core-talents/ChannelDivinityStep.vue';
+import CustomStep from './components/steps/core-talents/CustomStep.vue';
 import DisciplineStep from './components/steps/core-talents/DisciplineStep.vue';
 import ExpertiseStep from './components/steps/core-talents/ExpertiseStep.vue';
 import FrenzyStep from './components/steps/core-talents/FrenzyStep.vue';
@@ -52,6 +53,7 @@ export const Step = {
     REVIEW: 'review',
 
     // Core Talents
+    CUSTOM: 'custom',
     BARDSONG: 'bardsong',
     FRENZY: 'frenzy',
     CHANNEL_DIVINITY: 'channel-divinity',
@@ -88,6 +90,7 @@ export const Step = {
 };
 
 export const CoreTalentsByPath = {
+    [Path.ADVENTURER]: Step.CUSTOM,
     [Path.BARD]: Step.BARDSONG,
     [Path.BERSERKER]: Step.FRENZY,
     [Path.CLERIC]: Step.CHANNEL_DIVINITY,
@@ -152,6 +155,10 @@ export const StepDefinitions: Record<string, { component: any; type: string }> =
     },
 
     // Core Talents
+    [Step.CUSTOM]: {
+        component: CustomStep,
+        type: StepType.CORE_TALENT
+    },
     [Step.BARDSONG]: {
         component: BardsongStep,
         type: StepType.CORE_TALENT

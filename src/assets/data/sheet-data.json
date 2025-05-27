@@ -302,6 +302,28 @@
         },
         "wizard": {
             "notes": { "x": 1145, "y": 1083, "width": 980, "maxLines": 5 }
+        },
+        "adventurer": {
+            "talent": {
+                "name": {
+                    "x": 1145,
+                    "y": 230,
+                    "width": 980
+                },
+                "description": {
+                    "x": 1145,
+                    "y": 257,
+                    "width": 980,
+                    "maxLines": 6
+                }
+            },
+            "rectangle": {
+                "x": 1140,
+                "y": 450,
+                "width": 995,
+                "height": 680
+            },
+            "notes": { "x": 1145, "y": 460, "width": 980, "maxLines": 30 }
         }
     },
     "talents": {
