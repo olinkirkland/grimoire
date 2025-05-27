@@ -28,15 +28,33 @@
                 <InputGroup
                     v-model="adventurer.talentsData[Step.FRENZY].scars[0]"
                     :placeholder="t('Step.Frenzy.Scars.placeholder-1')"
-                ></InputGroup>
+                >
+                    <template #append>
+                        <Button @click="onClickRandomizeScar(0)">
+                            <i class="fas fa-random"></i>
+                        </Button>
+                    </template>
+                </InputGroup>
                 <InputGroup
                     v-model="adventurer.talentsData[Step.FRENZY].scars[1]"
                     :placeholder="t('Step.Frenzy.Scars.placeholder-2')"
-                ></InputGroup>
+                >
+                    <template #append>
+                        <Button @click="onClickRandomizeScar(1)">
+                            <i class="fas fa-random"></i>
+                        </Button>
+                    </template>
+                </InputGroup>
                 <InputGroup
                     v-model="adventurer.talentsData[Step.FRENZY].scars[2]"
                     :placeholder="t('Step.Frenzy.Scars.placeholder-3')"
-                ></InputGroup>
+                >
+                    <template #append>
+                        <Button @click="onClickRandomizeScar(2)">
+                            <i class="fas fa-random"></i>
+                        </Button>
+                    </template>
+                </InputGroup>
             </ul>
             <TableCard :title="t('Step.Frenzy.Scars.title')" :items="scarsData" :many="true">
                 <template #item="{ item }">
@@ -60,6 +78,11 @@ const props = defineProps({
         required: true
     }
 });
+
+function onClickRandomizeScar(index: number) {
+    const randomScar = scarsData[Math.floor(Math.random() * scarsData.length)];
+    props.adventurer.talentsData[Step.FRENZY].scars[index] = t(`Step.Frenzy.Scars.${randomScar}`);
+}
 </script>
 
 <style scoped lang="scss">
