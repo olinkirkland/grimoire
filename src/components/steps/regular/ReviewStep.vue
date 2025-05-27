@@ -51,7 +51,7 @@
                 </ButtonBar>
             </div>
 
-            <Card class="preview-card" v-if="sheetDataURL">
+            <Card class="preview-card" v-if="adventurer.path">
                 <div class="loader" v-if="isLoading">
                     <i class="fas fa-spinner fa-spin"></i>
                 </div>
@@ -245,7 +245,7 @@ function onClickSaveImage() {
     box-shadow: var(--shadow-sm);
 
     > .loader {
-        position: relative;
+        position: absolute;
         height: 2.4rem;
         width: 2.4rem;
         > i {

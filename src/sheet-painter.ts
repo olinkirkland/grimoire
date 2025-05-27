@@ -425,16 +425,17 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                             'top'
                         );
 
-                        writeText(
-                            ctx,
-                            talent.description + '\n' + t(`Step.Custom.Growth.label`) + ':' + talent.growth,
-                            sheetData.paths.adventurer.talent.description.x,
-                            sheetData.paths.adventurer.talent.description.y,
-                            sheetData.paths.adventurer.talent.description.width,
-                            smallFont,
-                            sheetData.paths.adventurer.talent.description.maxLines,
-                            'top'
-                        );
+                        if (talent.description.length > 0 || talent.growth.length > 0)
+                            writeText(
+                                ctx,
+                                talent.description + '\n' + t(`Step.Custom.Growth.label`) + ':' + talent.growth,
+                                sheetData.paths.adventurer.talent.description.x,
+                                sheetData.paths.adventurer.talent.description.y,
+                                sheetData.paths.adventurer.talent.description.width,
+                                smallFont,
+                                sheetData.paths.adventurer.talent.description.maxLines,
+                                'top'
+                            );
 
                         // Draw a white rectangle
                         const rect = sheetData.paths.adventurer.rectangle;
