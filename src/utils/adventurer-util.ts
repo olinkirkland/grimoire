@@ -181,10 +181,7 @@ export function getTalentTemplate(key: string): any | null {
                 tenets: ['', '', '']
             };
         case Step.HUNTERS_MARK:
-            return {
-                builder: '',
-                traps: ['', '', '']
-            };
+            return { traps: ['', ''] };
         case Step.EXPERTISE:
             return {
                 skillset: '',

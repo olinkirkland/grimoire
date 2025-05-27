@@ -14,28 +14,31 @@
             </div>
         </ReferenceCard>
         <Card class="favorite-traps">
+            <p v-html="t('Step.Hunters-mark.Traps.instructions')"></p>
             <div class="favorite-traps-inputs">
-                <p v-html="t('Step.Hunters-mark.Traps.instructions')"></p>
                 <InputGroup
                     v-model="adventurer.talentsData[Step.HUNTERS_MARK].traps[0]"
                     :placeholder="t('Step.Hunters-mark.Traps.placeholder-1')"
                 >
                     {{ t('Step.Hunters-mark.Traps.label') }} #1
+                    <template #append>
+                        <Button @click="adventurer.talentsData[Step.HUNTERS_MARK].traps[0] = generateRandomTrap()">
+                            <i class="fas fa-random"></i>
+                        </Button>
+                    </template>
                 </InputGroup>
                 <InputGroup
                     v-model="adventurer.talentsData[Step.HUNTERS_MARK].traps[1]"
                     :placeholder="t('Step.Hunters-mark.Traps.placeholder-2')"
                 >
                     {{ t('Step.Hunters-mark.Traps.label') }} #2
-                </InputGroup>
-                <InputGroup
-                    v-model="adventurer.talentsData[Step.HUNTERS_MARK].traps[2]"
-                    :placeholder="t('Step.Hunters-mark.Traps.placeholder-3')"
-                >
-                    {{ t('Step.Hunters-mark.Traps.label') }} #3
+                    <template #append>
+                        <Button @click="adventurer.talentsData[Step.HUNTERS_MARK].traps[1] = generateRandomTrap()">
+                            <i class="fas fa-random"></i>
+                        </Button>
+                    </template>
                 </InputGroup>
             </div>
-            <TrapsCard v-model="adventurer.talentsData[Step.HUNTERS_MARK].builder" />
         </Card>
         <Card class="signs-of-weakness">
             <p v-html="t('Step.Hunters-mark.Signs-of-weakness.instructions')"></p>
@@ -45,7 +48,7 @@
 
 <script setup lang="ts">
 import Adventurer from '@/adventurer';
-import TrapsCard from '@/components/ui/TrapsCard.vue';
+import trapsData from '@/assets/data/traps.json';
 import { t } from '@/i18n/locale';
 import { Step } from '@/step';
 
@@ -55,6 +58,30 @@ const props = defineProps({
         required: true
     }
 });
+
+function generateRandomTrap() {
+    let effect = '';
+    let trigger = '';
+
+    Object.keys(trapsData).forEach((key) => {
+        const arr: string[] = trapsData[key as keyof typeof trapsData];
+        const randomIndex = Math.floor(Math.random() * arr.length);
+        const randomItem = arr[randomIndex];
+        switch (key) {
+            case 'effects':
+                effect = randomItem;
+                break;
+            case 'triggers':
+                trigger = randomItem;
+                break;
+        }
+    });
+
+    return t('Step.Hunters-mark.Traps.template', {
+        effect: t(`Step.Hunters-mark.Traps.Effects.${effect}`),
+        trigger: t(`Step.Hunters-mark.Traps.Triggers.${trigger}`)
+    });
+}
 </script>
 
 <style scoped lang="scss">
@@ -69,14 +96,13 @@ const props = defineProps({
 }
 
 .favorite-traps {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-direction: column;
 }
 
 .favorite-traps-inputs {
-    grid-column: span 2;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     width: 100%;
 }
