@@ -303,8 +303,17 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                         break;
                     case Step.WEAPON_MASTERY:
                         const { style, origin } = talent;
-                        if (style.length > 0)
-                            notesArray.push(`${t('Step.Weapon-mastery.Painter.weapon-style', { style })}`);
+                        if (style.length > 0) {
+                            if (adventurer.path === Path.FIGHTER) {
+                                const styleKey = style as keyof (typeof sheetData.paths.fighter)['weapon-mastery'];
+                                const point = sheetData.paths.fighter['weapon-mastery'][styleKey];
+                                if (point) drawRoughCircle(roughCanvas, point, color, point.width, point.height);
+                            } else {
+                                notesArray.push(
+                                    `${t('Step.Weapon-mastery.Painter.weapon-style', { style: t(`Step.Weapon-mastery.Styles.${style}`) })}`
+                                );
+                            }
+                        }
                         if (origin.length > 0)
                             notesArray.push(`${t('Step.Weapon-mastery.Painter.weapon-origin', { origin })}`);
                         break;
