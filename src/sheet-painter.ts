@@ -447,24 +447,29 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                                 return name + ` (${magicSchool})`;
                             });
 
-                            // TODO: add to notes if not in path
-                            // `${t('Step.Arcane-training.Painter.theorems', { theorems: joinStrings(theoremsStrings) })}`
-                            writeText(
-                                ctx,
-                                `${t('Step.Arcane-training.Painter.theorems', { theorems: joinStrings(theoremsStrings) })}`,
-                                sheetData.paths.fighter.theorems.x,
-                                sheetData.paths.fighter.theorems.y,
-                                sheetData.paths.fighter.theorems.width,
-                                smallFont,
-                                2
-                            );
+                            if (adventurer.path === Path.FIGHTER) {
+                                writeText(
+                                    ctx,
+                                    `${t('Step.Arcane-training.Painter.theorems', { theorems: joinStrings(theoremsStrings) })}`,
+                                    sheetData.paths.fighter.theorems.x,
+                                    sheetData.paths.fighter.theorems.y,
+                                    sheetData.paths.fighter.theorems.width,
+                                    smallFont,
+                                    2
+                                );
+                            } else {
+                                notesArray.push(
+                                    `${t('Step.Arcane-training.Painter.theorems', { theorems: joinStrings(theoremsStrings) })}`
+                                );
+                            }
                         }
                         break;
                     case Step.PRIMORDIAL_FORCES:
                         const { forces } = talent;
+                        const forcesArray: string[] = [];
                         forces.forEach((force: 'fire' | 'earth' | 'air' | 'water') => {
                             const forcePoint = sheetData.paths.monk['primordial-forces'][force];
-                            if (forcePoint) {
+                            if (adventurer.path === Path.MONK && forcePoint) {
                                 drawRoughCircle(
                                     roughCanvas,
                                     { x: forcePoint.x, y: forcePoint.y },
@@ -473,7 +478,17 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                                     forcePoint.height
                                 );
                             }
+
+                            forcesArray.push(t(`Step.Primordial-forces.${force}`));
                         });
+
+                        if (adventurer.path !== Path.MONK) {
+                            notesArray.push(
+                                t(`Step.Primordial-forces.Painter.primordial-forces`, {
+                                    forces: joinStrings(forcesArray)
+                                })
+                            );
+                        }
                         break;
                     case Step.PRIMORDIAL_BONDS:
                         const primordialBonds = Object.values(talent.bonds).map((bond) => {
@@ -500,7 +515,16 @@ export async function paintSheet(adventurer: Adventurer): Promise<HTMLCanvasElem
                         if (domain) {
                             // Write the domain in the sheet
                             const domainPoint = sheetData.paths.paladin['divine-blessing'].domain;
-                            writeText(ctx, domain.name, domainPoint.x, domainPoint.y, domainPoint.width, normalFont);
+                            if (adventurer.path === Path.PALADIN && domainPoint) {
+                                writeText(
+                                    ctx,
+                                    domain.name,
+                                    domainPoint.x,
+                                    domainPoint.y,
+                                    domainPoint.width,
+                                    normalFont
+                                );
+                            }
                             // Write the domain in the notes section
                             const domainText = t('Step.Channel-divinity.Painter.minor-domain', { ...domain });
                             notesArray.push(domainText);
