@@ -1,4 +1,5 @@
 import { Path } from '@/path';
+import AwakenedMindStep from './components/steps/core-talents/AwakenedMindStep.vue';
 import BardsongStep from './components/steps/core-talents/BardsongStep.vue';
 import ChannelDivinityStep from './components/steps/core-talents/ChannelDivinityStep.vue';
 import CustomStep from './components/steps/core-talents/CustomStep.vue';
@@ -6,6 +7,7 @@ import DisciplineStep from './components/steps/core-talents/DisciplineStep.vue';
 import ExpertiseStep from './components/steps/core-talents/ExpertiseStep.vue';
 import FrenzyStep from './components/steps/core-talents/FrenzyStep.vue';
 import HuntersMarkStep from './components/steps/core-talents/HuntersMarkStep.vue';
+import IngenuityStep from './components/steps/core-talents/IngenuityStep.vue';
 import OathswornStep from './components/steps/core-talents/OathswornStep.vue';
 import PactStep from './components/steps/core-talents/PactStep.vue';
 import SorceryStep from './components/steps/core-talents/SorceryStep.vue';
@@ -209,6 +211,14 @@ export const StepDefinitions: Record<string, { component: any; type: string }> =
     },
     [Step.SPELLCRAFT]: {
         component: SpellcraftStep,
+        type: StepType.CORE_TALENT
+    },
+    [Step.AWAKENED_MIND]: {
+        component: AwakenedMindStep,
+        type: StepType.CORE_TALENT
+    },
+    [Step.INGENUITY]: {
+        component: IngenuityStep,
         type: StepType.CORE_TALENT
     },
 
