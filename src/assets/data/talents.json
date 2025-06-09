@@ -93,5 +93,21 @@
     { "id": "colleagues", "source": "wizard", "page": 77 },
     { "id": "familiar", "source": "wizard", "page": 77 },
     { "id": "mastered-theorem", "source": "wizard", "page": 77 },
-    { "id": "prepared-spell", "source": "wizard", "page": 77 }
+    { "id": "prepared-spell", "source": "wizard", "page": 77 },
+
+    { "id": "anchorshot", "source": "artificer", "page": 147 },
+    { "id": "automatons", "source": "artificer", "page": 147 },
+    { "id": "double-barreled-blunderbuss", "source": "artificer", "page": 147 },
+    { "id": "grenades", "source": "artificer", "page": 147 },
+    { "id": "mechanical-mount", "source": "artificer", "page": 147 },
+    { "id": "steamhammer", "source": "artificer", "page": 147 },
+    { "id": "swiftwing", "source": "artificer", "page": 147 },
+
+    { "id": "disturbed-mind", "source": "psion", "page": 149 },
+    { "id": "mind-seed", "source": "psion", "page": 149 },
+    { "id": "mind-thief", "source": "psion", "page": 149 },
+    { "id": "psychic-warrior", "source": "psion", "page": 149 },
+    { "id": "reader", "source": "psion", "page": 149 },
+    { "id": "tumultuous-mind", "source": "psion", "page": 149 },
+    { "id": "wilder", "source": "psion", "page": 149 }
 ]

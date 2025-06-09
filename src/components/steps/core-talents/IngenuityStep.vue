@@ -13,6 +13,7 @@
                 </Card>
             </div>
         </ReferenceCard>
+        <Card class="arcana">TODO: ARCANA</Card>
         <Card class="making-up-gadgets">
             <p v-html="t('Step.Ingenuity.Making-up-gadgets.instructions')"></p>
             <InputGroup
@@ -161,6 +162,12 @@ function generateGadgetDescription() {
     gap: 1rem;
     > * {
         width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .crucibles {
+        grid-template-columns: 1fr;
     }
 }
 </style>
