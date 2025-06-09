@@ -18,7 +18,7 @@
                 </Button>
                 <Button @click="onClickOpenCrucible">
                     <i class="fas fa-border-all"></i>
-                    <span>{{ t('Crucible.choose') }}</span>
+                    <!-- <span>{{ t('Crucible.choose') }}</span> -->
                 </Button>
                 <Button @click="onClickCopy">
                     <i class="fas fa-copy"></i>

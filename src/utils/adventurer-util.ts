@@ -368,6 +368,14 @@ export function getTalentTemplate(key: string): any | null {
                 name: '',
                 description: ''
             };
+        case Step.INGENUITY:
+            return {
+                babble: '',
+                babbleCrucibles: {
+                    prefix: '',
+                    suffix: ''
+                }
+            };
     }
 
     return null;

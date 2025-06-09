@@ -1,0 +1,6 @@
+{
+    "material": ["metal", "wood", "crystal", "cloth", "glass", "stone"],
+    "power": ["clockwork", "burnables", "steam", "sunshine", "kinetics", "lightning"],
+    "action": ["explodes", "scans", "builds", "destroys", "moves", "protects"],
+    "flaw": ["noisy", "fragile", "glowing", "smelly", "unstable", "fidgety"]
+}

@@ -49,21 +49,21 @@
                     <InputGroup
                         v-model="adventurer.features[0]"
                         :placeholder="t('Step.Personality.Features.placeholder-1')"
-                    >
+                        ><span>#1</span>
                     </InputGroup>
                 </li>
                 <li>
                     <InputGroup
                         v-model="adventurer.features[1]"
                         :placeholder="t('Step.Personality.Features.placeholder-2')"
-                    >
+                        ><span>#2</span>
                     </InputGroup>
                 </li>
                 <li>
                     <InputGroup
                         v-model="adventurer.features[2]"
                         :placeholder="t('Step.Personality.Features.placeholder-3')"
-                    >
+                        ><span>#3</span>
                     </InputGroup>
                 </li>
             </ul>
