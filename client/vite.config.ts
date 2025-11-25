@@ -1,4 +1,4 @@
-import { URL } from 'node:url';
+import { URL, fileURLToPath } from 'node:url';
 
 import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vite';
@@ -8,10 +8,10 @@ export default defineConfig({
     plugins: [vue()],
     server: { host: false }, // For external IP access
     // server: { host: true }, // For external IP access
-    base: '/grimoire',
+    base: '/grimoire', // Hosted under /grimoire path
     resolve: {
         alias: {
-            '@': new URL('./src', import.meta.url).pathname
+            '@': fileURLToPath(new URL('./src', import.meta.url))
         }
     }
 });
