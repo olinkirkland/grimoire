@@ -159,5 +159,9 @@ const props = defineProps({
         grid-template-columns: 1fr;
         gap: 1rem;
     }
+
+    .crucibles {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
