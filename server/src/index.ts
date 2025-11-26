@@ -30,7 +30,7 @@ async function main() {
     app.post('/', (req, res) => {
         const { body } = req;
         const semanticId = createDataEntry(body);
-        return res.status(201).json({ semanticId });
+        return res.status(201).send(String(semanticId));
     });
 
     // Retrieve the data for the given id
