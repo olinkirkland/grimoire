@@ -28,5 +28,5 @@ export async function createDataEntry(data: string): Promise<number | null> {
         INSERT INTO grimoire (data) VALUES (${data}) RETURNING semanticId;
     `;
 
-    return result[0]?.id;
+    return result[0]?.semanticId;
 }
