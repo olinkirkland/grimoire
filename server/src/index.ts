@@ -30,7 +30,6 @@ async function main() {
     app.post('/', (req, res) => {
         const { body } = req;
         // Ensure the body is a string, and no longer than 2048 characters
-        if (typeof body !== 'string') return res.status(400).json({ error: 'Invalid body' });
         const semanticId = createDataEntry(body);
         return res.status(201).json({ semanticId });
     });
