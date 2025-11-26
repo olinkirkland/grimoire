@@ -34,6 +34,11 @@
                         ></i>
                         {{ $t(showCopyNotification ? 'Step.Review.copied' : 'Step.Review.Share.label') }}
                     </Button>
+                    <!-- Shortened URL -->
+                    <Button @click="onClickGenerateShortURL">
+                        {{ $t('Step.Review.Short-URL.label') }}
+                    </Button>
+                    <!-- <p>{{ generatedShortURL }}</p> -->
                 </div>
 
                 <!-- Fonts -->
@@ -77,6 +82,7 @@ import { paintSheet } from '@/sheet-painter';
 import { Step } from '@/step';
 import { trackEvent } from '@/tracker';
 import { encodeURI } from '@/utils/adventurer-util';
+import { createEntry } from '@/utils/shortened-url-util';
 import { toFileName } from '@/utils/string-util';
 import { onMounted, ref } from 'vue';
 
@@ -229,6 +235,13 @@ function onClickSaveImage() {
         },
         talents: props.adventurer.talents
     });
+}
+
+async function onClickGenerateShortURL() {
+    const encodedString = encodeURI(props.adventurer);
+    const longURL = `${window.location.origin}${BASE_URL}i/${encodedString}`;
+    const shortenedURL = await createEntry(longURL);
+    console.log('Shortened URL:', shortenedURL);
 }
 </script>
 
