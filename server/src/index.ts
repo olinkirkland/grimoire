@@ -29,7 +29,6 @@ async function main() {
     // Create an entry in the database with the data provided, and return the id
     app.post('/', (req, res) => {
         const { body } = req;
-        // Ensure the body is a string, and no longer than 2048 characters
         const semanticId = createDataEntry(body);
         return res.status(201).json({ semanticId });
     });
