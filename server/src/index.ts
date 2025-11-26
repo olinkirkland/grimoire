@@ -3,37 +3,57 @@ import dotenv from 'dotenv';
 import express from 'express';
 import { createServer } from 'http';
 import logRequest from './middleware/log-request';
+import { createDataEntry, createTable, getDataBySemanticId } from './database/db-helpers';
 
 export const origin = ['http://localhost:5173', 'https://olinkirk.land'];
 
-dotenv.config();
+async function main() {
+    dotenv.config();
 
-// Initialize REST server
-const app = express();
+    // Initialize Database
+    await createTable();
 
-app.use(express.json());
-app.use(logRequest);
-app.use(
-    cors({
-        origin,
-        credentials: true
-    })
-);
+    // Initialize REST server
+    const app = express();
 
-// Routes
-// Retrieve the data for the given id
-app.get('/', (req, res) => {
-    const { body } = req;
-});
+    app.use(express.json());
+    app.use(logRequest);
+    app.use(
+        cors({
+            origin,
+            credentials: true
+        })
+    );
 
-// Create an entry in the database with the data provided, and return the id
-app.post('/', (req, res) => {});
+    // Routes
+    // Create an entry in the database with the data provided, and return the id
+    app.post('/', (req, res) => {
+        const { body } = req;
+        // Ensure the body is a string, and no longer than 2048 characters
+        if (typeof body !== 'string' || body.length > 2048) return res.status(400).json({ error: 'Invalid body' });
+        const semanticId = createDataEntry(body);
+        return res.status(201).json({ semanticId });
+    });
 
-// Initialize Server
-const server = createServer(app);
+    // Retrieve the data for the given id
+    app.get('/:semanticId', (req, res) => {
+        const { semanticId } = req.params;
+        const data = getDataBySemanticId(semanticId);
+        if (data === null) return res.status(404).json({ error: 'Not found' });
+        return res.status(200).json({ data });
+    });
 
-// Start the server
-const port = process.env.PORT || 3000;
-server.listen(port, () => {
-    console.log('Server running on port', port);
+    // Initialize Server
+    const server = createServer(app);
+
+    // Start the server
+    const port = process.env.PORT || 3000;
+    server.listen(port, () => {
+        console.log('Server running on port', port);
+    });
+}
+
+main().catch((err) => {
+    console.error('Failed during main loop:', err);
+    process.exit(1);
 });

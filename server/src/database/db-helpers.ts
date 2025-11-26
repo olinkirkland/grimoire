@@ -3,33 +3,30 @@ import sql from './db';
 export async function createTable() {
     // Delete the table if it exists
     await sql`
-        DROP TABLE IF EXISTS castles_scraped;
+        DROP TABLE IF EXISTS grimoire;
     `;
 
     await sql`
-        CREATE TABLE IF NOT EXISTS castles_scraped (
+        CREATE TABLE IF NOT EXISTS grimoire (
             id SERIAL PRIMARY KEY,
-            ebidat_index INTEGER,
-            scraped JSON
+            semanticId TEXT UNIQUE,
+            data TEXT NOT NULL
         );
     `;
 }
 
-export async function getLastIndex(): Promise<number> {
+export async function getDataBySemanticId(semanticId: string): Promise<string | null> {
     const result = await sql`
-        SELECT ebidat_index
-        FROM castles_scraped
-        ORDER BY ebidat_index DESC
-        LIMIT 1;
+        SELECT data FROM grimoire WHERE semanticId = ${semanticId};
     `;
 
-    if (result.length === 0) return 0;
-    return result[0].ebidat_index;
+    return result[0]?.data || null;
 }
 
-export async function insertScrapedData(index: number, scrapedData: any) {
-    await sql`
-        INSERT INTO castles_scraped (ebidat_index, scraped)
-        VALUES (${index}, ${JSON.stringify(scrapedData)});
+export async function createDataEntry(data: string): Promise<number | null> {
+    const result = await sql`
+        INSERT INTO grimoire (data) VALUES (${data}) RETURNING semanticId;
     `;
+
+    return result[0]?.id;
 }
